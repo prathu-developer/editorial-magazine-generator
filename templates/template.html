@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #f1f5f9;
+    color: #0f172a;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .devanagari {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+  }
+
+  .page {
+    width: 210mm;
+    height: 297mm;
+    padding: 12mm 14mm;
+    background: #ffffff;
+    page-break-after: always;
+    break-after: page;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Header & Footer */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #0f172a;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+  }
+  .page-header .brand {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #1e3a8a;
+    text-transform: uppercase;
+  }
+  .page-header .meta {
+    font-size: 10px;
+    font-weight: 600;
+    color: #64748b;
+  }
+
+  .page-footer {
+    position: absolute;
+    bottom: 8mm;
+    left: 14mm;
+    right: 14mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 6px;
+    font-size: 9px;
+    color: #64748b;
+  }
+
+  /* PAGE 1: EDITORIAL READER LAYOUT */
+  .article-container {
+    display: grid;
+    grid-template-columns: 52mm 1fr;
+    gap: 12mm;
+    height: calc(100% - 24mm);
+  }
+
+  .sidebar {
+    border-right: 1px solid #e2e8f0;
+    padding-right: 10mm;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .badge-tone {
+    background: #eff6ff;
+    border-left: 3px solid #2563eb;
+    padding: 8px;
+    border-radius: 4px;
+  }
+  .badge-tone .title {
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #1e40af;
+  }
+  .badge-tone .tone-name {
+    font-size: 11px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 2px;
+  }
+  .badge-tone .desc {
+    font-size: 9px;
+    color: #475569;
+    line-height: 1.3;
+    margin-top: 4px;
+  }
+
+  .word-index-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 8px;
+    flex-grow: 1;
+  }
+  .word-index-box h4 {
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #475569;
+    margin-bottom: 6px;
+  }
+  .word-index-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .word-index-list li {
+    font-size: 9.5px;
+    font-weight: 600;
+    color: #1e293b;
+    border-bottom: 1px dashed #e2e8f0;
+    padding-bottom: 2px;
+  }
+
+  .article-content h1 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  .article-content h2 {
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .article-text {
+    font-size: 10px;
+    line-height: 1.55;
+    color: #1e293b;
+    text-align: justify;
+  }
+  .article-text p {
+    margin-bottom: 8px;
+  }
+  .article-text .highlight {
+    font-weight: 700;
+    color: #1e40af;
+    background: #dbeafe;
+    padding: 0 2px;
+    border-radius: 2px;
+  }
+
+  /* PAGE 2: STRUCTURED VOCABULARY TABLE */
+  .vocab-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+  }
+  .vocab-table th {
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 8.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 6px 8px;
+    text-align: left;
+  }
+  .vocab-table td {
+    padding: 7px 8px;
+    border-bottom: 1px solid #cbd5e1;
+    vertical-align: top;
+    font-size: 9.5px;
+  }
+  .vocab-table tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+  .vocab-word {
+    font-weight: 800;
+    color: #0f172a;
+    font-size: 11px;
+  }
+  .vocab-pos {
+    display: inline-block;
+    font-size: 7.5px;
+    font-weight: 700;
+    background: #e2e8f0;
+    color: #475569;
+    padding: 1px 4px;
+    border-radius: 3px;
+    margin-top: 2px;
+  }
+  .vocab-meaning {
+    line-height: 1.35;
+  }
+  .vocab-hindi {
+    font-weight: 700;
+    color: #0369a1;
+    margin-bottom: 2px;
+  }
+  .vocab-example {
+    font-size: 8.5px;
+    font-style: italic;
+    color: #475569;
+    margin-top: 4px;
+    line-height: 1.25;
+  }
+
+  /* Grammar Component Grid */
+  .grammar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .grammar-card {
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    padding: 6px 8px;
+    background: #f8fafc;
+  }
+  .grammar-card h3 {
+    font-size: 8.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #1e3a8a;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 3px;
+    margin-bottom: 4px;
+  }
+  .grammar-item {
+    font-size: 8.5px;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .grammar-item strong {
+    color: #0f172a;
+  }
+
+  .study-tip-banner {
+    background: #fef3c7;
+    border-left: 4px solid #f59e0b;
+    padding: 6px 10px;
+    border-radius: 3px;
+    font-size: 8.5px;
+    line-height: 1.35;
+    color: #92400e;
+  }
+  .study-tip-banner strong {
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: EDITORIAL & TONE ANALYSIS -->
+<div class="page">
+  <header class="page-header">
+    <div class="brand">Ez Editorial Series</div>
+    <div class="meta">ISSUE XII · {{ data.issue_date }}</div>
+  </header>
+
+  <div class="article-container">
+    <div class="sidebar">
+      <div class="badge-tone">
+        <div class="title">Editorial Stance</div>
+        <div class="tone-name">{{ data.article.tone.primary }} &amp; {{ data.article.tone.secondary }}</div>
+        <div class="desc">{{ data.article.tone.summary }}</div>
+      </div>
+
+      <div class="word-index-box">
+        <h4>Target Vocabulary</h4>
+        <ul class="word-index-list">
+          {% for w in data.article.word_index %}
+          <li># {{ w }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+
+    <div class="article-content">
+      <h1>{{ data.article.title }}</h1>
+      <h2>{{ data.article.subtitle }}</h2>
+      <div class="article-text">
+        {% for p in data.article.body_paragraphs %}
+        <p>{{ p }}</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <span>Ez Banking &amp; SSC Prep</span>
+    <span>Daily Study Module</span>
+    <span>Page 3</span>
+  </footer>
+</div>
+
+<!-- PAGE 2: STRUCTURED VOCABULARY TABLE & STUDY CARDS -->
+<div class="page">
+  <header class="page-header">
+    <div class="brand">Power Vocabulary Breakdown</div>
+    <div class="meta">{{ data.article.title | truncate(45) }}</div>
+  </header>
+
+  <table class="vocab-table">
+    <thead>
+      <tr>
+        <th style="width: 5%;">#</th>
+        <th style="width: 22%;">Word &amp; POS</th>
+        <th style="width: 35%;">Meaning &amp; Context</th>
+        <th style="width: 19%;">Synonyms (UK)</th>
+        <th style="width: 19%;">Antonyms</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in data.article.vocabulary %}
+      <tr>
+        <td><strong>{{ "%02d" | format(item.id) }}</strong></td>
+        <td>
+          <div class="vocab-word">{{ item.word }}</div>
+          <span class="vocab-pos">{{ item.pos }}</span>
+        </td>
+        <td>
+          <div class="vocab-hindi devanagari">{{ item.hindi }}</div>
+          <div class="vocab-meaning">{{ item.definition }}</div>
+          <div class="vocab-example"><strong>E.G.</strong> {{ item.example }}</div>
+        </td>
+        <td>{{ item.synonyms | join(', ') }}</td>
+        <td>{{ item.antonyms | join(', ') }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Grammar Cards -->
+  <div class="grammar-grid">
+    <div class="grammar-card">
+      <h3>Fixed Prepositions</h3>
+      {% for fp in data.article.grammar_cards.fixed_prepositions %}
+      <div class="grammar-item">
+        <strong>{{ fp.phrase }}</strong> (<span class="devanagari">{{ fp.hindi }}</span>): {{ fp.meaning }}
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="grammar-card">
+      <h3>Phrasal Verbs</h3>
+      {% for pv in data.article.grammar_cards.phrasal_verbs %}
+      <div class="grammar-item">
+        <strong>{{ pv.phrase }}</strong> (<span class="devanagari">{{ pv.hindi }}</span>): {{ pv.meaning }}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Bottom Study Tip -->
+  <div class="study-tip-banner">
+    <strong>Study Tip:</strong> {{ data.article.study_tip }}
+  </div>
+
+  <footer class="page-footer">
+    <span>Ez Banking &amp; SSC Prep</span>
+    <span>Vocabulary Mastery Section</span>
+    <span>Page 4</span>
+  </footer>
+</div>
+
+</body>
+</html>

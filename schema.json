@@ -1,0 +1,61 @@
+{
+  "issue_date": "19-Aug-2026",
+  "article": {
+    "title": "Time to push back: On India and the continuing U.S. pressure",
+    "subtitle": "The U.S. has been emboldened to make increasing demands and India needs to start pushing back",
+    "source": "The Hindu / Opinion",
+    "tone": {
+      "primary": "Advocative",
+      "secondary": "Critical",
+      "summary": "Argues that repeated trade concessions weaken domestic autonomy and urges firm resistance against external tariff pressure."
+    },
+    "body_paragraphs": [
+      "The latest accusation levelled by the United States against India has the potential to be the most harmful to the Indian economy. A recent White House report, naming around 40 countries in all, has said that India ranks among the top 'enablers' of China's evasion of U.S. tariffs...",
+      "The fact that Chinese imports form a significant pillar of Indian manufacturing is no secret. Yet, the nature of these imports is slowly changing..."
+    ],
+    "word_index": ["Evasion", "Cosmetic", "Punitive", "Conceivable", "Strident", "Sovereignty", "Reprieve", "Dilution", "Stance", "Wield", "Concessions", "Emboldened"],
+    "vocabulary": [
+      {
+        "id": 1,
+        "word": "Evasion",
+        "pos": "NOUN",
+        "hindi": "परिहार / टालमटोल",
+        "definition": "The act of avoiding or escaping a duty, tax, or legal obligation through indirect methods.",
+        "synonyms": ["Avoidance", "Dodging", "Elusion", "Bypassing", "Circumvention"],
+        "antonyms": ["Compliance", "Fulfilment", "Conformity", "Submission", "Adherence"],
+        "example": "The industrialist faced severe penalties after auditors uncovered an elaborate scheme of tax evasion."
+      },
+      {
+        "id": 2,
+        "word": "Punitive",
+        "pos": "ADJECTIVE",
+        "hindi": "दंडात्मक",
+        "definition": "Intended as a punishment or penalty to deter specific actions.",
+        "synonyms": ["Penalising", "Disciplinary", "Retaliatory", "Corrective", "Castigatory"],
+        "antonyms": ["Remedial", "Beneficial", "Pardoning", "Rewarding", "Exonerating"],
+        "example": "The trading bloc threatened punitive duties on steel imports to protect domestic factories."
+      },
+      {
+        "id": 3,
+        "word": "Strident",
+        "pos": "ADJECTIVE",
+        "hindi": "आक्रामक / मुखर",
+        "definition": "Expressing views or opinions in a forceful, loud, and uncompromising way.",
+        "synonyms": ["Vociferous", "Vehement", "Forceful", "Clamorous", "Assertive"],
+        "antonyms": ["Subdued", "Restrained", "Mild", "Diffident", "Moderate"],
+        "example": "The diplomat delivered a strident defence of national strategic autonomy during the bilateral summit."
+      }
+    ],
+    "grammar_cards": {
+      "fixed_prepositions": [
+        {"phrase": "Levelled by", "hindi": "द्वारा लगाया गया", "meaning": "Officially directed or aimed (charges/allegations) by someone."},
+        {"phrase": "Bowing to", "hindi": "के आगे झुकना", "meaning": "Submitting or yielding to external authority or demands."}
+      ],
+      "phrasal_verbs": [
+        {"phrase": "Railed against", "hindi": "कड़ा विरोध करना", "meaning": "Complained angrily or fiercely against a policy."},
+        {"phrase": "Diversify away from", "hindi": "से निर्भरता हटाना", "meaning": "Shifting investments or purchases away from a single source."}
+      ]
+    },
+    "study_tip": "Note the fixed collocation: 'Bowing to' requires the preposition 'to'—frequently tested in Sentence Fillers and Error Spotting."
+  }
+}

@@ -1,0 +1,1 @@
+# editorial-magazine-generator

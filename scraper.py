@@ -60,8 +60,14 @@ def get_hindu_editorials():
     print("📰 Fetching The Hindu...")
     rss_url = "https://www.thehindu.com/opinion/editorial/feeder/default.rss"
     try:
-        resp = requests.get(rss_url, headers=HEADERS_DEFAULT, timeout=15)
+        resp = requests.get(rss_url, headers=HEADERS_BROWSER, timeout=15)
+        resp.raise_for_status()
         root = ET.fromstring(resp.content)
+    except ET.ParseError as e:
+        print(f"⚠️ Error parsing The Hindu feed: {e}")
+        print(f"   Status: {resp.status_code}, Content-Type: {resp.headers.get('Content-Type')}")
+        print(f"   First 300 chars: {resp.text[:300]!r}")
+        return []
     except Exception as e:
         print(f"⚠️ Error fetching The Hindu feed: {e}")
         return []
@@ -104,8 +110,14 @@ def get_indian_express_editorials():
     print("📰 Fetching The Indian Express...")
     rss_url = "https://indianexpress.com/section/opinion/editorials/feed/"
     try:
-        resp = requests.get(rss_url, headers=HEADERS_DEFAULT, timeout=15)
+        resp = requests.get(rss_url, headers=HEADERS_BROWSER, timeout=15)
+        resp.raise_for_status()
         root = ET.fromstring(resp.content)
+    except ET.ParseError as e:
+        print(f"⚠️ Error parsing The Indian Express feed: {e}")
+        print(f"   Status: {resp.status_code}, Content-Type: {resp.headers.get('Content-Type')}")
+        print(f"   First 300 chars: {resp.text[:300]!r}")
+        return []
     except Exception as e:
         print(f"⚠️ Error fetching The Indian Express feed: {e}")
         return []

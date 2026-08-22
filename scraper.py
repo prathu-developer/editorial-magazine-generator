@@ -1,4 +1,5 @@
 import cloudscraper
+import requests
 from bs4 import BeautifulSoup
 import xml.etree.ElementTree as ET
 from readability import Document
@@ -12,7 +13,7 @@ import email.utils
 IST = timezone(timedelta(hours=5, minutes=30))
 TODAY_DATE = datetime.now(IST).date()
 
-# 🔥 Create a CloudScraper instance to bypass 403 Forbidden / Cloudflare blocks
+# CloudScraper instance for standard scraping
 scraper = cloudscraper.create_scraper(
     browser={
         'browser': 'chrome',
@@ -22,14 +23,23 @@ scraper = cloudscraper.create_scraper(
 )
 
 def is_published_today(pub_date_str):
-    """Checks if the RSS publication date strictly matches today's date in IST."""
+    """Checks if the publication date strictly matches today's date in IST, handling multiple formats."""
     try:
+        # Format 1: Standard RSS RFC 2822 (Used by The Hindu)
         dt = email.utils.parsedate_to_datetime(pub_date_str)
         dt_ist = dt.astimezone(IST)
         return dt_ist.date() == TODAY_DATE
-    except Exception as e:
-        print(f"Date parsing error for '{pub_date_str}': {e}")
-        return False
+    except (TypeError, ValueError):
+        try:
+            # Format 2: SQL-like string (Used by rss2json API for Indian Express)
+            dt = datetime.strptime(pub_date_str, "%Y-%m-%d %H:%M:%S")
+            # rss2json returns UTC, so we localize it and convert to IST
+            dt = dt.replace(tzinfo=timezone.utc)
+            dt_ist = dt.astimezone(IST)
+            return dt_ist.date() == TODAY_DATE
+        except Exception as e:
+            print(f"Date parsing error for '{pub_date_str}': {e}")
+            return False
 
 def get_reading_time(html_content, text_body):
     """Extracts reading time from HTML or calculates it as a fallback."""
@@ -45,9 +55,8 @@ def get_reading_time(html_content, text_body):
 def scrape_article(url):
     """Fetches clean text, preserving ALL punctuation strictly."""
     try:
-        # Use cloudscraper instead of requests
         resp = scraper.get(url, timeout=20)
-        resp.encoding = 'utf-8' # CRITICAL: Prevents garbled special punctuation
+        resp.encoding = 'utf-8' # CRITICAL: Prevents garbled special punctuation (—, ”, etc.)
         
         doc = Document(resp.text)
         soup = BeautifulSoup(doc.summary(), 'html.parser')
@@ -60,23 +69,20 @@ def scrape_article(url):
         print(f"Scrape error for {url}: {e}")
         return "", ""
 
-def extract_feed(rss_url, newspaper_name):
-    """Generic function to fetch and parse an RSS feed."""
+def extract_feed_xml(rss_url, newspaper_name):
+    """Fetches and parses a standard XML RSS feed."""
     print(f"📰 Fetching {newspaper_name}...")
     try:
         resp = scraper.get(rss_url, timeout=20)
         resp.raise_for_status()
         return ET.fromstring(resp.content)
-    except ET.ParseError:
-        print(f"⚠️ {newspaper_name} blocked the XML request. Try again later.")
-        return None
     except Exception as e:
         print(f"⚠️ Failed to fetch {newspaper_name} feed: {e}")
         return None
 
 def get_hindu_editorials():
     rss_url = "https://www.thehindu.com/opinion/editorial/feeder/default.rss"
-    root = extract_feed(rss_url, "The Hindu")
+    root = extract_feed_xml(rss_url, "The Hindu")
     if not root: return []
     
     editorials = []
@@ -98,7 +104,6 @@ def get_hindu_editorials():
                 "passage": body_text
             }
             
-            # Store everything in fallback just in case today's check fails
             fallback_editorials.append(article_data)
             
             if is_published_today(pub_date):
@@ -107,7 +112,6 @@ def get_hindu_editorials():
             if len(editorials) >= 2:
                 break
                 
-    # Smart Fallback: If no articles published *strictly* today, grab the latest 2 available
     if len(editorials) == 0 and len(fallback_editorials) > 0:
         print("⚠️ No Hindu editorials found for strictly today. Using the latest available.")
         return fallback_editorials[:2]
@@ -115,17 +119,34 @@ def get_hindu_editorials():
     return editorials
 
 def get_indian_express_editorials():
+    print("📰 Fetching The Indian Express (via API Bypass)...")
     rss_url = "https://indianexpress.com/section/opinion/editorials/feed/"
-    root = extract_feed(rss_url, "The Indian Express")
-    if not root: return []
+    # The ultimate 403 bypass: Route the feed request through an RSS-to-JSON proxy
+    api_url = f"https://api.rss2json.com/v1/api.json?rss_url={rss_url}"
+    
+    try:
+        # Standard requests is fine here because we are pinging the API, not the newspaper
+        resp = requests.get(api_url, timeout=20)
+        resp.raise_for_status()
+        data = resp.json()
+        
+        if data.get('status') != 'ok':
+            print("⚠️ API Middleman failed to parse Indian Express feed.")
+            return []
+            
+        items = data.get('items', [])
+    except Exception as e:
+        print(f"⚠️ API Middleman request failed: {e}")
+        return []
     
     valid_articles = []
     fallback_articles = []
     
-    for item in root.findall('.//item'):
-        pub_date = item.find('pubDate').text
-        link = item.find('link').text
-        title = item.find('title').text
+    for item in items:
+        pub_date = item.get('pubDate', '')
+        link = item.get('link', '')
+        title = item.get('title', '')
+        
         body_text, reading_time = scrape_article(link)
         
         if body_text:
@@ -144,13 +165,11 @@ def get_indian_express_editorials():
             if is_published_today(pub_date):
                 valid_articles.append(article_data)
                 
-    # Smart Fallback: If strict today fails, use the fallback list
     target_list = valid_articles if len(valid_articles) > 0 else fallback_articles
     
     if len(valid_articles) == 0 and len(fallback_articles) > 0:
          print("⚠️ No Indian Express editorials found for strictly today. Using the latest available.")
     
-    # Sort by length descending, grab top 2
     target_list.sort(key=lambda x: x["length"], reverse=True)
     top_2 = target_list[:2]
     
@@ -172,7 +191,6 @@ def run():
         "editorials": all_editorials
     }
     
-    # CRITICAL: ensure_ascii=False ensures punctuation like em-dashes and quotes stay native.
     with open('today_editorials.json', 'w', encoding='utf-8') as f:
         json.dump(final_output, f, ensure_ascii=False, indent=4)
         

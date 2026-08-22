@@ -1,68 +1,49 @@
-import cloudscraper
 import requests
 from bs4 import BeautifulSoup
 import xml.etree.ElementTree as ET
 from readability import Document
 import json
-import os
 import re
 from datetime import datetime, timezone, timedelta
 import email.utils
 
-# Set standard timezone to IST (Indian Standard Time)
+# Timezone set to Indian Standard Time (IST)
 IST = timezone(timedelta(hours=5, minutes=30))
 TODAY_DATE = datetime.now(IST).date()
 
-# CloudScraper engine configured with desktop browser fingerprints
-scraper = cloudscraper.create_scraper(
-    browser={
-        'browser': 'chrome',
-        'platform': 'windows',
-        'desktop': True
-    }
-)
+# Proven header configuration
+HEADERS_DEFAULT = {'User-Agent': 'Mozilla/5.0'}
+HEADERS_BROWSER = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
 
 def is_published_today(pub_date_str):
-    """Checks if publication date matches today's date in IST."""
+    """Safeguard: Verifies if the article was published today in IST."""
     try:
         dt = email.utils.parsedate_to_datetime(pub_date_str)
         dt_ist = dt.astimezone(IST)
         return dt_ist.date() == TODAY_DATE
     except Exception:
-        try:
-            # Fallback for ISO / SQL-like formats
-            cleaned_date = re.sub(r'([+-]\d{2}):(\d{2})$', r'\1\2', pub_date_str)
-            dt = datetime.fromisoformat(cleaned_date)
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
-            dt_ist = dt.astimezone(IST)
-            return dt_ist.date() == TODAY_DATE
-        except Exception:
-            return False
-
-def clean_html_to_text(html_content):
-    """Strips HTML tags while strictly preserving em-dashes, quotes, and punctuation."""
-    soup = BeautifulSoup(html_content, 'html.parser')
-    for elem in soup(["script", "style", "nav", "header", "footer", "aside"]):
-        elem.extract()
-    return soup.get_text(separator='\n\n', strip=True)
+        return False
 
 def get_reading_time(html_content, text_body):
-    """Extracts explicit reading time or calculates standard 200 WPM."""
+    """Extracts stated reading time from HTML metadata or calculates standard 200 WPM."""
     soup = BeautifulSoup(html_content, 'html.parser')
     rt_match = soup.find(string=re.compile(r'\b\d+\s*min(ute)?s?\s*read\b', re.IGNORECASE))
     if rt_match:
         return rt_match.strip()
-        
+    
     word_count = len(text_body.split())
     minutes = max(1, round(word_count / 200))
-    return f"{minutes} min read (Calculated)"
+    return f"{minutes} min read"
 
-def scrape_article(url):
-    """Fetches article body and reading time, preserving ALL punctuation strictly."""
+def scrape_article_data(url):
+    """
+    Fetches article body and reading time.
+    CRITICAL: resp.encoding = 'utf-8' strictly preserves all em-dashes, en-dashes, 
+    semicolons, and smart quotation marks.
+    """
     try:
-        resp = scraper.get(url, timeout=15)
-        resp.encoding = 'utf-8' # Preserves strict punctuation (—, –, “, ”, etc.)
+        resp = requests.get(url, headers=HEADERS_BROWSER, timeout=15)
+        resp.encoding = 'utf-8'
         
         doc = Document(resp.text)
         soup = BeautifulSoup(doc.summary(), 'html.parser')
@@ -75,29 +56,25 @@ def scrape_article(url):
         print(f"Scrape error for {url}: {e}")
         return "", ""
 
-# ==========================================
-# 1. THE HINDU EXTRACTION
-# ==========================================
 def get_hindu_editorials():
     print("📰 Fetching The Hindu...")
     rss_url = "https://www.thehindu.com/opinion/editorial/feeder/default.rss"
     try:
-        resp = scraper.get(rss_url, timeout=15)
-        resp.raise_for_status()
+        resp = requests.get(rss_url, headers=HEADERS_DEFAULT, timeout=15)
         root = ET.fromstring(resp.content)
     except Exception as e:
-        print(f"⚠️ Failed to fetch The Hindu feed: {e}")
+        print(f"⚠️ Error fetching The Hindu feed: {e}")
         return []
     
-    editorials = []
-    fallback_editorials = []
+    today_articles = []
+    fallback_articles = []
     
     for item in root.findall('.//item'):
-        pub_date = item.find('pubDate').text
-        link = item.find('link').text
-        title = item.find('title').text
+        pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
+        link = item.find('link').text if item.find('link') is not None else ""
+        title = item.find('title').text if item.find('title') is not None else ""
         
-        body_text, reading_time = scrape_article(link)
+        body_text, reading_time = scrape_article_data(link)
         
         if body_text:
             article_data = {
@@ -108,147 +85,86 @@ def get_hindu_editorials():
                 "reading_time": reading_time,
                 "passage": body_text
             }
-            fallback_editorials.append(article_data)
+            fallback_articles.append(article_data)
             
             if is_published_today(pub_date):
-                editorials.append(article_data)
+                today_articles.append(article_data)
                 
-            if len(editorials) >= 2:
+            if len(today_articles) >= 2:
                 break
                 
-    if len(editorials) == 0 and len(fallback_editorials) > 0:
-        print("⚠️ No Hindu editorials found for strictly today. Using latest available.")
-        return fallback_editorials[:2]
-        
-    return editorials
-
-# ==========================================
-# 2. THE INDIAN EXPRESS EXTRACTION
-# ==========================================
-def fetch_indian_express_rss():
-    """Tries multiple proxy tunnels to download the Indian Express RSS feed."""
-    rss_url = "https://indianexpress.com/section/opinion/editorials/feed/"
-    proxy_urls = [
-        f"https://api.allorigins.win/raw?url={requests.utils.quote(rss_url)}",
-        f"https://corsproxy.io/?{requests.utils.quote(rss_url)}"
-    ]
+    # Use today's articles if available; otherwise fallback to latest available
+    if len(today_articles) >= 2:
+        return today_articles[:2]
     
-    for proxy in proxy_urls:
-        try:
-            resp = requests.get(proxy, timeout=15)
-            if resp.status_code == 200 and b"<rss" in resp.content:
-                return ET.fromstring(resp.content)
-        except Exception:
-            continue
-    return None
-
-def fetch_indian_express_html():
-    """Direct fallback: Scrapes the Opinion/Editorials category page."""
-    print("🔄 Switching to direct HTML section parser for Indian Express...")
-    category_url = "https://indianexpress.com/section/opinion/editorials/"
-    try:
-        resp = scraper.get(category_url, timeout=15)
-        resp.encoding = 'utf-8'
-        soup = BeautifulSoup(resp.text, 'html.parser')
-        
-        articles = []
-        seen_links = set()
-        
-        for a_tag in soup.find_all('a', href=True):
-            href = a_tag['href']
-            if '/article/opinion/editorials/' in href and href not in seen_links:
-                seen_links.add(href)
-                title = a_tag.get_text(strip=True)
-                if len(title) > 20:
-                    articles.append({"link": href, "title": title})
-            if len(articles) >= 4:
-                break
-        return articles
-    except Exception as e:
-        print(f"⚠️ Direct HTML section scrape failed: {e}")
-        return []
+    print("⚠️ The Hindu: Today's editorials not published yet. Using latest available.")
+    return fallback_articles[:2]
 
 def get_indian_express_editorials():
     print("📰 Fetching The Indian Express...")
-    root = fetch_indian_express_rss()
+    rss_url = "https://indianexpress.com/section/opinion/editorials/feed/"
+    try:
+        resp = requests.get(rss_url, headers=HEADERS_DEFAULT, timeout=15)
+        root = ET.fromstring(resp.content)
+    except Exception as e:
+        print(f"⚠️ Error fetching The Indian Express feed: {e}")
+        return []
     
-    valid_articles = []
-    fallback_articles = []
-    
-    # Path A: Parse via RSS if proxy succeeded
-    if root is not None:
-        for item in root.findall('.//item'):
-            pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
-            link = item.find('link').text if item.find('link') is not None else ""
-            title = item.find('title').text if item.find('title') is not None else ""
+    scraped_pool = []
+    for item in root.findall('.//item')[:4]:
+        pub_date = item.find('pubDate').text if item.find('pubDate') is not None else ""
+        link = item.find('link').text if item.find('link') is not None else ""
+        title = item.find('title').text if item.find('title') is not None else ""
+        
+        body_text, reading_time = scrape_article_data(link)
+        
+        if body_text:
+            scraped_pool.append({
+                "newspaper": "The Indian Express",
+                "title": title,
+                "link": link,
+                "timestamp": pub_date,
+                "reading_time": reading_time,
+                "passage": body_text,
+                "length": len(body_text),
+                "is_today": is_published_today(pub_date)
+            })
             
-            body_text, reading_time = scrape_article(link)
-            
-            if body_text:
-                article_data = {
-                    "newspaper": "The Indian Express",
-                    "title": title,
-                    "link": link,
-                    "timestamp": pub_date,
-                    "reading_time": reading_time,
-                    "passage": body_text,
-                    "length": len(body_text)
-                }
-                fallback_articles.append(article_data)
-                if is_published_today(pub_date):
-                    valid_articles.append(article_data)
+    # Filter for today's articles first
+    today_pool = [a for a in scraped_pool if a["is_today"]]
+    target_pool = today_pool if len(today_pool) >= 2 else scraped_pool
     
-    # Path B: Direct HTML section scraping if RSS failed completely
-    if len(valid_articles) == 0 and len(fallback_articles) == 0:
-        html_articles = fetch_indian_express_html()
-        for item in html_articles:
-            body_text, reading_time = scrape_article(item["link"])
-            if body_text:
-                article_data = {
-                    "newspaper": "The Indian Express",
-                    "title": item["title"],
-                    "link": item["link"],
-                    "timestamp": str(datetime.now(IST).strftime("%a, %d %b %Y %H:%M:%S +0530")),
-                    "reading_time": reading_time,
-                    "passage": body_text,
-                    "length": len(body_text)
-                }
-                fallback_articles.append(article_data)
-
-    target_list = valid_articles if len(valid_articles) > 0 else fallback_articles
-    
-    if len(valid_articles) == 0 and len(fallback_articles) > 0:
-        print("⚠️ No Indian Express editorials found for strictly today. Using latest available.")
-    
-    target_list.sort(key=lambda x: x["length"], reverse=True)
-    top_2 = target_list[:2]
+    if len(today_pool) < 2:
+        print("⚠️ The Indian Express: Today's editorials not published yet. Using latest available.")
+        
+    # Sort by length descending and pick top 2
+    target_pool.sort(key=lambda x: x["length"], reverse=True)
+    top_2 = target_pool[:2]
     
     for article in top_2:
         del article["length"]
+        del article["is_today"]
         
     return top_2
 
-# ==========================================
-# 3. PIPELINE EXECUTION
-# ==========================================
 def run():
-    print(f"🚀 Starting scraper for {TODAY_DATE} (IST)...")
+    print(f"🚀 Starting daily editorial pipeline for {TODAY_DATE} (IST)...")
     
     all_editorials = []
     all_editorials.extend(get_hindu_editorials())
     all_editorials.extend(get_indian_express_editorials())
     
-    final_output = {
+    output_payload = {
         "date_scraped": str(TODAY_DATE),
-        "total_articles_extracted": len(all_editorials),
+        "total_articles": len(all_editorials),
         "editorials": all_editorials
     }
     
-    # ensure_ascii=False ensures em-dashes and smart quotes stay native UTF-8
+    # ensure_ascii=False guarantees special punctuation characters remain literal UTF-8
     with open('today_editorials.json', 'w', encoding='utf-8') as f:
-        json.dump(final_output, f, ensure_ascii=False, indent=4)
+        json.dump(output_payload, f, ensure_ascii=False, indent=4)
         
-    print(f"✅ Successfully saved {len(all_editorials)} editorials to today_editorials.json")
+    print(f"✅ Successfully compiled {len(all_editorials)} editorials into today_editorials.json")
 
 if __name__ == "__main__":
     run()

@@ -4,16 +4,17 @@ on:
   schedule:
     # Runs at 01:30 UTC every day (07:00 AM IST)
     - cron: '30 1 * * *'
-  workflow_dispatch: # Allows you to trigger the script manually from the GitHub UI
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
-  scrape-and-save:
+  scrape-editorials:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write 
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Python
@@ -24,17 +25,16 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4 readability-lxml cloudscraper
+          pip install requests beautifulsoup4 readability-lxml
 
-      - name: Run Scraper Script
+      - name: Run Editorial Scraper
         run: python scraper.py
 
-      - name: Commit and Push generated JSON
+      - name: Save today_editorials.json to Repository
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add today_editorials.json
-          
-          # Only commit if there are changes (avoids action failing if no new articles were found)
-          git diff --quiet && git diff --staged --quiet || git commit -m "📝 Auto-update: Scraped today's editorials"
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update: Scraped today's 4 editorials"
+          git pull origin main --rebase
           git push

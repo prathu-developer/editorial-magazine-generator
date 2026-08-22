@@ -62,8 +62,19 @@ def scrape_article(url):
 def get_hindu_editorials():
     print("📰 Fetching The Hindu...")
     rss_url = "https://www.thehindu.com/opinion/editorial/feeder/default.rss"
-    resp = requests.get(rss_url)
-    root = ET.fromstring(resp.content)
+    # Added realistic headers
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'application/rss+xml, application/xml, text/xml, */*'
+    }
+    
+    try:
+        resp = requests.get(rss_url, headers=headers, timeout=15)
+        resp.raise_for_status() # Check for 403 or 404 errors
+        root = ET.fromstring(resp.content)
+    except Exception as e:
+        print(f"⚠️ Failed to fetch or parse The Hindu feed: {e}")
+        return []
     
     editorials = []
     for item in root.findall('.//item'):
@@ -96,13 +107,27 @@ def get_hindu_editorials():
 def get_indian_express_editorials():
     print("📰 Fetching The Indian Express...")
     rss_url = "https://indianexpress.com/section/opinion/editorials/feed/"
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
-    resp = requests.get(rss_url, headers=headers)
-    root = ET.fromstring(resp.content)
+    # Heavy disguise headers to bypass bot protection
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Connection': 'keep-alive'
+    }
+    
+    try:
+        resp = requests.get(rss_url, headers=headers, timeout=15)
+        resp.raise_for_status()
+        root = ET.fromstring(resp.content)
+    except ET.ParseError:
+        print("⚠️ Indian Express blocked the XML request (returned HTML). Skipping for today.")
+        return []
+    except Exception as e:
+        print(f"⚠️ Failed to fetch The Indian Express feed: {e}")
+        return []
     
     valid_articles = []
     
-    # Check all recent items to find today's articles
     for item in root.findall('.//item'):
         pub_date = item.find('pubDate').text
         

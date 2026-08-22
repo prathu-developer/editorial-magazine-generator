@@ -27,6 +27,39 @@ HEADERS_FEED = {
     'Referer': 'https://indianexpress.com/',
 }
 
+def fetch_with_fallback(url, headers, timeout=15):
+    """
+    Fetches a URL directly. If the direct request is blocked (403 Forbidden),
+    retries the SAME url through a public read-only proxy (api.allorigins.win).
+
+    Why this exists: some sites (e.g. Indian Express) block requests coming from
+    known cloud/datacenter IP ranges -- including GitHub Actions runners -- even
+    when headers look like a normal browser. Confirmed by testing: identical
+    headers succeed from a home/residential IP and fail (403) from GitHub Actions.
+    Routing through a third-party proxy server sidesteps the IP block since the
+    request now originates from the proxy's IP, not GitHub's.
+    """
+    try:
+        resp = requests.get(url, headers=headers, timeout=timeout)
+        resp.raise_for_status()
+        resp.encoding = 'utf-8'
+        return resp
+    except requests.exceptions.HTTPError as e:
+        status = e.response.status_code if e.response is not None else None
+        if status == 403:
+            print(f"   ↪️ Direct fetch got 403 for {url}. Retrying via proxy...")
+            return _fetch_via_proxy(url, timeout)
+        raise
+
+def _fetch_via_proxy(url, timeout=15):
+    """Fetches a url via api.allorigins.win, which makes the request server-side
+    from its own (non-blocklisted) IP and returns the raw response body."""
+    proxy_url = "https://api.allorigins.win/raw?url=" + requests.utils.quote(url, safe='')
+    resp = requests.get(proxy_url, timeout=timeout * 2)
+    resp.raise_for_status()
+    resp.encoding = 'utf-8'
+    return resp
+
 def is_published_today(pub_date_str):
     """Safeguard: Verifies if the article was published today in IST."""
     try:
@@ -54,8 +87,7 @@ def scrape_article_data(url):
     semicolons, and smart quotation marks.
     """
     try:
-        resp = requests.get(url, headers=HEADERS_BROWSER, timeout=15)
-        resp.encoding = 'utf-8'
+        resp = fetch_with_fallback(url, headers=HEADERS_BROWSER, timeout=15)
         
         doc = Document(resp.text)
         soup = BeautifulSoup(doc.summary(), 'html.parser')
@@ -72,8 +104,7 @@ def get_hindu_editorials():
     print("📰 Fetching The Hindu...")
     rss_url = "https://www.thehindu.com/opinion/editorial/feeder/default.rss"
     try:
-        resp = requests.get(rss_url, headers=HEADERS_FEED, timeout=15)
-        resp.raise_for_status()
+        resp = fetch_with_fallback(rss_url, headers=HEADERS_FEED, timeout=15)
         root = ET.fromstring(resp.content)
     except ET.ParseError as e:
         print(f"⚠️ Error parsing The Hindu feed: {e}")
@@ -122,8 +153,7 @@ def get_indian_express_editorials():
     print("📰 Fetching The Indian Express...")
     rss_url = "https://indianexpress.com/section/opinion/editorials/feed/"
     try:
-        resp = requests.get(rss_url, headers=HEADERS_FEED, timeout=15)
-        resp.raise_for_status()
+        resp = fetch_with_fallback(rss_url, headers=HEADERS_FEED, timeout=15)
         root = ET.fromstring(resp.content)
     except ET.ParseError as e:
         print(f"⚠️ Error parsing The Indian Express feed: {e}")

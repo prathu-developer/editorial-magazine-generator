@@ -28,23 +28,32 @@ def is_recent_editorial(pub_date_str):
         return False
 
 def fetch_feed_with_proxy(url):
-    """Fetches the RSS feed. Tunnels through a proxy if Cloudflare blocks the request."""
+    """Fetches the RSS feed. Tunnels through a multi-proxy waterfall if Cloudflare blocks."""
     try:
         resp = requests.get(url, headers=HEADERS_DEFAULT, timeout=15)
-        # Check if we actually got the XML feed and not an HTML Cloudflare page
         if resp.status_code == 200 and b'<item>' in resp.content:
             return resp.content.decode('utf-8', errors='ignore')
     except Exception:
         pass
         
-    print("⚠️ Direct fetch blocked by firewall. Using proxy tunnel...")
-    proxy_url = f"https://api.allorigins.win/raw?url={urllib.parse.quote(url)}"
-    try:
-        resp = requests.get(proxy_url, timeout=15)
-        if resp.status_code == 200:
-            return resp.content.decode('utf-8', errors='ignore')
-    except Exception as e:
-        print(f"⚠️ Proxy failed: {e}")
+    print("⚠️ Direct fetch blocked by firewall. Using multi-proxy waterfall...")
+    
+    # Waterfall array of proxies to try if the direct fetch is blocked
+    proxies = [
+        f"https://api.codetabs.com/v1/proxy?quest={url}",
+        f"https://api.allorigins.win/raw?url={urllib.parse.quote(url)}"
+    ]
+    
+    for proxy_url in proxies:
+        try:
+            proxy_name = proxy_url.split('/')[2]
+            print(f"🔄 Tunneling through {proxy_name}...")
+            # Increased timeout to 30s to completely prevent the 'ReadTimeout' error
+            resp = requests.get(proxy_url, timeout=30)
+            if resp.status_code == 200 and '<item>' in resp.text:
+                return resp.text
+        except Exception as e:
+            print(f"⚠️ {proxy_name} proxy failed: {e}")
         
     return ""
 
@@ -69,7 +78,13 @@ def parse_rss_regex(raw_text):
 def scrape_reader_mode_extended(url):
     """Fetches clean text using Reader Mode + Reading Time."""
     try:
-        resp = requests.get(url, headers=HEADERS_BROWSER, timeout=15)
+        resp = requests.get(url, headers=HEADERS_BROWSER, timeout=20)
+        
+        # Anti-Cloudflare safeguard for the actual article pages
+        if resp.status_code in [403, 503, 401]:
+            print(f"⚠️ Article blocked. Tunneling {url}...")
+            resp = requests.get(f"https://api.codetabs.com/v1/proxy?quest={url}", timeout=30)
+            
         resp.encoding = 'utf-8' # Preserves strict punctuation (—, ”, etc.)
         
         doc = Document(resp.text)
@@ -128,7 +143,7 @@ def get_indian_express_editorials():
     scraped_pool = []
     for item in items[:5]:
         text, r_time = scrape_reader_mode_extended(item['link'])
-        if text:
+        if text and len(text) > 150:  # Ensures we don't accidentally save blank blocks
             scraped_pool.append({
                 "newspaper": "The Indian Express",
                 "title": item['title'],

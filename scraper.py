@@ -157,23 +157,34 @@ def get_indian_express_editorials():
 
     print(f"  ℹ️ Found {len(links)} Indian Express editorial candidate links.")
 
-    articles = []
-    for link in links[:5]:
+    candidates = []
+    # Fetch all published candidate editorials (checking top 3-4 links)
+    for link in links[:4]:
         title, passage, r_time = apply_speedreader(link, "The Indian Express")
         if passage and len(passage) > 300:
-            print(f"  ✓ Fetched: {title[:55]}...")
-            articles.append({
+            words = len(passage.split())
+            print(f"  ✓ Fetched: {title[:45]}... ({words} words)")
+            candidates.append({
                 "newspaper": "The Indian Express",
                 "title": title,
                 "link": link,
                 "timestamp": str(TODAY_DATE),
                 "reading_time": r_time,
-                "passage": passage
+                "passage": passage,
+                "word_count": words
             })
-        if len(articles) >= 2:
-            break
 
-    return articles
+    # Sort all fetched candidates by word count (highest to lowest)
+    candidates.sort(key=lambda item: item["word_count"], reverse=True)
+
+    # Keep only the top 2 longest articles
+    selected_articles = candidates[:2]
+
+    # Remove the temporary word_count key before returning
+    for article in selected_articles:
+        article.pop("word_count", None)
+
+    return selected_articles
 
 def run():
     print(f"🚀 Starting Speedreader pipeline for {TODAY_DATE} (IST)...")

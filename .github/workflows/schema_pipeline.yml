@@ -43,6 +43,7 @@ jobs:
           git pull origin main --rebase
           git push
 
+      # ✨ Send Telegram Success Notification
       - name: Send Telegram Success Notification
         if: success()
         env:
@@ -53,7 +54,7 @@ jobs:
           -H "Content-Type: application/json" \
           -d '{
             "chat_id": "'"$ADMIN_CHAT_ID"'",
-            "text": "✅ **SCHEMA.JSON SUCCESSFULLY GENERATED & PUSHED!**\n\n🎯 All editorials processed through prompt schema.\n\n🔗 [View schema.json](https://github.com/prathu-developer/exam-scraper-api/blob/main/schema.json)",
+            "text": "✅ **SCHEMA.JSON SUCCESSFULLY GENERATED & PUSHED!\n\n🎯 All editorials processed through prompt schema.\n\n🔗 [View schema.json](https://github.com/prathu-developer/editorial-magazine-generator/blob/main/schema.json)",
             "parse_mode": "Markdown",
             "disable_web_page_preview": true
           }'

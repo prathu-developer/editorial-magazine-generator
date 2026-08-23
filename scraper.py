@@ -5,6 +5,7 @@ import json
 import re
 from datetime import datetime, timezone, timedelta
 import email.utils
+from googlenewsdecoder import gnewsdecoder # type: ignore
 
 # Indian Standard Time (IST) configuration
 IST = timezone(timedelta(hours=5, minutes=30))
@@ -96,66 +97,20 @@ def get_hindu_editorials():
     return articles
 
 def resolve_google_news_url(google_url):
-    """Resolve Google News RSS URL to the original publisher URL."""
+    """Resolve a Google News RSS URL to the original publisher URL."""
     try:
-        # Extract the Google News article GUID directly from the URL.
-        guid = google_url.split("/rss/articles/")[1].split("?")[0]
-
-        payload_data = (
-            '["garturlreq",'
-            '[["en-US","US",'
-            '["FINANCE_TOP_INDICES","WEB_TEST_1_0_0"],'
-            'null,null,1,1,"US:en",null,null,null,null,null,null,null,0,5],'
-            '"en-US","US",true,[2,4,8],1,true,"661099999",0,0,null,0],'
-            f'{{"{guid}"}}]'
+        result = gnewsdecoder(
+            google_url,
+            interval=1
         )
 
-        payload = {
-            "f.req": json.dumps([
-                [
-                    [
-                        "Fbv4je",
-                        payload_data,
-                        "null",
-                        "generic"
-                    ]
-                ]
-            ])
-        }
+        if result and result.get("status"):
+            return result.get("decoded_url", "")
 
-        headers = {
-            "Content-Type": (
-                "application/x-www-form-urlencoded;charset=UTF-8"
-            ),
-            "User-Agent": (
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/139.0 Safari/537.36"
-            ),
-        }
-
-        response = requests.post(
-            "https://news.google.com/_/DotsSplashUi/data/batchexecute",
-            headers=headers,
-            data=payload,
-            timeout=20
+        print(
+            f"      ⚠️ Google decoder failed: "
+            f"{result.get('message', 'unknown error') if result else 'no result'}"
         )
-
-        response.raise_for_status()
-
-        # Google prefixes its response with )]}'
-        response_text = response.text.replace(")]}'", "", 1)
-
-        outer = json.loads(response_text)
-
-        article_json = outer[0][2]
-        article_data = json.loads(article_json)
-
-        real_url = article_data[1]
-
-        if real_url and real_url.startswith("http"):
-            return real_url
-
         return ""
 
     except Exception as e:

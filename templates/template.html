@@ -27,10 +27,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  .serif {
-    font-family: 'Lora', Georgia, 'Times New Roman', serif;
-  }
-
   .devanagari {
     font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
   }
@@ -39,7 +35,7 @@
     width: 210mm;
     height: 297mm;
     max-height: 297mm;
-    padding: 10mm 12mm 8mm 12mm;
+    padding: 9mm 12mm 7mm 12mm;
     background: #ffffff;
     page-break-after: always;
     break-after: page;
@@ -70,13 +66,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
   .p1-newspaper-tag {
     font-size: 8.5px;
     font-weight: 800;
     text-transform: uppercase;
-    padding: 2.5px 8px;
+    padding: 2px 7px;
     border-radius: 3px;
   }
   .tag-hindu { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
@@ -94,19 +90,19 @@
 
   .p1-title {
     font-family: 'Lora', Georgia, serif;
-    font-size: 20px;
+    font-size: 19.5px;
     font-weight: 700;
     color: #0f2b48;
-    line-height: 1.2;
-    margin: 4px 0 6px 0;
+    line-height: 1.22;
+    margin: 3px 0 5px 0;
   }
 
   .p1-subheading-box {
     border-left: 3px solid #b45309;
-    padding: 3px 0 3px 8px;
-    margin-bottom: 6px;
+    padding: 2.5px 0 2.5px 7px;
+    margin-bottom: 5px;
     font-family: 'Lora', Georgia, serif;
-    font-size: 10.5px;
+    font-size: 10px;
     font-style: italic;
     color: #92400e;
     line-height: 1.35;
@@ -119,18 +115,18 @@
     font-size: 8px;
     color: #64748b;
     border-bottom: 1.5px solid #0f2b48;
-    padding-bottom: 4px;
-    margin-bottom: 8px;
+    padding-bottom: 3px;
+    margin-bottom: 7px;
   }
 
   .p1-layout-grid {
     display: grid;
     grid-template-columns: 1fr 58mm;
-    gap: 8mm;
+    gap: 7mm;
     flex-grow: 1;
   }
 
-  /* Editorial Column with Drop-Cap */
+  /* Editorial Column & Drop-Cap */
   .p1-left-col {
     display: flex;
     flex-direction: column;
@@ -139,58 +135,60 @@
 
   .p1-article-body {
     font-family: 'Lora', Georgia, serif;
-    font-size: 10px;
-    line-height: 1.62;
+    font-size: 9.7px;
+    line-height: 1.6;
     color: #1e293b;
     text-align: justify;
   }
   .p1-article-body p {
-    margin-bottom: 10px;
+    margin-bottom: 9px;
   }
 
-  /* Big Drop-Cap Letter */
+  /* Elegant Drop-Cap */
   .p1-article-body p:first-of-type::first-letter {
     font-family: 'Lora', Georgia, serif;
-    font-size: 38px;
-    line-height: 0.8;
+    font-size: 36px;
+    line-height: 0.82;
     float: left;
-    padding-right: 6px;
-    padding-top: 4px;
-    color: #92400e;
+    padding-right: 5px;
+    padding-top: 3px;
+    color: #b45309;
     font-weight: 700;
   }
 
-  /* Highlighted Vocabulary in Passage */
+  /* Highlighted Vocabulary in Passage (No underline, subtle accent tint, tiny superscript) */
   .vocab-hl {
     font-weight: 700;
     color: #0f2b48;
-    border-bottom: 2px solid #b45309;
-    padding-bottom: 0px;
+    background: #f0f7ff;
+    padding: 0 2px;
+    border-radius: 2px;
     display: inline;
   }
-  .vocab-hl sup {
+  .v-idx {
     font-family: 'Inter', sans-serif;
-    font-size: 7.5px;
-    color: #b45309;
+    font-size: 6px !important;
     font-weight: 800;
-    margin-left: 1.5px;
+    color: #b45309;
+    vertical-align: super;
+    line-height: 0;
+    margin-left: 1px;
   }
 
   .p1-article-footer-note {
-    font-size: 8px;
+    font-size: 7.8px;
     color: #64748b;
     font-style: italic;
     border-top: 1px dashed #cbd5e1;
     padding-top: 4px;
-    margin-top: 6px;
   }
 
-  /* Right Sidebar: Vocabulary 101 */
+  /* Sidebar: Vocabulary 101 */
   .p1-sidebar {
     border: 1px solid #cbd5e1;
     border-radius: 6px;
     background: #fcfcfd;
-    padding: 7px 8px;
+    padding: 6px 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -199,13 +197,13 @@
   .p1-sidebar-header {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     border-bottom: 1.5px solid #0f2b48;
-    padding-bottom: 4px;
-    margin-bottom: 6px;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
   }
   .p1-sidebar-header span {
-    font-size: 9.5px;
+    font-size: 9px;
     font-weight: 800;
     color: #0f2b48;
     text-transform: uppercase;
@@ -214,11 +212,11 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3.5px;
   }
   .p1-vocab-item {
-    font-size: 8px;
-    line-height: 1.25;
+    font-size: 7.8px;
+    line-height: 1.22;
   }
   .p1-vocab-item-top {
     color: #0f172a;
@@ -229,27 +227,27 @@
   .p1-vocab-item-top .pos {
     color: #64748b;
     font-weight: 500;
-    font-size: 7.2px;
+    font-size: 7px;
   }
   .p1-vocab-item-def {
     color: #047857;
     font-weight: 600;
-    padding-left: 11px;
-    font-size: 7.6px;
+    padding-left: 10px;
+    font-size: 7.4px;
   }
 
   .p1-cta-card {
     background: #fefce8;
     border: 1px solid #fef08a;
     border-radius: 4px;
-    padding: 5px 6px;
+    padding: 4px 6px;
     margin-top: 4px;
   }
   .p1-cta-title {
-    font-size: 8px;
+    font-size: 7.8px;
     font-weight: 800;
     color: #854d0e;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
   .p1-cta-btn {
     display: block;
@@ -259,10 +257,10 @@
     text-align: center;
     font-size: 7.5px;
     font-weight: 700;
-    padding: 3.5px 0;
+    padding: 3px 0;
     border-radius: 3px;
     text-decoration: none;
-    margin-top: 3px;
+    margin-top: 2px;
   }
 
   /* =========================================================
@@ -273,78 +271,82 @@
     justify-content: space-between;
     align-items: flex-end;
     border-bottom: 2px solid #0f2b48;
-    padding-bottom: 4px;
-    margin-bottom: 6px;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
   }
   .p2-header-title {
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 800;
     color: #0f2b48;
   }
   .p2-header-sub {
-    font-size: 8.5px;
+    font-size: 8px;
     font-weight: 600;
     color: #64748b;
   }
 
-  /* Editorial Stance & Analysis Box */
+  /* Redesigned Analysis & Stance Split Banner */
   .p2-analysis-card {
+    display: grid;
+    grid-template-columns: 36mm 1fr;
+    gap: 8px;
     background: #f0f7ff;
     border: 1px solid #bfdbfe;
     border-left: 4px solid #0284c7;
     border-radius: 4px;
-    padding: 6px 10px;
-    margin-bottom: 6px;
-  }
-  .p2-analysis-header {
-    display: flex;
-    justify-content: space-between;
+    padding: 5px 8px;
+    margin-bottom: 5px;
     align-items: center;
-    margin-bottom: 3px;
   }
-  .p2-analysis-title {
-    font-size: 8.5px;
+  .p2-tone-block {
+    border-right: 1px solid #bfdbfe;
+    padding-right: 6px;
+  }
+  .p2-tone-label {
+    font-size: 7px;
     font-weight: 800;
     text-transform: uppercase;
     color: #0369a1;
   }
-  .p2-tone-pill {
-    background: #0284c7;
-    color: #ffffff;
-    font-size: 7.5px;
-    font-weight: 700;
-    padding: 1px 7px;
-    border-radius: 10px;
-    text-transform: uppercase;
+  .p2-tone-value {
+    font-size: 10px;
+    font-weight: 800;
+    color: #0f2b48;
+    line-height: 1.1;
   }
-  .p2-analysis-text {
-    font-size: 8.3px;
+  .p2-tone-expl {
+    font-size: 7.2px;
+    color: #0369a1;
+    font-weight: 600;
+  }
+  .p2-analysis-summary {
+    font-size: 7.8px;
     color: #1e3a8a;
-    line-height: 1.35;
+    line-height: 1.32;
     font-style: italic;
   }
 
-  /* Master Vocabulary Table */
+  /* Master Vocabulary Table with Dynamic Sizing */
   .p2-table-wrapper {
     border: 1px solid #cbd5e1;
-    border-radius: 5px;
+    border-radius: 4px;
     overflow: hidden;
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
   .p2-table-head {
     display: grid;
-    grid-template-columns: 24px 1.4fr 2.1fr 1.5fr 1.5fr;
+    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
     background: #0f2b48;
     color: #ffffff;
-    font-size: 7.8px;
+    font-size: 7.5px;
     font-weight: 800;
     text-transform: uppercase;
-    padding: 4px 6px;
+    padding: 3px 5px;
   }
 
   .p2-vocab-row {
     border-bottom: 1px solid #e2e8f0;
-    border-left: 3.5px solid transparent;
+    border-left: 3px solid transparent;
   }
   .p2-vocab-row:last-child {
     border-bottom: none;
@@ -358,20 +360,26 @@
   .p2-vocab-row.t-6 { border-left-color: #0891b2; }
   .p2-vocab-row.t-7 { border-left-color: #4f46e5; }
   .p2-vocab-row.t-8 { border-left-color: #d97706; }
+  .p2-vocab-row.t-9 { border-left-color: #059669; }
+  .p2-vocab-row.t-10 { border-left-color: #2563eb; }
+  .p2-vocab-row.t-11 { border-left-color: #7c3aed; }
+  .p2-vocab-row.t-12 { border-left-color: #e11d48; }
+  .p2-vocab-row.t-13 { border-left-color: #0891b2; }
 
+  /* Compact top section of row */
   .p2-vocab-top {
     display: grid;
-    grid-template-columns: 24px 1.4fr 2.1fr 1.5fr 1.5fr;
-    padding: 5px 6px 3px 6px;
+    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
+    padding: 3.5px 5px 2.5px 5px;
     align-items: flex-start;
   }
 
   .p2-num-badge {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     background: #0f2b48;
     color: #ffffff;
-    font-size: 7.5px;
+    font-size: 7px;
     font-weight: 800;
     border-radius: 50%;
     display: flex;
@@ -380,103 +388,106 @@
   }
 
   .p2-word {
-    font-size: 10.8px;
+    font-size: 9.8px;
     font-weight: 800;
     color: #0f2b48;
     line-height: 1.1;
   }
   .p2-badges {
     display: flex;
-    gap: 3px;
-    margin-top: 2px;
+    gap: 2.5px;
+    margin-top: 1.5px;
   }
   .p2-pos-pill {
-    font-size: 6.5px;
+    font-size: 6px;
     font-weight: 800;
-    padding: 1px 4px;
-    border-radius: 6px;
+    padding: 0.5px 3.5px;
+    border-radius: 4px;
     background: #e2e8f0;
     color: #334155;
     text-transform: uppercase;
   }
   .p2-connot {
-    font-size: 6.5px;
+    font-size: 6px;
     font-weight: 800;
-    padding: 1px 4px;
-    border-radius: 6px;
+    padding: 0.5px 3.5px;
+    border-radius: 4px;
   }
   .connot-Positive { background: #dcfce7; color: #166534; }
   .connot-Negative { background: #fee2e2; color: #991b1b; }
   .connot-Neutral { background: #f1f5f9; color: #475569; }
 
   .p2-hindi {
-    font-size: 9.8px;
+    font-size: 9px;
     font-weight: 700;
     color: #0369a1;
     margin-bottom: 1px;
   }
   .p2-def {
-    font-size: 7.6px;
+    font-size: 7.2px;
     color: #475569;
-    line-height: 1.25;
+    line-height: 1.2;
   }
 
   .p2-syns {
-    font-size: 7.6px;
+    font-size: 7.2px;
     color: #047857;
     font-weight: 600;
-    line-height: 1.25;
-    padding-right: 4px;
+    line-height: 1.2;
+    padding-right: 3px;
   }
   .p2-ants {
-    font-size: 7.6px;
+    font-size: 7.2px;
     color: #b91c1c;
     font-weight: 600;
-    line-height: 1.25;
+    line-height: 1.2;
   }
 
   .p2-mnemonic-row {
-    margin: 0 6px 4px 24px;
-    padding: 2.5px 6px;
-    border-radius: 3px;
+    margin: 0 5px 3px 20px;
+    padding: 1.5px 5px;
+    border-radius: 2px;
     background: #f8fafc;
     border: 1px dashed #cbd5e1;
-    font-size: 7.3px;
+    font-size: 6.8px;
     color: #475569;
-    line-height: 1.25;
+    line-height: 1.2;
   }
   .p2-mnemonic-row strong {
     color: #0f2b48;
     font-weight: 700;
   }
 
-  /* Dynamic Auto-Fit Grammar Matrix */
+  /* Compact Grammar Matrix (Never overflows) */
   .p2-grammar-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(47%, 1fr));
-    gap: 6px;
-    margin-bottom: 6px;
+    gap: 4px;
+    margin-bottom: 4px;
   }
   .p2-card {
     border: 1px solid #cbd5e1;
     border-radius: 4px;
     background: #f8fafc;
-    padding: 5px 6px;
+    padding: 4px 6px;
   }
   .p2-card h3 {
-    font-size: 7.6px;
+    font-size: 7.2px;
     font-weight: 800;
     text-transform: uppercase;
     color: #1e40af;
     border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 2px;
-    margin-bottom: 3px;
+    padding-bottom: 1.5px;
+    margin-bottom: 2px;
   }
   .p2-card-item {
-    font-size: 7.3px;
-    line-height: 1.25;
-    margin-bottom: 2.5px;
+    font-size: 7px;
+    line-height: 1.2;
+    margin-bottom: 2px;
     color: #1e293b;
+  }
+  .p2-card-item:last-child {
+    margin-bottom: 0;
   }
   .p2-card-item strong {
     color: #0f172a;
@@ -489,11 +500,11 @@
   /* Bottom Study Tip Box */
   .p2-study-tip {
     background: #fef3c7;
-    border-left: 3.5px solid #f59e0b;
-    padding: 4.5px 8px;
+    border-left: 3px solid #f59e0b;
+    padding: 3.5px 7px;
     border-radius: 3px;
-    font-size: 7.6px;
-    line-height: 1.3;
+    font-size: 7.2px;
+    line-height: 1.25;
     color: #78350f;
   }
   .p2-study-tip strong {
@@ -588,16 +599,19 @@
       <div class="p2-header-sub">{{ art.newspaper }} &nbsp;·&nbsp; {{ art.topic }}</div>
     </div>
 
-    <!-- Editorial Analysis Box -->
+    <!-- Redesigned Left-Aligned Analysis & Stance Banner -->
     <div class="p2-analysis-card">
-      <div class="p2-analysis-header">
-        <span class="p2-analysis-title">Editorial Stance &amp; Summary</span>
-        <span class="p2-tone-pill">Tone: {{ art.analysis.tone }} ({{ art.analysis.tone_simple_explanation }})</span>
+      <div class="p2-tone-block">
+        <div class="p2-tone-label">Tone Analysis</div>
+        <div class="p2-tone-value">{{ art.analysis.tone }}</div>
+        <div class="p2-tone-expl">({{ art.analysis.tone_simple_explanation }})</div>
       </div>
-      <div class="p2-analysis-text">{{ art.analysis.analysis_summary }}</div>
+      <div class="p2-analysis-summary">
+        {{ art.analysis.analysis_summary }}
+      </div>
     </div>
 
-    <!-- Master Vocabulary Table -->
+    <!-- Master Vocabulary Table with Calibrated Row Heights -->
     <div class="p2-table-wrapper">
       <div class="p2-table-head">
         <div>#</div>
@@ -632,7 +646,7 @@
       {% endfor %}
     </div>
 
-    <!-- Dynamic Applied Grammar Matrix (Only renders non-empty sections) -->
+    <!-- Dynamic Applied Grammar Matrix (Strictly only non-empty categories) -->
     <div class="p2-grammar-grid">
       {% if art.categorized_vocab.fixed_prepositions %}
       <div class="p2-card">
@@ -692,7 +706,7 @@
 
     <!-- Bottom Study Tip Box -->
     <div class="p2-study-tip">
-      <strong>Study Tip:</strong> Pay special attention to the fixed prepositions and contextual connotation tags when solving Cloze Tests, Error Detection, and Sentence Fillers.
+      <strong>Study Tip:</strong> Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.
     </div>
   </div>
 

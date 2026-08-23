@@ -3,9 +3,10 @@ import sys
 import json
 import re
 import time
+from datetime import datetime
 import requests
 from google import genai
-from google.genai import types # type: ignore
+from google.genai import types
 
 # Load keys safely from GitHub Secrets or Environment[cite: 1, 2]
 API_KEYS = [
@@ -178,6 +179,43 @@ def parse_llm_json(raw_text):
         cleaned = re.sub(r"\n?```$", "", cleaned)
     return json.loads(cleaned.strip())
 
+# --- BACKUP & RETENTION ENGINE ---
+def save_backup(final_output, input_date_str=None, backup_dir="backups", max_days=7):
+    """
+    Saves a copy of schema.json named '{YYYY-MM-DD}_{Day}.json' and
+    purges backups older than 7 days (rolling 1-week retention).
+    """
+    os.makedirs(backup_dir, exist_ok=True)
+    
+    if input_date_str:
+        try:
+            dt = datetime.strptime(input_date_str, "%Y-%m-%d")
+        except ValueError:
+            dt = datetime.now()
+    else:
+        dt = datetime.now()
+
+    date_str = dt.strftime("%Y-%m-%d")
+    day_name = dt.strftime("%A")
+    backup_filename = f"{date_str}_{day_name}.json"
+    backup_filepath = os.path.join(backup_dir, backup_filename)
+
+    with open(backup_filepath, "w", encoding="utf-8") as f:
+        json.dump(final_output, f, indent=4, ensure_ascii=False)
+    print(f"📦 Backup created: '{backup_filepath}'")
+
+    existing_backups = sorted([
+        f for f in os.listdir(backup_dir) 
+        if f.endswith(".json") and re.match(r"^\d{4}-\d{2}-\d{2}_\w+\.json$", f)
+    ])
+    
+    if len(existing_backups) > max_days:
+        stale_backups = existing_backups[:-max_days]
+        for stale in stale_backups:
+            stale_path = os.path.join(backup_dir, stale)
+            os.remove(stale_path)
+            print(f"🗑️ Removed stale backup (older than 7 days): '{stale_path}'")
+
 # --- 4. MAIN PIPELINE ---
 def run_schema_pipeline(
     input_file="today_editorials.json",
@@ -243,6 +281,9 @@ def run_schema_pipeline(
 
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(final_output, f, indent=4, ensure_ascii=False)
+
+    # 💾 Trigger 7-Day Rolling Backup
+    save_backup(final_output, input_date_str=input_data.get("date_scraped"))
 
     print(f"\n✅ All {total_editorials} editorials processed and saved to '{output_file}'!")
 

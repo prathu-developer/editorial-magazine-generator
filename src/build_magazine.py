@@ -6,14 +6,9 @@ from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
 
 def clean_and_highlight_passage(passage_text, vocab_items):
-    """
-    Cleans editorial passage paragraphs and bolds target vocabulary words.
-    """
-    # Split by double newlines and filter out standalone timestamps/publish tags
     raw_paras = [p.strip() for p in passage_text.split("\n\n") if p.strip()]
     cleaned_paras = []
     
-    # Sort vocab phrases by length descending to match multi-word phrases first
     sorted_vocab = sorted(
         [v["word_or_phrase"].strip() for v in vocab_items if "word_or_phrase" in v],
         key=len,
@@ -21,13 +16,11 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     )
 
     for p in raw_paras:
-        # Ignore bottom publishing notice paragraph inside text body
         if p.startswith("Published") or p.startswith("Updated"):
             continue
             
         highlighted = p
         for term in sorted_vocab:
-            # Match whole words/phrases case-insensitively while preserving original text case
             pattern = re.compile(rf'\b({re.escape(term)})\b', re.IGNORECASE)
             highlighted = pattern.sub(r'<strong>\1</strong>', highlighted)
             
@@ -36,9 +29,6 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     return cleaned_paras
 
 def categorize_vocabulary(vocab_items):
-    """
-    Splits the 20+ vocabulary list into specialized editorial study categories.
-    """
     categorized = {
         "core_vocab": [],
         "fixed_prepositions": [],
@@ -81,9 +71,8 @@ def compile_magazine():
     with open(json_path, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
-    # Process all articles
     processed_articles = []
-    page_counter = 3  # Starts at 3 (assuming Page 1 = Front Cover, Page 2 = TOC)
+    page_counter = 3
 
     for art in raw_data.get("editorials", []):
         vocab_list = art.get("editorial_vocabulary", [])
@@ -111,7 +100,6 @@ def compile_magazine():
         "articles": processed_articles
     }
 
-    # Render Template
     env = Environment(loader=FileSystemLoader([templates_dir, base_dir]))
     template = env.get_template("template.html")
     rendered_html = template.render(data=render_payload)
@@ -120,12 +108,13 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # Print to PDF via Headless Chromium
+    # Print to PDF with font-readiness check
     dynamic_pdf = os.path.join(build_dir, "dynamic_content.pdf")
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         page = browser.new_page()
         page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
+        page.evaluate("() => document.fonts.ready")
         page.pdf(
             path=dynamic_pdf,
             format="A4",
@@ -150,7 +139,7 @@ def compile_magazine():
 
     merger.write(output_pdf_path)
     merger.close()
-    print(f"✅ Generated {len(processed_articles)*2}-page Magazine PDF at: {output_pdf_path}")
+    print(f"✅ Generated Magazine PDF with clean kerning at: {output_pdf_path}")
 
 if __name__ == "__main__":
     compile_magazine()

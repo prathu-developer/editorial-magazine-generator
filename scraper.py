@@ -98,9 +98,6 @@ def get_hindu_editorials():
 def get_indian_express_editorials():
     print("📰 Fetching The Indian Express...")
 
-    # Use Google News RSS only for DISCOVERY.
-    # It provides links to the latest Indian Express editorials
-    # without directly requesting Indian Express's blocked RSS.
     rss_url = (
         "https://news.google.com/rss/search?"
         "q=site%3Aindianexpress.com%2Farticle%2Fopinion%2Feditorials%2F"
@@ -118,11 +115,7 @@ def get_indian_express_editorials():
     }
 
     try:
-        resp = requests.get(
-            rss_url,
-            headers=headers,
-            timeout=20
-        )
+        resp = requests.get(rss_url, headers=headers, timeout=20)
         resp.raise_for_status()
 
         soup = BeautifulSoup(resp.content, "xml")
@@ -137,59 +130,62 @@ def get_indian_express_editorials():
     articles = []
     seen_urls = set()
 
-    for item in items[:10]:
+    for item in items:
 
         title_tag = item.find("title")
         link_tag = item.find("link")
+        source_tag = item.find("source")
         pub_date_tag = item.find("pubDate")
 
         title = title_tag.get_text(strip=True) if title_tag else ""
-        link = link_tag.get_text(strip=True) if link_tag else ""
-        pub_date = (
-            pub_date_tag.get_text(strip=True)
-            if pub_date_tag
-            else ""
-        )
+        google_link = link_tag.get_text(strip=True) if link_tag else ""
+        source = source_tag.get_text(strip=True) if source_tag else ""
+        pub_date = pub_date_tag.get_text(strip=True) if pub_date_tag else ""
 
-        # Google News may append the publication name to the title.
-        title = re.sub(
-            r"\s*-\s*The Indian Express\s*$",
-            "",
-            title,
-            flags=re.IGNORECASE
-        ).strip()
+        # Only accept The Indian Express results.
+        if source.lower() != "the indian express":
+            continue
+
+        if not google_link:
+            continue
 
         print(f"   🔎 {title}")
-        print(f"      URL: {link}")
-        print(f"      Date: {pub_date}")
+        print(f"      Source: {source}")
+        print(f"      Google URL: {google_link}")
 
-        if not link:
-            print("      ⚠️ No URL")
+        # Resolve Google News redirect to the real article URL.
+        try:
+            article_resp = requests.get(
+                google_link,
+                headers=headers,
+                timeout=20,
+                allow_redirects=True
+            )
+
+            real_url = article_resp.url.split("?")[0]
+
+            print(f"      Real URL: {real_url}")
+
+        except Exception as e:
+            print(f"      ⚠️ Could not resolve URL: {e}")
             continue
 
-        # Make sure it is actually an Indian Express editorial.
-        if "indianexpress.com/article/opinion/editorials/" not in link:
-            print("      ⚠️ Not an Indian Express editorial")
+        # Verify the final destination is actually Indian Express.
+        if "indianexpress.com" not in real_url:
+            print("      ⚠️ Final URL is not Indian Express")
             continue
 
-        link = link.split("?")[0]
-
-        if link in seen_urls:
+        if "/article/opinion/editorials/" not in real_url:
+            print("      ⚠️ Not an editorial URL")
             continue
 
-        seen_urls.add(link)
+        if real_url in seen_urls:
+            continue
 
-        # First try the normal article URL.
-        text, r_time = scrape_speedreader_mode(link)
+        seen_urls.add(real_url)
 
-        # If normal page fails, try Indian Express Lite.
-        if not text:
-            lite_url = link.rstrip("/") + "/lite/"
-            print("      🔄 Trying Lite URL...")
-            text, r_time = scrape_speedreader_mode(lite_url)
-
-            if text:
-                link = lite_url
+        # Extract article content using existing engine.
+        text, r_time = scrape_speedreader_mode(real_url)
 
         if not text:
             print("      ⚠️ Article body extraction failed")
@@ -202,7 +198,7 @@ def get_indian_express_editorials():
         articles.append({
             "newspaper": "The Indian Express",
             "title": title,
-            "link": link,
+            "link": real_url,
             "timestamp": pub_date,
             "reading_time": r_time,
             "passage": text

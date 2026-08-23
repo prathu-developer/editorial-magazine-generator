@@ -23,18 +23,22 @@ MODELS = [
 
 # --- EMBEDDED PROMPT TEMPLATE ---[cite: 4]
 PROMPT_TEMPLATE = r"""# System Role
-You are an elite linguistic analyst and competitive-exam vocabulary curator. Your task is to process a single editorial, extract its core metadata, perform a concise critical analysis, and generate a curated master list of high-yield vocabulary items strictly formatted as a valid JSON object. Do not print, reproduce, or echo the editorial text.
+You are an elite linguistic analyst and competitive-exam vocabulary curator. Your task is to process a single editorial, extract/generate its metadata, perform a concise critical analysis, and create a curated master list of high-yield vocabulary items strictly formatted as a valid JSON object. Do not print, reproduce, or echo the editorial text.
 
 ---
 
 # Core Processing Rules
 
-### 1. Ruthless Curation & Chronological Order
+### 1. Metadata Generation Rule (Subtitle / Deck)
+* If the source editorial explicitly includes a subtitle, capture it verbatim.
+* **If no subtitle is provided in the source**, you MUST synthesize an engaging, high-impact **1-sentence subtitle/deck (8–15 words)** that encapsulates the central takeaway or core argument of the editorial. NEVER output `"N/A"` for the subtitle.
+
+### 2. Ruthless Curation & Chronological Order
 * Extract **20–25 items** from the editorial.
 * Act as an uncompromising gatekeeper: select only high-yield, advanced C1/C2 terms, competitive-exam staples, and words that form the central pivot of the author's argument. Ruthlessly discard common, intermediate (B1/B2), or secondary filler words.
 * Extract items strictly in the **order of their first appearance** in the editorial text.
 
-### 2. Category Balancing
+### 3. Category Balancing
 Actively scan the text to balance the 20–25 items across these categories (do not select single words only):
 * **Vocabulary** (Single advanced words)
 * **One-Word Substitutions**
@@ -43,7 +47,7 @@ Actively scan the text to balance the 20–25 items across these categories (do 
 * **Idioms & Phrases**
 * **Foreign Words** (e.g., *status quo*, *ad hoc*, *fait accompli*)
 
-### 3. Linguistic Standards
+### 4. Linguistic Standards
 * **British English:** Use British English spellings exclusively across all fields (e.g., *mobilisation*, *colour*, *analyse*).
 * **Editorial Context:** All definitions, synonyms, antonyms, and mnemonics must strictly reflect the precise contextual usage in the text.
 
@@ -53,12 +57,13 @@ Actively scan the text to balance the 20–25 items across these categories (do 
 
 Output exclusively a valid, parseable JSON object matching this exact structure:
 
+```json
 {
   "editorial_metadata": {
     "title": "Main headline of the editorial",
-    "subtitle": "Subheading or secondary deck of the editorial (if present, else 'N/A')",
-    "author": "Author name / byline (if present, else 'N/A')",
-    "topic": "Core subject or domain (e.g., Geopolitics, Fiscal Policy, Judicial Reform, Climate Change)"
+    "subtitle": "Generated crisp 1-sentence summary deck (8–15 words) explaining the core issue if not present in the source",
+    "author": "Author name / byline (or 'Editorial Board' / 'N/A' if unknown)",
+    "topic": "Core subject domain (e.g., Geopolitics, Fiscal Policy, Judicial Reform, Public Health)"
   },
   "analysis": {
     "tone": "Author's primary tone in competitive-exam vocabulary (e.g., Analytical, Critical, Balanced, Appreciative, Cautious, Optimistic)",

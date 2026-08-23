@@ -6,35 +6,53 @@ from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
 
 def clean_and_highlight_passage(passage_text, vocab_items):
+    """
+    Cleans editorial paragraphs and adds numbered superscript highlights to matching vocabulary.
+    """
     raw_paras = [p.strip() for p in passage_text.split("\n\n") if p.strip()]
     cleaned_paras = []
     
+    # Sort vocab items by phrase length (descending) so longer phrases are matched before single words
     sorted_vocab = sorted(
-        [v["word_or_phrase"].strip() for v in vocab_items if "word_or_phrase" in v],
-        key=len,
+        vocab_items,
+        key=lambda x: len(x.get("word_or_phrase", "")),
         reverse=True
     )
 
     for p in raw_paras:
+        # Skip standalone timestamp/published lines
         if p.startswith("Published") or p.startswith("Updated"):
             continue
             
         highlighted = p
-        for term in sorted_vocab:
+        for item in sorted_vocab:
+            term = item.get("word_or_phrase", "").strip()
+            idx = item.get("order_index", "")
+            if not term:
+                continue
+            
+            # Match whole word/phrase case-insensitively and wrap with styled underline + superscript number
             pattern = re.compile(rf'\b({re.escape(term)})\b', re.IGNORECASE)
-            highlighted = pattern.sub(r'<strong>\1</strong>', highlighted)
+            highlighted = pattern.sub(
+                rf'<span class="vocab-hl">\1<sup>{idx}</sup></span>',
+                highlighted
+            )
             
         cleaned_paras.append(highlighted)
         
     return cleaned_paras
 
 def categorize_vocabulary(vocab_items):
+    """
+    Groups vocabulary items into distinct grammatical categories.
+    """
     categorized = {
         "core_vocab": [],
         "fixed_prepositions": [],
         "phrasal_verbs": [],
         "one_word_subs": [],
-        "idioms_and_foreign": []
+        "idioms": [],
+        "foreign_words": []
     }
     
     for item in vocab_items:
@@ -47,8 +65,10 @@ def categorize_vocabulary(vocab_items):
             categorized["phrasal_verbs"].append(item)
         elif cat == "One-Word Substitutions":
             categorized["one_word_subs"].append(item)
-        elif cat in ["Idioms & Phrases", "Foreign Words"]:
-            categorized["idioms_and_foreign"].append(item)
+        elif cat == "Idioms & Phrases":
+            categorized["idioms"].append(item)
+        elif cat == "Foreign Words":
+            categorized["foreign_words"].append(item)
         else:
             categorized["core_vocab"].append(item)
             
@@ -72,16 +92,21 @@ def compile_magazine():
         raw_data = json.load(f)
 
     processed_articles = []
-    page_counter = 3
+    page_counter = 3  # Assuming Page 1 = Front Cover, Page 2 = TOC Cover
 
     for art in raw_data.get("editorials", []):
         vocab_list = art.get("editorial_vocabulary", [])
         categorized_vocab = categorize_vocabulary(vocab_list)
         paragraphs = clean_and_highlight_passage(art.get("passage", ""), vocab_list)
         
+        # Determine clean subtitle
+        meta_sub = art.get("editorial_metadata", {}).get("subtitle", "")
+        subtitle = meta_sub if meta_sub and meta_sub != "N/A" else None
+        
         processed_articles.append({
             "newspaper": art.get("newspaper", "Editorial"),
             "title": art.get("title", ""),
+            "subtitle": subtitle,
             "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
             "reading_time": art.get("reading_time", "2 min read"),
             "timestamp": art.get("timestamp", raw_data.get("date_scraped", "")),
@@ -108,7 +133,7 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # Print to PDF with font-readiness check
+    # Print to PDF with font-readiness synchronization
     dynamic_pdf = os.path.join(build_dir, "dynamic_content.pdf")
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
@@ -139,7 +164,7 @@ def compile_magazine():
 
     merger.write(output_pdf_path)
     merger.close()
-    print(f"✅ Generated Magazine PDF with clean kerning at: {output_pdf_path}")
+    print(f"✅ Generated Editorial Magazine PDF at: {output_pdf_path}")
 
 if __name__ == "__main__":
     compile_magazine()

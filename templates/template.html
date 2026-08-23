@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
 
   @page {
     size: 210mm 297mm;
@@ -21,10 +21,14 @@
   }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: #ffffff;
-    color: #0f172a;
+    color: #1e293b;
     -webkit-font-smoothing: antialiased;
+  }
+
+  .serif {
+    font-family: 'Lora', Georgia, 'Times New Roman', serif;
   }
 
   .devanagari {
@@ -46,7 +50,7 @@
     justify-content: space-between;
   }
 
-  /* Universal Page Footer */
+  /* Universal Footer */
   .page-footer {
     display: flex;
     justify-content: space-between;
@@ -62,9 +66,6 @@
   /* =========================================================
      PAGE 1: EDITORIAL READER & SIDEBAR
      ========================================================= */
-  .p1-header {
-    margin-bottom: 8px;
-  }
   .p1-top-bar {
     display: flex;
     justify-content: space-between;
@@ -86,38 +87,50 @@
     font-weight: 700;
     background: #f1f5f9;
     color: #334155;
-    padding: 2px 7px;
+    padding: 2px 8px;
     border-radius: 12px;
     text-transform: uppercase;
   }
 
   .p1-title {
-    font-size: 18.5px;
-    font-weight: 800;
+    font-family: 'Lora', Georgia, serif;
+    font-size: 20px;
+    font-weight: 700;
     color: #0f2b48;
-    line-height: 1.22;
-    margin-bottom: 4px;
+    line-height: 1.2;
+    margin: 4px 0 6px 0;
+  }
+
+  .p1-subheading-box {
+    border-left: 3px solid #b45309;
+    padding: 3px 0 3px 8px;
+    margin-bottom: 6px;
+    font-family: 'Lora', Georgia, serif;
+    font-size: 10.5px;
+    font-style: italic;
+    color: #92400e;
+    line-height: 1.35;
   }
 
   .p1-meta-line {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 8.5px;
+    font-size: 8px;
     color: #64748b;
     border-bottom: 1.5px solid #0f2b48;
     padding-bottom: 4px;
+    margin-bottom: 8px;
   }
 
   .p1-layout-grid {
     display: grid;
     grid-template-columns: 1fr 58mm;
     gap: 8mm;
-    margin-top: 8px;
     flex-grow: 1;
   }
 
-  /* Left Editorial Column */
+  /* Editorial Column with Drop-Cap */
   .p1-left-col {
     display: flex;
     flex-direction: column;
@@ -125,20 +138,42 @@
   }
 
   .p1-article-body {
-    font-size: 9.8px;
-    line-height: 1.56;
+    font-family: 'Lora', Georgia, serif;
+    font-size: 10px;
+    line-height: 1.62;
     color: #1e293b;
     text-align: justify;
   }
   .p1-article-body p {
-    margin-bottom: 9px;
+    margin-bottom: 10px;
   }
-  .p1-article-body strong {
+
+  /* Big Drop-Cap Letter */
+  .p1-article-body p:first-of-type::first-letter {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 38px;
+    line-height: 0.8;
+    float: left;
+    padding-right: 6px;
+    padding-top: 4px;
+    color: #92400e;
+    font-weight: 700;
+  }
+
+  /* Highlighted Vocabulary in Passage */
+  .vocab-hl {
     font-weight: 700;
     color: #0f2b48;
-    background: #e0f2fe;
-    padding: 0 3px;
-    border-radius: 2px;
+    border-bottom: 2px solid #b45309;
+    padding-bottom: 0px;
+    display: inline;
+  }
+  .vocab-hl sup {
+    font-family: 'Inter', sans-serif;
+    font-size: 7.5px;
+    color: #b45309;
+    font-weight: 800;
+    margin-left: 1.5px;
   }
 
   .p1-article-footer-note {
@@ -147,14 +182,14 @@
     font-style: italic;
     border-top: 1px dashed #cbd5e1;
     padding-top: 4px;
-    margin-top: 4px;
+    margin-top: 6px;
   }
 
-  /* Right Vocabulary 101 Column */
+  /* Right Sidebar: Vocabulary 101 */
   .p1-sidebar {
     border: 1px solid #cbd5e1;
     border-radius: 6px;
-    background: #ffffff;
+    background: #fcfcfd;
     padding: 7px 8px;
     display: flex;
     flex-direction: column;
@@ -167,7 +202,7 @@
     gap: 5px;
     border-bottom: 1.5px solid #0f2b48;
     padding-bottom: 4px;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
   }
   .p1-sidebar-header span {
     font-size: 9.5px;
@@ -231,7 +266,7 @@
   }
 
   /* =========================================================
-     PAGE 2: EDITORIAL ANALYSIS, VOCABULARY & GRAMMAR LAB
+     PAGE 2: EDITORIAL ANALYSIS & VOCABULARY LAB
      ========================================================= */
   .p2-header {
     display: flex;
@@ -252,7 +287,7 @@
     color: #64748b;
   }
 
-  /* Editorial Analysis Card on Page 2 */
+  /* Editorial Stance & Analysis Box */
   .p2-analysis-card {
     background: #f0f7ff;
     border: 1px solid #bfdbfe;
@@ -278,12 +313,12 @@
     color: #ffffff;
     font-size: 7.5px;
     font-weight: 700;
-    padding: 1px 6px;
+    padding: 1px 7px;
     border-radius: 10px;
     text-transform: uppercase;
   }
   .p2-analysis-text {
-    font-size: 8.2px;
+    font-size: 8.3px;
     color: #1e3a8a;
     line-height: 1.35;
     font-style: italic;
@@ -415,10 +450,10 @@
     font-weight: 700;
   }
 
-  /* 4-Box Applied Grammar Matrix */
+  /* Dynamic Auto-Fit Grammar Matrix */
   .p2-grammar-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(47%, 1fr));
     gap: 6px;
     margin-bottom: 6px;
   }
@@ -483,6 +518,9 @@
         <span class="p1-topic-chip">{{ art.topic }}</span>
       </div>
       <h1 class="p1-title">{{ art.title }}</h1>
+      {% if art.subtitle %}
+      <div class="p1-subheading-box">{{ art.subtitle }}</div>
+      {% endif %}
       <div class="p1-meta-line">
         <span>📅 {{ data.date_scraped }} &nbsp;|&nbsp; ⏱ {{ art.reading_time }}</span>
         <span>Daily Editorial Reader</span>
@@ -523,7 +561,7 @@
 
         <div class="p1-cta-card">
           <div class="p1-cta-title">🔔 Daily Revision</div>
-          <div style="font-size: 7.2px; color: #713f12;">Revise in-depth definitions and grammar on Page {{ art.page_p2 }}.</div>
+          <div style="font-size: 7.2px; color: #713f12;">Detailed definitions &amp; grammar rules on Page {{ art.page_p2 }}.</div>
           <a href="https://t.me/EzEditorials" class="p1-cta-btn">✈ Join Ez Editorials</a>
         </div>
       </div>
@@ -532,13 +570,13 @@
 
   <div class="page-footer">
     <span>Ez Editorial Daily Series · {{ data.date_scraped }}</span>
-    <span>Reading &amp; Comprehension Module</span>
+    <span>{{ art.newspaper }} · {{ art.topic }}</span>
     <span>Page {{ art.page_p1 }}</span>
   </div>
 </div>
 
 <!-- =========================================================
-     PAGE 2: EDITORIAL ANALYSIS, VOCABULARY & GRAMMAR LAB
+     PAGE 2: EDITORIAL ANALYSIS & VOCABULARY LAB
      ========================================================= -->
 <div class="page">
   <div>
@@ -550,7 +588,7 @@
       <div class="p2-header-sub">{{ art.newspaper }} &nbsp;·&nbsp; {{ art.topic }}</div>
     </div>
 
-    <!-- Redesigned Analysis & Tone Header Box -->
+    <!-- Editorial Analysis Box -->
     <div class="p2-analysis-card">
       <div class="p2-analysis-header">
         <span class="p2-analysis-title">Editorial Stance &amp; Summary</span>
@@ -594,8 +632,9 @@
       {% endfor %}
     </div>
 
-    <!-- 4-Box Applied Grammar Matrix -->
+    <!-- Dynamic Applied Grammar Matrix (Only renders non-empty sections) -->
     <div class="p2-grammar-grid">
+      {% if art.categorized_vocab.fixed_prepositions %}
       <div class="p2-card">
         <h3>Fixed Prepositions</h3>
         {% for fp in art.categorized_vocab.fixed_prepositions %}
@@ -603,11 +642,10 @@
           <strong>{{ fp.word_or_phrase }}</strong> (<span class="devanagari">{{ fp.hindi_meaning }}</span>): {{ fp.concise_meaning }}
         </div>
         {% endfor %}
-        {% if not art.categorized_vocab.fixed_prepositions %}
-        <div class="p2-card-item" style="color:#94a3b8; font-style:italic;">No fixed prepositions in this editorial.</div>
-        {% endif %}
       </div>
+      {% endif %}
 
+      {% if art.categorized_vocab.phrasal_verbs %}
       <div class="p2-card">
         <h3>Phrasal Verbs</h3>
         {% for pv in art.categorized_vocab.phrasal_verbs %}
@@ -615,11 +653,10 @@
           <strong>{{ pv.word_or_phrase }}</strong> (<span class="devanagari">{{ pv.hindi_meaning }}</span>): {{ pv.concise_meaning }}
         </div>
         {% endfor %}
-        {% if not art.categorized_vocab.phrasal_verbs %}
-        <div class="p2-card-item" style="color:#94a3b8; font-style:italic;">No phrasal verbs in this editorial.</div>
-        {% endif %}
       </div>
+      {% endif %}
 
+      {% if art.categorized_vocab.one_word_subs %}
       <div class="p2-card">
         <h3>One-Word Substitutions</h3>
         {% for ows in art.categorized_vocab.one_word_subs %}
@@ -627,27 +664,35 @@
           <strong>{{ ows.word_or_phrase }}</strong> (<span class="devanagari">{{ ows.hindi_meaning }}</span>): {{ ows.concise_meaning }}
         </div>
         {% endfor %}
-        {% if not art.categorized_vocab.one_word_subs %}
-        <div class="p2-card-item" style="color:#94a3b8; font-style:italic;">No substitutions in this editorial.</div>
-        {% endif %}
       </div>
+      {% endif %}
 
+      {% if art.categorized_vocab.idioms %}
       <div class="p2-card">
-        <h3>Idioms &amp; Foreign Terms</h3>
-        {% for idm in art.categorized_vocab.idioms_and_foreign %}
+        <h3>Idioms &amp; Phrases</h3>
+        {% for idm in art.categorized_vocab.idioms %}
         <div class="p2-card-item">
           <strong>{{ idm.word_or_phrase }}</strong> (<span class="devanagari">{{ idm.hindi_meaning }}</span>): {{ idm.concise_meaning }}
         </div>
         {% endfor %}
-        {% if not art.categorized_vocab.idioms_and_foreign %}
-        <div class="p2-card-item" style="color:#94a3b8; font-style:italic;">No idioms/foreign terms in this editorial.</div>
-        {% endif %}
       </div>
+      {% endif %}
+
+      {% if art.categorized_vocab.foreign_words %}
+      <div class="p2-card">
+        <h3>Foreign Words</h3>
+        {% for fw in art.categorized_vocab.foreign_words %}
+        <div class="p2-card-item">
+          <strong>{{ fw.word_or_phrase }}</strong> (<span class="devanagari">{{ fw.hindi_meaning }}</span>): {{ fw.concise_meaning }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
     </div>
 
-    <!-- Study Tip Banner -->
+    <!-- Bottom Study Tip Box -->
     <div class="p2-study-tip">
-      <strong>Study Tip:</strong> Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.
+      <strong>Study Tip:</strong> Pay special attention to the fixed prepositions and contextual connotation tags when solving Cloze Tests, Error Detection, and Sentence Fillers.
     </div>
   </div>
 

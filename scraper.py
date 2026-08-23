@@ -98,7 +98,14 @@ def get_hindu_editorials():
 def get_indian_express_editorials():
     print("📰 Fetching The Indian Express...")
 
-    rss_url = "https://indianexpress.com/section/opinion/editorials/feed/"
+    # Use Google News RSS only for DISCOVERY.
+    # It provides links to the latest Indian Express editorials
+    # without directly requesting Indian Express's blocked RSS.
+    rss_url = (
+        "https://news.google.com/rss/search?"
+        "q=site%3Aindianexpress.com%2Farticle%2Fopinion%2Feditorials%2F"
+        "&hl=en-IN&gl=IN&ceid=IN%3Aen"
+    )
 
     headers = {
         "User-Agent": (
@@ -118,55 +125,74 @@ def get_indian_express_editorials():
         )
         resp.raise_for_status()
 
-        print(f"   📡 RSS status: {resp.status_code}")
-        print(f"   📦 RSS size: {len(resp.content)} bytes")
-
         soup = BeautifulSoup(resp.content, "xml")
         items = soup.find_all("item")
 
-        print(f"   📰 RSS items found: {len(items)}")
+        print(f"   📡 Google News items found: {len(items)}")
 
     except Exception as e:
-        print(f"⚠️ Failed to fetch The Indian Express RSS: {e}")
+        print(f"⚠️ Failed to fetch Indian Express discovery feed: {e}")
         return []
 
     articles = []
+    seen_urls = set()
 
     for item in items[:10]:
 
-        link = item.find("link").get_text(strip=True) if item.find("link") else ""
-        title = item.find("title").get_text(strip=True) if item.find("title") else ""
+        title_tag = item.find("title")
+        link_tag = item.find("link")
+        pub_date_tag = item.find("pubDate")
+
+        title = title_tag.get_text(strip=True) if title_tag else ""
+        link = link_tag.get_text(strip=True) if link_tag else ""
         pub_date = (
-            item.find("pubDate").get_text(strip=True)
-            if item.find("pubDate")
+            pub_date_tag.get_text(strip=True)
+            if pub_date_tag
             else ""
         )
 
+        # Google News may append the publication name to the title.
+        title = re.sub(
+            r"\s*-\s*The Indian Express\s*$",
+            "",
+            title,
+            flags=re.IGNORECASE
+        ).strip()
+
         print(f"   🔎 {title}")
         print(f"      URL: {link}")
-        print(f"      RSS date: {pub_date}")
+        print(f"      Date: {pub_date}")
 
         if not link:
-            print("      ⚠️ Skipped: no URL")
+            print("      ⚠️ No URL")
             continue
 
-        # ---------------------------------------------------------
-        # IMPORTANT:
-        # Do NOT reject the article solely because RSS pubDate
-        # cannot be parsed by is_recent_editorial().
-        # ---------------------------------------------------------
-        if pub_date:
-            try:
-                is_recent = is_recent_editorial(pub_date)
-                print(f"      🕒 Recent check: {is_recent}")
-            except Exception as e:
-                print(f"      ⚠️ Date check failed: {e}")
+        # Make sure it is actually an Indian Express editorial.
+        if "indianexpress.com/article/opinion/editorials/" not in link:
+            print("      ⚠️ Not an Indian Express editorial")
+            continue
 
-        # Extract actual article body
+        link = link.split("?")[0]
+
+        if link in seen_urls:
+            continue
+
+        seen_urls.add(link)
+
+        # First try the normal article URL.
         text, r_time = scrape_speedreader_mode(link)
 
+        # If normal page fails, try Indian Express Lite.
         if not text:
-            print("      ⚠️ Body extraction failed")
+            lite_url = link.rstrip("/") + "/lite/"
+            print("      🔄 Trying Lite URL...")
+            text, r_time = scrape_speedreader_mode(lite_url)
+
+            if text:
+                link = lite_url
+
+        if not text:
+            print("      ⚠️ Article body extraction failed")
             continue
 
         if len(text) <= 150:
@@ -184,7 +210,6 @@ def get_indian_express_editorials():
 
         print(f"      ✅ Extracted {len(text)} characters")
 
-        # Keep only the best two successful articles
         if len(articles) >= 2:
             break
 

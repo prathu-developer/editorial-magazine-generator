@@ -96,84 +96,66 @@ def get_hindu_editorials():
     return articles
 
 def resolve_google_news_url(google_url):
-    """Resolve a Google News RSS article URL to the original publisher URL."""
+    """Resolve Google News RSS URL to the original publisher URL."""
     try:
-        headers = {
-            "User-Agent": (
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/139.0 Safari/537.36"
-            )
-        }
+        # Extract the Google News article GUID directly from the URL.
+        guid = google_url.split("/rss/articles/")[1].split("?")[0]
 
-        resp = requests.get(
-            google_url,
-            headers=headers,
-            timeout=20
+        payload_data = (
+            '["garturlreq",'
+            '[["en-US","US",'
+            '["FINANCE_TOP_INDICES","WEB_TEST_1_0_0"],'
+            'null,null,1,1,"US:en",null,null,null,null,null,null,null,0,5],'
+            '"en-US","US",true,[2,4,8],1,true,"661099999",0,0,null,0],'
+            f'{{"{guid}"}}]'
         )
-        resp.raise_for_status()
-
-        soup = BeautifulSoup(resp.text, "html.parser")
-
-        # Google News embeds the article-resolution data here.
-        c_wiz = soup.select_one("c-wiz[data-p]")
-
-        if not c_wiz:
-            print("      ⚠️ Google resolution data not found")
-            return ""
-
-        data_p = c_wiz.get("data-p")
-
-        if not data_p:
-            print("      ⚠️ Google data-p is empty")
-            return ""
-
-        # Google's internal resolution request.
-        obj = json.loads(data_p)
 
         payload = {
             "f.req": json.dumps([
                 [
                     [
                         "Fbv4je",
-                        json.dumps(obj),
-                        None,
+                        payload_data,
+                        "null",
                         "generic"
                     ]
                 ]
             ])
         }
 
-        post_headers = {
+        headers = {
             "Content-Type": (
                 "application/x-www-form-urlencoded;charset=UTF-8"
             ),
-            "User-Agent": headers["User-Agent"],
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/139.0 Safari/537.36"
+            ),
         }
 
-        resolve_url = (
-            "https://news.google.com/_/DotsSplashUi/"
-            "data/batchexecute"
-        )
-
         response = requests.post(
-            resolve_url,
-            headers=post_headers,
+            "https://news.google.com/_/DotsSplashUi/data/batchexecute",
+            headers=headers,
             data=payload,
             timeout=20
         )
+
         response.raise_for_status()
 
-        # Find an Indian Express URL in Google's response.
-        matches = re.findall(
-            r'https?://(?:www\.)?indianexpress\.com/[^"\\\s]+',
-            response.text
-        )
+        # Google prefixes its response with )]}'
+        response_text = response.text.replace(")]}'", "", 1)
 
-        if matches:
-            return matches[0].replace("\\u003d", "=").replace("\\u0026", "&")
+        outer = json.loads(response_text)
 
-        print("      ⚠️ Indian Express URL not found in Google response")
+        article_json = outer[0][2]
+        article_data = json.loads(article_json)
+
+        real_url = article_data[1]
+
+        if real_url and real_url.startswith("http"):
+            return real_url
+
         return ""
 
     except Exception as e:

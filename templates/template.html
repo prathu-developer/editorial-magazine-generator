@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 
   @page {
-    size: A4 portrait;
+    size: 210mm 297mm;
     margin: 0;
   }
 
@@ -20,7 +20,7 @@
 
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #f1f5f9;
+    background-color: #ffffff;
     color: #0f172a;
   }
 
@@ -40,113 +40,98 @@
     overflow: hidden;
   }
 
-  /* =========================================================
-     PAGE 1: EDITORIAL READER & SIDEBAR VOCABULARY
-     ========================================================= */
+  /* ---------------------------------------------------------
+     PAGE 1: EDITORIAL READER & SIDEBAR
+     --------------------------------------------------------- */
   .p1-header {
     margin-bottom: 8px;
   }
-  .p1-header-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 8.5px;
-    font-weight: 800;
-    color: #1e3a8a;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .p1-header-tag svg {
-    width: 12px;
-    height: 12px;
-    fill: #2563eb;
-  }
-  .p1-title {
-    font-size: 20px;
-    font-weight: 800;
-    color: #0d2346;
-    line-height: 1.22;
-    letter-spacing: -0.3px;
-    margin-bottom: 6px;
-  }
-  .p1-meta-bar {
+  .p1-top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 9px;
+    margin-bottom: 4px;
+  }
+  .p1-newspaper-tag {
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+  }
+  .tag-hindu { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .tag-express { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+  .p1-topic-chip {
+    font-size: 8px;
+    font-weight: 700;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 2px 6px;
+    border-radius: 12px;
+    text-transform: uppercase;
+  }
+
+  .p1-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #0f2b48;
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+    margin-bottom: 5px;
+  }
+
+  .p1-meta-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5px;
     color: #64748b;
     border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 6px;
-    margin-bottom: 8px;
-  }
-  .p1-meta-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .p1-share-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    padding: 2px 8px;
-    border: 1px solid #cbd5e1;
-    border-radius: 12px;
-    font-size: 8.5px;
-    font-weight: 600;
-    color: #334155;
-    background: #ffffff;
+    padding-bottom: 5px;
+    margin-bottom: 7px;
   }
 
   .p1-layout-grid {
     display: grid;
-    grid-template-columns: 1fr 58mm;
-    gap: 8mm;
+    grid-template-columns: 1fr 56mm;
+    gap: 7mm;
     height: calc(100% - 38mm);
   }
 
-  /* Left Column: Reader */
+  /* Left Editorial Column */
   .p1-left-col {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 6px;
   }
-  .p1-hero-image {
-    width: 100%;
-    height: 130px;
-    object-fit: cover;
-    border-radius: 6px;
+
+  .p1-analysis-card {
+    background: #f8fafc;
     border: 1px solid #e2e8f0;
+    border-left: 3px solid #0284c7;
+    border-radius: 4px;
+    padding: 6px 8px;
   }
-  .p1-quote-box {
-    background: #f0f7ff;
-    border-radius: 6px;
-    padding: 8px 12px;
-    display: flex;
-    gap: 8px;
-    align-items: flex-start;
+  .p1-tone-badge {
+    display: inline-block;
+    font-size: 7.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #0369a1;
+    margin-bottom: 2px;
   }
-  .p1-quote-icon {
-    font-size: 20px;
-    line-height: 1;
-    color: #1e3a8a;
-    font-family: 'Merriweather', serif;
-    font-weight: 700;
-  }
-  .p1-quote-text {
-    font-family: 'Merriweather', serif;
-    font-size: 9px;
+  .p1-analysis-text {
+    font-size: 8px;
+    color: #334155;
+    line-height: 1.35;
     font-style: italic;
-    color: #1e3a8a;
-    line-height: 1.45;
   }
-  .p1-quote-text strong {
-    font-style: normal;
-    text-decoration: underline;
-  }
+
   .p1-article-body {
-    font-size: 8.9px;
-    line-height: 1.46;
+    font-size: 8.7px;
+    line-height: 1.44;
     color: #1e293b;
     text-align: justify;
   }
@@ -155,21 +140,18 @@
   }
   .p1-article-body strong {
     font-weight: 700;
-    color: #0f172a;
-  }
-  .p1-article-footer {
-    margin-top: auto;
-    font-size: 8px;
-    color: #64748b;
-    line-height: 1.35;
+    color: #0f2b48;
+    background: #e0f2fe;
+    padding: 0 2px;
+    border-radius: 2px;
   }
 
-  /* Right Column: Vocabulary 101 */
+  /* Right Vocabulary 101 Column */
   .p1-sidebar {
     border: 1px solid #e2e8f0;
-    border-radius: 8px;
+    border-radius: 6px;
     background: #ffffff;
-    padding: 8px 10px;
+    padding: 6px 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -177,20 +159,15 @@
   .p1-sidebar-header {
     display: flex;
     align-items: center;
-    gap: 6px;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 5px;
-    margin-bottom: 6px;
-  }
-  .p1-sidebar-header svg {
-    width: 14px;
-    height: 14px;
-    fill: #1e3a8a;
+    gap: 5px;
+    border-bottom: 1.5px solid #0f2b48;
+    padding-bottom: 4px;
+    margin-bottom: 5px;
   }
   .p1-sidebar-header span {
-    font-size: 9.5px;
+    font-size: 9px;
     font-weight: 800;
-    color: #1e3a8a;
+    color: #0f2b48;
     letter-spacing: 0.5px;
     text-transform: uppercase;
   }
@@ -198,11 +175,11 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3.5px;
   }
   .p1-vocab-item {
-    font-size: 8.3px;
-    line-height: 1.2;
+    font-size: 7.8px;
+    line-height: 1.15;
   }
   .p1-vocab-item-top {
     color: #0f172a;
@@ -213,35 +190,27 @@
   .p1-vocab-item-top .pos {
     color: #64748b;
     font-weight: 500;
-    font-size: 7.8px;
+    font-size: 7px;
   }
   .p1-vocab-item-def {
-    color: #475569;
-    padding-left: 12px;
-    font-size: 7.8px;
+    color: #047857;
+    font-weight: 600;
+    padding-left: 10px;
+    font-size: 7.4px;
   }
 
   .p1-cta-card {
     background: #fefce8;
     border: 1px solid #fef08a;
-    border-radius: 6px;
-    padding: 6px 8px;
-    margin-top: 6px;
+    border-radius: 4px;
+    padding: 5px 6px;
+    margin-top: 4px;
   }
   .p1-cta-title {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 8.5px;
+    font-size: 7.8px;
     font-weight: 800;
     color: #854d0e;
-    margin-bottom: 2px;
-  }
-  .p1-cta-text {
-    font-size: 7.5px;
-    color: #713f12;
-    line-height: 1.25;
-    margin-bottom: 5px;
+    margin-bottom: 1px;
   }
   .p1-cta-btn {
     display: block;
@@ -249,78 +218,54 @@
     background: #0f2b48;
     color: #ffffff;
     text-align: center;
-    font-size: 8px;
+    font-size: 7.5px;
     font-weight: 700;
-    padding: 3.5px 0;
-    border-radius: 4px;
+    padding: 3px 0;
+    border-radius: 3px;
     text-decoration: none;
+    margin-top: 3px;
   }
 
-  /* =========================================================
-     PAGE 2: DETAILED VOCABULARY BREAKDOWN TABLE
-     ========================================================= */
-  .p2-header-container {
+  /* ---------------------------------------------------------
+     PAGE 2: DETAILED VOCABULARY & GRAMMAR LAB
+     --------------------------------------------------------- */
+  .p2-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1.5px solid #0f2b48;
-    padding-bottom: 6px;
-    margin-bottom: 8px;
+    align-items: flex-end;
+    border-bottom: 2px solid #0f2b48;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
   }
-  .p2-header-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .p2-header-icon-box {
-    width: 32px;
-    height: 32px;
-    background: #fef3c7;
-    border: 1.5px solid #d97706;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .p2-header-icon-box svg {
-    width: 18px;
-    height: 18px;
-    fill: #b45309;
-  }
-  .p2-header-titles h2 {
+  .p2-header-title {
     font-size: 13px;
     font-weight: 800;
     color: #0f2b48;
-    line-height: 1.1;
+    letter-spacing: -0.2px;
   }
-  .p2-header-titles span {
-    font-size: 8.5px;
+  .p2-header-sub {
+    font-size: 8px;
     font-weight: 600;
     color: #64748b;
   }
-  .p2-header-right {
-    font-size: 8.5px;
-    font-style: italic;
-    color: #475569;
-  }
 
-  /* Vocab Table */
+  /* Table Grid */
   .p2-table-wrapper {
     border: 1px solid #cbd5e1;
-    border-radius: 6px;
+    border-radius: 5px;
     overflow: hidden;
-    margin-bottom: 8px;
+    margin-bottom: 7px;
   }
-  .p2-table-header {
+  .p2-table-head {
     display: grid;
-    grid-template-columns: 28px 1.4fr 2fr 1.6fr 1.6fr;
+    grid-template-columns: 24px 1.4fr 2fr 1.5fr 1.5fr;
     background: #0f2b48;
     color: #ffffff;
-    font-size: 8px;
+    font-size: 7.5px;
     font-weight: 800;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    padding: 6px 8px;
+    padding: 4px 6px;
   }
 
   .p2-vocab-row {
@@ -331,132 +276,161 @@
     border-bottom: none;
   }
 
-  /* Color themes for 5 rows */
-  .p2-vocab-row.theme-1 { border-left-color: #d97706; }
-  .p2-vocab-row.theme-2 { border-left-color: #059669; }
-  .p2-vocab-row.theme-3 { border-left-color: #2563eb; }
-  .p2-vocab-row.theme-4 { border-left-color: #7c3aed; }
-  .p2-vocab-row.theme-5 { border-left-color: #e11d48; }
+  .p2-vocab-row.t-1 { border-left-color: #d97706; }
+  .p2-vocab-row.t-2 { border-left-color: #059669; }
+  .p2-vocab-row.t-3 { border-left-color: #2563eb; }
+  .p2-vocab-row.t-4 { border-left-color: #7c3aed; }
+  .p2-vocab-row.t-5 { border-left-color: #e11d48; }
+  .p2-vocab-row.t-6 { border-left-color: #0891b2; }
+  .p2-vocab-row.t-7 { border-left-color: #4f46e5; }
+  .p2-vocab-row.t-8 { border-left-color: #d97706; }
 
   .p2-vocab-top {
     display: grid;
-    grid-template-columns: 28px 1.4fr 2fr 1.6fr 1.6fr;
-    padding: 7px 8px 5px 8px;
+    grid-template-columns: 24px 1.4fr 2fr 1.5fr 1.5fr;
+    padding: 5px 6px 3px 6px;
     align-items: flex-start;
   }
-  
+
   .p2-num-badge {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     background: #0f2b48;
     color: #ffffff;
-    font-size: 8.5px;
+    font-size: 7.5px;
     font-weight: 800;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
-  .p2-word-col .word {
-    font-size: 12px;
+
+  .p2-word {
+    font-size: 10.5px;
     font-weight: 800;
+    color: #0f2b48;
     line-height: 1.1;
   }
-  .theme-1 .p2-word-col .word { color: #b45309; }
-  .theme-2 .p2-word-col .word { color: #047857; }
-  .theme-3 .p2-word-col .word { color: #1d4ed8; }
-  .theme-4 .p2-word-col .word { color: #6d28d9; }
-  .theme-5 .p2-word-col .word { color: #be123c; }
-
+  .p2-badges {
+    display: flex;
+    gap: 3px;
+    margin-top: 2px;
+  }
   .p2-pos-pill {
-    display: inline-block;
-    font-size: 7px;
+    font-size: 6.5px;
     font-weight: 800;
-    padding: 1px 5px;
-    border-radius: 10px;
+    padding: 1px 4px;
+    border-radius: 8px;
+    background: #e2e8f0;
+    color: #334155;
     text-transform: uppercase;
-    margin-top: 3px;
-    border: 1px solid currentColor;
   }
-  .theme-1 .p2-pos-pill { color: #d97706; background: #fef3c7; }
-  .theme-2 .p2-pos-pill { color: #059669; background: #ecfdf5; }
-  .theme-3 .p2-pos-pill { color: #2563eb; background: #eff6ff; }
-  .theme-4 .p2-pos-pill { color: #7c3aed; background: #f5f3ff; }
-  .theme-5 .p2-pos-pill { color: #e11d48; background: #fff1f2; }
+  .p2-connot {
+    font-size: 6.5px;
+    font-weight: 800;
+    padding: 1px 4px;
+    border-radius: 8px;
+  }
+  .connot-Positive { background: #dcfce7; color: #166534; }
+  .connot-Negative { background: #fee2e2; color: #991b1b; }
+  .connot-Neutral { background: #f1f5f9; color: #475569; }
 
-  .p2-meaning-col {
-    padding-right: 6px;
-  }
-  .p2-hindi-text {
-    font-size: 10px;
+  .p2-hindi {
+    font-size: 9.5px;
     font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 2px;
+    color: #0369a1;
+    margin-bottom: 1px;
   }
-  .p2-eng-def {
-    font-size: 8px;
+  .p2-def {
+    font-size: 7.5px;
     color: #475569;
-    line-height: 1.3;
-    font-style: italic;
+    line-height: 1.25;
   }
 
-  .p2-syn-col {
-    font-size: 8px;
+  .p2-syns {
+    font-size: 7.5px;
     color: #047857;
     font-weight: 600;
-    line-height: 1.35;
-    padding-right: 6px;
+    line-height: 1.25;
+    padding-right: 4px;
   }
-  .p2-ant-col {
-    font-size: 8px;
+  .p2-ants {
+    font-size: 7.5px;
     color: #b91c1c;
     font-weight: 600;
-    line-height: 1.35;
+    line-height: 1.25;
   }
 
-  .p2-example-box {
-    margin: 0 8px 6px 28px;
-    padding: 3.5px 8px;
-    border-radius: 4px;
-    font-size: 8px;
-    line-height: 1.3;
-    font-style: italic;
-  }
-  .theme-1 .p2-example-box { background: #fffbeb; color: #92400e; }
-  .theme-2 .p2-example-box { background: #f0fdf4; color: #166534; }
-  .theme-3 .p2-example-box { background: #eff6ff; color: #1e40af; }
-  .theme-4 .p2-example-box { background: #faf5ff; color: #581c87; }
-  .theme-5 .p2-example-box { background: #fff1f2; color: #9f1239; }
-
-  .p2-example-box strong {
-    font-style: normal;
-    font-weight: 800;
-    letter-spacing: 0.3px;
-  }
-
-  /* Bottom Study Tip Box */
-  .p2-study-tip {
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
+  .p2-mnemonic-row {
+    margin: 0 6px 4px 24px;
+    padding: 2.5px 6px;
+    border-radius: 3px;
     background: #f8fafc;
-    padding: 6px 10px;
-    font-size: 8px;
-    line-height: 1.35;
-    color: #334155;
+    border: 1px dashed #cbd5e1;
+    font-size: 7.2px;
+    color: #475569;
+    line-height: 1.25;
   }
-  .p2-study-tip-label {
+  .p2-mnemonic-row strong {
+    color: #0f2b48;
+    font-weight: 700;
+  }
+
+  /* 4-Card Grammar Matrix */
+  .p2-grammar-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+  .p2-card {
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #f8fafc;
+    padding: 5px 6px;
+  }
+  .p2-card h3 {
     font-size: 7.5px;
     font-weight: 800;
-    color: #1e3a8a;
-    letter-spacing: 0.5px;
     text-transform: uppercase;
-    margin-bottom: 2px;
+    color: #1e40af;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 2px;
+    margin-bottom: 3px;
+  }
+  .p2-card-item {
+    font-size: 7.2px;
+    line-height: 1.25;
+    margin-bottom: 2.5px;
+    color: #1e293b;
+  }
+  .p2-card-item strong {
+    color: #0f172a;
+  }
+  .p2-card-item .devanagari {
+    color: #0369a1;
+    font-weight: 600;
   }
 
-  .p2-footer {
+  .p2-study-tip {
+    background: #fef3c7;
+    border-left: 3px solid #f59e0b;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 7.5px;
+    line-height: 1.3;
+    color: #78350f;
+  }
+  .p2-study-tip strong {
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #92400e;
+  }
+
+  /* Universal Footers */
+  .page-footer {
     position: absolute;
-    bottom: 6mm;
+    bottom: 5mm;
     left: 12mm;
     right: 12mm;
     display: flex;
@@ -464,150 +438,190 @@
     font-size: 7.5px;
     color: #64748b;
     border-top: 1px solid #e2e8f0;
-    padding-top: 4px;
+    padding-top: 3px;
   }
 </style>
 </head>
 <body>
 
+{% for art in data.articles %}
 <!-- =========================================================
-     PAGE 1: EDITORIAL READER & SIDEBAR LIST
+     PAGE 1: EDITORIAL READER & SIDEBAR
      ========================================================= -->
 <div class="page">
   <div class="p1-header">
-    <div class="p1-header-tag">
-      <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-      TODAY'S EDITORIALS
+    <div class="p1-top-bar">
+      <span class="p1-newspaper-tag {% if 'Hindu' in art.newspaper %}tag-hindu{% else %}tag-express{% endif %}">
+        {{ art.newspaper }}
+      </span>
+      <span class="p1-topic-chip">{{ art.topic }}</span>
     </div>
-    <h1 class="p1-title">{{ data.article.title }}</h1>
-    <div class="p1-meta-bar">
-      <div class="p1-meta-info">
-        <span>📅 {{ data.issue_date }}</span>
-        <span>|</span>
-        <span>🕒 {{ data.article.updated_time }}</span>
-      </div>
-      <div class="p1-share-btn">
-        <span>↗ Share</span>
-      </div>
+    <h1 class="p1-title">{{ art.title }}</h1>
+    <div class="p1-meta-line">
+      <span>📅 {{ data.date_scraped }} | ⏱ {{ art.reading_time }}</span>
+      <span>Daily Editorial Analysis</span>
     </div>
   </div>
 
   <div class="p1-layout-grid">
-    <!-- Left: Editorial Text -->
+    <!-- Left Column: Passage & Analysis -->
     <div class="p1-left-col">
-      {% if data.article.hero_image %}
-      <img src="{{ data.article.hero_image }}" class="p1-hero-image" alt="Editorial Hero">
-      {% endif %}
-
-      <div class="p1-quote-box">
-        <span class="p1-quote-icon">“</span>
-        <div class="p1-quote-text">{{ data.article.quote | safe }}</div>
+      <div class="p1-analysis-card">
+        <span class="p1-tone-badge">Tone: {{ art.analysis.tone }} ({{ art.analysis.tone_simple_explanation }})</span>
+        <div class="p1-analysis-text">{{ art.analysis.analysis_summary }}</div>
       </div>
 
       <div class="p1-article-body">
-        {% for para in data.article.body_paragraphs %}
+        {% for para in art.paragraphs %}
         <p>{{ para | safe }}</p>
         {% endfor %}
       </div>
-
-      <div class="p1-article-footer">
-        <div>Published: {{ data.article.published_time }}</div>
-        <div>Updated: {{ data.article.updated_time }}</div>
-      </div>
     </div>
 
-    <!-- Right: Sidebar Vocabulary 101 -->
+    <!-- Right Column: Quick Vocabulary 101 -->
     <div class="p1-sidebar">
       <div>
         <div class="p1-sidebar-header">
-          <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
           <span>VOCABULARY 101</span>
         </div>
-
         <ul class="p1-vocab-list">
-          {% for item in data.article.quick_vocab %}
+          {% for item in art.all_vocab %}
           <li class="p1-vocab-item">
             <div class="p1-vocab-item-top">
-              <strong>{{ loop.index }}. {{ item.word }}</strong> <span class="pos">({{ item.pos }})</span>
+              <strong>{{ item.order_index }}. {{ item.word_or_phrase }}</strong>
+              <span class="pos">({{ item.part_of_speech }})</span>
             </div>
-            <div class="p1-vocab-item-def">{{ item.meaning }}</div>
+            <div class="p1-vocab-item-def">{{ item.easy_synonym }} · <span class="devanagari">{{ item.hindi_meaning }}</span></div>
           </li>
           {% endfor %}
         </ul>
       </div>
 
       <div class="p1-cta-card">
-        <div class="p1-cta-title">🔔 Stay Updated</div>
-        <div class="p1-cta-text">Join our Telegram channel for daily editorials, quizzes and more!</div>
+        <div class="p1-cta-title">🔔 Daily Revision</div>
+        <div style="font-size: 7px; color: #713f12;">Revise all vocabulary in context on Page {{ art.page_p2 }}.</div>
         <a href="https://t.me/EzEditorials" class="p1-cta-btn">✈ Join Ez Editorials</a>
       </div>
     </div>
   </div>
+
+  <div class="page-footer">
+    <span>Ez Editorial Daily Series · {{ data.date_scraped }}</span>
+    <span>Reading &amp; Comprehension Module</span>
+    <span>Page {{ art.page_p1 }}</span>
+  </div>
 </div>
 
 <!-- =========================================================
-     PAGE 2: DETAILED VOCABULARY BREAKDOWN TABLE
+     PAGE 2: VOCABULARY BREAKDOWN & GRAMMAR LAB
      ========================================================= -->
 <div class="page">
-  <div class="p2-header-container">
-    <div class="p2-header-left">
-      <div class="p2-header-icon-box">
-        <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
-      </div>
-      <div class="p2-header-titles">
-        <h2>{{ data.table_header.title }}</h2>
-        <span>{{ data.table_header.subtitle }}</span>
-      </div>
+  <div class="p2-header">
+    <div>
+      <div class="p2-header-title">Power Vocabulary &amp; Grammar Lab</div>
+      <div class="p2-header-sub">{{ art.title | truncate(55) }}</div>
     </div>
-    <div class="p2-header-right">{{ data.table_header.source_note }}</div>
+    <div class="p2-header-sub">{{ art.newspaper }} · {{ art.topic }}</div>
   </div>
 
+  <!-- Master Table -->
   <div class="p2-table-wrapper">
-    <div class="p2-table-header">
+    <div class="p2-table-head">
       <div>#</div>
       <div>WORD &amp; POS</div>
       <div>MEANING (HINDI &amp; ENGLISH)</div>
-      <div>SYNONYMS (5)</div>
-      <div>ANTONYMS (5)</div>
+      <div>SYNONYMS (UK)</div>
+      <div>ANTONYMS (UK)</div>
     </div>
 
-    {% for item in data.detailed_vocab %}
-    <div class="p2-vocab-row theme-{{ loop.index }}">
+    {% for item in art.categorized_vocab.core_vocab %}
+    <div class="p2-vocab-row t-{{ loop.index }}">
       <div class="p2-vocab-top">
         <div class="p2-num-badge">{{ loop.index }}</div>
-        <div class="p2-word-col">
-          <div class="word">{{ item.word }}</div>
-          <span class="p2-pos-pill">{{ item.pos }}</span>
+        <div>
+          <div class="p2-word">{{ item.word_or_phrase }}</div>
+          <div class="p2-badges">
+            <span class="p2-pos-pill">{{ item.part_of_speech }}</span>
+            <span class="p2-connot connot-{{ item.connotation }}">{{ item.connotation }}</span>
+          </div>
         </div>
-        <div class="p2-meaning-col">
-          <div class="p2-hindi-text devanagari">{{ item.hindi }}</div>
-          <div class="p2-eng-def">Refers to: {{ item.definition }}</div>
+        <div>
+          <div class="p2-hindi devanagari">{{ item.hindi_meaning }}</div>
+          <div class="p2-def">{{ item.concise_meaning }}</div>
         </div>
-        <div class="p2-syn-col">
-          {{ item.synonyms | join(', ') }}
-        </div>
-        <div class="p2-ant-col">
-          {{ item.antonyms | join(', ') }}
-        </div>
+        <div class="p2-syns">{{ item.british_synonyms | join(', ') }}</div>
+        <div class="p2-ants">{{ item.british_antonyms | join(', ') }}</div>
       </div>
-      <div class="p2-example-box">
-        <strong>E.G.</strong> {{ item.example | safe }}
+      <div class="p2-mnemonic-row">
+        <strong>Memory Hook:</strong> {{ item.mnemonic_trick }}
       </div>
     </div>
     {% endfor %}
   </div>
 
-  <div class="p2-study-tip">
-    <div class="p2-study-tip-label">STUDY TIP</div>
-    <div>{{ data.study_tip }}</div>
+  <!-- 4-Card Grammar Matrix -->
+  <div class="p2-grammar-grid">
+    <div class="p2-card">
+      <h3>Fixed Prepositions</h3>
+      {% for fp in art.categorized_vocab.fixed_prepositions %}
+      <div class="p2-card-item">
+        <strong>{{ fp.word_or_phrase }}</strong> (<span class="devanagari">{{ fp.hindi_meaning }}</span>): {{ fp.concise_meaning }}
+      </div>
+      {% endfor %}
+      {% if not art.categorized_vocab.fixed_prepositions %}
+      <div class="p2-card-item" style="color:#94a3b8; font-style:italic;">No fixed prepositions extracted for this issue.</div>
+      {% endif %}
+    </div>
+
+    <div class="p2-card">
+      <h3>Phrasal Verbs</h3>
+      {% for pv in art.categorized_vocab.phrasal_verbs %}
+      <div class="p2-card-item">
+        <strong>{{ pv.word_or_phrase }}</strong> (<span class="devanagari">{{ pv.hindi_meaning }}</span>): {{ pv.concise_meaning }}
+      </div>
+      {% endfor %}
+      {% if not art.categorized_vocab.phrasal_verbs %}
+      <div class="p2-card-item" style="color:#94a3b8; font-style:italic;">No phrasal verbs extracted for this issue.</div>
+      {% endif %}
+    </div>
+
+    <div class="p2-card">
+      <h3>One-Word Substitutions</h3>
+      {% for ows in art.categorized_vocab.one_word_subs %}
+      <div class="p2-card-item">
+        <strong>{{ ows.word_or_phrase }}</strong> (<span class="devanagari">{{ ows.hindi_meaning }}</span>): {{ ows.concise_meaning }}
+      </div>
+      {% endfor %}
+      {% if not art.categorized_vocab.one_word_subs %}
+      <div class="p2-card-item" style="color:#94a3b8; font-style:italic;">No substitutions extracted for this issue.</div>
+      {% endif %}
+    </div>
+
+    <div class="p2-card">
+      <h3>Idioms &amp; Foreign Terms</h3>
+      {% for idm in art.categorized_vocab.idioms_and_foreign %}
+      <div class="p2-card-item">
+        <strong>{{ idm.word_or_phrase }}</strong> (<span class="devanagari">{{ idm.hindi_meaning }}</span>): {{ idm.concise_meaning }}
+      </div>
+      {% endfor %}
+      {% if not art.categorized_vocab.idioms_and_foreign %}
+      <div class="p2-card-item" style="color:#94a3b8; font-style:italic;">No idioms extracted for this issue.</div>
+      {% endif %}
+    </div>
   </div>
 
-  <div class="p2-footer">
-    <span>Ez Editorial Vocabulary Series</span>
-    <span>Page 2 of 2</span>
-    <span>NextGen Aspirants Edition</span>
+  <!-- Study Tip Banner -->
+  <div class="p2-study-tip">
+    <strong>Study Tip:</strong> Pay special attention to the fixed prepositions and contextual connotation tags when solving Cloze Tests and Sentence Fillers.
+  </div>
+
+  <div class="page-footer">
+    <span>Ez Editorial Daily Series · {{ data.date_scraped }}</span>
+    <span>Vocabulary Mastery &amp; Applied Grammar</span>
+    <span>Page {{ art.page_p2 }}</span>
   </div>
 </div>
+{% endfor %}
 
 </body>
 </html>

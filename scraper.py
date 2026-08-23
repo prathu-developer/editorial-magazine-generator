@@ -95,6 +95,91 @@ def get_hindu_editorials():
         
     return articles
 
+def resolve_google_news_url(google_url):
+    """Resolve a Google News RSS article URL to the original publisher URL."""
+    try:
+        headers = {
+            "User-Agent": (
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/139.0 Safari/537.36"
+            )
+        }
+
+        resp = requests.get(
+            google_url,
+            headers=headers,
+            timeout=20
+        )
+        resp.raise_for_status()
+
+        soup = BeautifulSoup(resp.text, "html.parser")
+
+        # Google News embeds the article-resolution data here.
+        c_wiz = soup.select_one("c-wiz[data-p]")
+
+        if not c_wiz:
+            print("      ⚠️ Google resolution data not found")
+            return ""
+
+        data_p = c_wiz.get("data-p")
+
+        if not data_p:
+            print("      ⚠️ Google data-p is empty")
+            return ""
+
+        # Google's internal resolution request.
+        obj = json.loads(data_p)
+
+        payload = {
+            "f.req": json.dumps([
+                [
+                    [
+                        "Fbv4je",
+                        json.dumps(obj),
+                        None,
+                        "generic"
+                    ]
+                ]
+            ])
+        }
+
+        post_headers = {
+            "Content-Type": (
+                "application/x-www-form-urlencoded;charset=UTF-8"
+            ),
+            "User-Agent": headers["User-Agent"],
+        }
+
+        resolve_url = (
+            "https://news.google.com/_/DotsSplashUi/"
+            "data/batchexecute"
+        )
+
+        response = requests.post(
+            resolve_url,
+            headers=post_headers,
+            data=payload,
+            timeout=20
+        )
+        response.raise_for_status()
+
+        # Find an Indian Express URL in Google's response.
+        matches = re.findall(
+            r'https?://(?:www\.)?indianexpress\.com/[^"\\\s]+',
+            response.text
+        )
+
+        if matches:
+            return matches[0].replace("\\u003d", "=").replace("\\u0026", "&")
+
+        print("      ⚠️ Indian Express URL not found in Google response")
+        return ""
+
+    except Exception as e:
+        print(f"      ⚠️ Google URL resolution failed: {e}")
+        return ""
+
 def get_indian_express_editorials():
     print("📰 Fetching The Indian Express...")
 
@@ -154,21 +239,13 @@ def get_indian_express_editorials():
         print(f"      Google URL: {google_link}")
 
         # Resolve Google News redirect to the real article URL.
-        try:
-            article_resp = requests.get(
-                google_link,
-                headers=headers,
-                timeout=20,
-                allow_redirects=True
-            )
+        real_url = resolve_google_news_url(google_link)
 
-            real_url = article_resp.url.split("?")[0]
-
-            print(f"      Real URL: {real_url}")
-
-        except Exception as e:
-            print(f"      ⚠️ Could not resolve URL: {e}")
+        if not real_url:
+            print("      ⚠️ Could not resolve URL")
             continue
+
+        print(f"      Real URL: {real_url}")
 
         # Verify the final destination is actually Indian Express.
         if "indianexpress.com" not in real_url:

@@ -98,129 +98,93 @@ def get_hindu_editorials():
 def get_indian_express_editorials():
     print("📰 Fetching The Indian Express...")
 
-    listing_url = "https://indianexpress.com/section/editorials/"
+    rss_url = "https://indianexpress.com/section/opinion/editorials/feed/"
+
     headers = {
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/139.0 Safari/537.36"
         ),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept": "application/rss+xml, application/xml, text/xml, */*",
         "Accept-Language": "en-IN,en;q=0.9",
     }
 
     try:
         resp = requests.get(
-            listing_url,
+            rss_url,
             headers=headers,
             timeout=20
         )
         resp.raise_for_status()
 
-        soup = BeautifulSoup(resp.text, "html.parser")
+        print(f"   📡 RSS status: {resp.status_code}")
+        print(f"   📦 RSS size: {len(resp.content)} bytes")
+
+        soup = BeautifulSoup(resp.content, "xml")
+        items = soup.find_all("item")
+
+        print(f"   📰 RSS items found: {len(items)}")
 
     except Exception as e:
-        print(f"⚠️ Failed to fetch The Indian Express listing: {e}")
+        print(f"⚠️ Failed to fetch The Indian Express RSS: {e}")
         return []
 
     articles = []
-    seen_urls = set()
 
-    # Current IE editorial listing is ordered newest → oldest.
-    # Find editorial article links directly instead of relying on RSS.
-    for a in soup.find_all("a", href=True):
+    for item in items[:10]:
 
-        href = a.get("href", "").strip()
-
-        if not href:
-            continue
-
-        # Only accept actual Indian Express editorial article URLs.
-        if "/article/opinion/editorials/" not in href:
-            continue
-
-        if href.startswith("/"):
-            href = "https://indianexpress.com" + href
-
-        # Remove tracking/query parameters.
-        href = href.split("?")[0]
-
-        if href in seen_urls:
-            continue
-
-        title = a.get_text(" ", strip=True)
-
-        # Ignore empty / navigation links.
-        if not title or len(title) < 15:
-            continue
-
-        seen_urls.add(href)
-
-        # Try to obtain the date from the surrounding card.
-        parent = a.parent
-        card_text = ""
-
-        for _ in range(5):
-            if parent is None:
-                break
-
-            text = parent.get_text(" ", strip=True)
-
-            if re.search(
-                r"(January|February|March|April|May|June|July|August|"
-                r"September|October|November|December)\s+\d{1,2},\s+\d{4}",
-                text,
-                re.IGNORECASE
-            ):
-                card_text = text
-                break
-
-            parent = parent.parent
-
-        date_match = re.search(
-            r"(January|February|March|April|May|June|July|August|"
-            r"September|October|November|December)\s+"
-            r"\d{1,2},\s+\d{4}",
-            card_text,
-            re.IGNORECASE
+        link = item.find("link").get_text(strip=True) if item.find("link") else ""
+        title = item.find("title").get_text(strip=True) if item.find("title") else ""
+        pub_date = (
+            item.find("pubDate").get_text(strip=True)
+            if item.find("pubDate")
+            else ""
         )
 
-        # We don't rely entirely on the listing date.
-        # The page itself is ordered newest-first.
-        pub_date = date_match.group(0) if date_match else ""
+        print(f"   🔎 {title}")
+        print(f"      URL: {link}")
+        print(f"      RSS date: {pub_date}")
 
-        # Convert the page date into RFC-style text for consistency.
+        if not link:
+            print("      ⚠️ Skipped: no URL")
+            continue
+
+        # ---------------------------------------------------------
+        # IMPORTANT:
+        # Do NOT reject the article solely because RSS pubDate
+        # cannot be parsed by is_recent_editorial().
+        # ---------------------------------------------------------
         if pub_date:
             try:
-                dt = datetime.strptime(pub_date, "%B %d, %Y")
-                dt = dt.replace(tzinfo=IST)
-                pub_date = dt.strftime("%a, %d %b %Y %H:%M:%S +0530")
-            except Exception:
-                pass
+                is_recent = is_recent_editorial(pub_date)
+                print(f"      🕒 Recent check: {is_recent}")
+            except Exception as e:
+                print(f"      ⚠️ Date check failed: {e}")
 
-        print(f"   🔎 Found: {title}")
-
-        # Extract actual article body using your existing engine.
-        text, r_time = scrape_speedreader_mode(href)
+        # Extract actual article body
+        text, r_time = scrape_speedreader_mode(link)
 
         if not text:
-            print(f"   ⚠️ Body extraction failed: {href}")
+            print("      ⚠️ Body extraction failed")
             continue
 
         if len(text) <= 150:
-            print(f"   ⚠️ Body too short: {href}")
+            print(f"      ⚠️ Body too short ({len(text)} chars)")
             continue
 
         articles.append({
             "newspaper": "The Indian Express",
             "title": title,
-            "link": href,
+            "link": link,
             "timestamp": pub_date,
             "reading_time": r_time,
-            "passage": text,
+            "passage": text
         })
 
-        # We only need the first two newest editorials.
+        print(f"      ✅ Extracted {len(text)} characters")
+
+        # Keep only the best two successful articles
         if len(articles) >= 2:
             break
 

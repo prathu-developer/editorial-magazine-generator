@@ -83,11 +83,26 @@ def apply_speedreader(url, newspaper="The Indian Express"):
     try:
         soup = BeautifulSoup(html, 'html.parser')
         
-        # Extract title
+        # 1. Extract title
         h1 = soup.find('h1')
-        raw_title = h1.get_text(strip=True) if h1 else Document(html).title()
-        clean_title = raw_title.split(' - ')[0].split(' | ')[0].strip()
+        if h1:
+            # Strip out nested category badges or spans inside the h1
+            for badge in h1.find_all(['span', 'div', 'a']):
+                badge.decompose()
+            raw_title = h1.get_text(strip=True)
+        else:
+            raw_title = Document(html).title()
 
+        # 2. Clean site branding and prefixes
+        clean_title = raw_title.split(' - ')[0].split(' | ')[0].strip()
+        
+        # Handle cases where "Opinion" was directly glued (e.g., "OpinionOn..." -> "On...")
+        clean_title = re.sub(r'^Opinion([A-Z])', r'\1', clean_title)
+        
+        # Strip standard prefixes like "Opinion:", "Opinion ", "Editorial:"
+        clean_title = re.sub(r'^(Opinion|Editorial)\s*:?\s*', '', clean_title, flags=re.IGNORECASE).strip()
+
+        # 3. Extract passage
         if newspaper == "The Indian Express":
             passage = extract_indian_express_content(html)
         else:

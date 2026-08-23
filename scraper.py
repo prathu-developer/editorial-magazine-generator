@@ -1,6 +1,6 @@
 import requests
-from bs4 import BeautifulSoup
-from readability import Document
+from bs4 import BeautifulSoup # type: ignore
+from readability import Document # type: ignore
 import json
 import re
 from datetime import datetime, timezone, timedelta
@@ -31,7 +31,7 @@ def scrape_speedreader_mode(url):
     try:
         resp = requests.get(url, headers=headers, timeout=15)
         # CRITICAL: Force UTF-8 to strictly preserve em-dashes (—), quotes (“ ”), etc.
-        resp.encoding = 'utf-8' 
+        resp.encoding = resp.apparent_encoding or resp.encoding
         
         doc = Document(resp.text)
         soup = BeautifulSoup(doc.summary(), 'html.parser')
@@ -97,54 +97,142 @@ def get_hindu_editorials():
 
 def get_indian_express_editorials():
     print("📰 Fetching The Indian Express...")
-    rss_url = "https://indianexpress.com/section/opinion/editorials/feed/"
-    
-    # The proven Cloudflare-bypass header from generate_vocab_2.py
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    
+
+    listing_url = "https://indianexpress.com/section/editorials/"
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/139.0 Safari/537.36"
+        ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-IN,en;q=0.9",
+    }
+
     try:
-        resp = requests.get(rss_url, headers=headers, timeout=15)
-        soup = BeautifulSoup(resp.content, 'xml')
-        items = soup.find_all('item')
+        resp = requests.get(
+            listing_url,
+            headers=headers,
+            timeout=20
+        )
+        resp.raise_for_status()
+
+        soup = BeautifulSoup(resp.text, "html.parser")
+
     except Exception as e:
-        print(f"⚠️ Failed to fetch The Indian Express: {e}")
+        print(f"⚠️ Failed to fetch The Indian Express listing: {e}")
         return []
-        
+
     articles = []
-    
-    for item in items[:5]:
-        link = item.find('link').text.strip() if item.find('link') else ""
-        title = item.find('title').text.strip() if item.find('title') else ""
-        pub_date = item.find('pubDate').text.strip() if item.find('pubDate') else ""
-        
-        if not link or not is_recent_editorial(pub_date):
+    seen_urls = set()
+
+    # Current IE editorial listing is ordered newest → oldest.
+    # Find editorial article links directly instead of relying on RSS.
+    for a in soup.find_all("a", href=True):
+
+        href = a.get("href", "").strip()
+
+        if not href:
             continue
-            
-        text, r_time = scrape_speedreader_mode(link)
-        
-        if text and len(text) > 150: # Safeguard against empty blocks
-            articles.append({
-                "newspaper": "The Indian Express",
-                "title": title,
-                "link": link,
-                "timestamp": pub_date,
-                "reading_time": r_time,
-                "passage": text,
-                "length": len(text) # For the Magic Sort
-            })
-            
+
+        # Only accept actual Indian Express editorial article URLs.
+        if "/article/opinion/editorials/" not in href:
+            continue
+
+        if href.startswith("/"):
+            href = "https://indianexpress.com" + href
+
+        # Remove tracking/query parameters.
+        href = href.split("?")[0]
+
+        if href in seen_urls:
+            continue
+
+        title = a.get_text(" ", strip=True)
+
+        # Ignore empty / navigation links.
+        if not title or len(title) < 15:
+            continue
+
+        seen_urls.add(href)
+
+        # Try to obtain the date from the surrounding card.
+        parent = a.parent
+        card_text = ""
+
+        for _ in range(5):
+            if parent is None:
+                break
+
+            text = parent.get_text(" ", strip=True)
+
+            if re.search(
+                r"(January|February|March|April|May|June|July|August|"
+                r"September|October|November|December)\s+\d{1,2},\s+\d{4}",
+                text,
+                re.IGNORECASE
+            ):
+                card_text = text
+                break
+
+            parent = parent.parent
+
+        date_match = re.search(
+            r"(January|February|March|April|May|June|July|August|"
+            r"September|October|November|December)\s+"
+            r"\d{1,2},\s+\d{4}",
+            card_text,
+            re.IGNORECASE
+        )
+
+        # We don't rely entirely on the listing date.
+        # The page itself is ordered newest-first.
+        pub_date = date_match.group(0) if date_match else ""
+
+        # Convert the page date into RFC-style text for consistency.
+        if pub_date:
+            try:
+                dt = datetime.strptime(pub_date, "%B %d, %Y")
+                dt = dt.replace(tzinfo=IST)
+                pub_date = dt.strftime("%a, %d %b %Y %H:%M:%S +0530")
+            except Exception:
+                pass
+
+        print(f"   🔎 Found: {title}")
+
+        # Extract actual article body using your existing engine.
+        text, r_time = scrape_speedreader_mode(href)
+
+        if not text:
+            print(f"   ⚠️ Body extraction failed: {href}")
+            continue
+
+        if len(text) <= 150:
+            print(f"   ⚠️ Body too short: {href}")
+            continue
+
+        articles.append({
+            "newspaper": "The Indian Express",
+            "title": title,
+            "link": href,
+            "timestamp": pub_date,
+            "reading_time": r_time,
+            "passage": text,
+        })
+
+        # We only need the first two newest editorials.
+        if len(articles) >= 2:
+            break
+
     if len(articles) == 0:
-        print("⚠️ The Indian Express: 0 recent articles found.")
-        
-    # The Magic Sort from generate_vocab_2.py
-    articles.sort(key=lambda x: x["length"], reverse=True)
-    top_2 = articles[:2]
-    
-    # Clean up the temporary key
-    for article in top_2:
-        del article["length"]
-        
-    return top_2
+        print("⚠️ The Indian Express: 0 editorials extracted.")
+    else:
+        print(
+            f"✅ The Indian Express: "
+            f"{len(articles)} editorials extracted."
+        )
+
+    return articles
 
 def run():
     print(f"🚀 Starting Speedreader pipeline for {TODAY_DATE} (IST)...")

@@ -1,7 +1,6 @@
 import json
 import re
 import subprocess
-import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 from readability import Document
 from datetime import datetime, timezone, timedelta
@@ -11,117 +10,82 @@ TODAY_DATE = datetime.now(IST).date()
 
 HEADERS = [
     "-H", "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "-H", "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-    "-H", "Accept-Language: en-US,en;q=0.9",
-    "-H", "Sec-Fetch-Dest: document",
-    "-H", "Sec-Fetch-Mode: navigate",
-    "-H", "Sec-Fetch-Site: none",
-    "-H", "Sec-Fetch-User: ?1",
-    "-H", "Upgrade-Insecure-Requests: 1"
+    "-H", "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "-H", "Accept-Language: en-US,en;q=0.9"
 ]
 
-def fetch_html(url, use_jina_fallback=True):
-    """Fetches URL using cURL, falling back to Jina Reader if blocked by Cloudflare."""
+def fetch_hindu_html(url):
+    """Direct fetch for The Hindu (works reliably on runner IPs)."""
     try:
         cmd = ["curl", "-sL", "--compressed", "-m", "20"] + HEADERS + [url]
         result = subprocess.run(cmd, capture_output=True, timeout=25)
-        html = result.stdout.decode('utf-8', errors='ignore')
-
-        # Detect Cloudflare challenge / block
-        is_blocked = (
-            not html.strip()
-            or "Just a moment..." in html
-            or "Attention Required! | Cloudflare" in html
-            or "<title>Access Denied</title>" in html
-            or "Cloudflare Ray ID" in html
-        )
-
-        if is_blocked and use_jina_fallback:
-            print(f"⚠️ Direct request blocked by firewall for {url}. Routing via Jina Reader proxy...")
-            jina_url = f"https://r.jina.ai/{url}"
-            cmd_jina = ["curl", "-sL", "-m", "25", "-H", "X-Return-Format: html", jina_url]
-            res_jina = subprocess.run(cmd_jina, capture_output=True, timeout=30)
-            html = res_jina.stdout.decode('utf-8', errors='ignore')
-
-        return html
+        return result.stdout.decode('utf-8', errors='ignore')
     except Exception as e:
-        print(f"⚠️ Fetch error for {url}: {e}")
+        print(f"⚠️ Hindu fetch error for {url}: {e}")
         return ""
 
-def extract_indian_express_body(soup, raw_html=""):
-    """Extracts text from Indian Express JSON-LD metadata, Jina markdown, or DOM."""
-    # Method 1: Check JSON-LD metadata schema
-    for script in soup.find_all('script', type='application/ld+json'):
-        try:
-            data = json.loads(script.string or '')
-            items = data if isinstance(data, list) else [data]
-            for item in items:
-                if item.get('@type') in ['NewsArticle', 'OpinionNewsArticle', 'Article'] and 'articleBody' in item:
-                    return item['articleBody'].strip()
-        except Exception:
-            continue
+def fetch_jina_markdown(url):
+    """Fetches via Jina Reader edge proxy to bypass Cloudflare bot protection."""
+    try:
+        jina_url = f"https://r.jina.ai/{url}"
+        cmd = ["curl", "-sL", "-m", "25", jina_url]
+        result = subprocess.run(cmd, capture_output=True, timeout=30)
+        return result.stdout.decode('utf-8', errors='ignore')
+    except Exception as e:
+        print(f"⚠️ Jina fetch error for {url}: {e}")
+        return ""
 
-    # Method 2: DOM container selectors
-    selectors = [
-        '#pcl-full-content',
-        '.story-details',
-        '.full-details',
-        'div[itemprop="articleBody"]',
-        '.story_details'
-    ]
-    for selector in selectors:
-        container = soup.select_one(selector)
-        if container:
-            paras = [
-                p.get_text(strip=True) for p in container.find_all('p')
-                if p.get_text(strip=True) and not p.find_parent('div', class_=re.compile(r'ad|social|newsletter', re.I))
-            ]
-            if len(paras) >= 2:
-                return "\n\n".join(paras)
-
-    # Method 3: Fallback to plain paragraphs if fetched via proxy
-    all_paras = [p.get_text(strip=True) for p in soup.find_all('p') if len(p.get_text(strip=True)) > 40]
-    if len(all_paras) >= 3:
-        return "\n\n".join(all_paras)
-
-    return ""
-
-def apply_speedreader(url, newspaper):
-    """Extracts clean title, body passage, and reading time."""
-    html = fetch_html(url)
-    if not html:
+def parse_jina_article(raw_markdown):
+    """Parses clean title and body text from Jina reader output."""
+    if not raw_markdown or "Just a moment..." in raw_markdown:
         return "", "", ""
 
-    try:
-        soup = BeautifulSoup(html, 'html.parser')
-        
-        # Determine Title
-        doc = Document(html)
-        raw_title = doc.title() or (soup.find('h1').get_text(strip=True) if soup.find('h1') else "")
-        clean_title = raw_title.split(' - ')[0].split(' | ')[0].strip()
+    lines = raw_markdown.splitlines()
+    title = ""
+    content_lines = []
+    is_content = False
 
-        # Readability extraction
+    for line in lines:
+        if line.startswith("Title:"):
+            title = line.replace("Title:", "").strip()
+        elif "Markdown Content:" in line:
+            is_content = True
+            continue
+        elif is_content:
+            # Filter out boilerplate, social sharing, and ad footer lines
+            lowered = line.lower()
+            if any(term in lowered for term in ["join our telegram", "click here to join", "ie_social", "express investigation"]):
+                continue
+            content_lines.append(line)
+
+    passage = "\n".join(content_lines).strip()
+    passage = re.sub(r'\n{3,}', '\n\n', passage)
+
+    if not title and passage:
+        title = passage.splitlines()[0].strip('# ')
+
+    words = len(passage.split())
+    r_time = f"{max(1, round(words / 200))} min read"
+    return title, passage, r_time
+
+def apply_readability(html):
+    """Applies readability engine to raw HTML for The Hindu."""
+    try:
+        doc = Document(html)
+        clean_title = doc.title().split(' - ')[0].split(' | ')[0].strip()
         summary_soup = BeautifulSoup(doc.summary(), 'html.parser')
         passage = summary_soup.get_text(separator='\n\n', strip=True)
 
-        # Fallback if readability was stripped by custom CMS tags
-        if len(passage) < 300:
-            if newspaper == "The Indian Express":
-                fallback_passage = extract_indian_express_body(soup, html)
-                if len(fallback_passage) >= 300:
-                    passage = fallback_passage
-
         words = len(passage.split())
         r_time = f"{max(1, round(words / 200))} min read"
-
         return clean_title, passage, r_time
     except Exception as e:
-        print(f"⚠️ Parser error for {url}: {e}")
+        print(f"⚠️ Readability error: {e}")
         return "", "", ""
 
 def get_hindu_editorials():
     print("📰 Visiting The Hindu Editorial Section...")
-    html = fetch_html("https://www.thehindu.com/opinion/editorial/")
+    html = fetch_hindu_html("https://www.thehindu.com/opinion/editorial/")
     soup = BeautifulSoup(html, 'html.parser')
 
     links = []
@@ -134,7 +98,8 @@ def get_hindu_editorials():
 
     articles = []
     for link in links[:5]:
-        title, passage, r_time = apply_speedreader(link, "The Hindu")
+        article_html = fetch_hindu_html(link)
+        title, passage, r_time = apply_readability(article_html)
         if passage and len(passage) > 300:
             print(f"  ✓ Fetched: {title[:50]}...")
             articles.append({
@@ -152,20 +117,24 @@ def get_hindu_editorials():
 
 def get_indian_express_editorials():
     print("📰 Visiting The Indian Express Editorial Section...")
-    html = fetch_html("https://indianexpress.com/section/opinion/editorials/")
+    # Fetch section listing through Jina Reader to avoid Cloudflare challenge
+    section_md = fetch_jina_markdown("https://indianexpress.com/section/opinion/editorials/")
+
+    # Match all full editorial article URLs
+    found_urls = re.findall(r'https://indianexpress\.com/article/opinion/editorials/[a-zA-Z0-9\-_]+/?', section_md)
     
-    # Extract editorial article URLs using regex
-    found_links = re.findall(r'https?://indianexpress\.com/article/opinion/editorials/[a-zA-Z0-9\-_]+/', html)
     links = []
-    for link in found_links:
-        if link not in links and not link.endswith('/editorials/'):
-            links.append(link)
+    for url in found_urls:
+        clean_url = url.rstrip('/') + '/'
+        if clean_url != "https://indianexpress.com/article/opinion/editorials/" and clean_url not in links:
+            links.append(clean_url)
 
     print(f"  ℹ️ Found {len(links)} Indian Express editorial candidate links.")
 
     articles = []
     for link in links[:5]:
-        title, passage, r_time = apply_speedreader(link, "The Indian Express")
+        raw_md = fetch_jina_markdown(link)
+        title, passage, r_time = parse_jina_article(raw_md)
         if passage and len(passage) > 300:
             print(f"  ✓ Fetched: {title[:50]}...")
             articles.append({

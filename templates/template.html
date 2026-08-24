@@ -3,38 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
 
   @page {
     size: 210mm 297mm;
     margin: 0;
   }
 
-  :root {
-    --brand-dark: #091a2f;
-    --brand-accent: #d97706;
-    --brand-accent-light: #fffbeb;
-    --brand-blue: #1d4ed8;
-    --brand-emerald: #059669;
-    --brand-rose: #dc2626;
-    --text-primary: #0f172a;
-    --text-muted: #64748b;
-    --bg-light: #f8fafc;
-    --border-subtle: #e2e8f0;
-  }
-
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    letter-spacing: 0 !important;
+    word-spacing: normal !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: #ffffff;
-    color: var(--text-primary);
+    color: #1e293b;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -44,7 +33,7 @@
   }
 
   .devanagari {
-    font-family: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
   }
 
   .page {
@@ -58,7 +47,7 @@
     overflow: hidden;
   }
 
-  /* Full-bleed Covers */
+  /* Full-bleed Cover Pages */
   .cover-page {
     padding: 0;
     background-size: 100% 100%;
@@ -66,21 +55,22 @@
     background-repeat: no-repeat;
   }
 
-  /* FRONT COVER */
+  /* =========================================================
+     FRONT COVER: DATE STAMP & FOOTER LINKS
+     ========================================================= */
   .front-date-stamp {
     position: absolute;
     top: 15mm;
     right: 14mm;
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--brand-dark);
-    background: rgba(255, 255, 255, 0.96);
-    padding: 5px 14px;
-    border-radius: 6px;
-    border-bottom: 3px solid var(--brand-accent);
+    font-size: 13.5px;
+    font-weight: 900;
+    color: #0f2b48;
+    background: rgba(255, 255, 255, 0.94);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border-bottom: 2.5px solid #d97706; /* Golden Yellow Underline */
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 12px rgba(9, 26, 47, 0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
   }
 
   .front-footer-bar {
@@ -91,26 +81,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 8.5px;
+    font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.5px;
     text-transform: uppercase;
   }
   .front-footer-link {
     color: #ffffff;
-    background: rgba(9, 26, 47, 0.92);
-    padding: 5px 12px;
-    border-radius: 6px;
+    background: rgba(15, 43, 72, 0.9);
+    padding: 4px 10px;
+    border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    display: inline-block;
   }
 
-  /* TABLE OF CONTENTS */
+  /* =========================================================
+     TABLE OF CONTENTS: LIST & FOOTER LINK
+     ========================================================= */
   .toc-date-stamp {
     position: absolute;
-    top: 26.5mm;
+    top: 26mm;
     right: 16mm;
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 800;
     color: #92400e;
     text-transform: uppercase;
@@ -135,10 +127,10 @@
 
   .toc-article-title {
     font-family: 'Lora', Georgia, serif;
-    font-size: 9.8px;
+    font-size: 9.6px;
     font-weight: 700;
-    color: var(--brand-dark);
-    line-height: 1.3;
+    color: #0f2b48;
+    line-height: 1.25;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -149,14 +141,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 8px;
+    font-size: 7.8px;
     font-weight: 700;
-    color: var(--brand-accent);
-    margin-top: 2.5px;
+    color: #b45309;
+    margin-top: 2px;
   }
   .toc-newspaper {
-    color: var(--brand-blue);
-    font-weight: 700;
+    color: #1e40af;
+    font-weight: 600;
   }
 
   .toc-footer-container {
@@ -169,508 +161,520 @@
   .toc-channel-link {
     font-size: 8.5px;
     font-weight: 800;
-    color: var(--brand-dark);
+    color: #0f2b48;
     text-transform: uppercase;
+    letter-spacing: 0.4px;
     background: #fef08a;
-    padding: 4px 14px;
-    border-radius: 20px;
+    padding: 3px 12px;
+    border-radius: 12px;
     border: 1px solid #fde047;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    display: inline-block;
   }
 
-  /* INNER EDITORIAL PAGES */
+  /* =========================================================
+     INNER EDITORIAL & VOCABULARY PAGES
+     ========================================================= */
   .inner-page {
-    padding: 10mm 12mm 8mm 12mm;
+    padding: 9mm 12mm 7mm 12mm;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
     z-index: 1;
-    background: #ffffff;
   }
 
+  /* Optimized Watermark Layer for Pre-Slanted PNG */
   .inner-page-watermark {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 175mm;
+    transform: translate(-50%, -50%); /* Centers the image without extra rotation */
+    width: 175mm;                      /* Fills the readable area of the A4 page */
     height: 120mm;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.10;
-    mix-blend-mode: multiply;
-    pointer-events: none;
+    opacity: 0.12;                     /* Calibrated for light grey PNGs */
+    mix-blend-mode: multiply;          /* Makes white backgrounds 100% transparent */
+    pointer-events: none;              /* Prevents interference with text selection */
     z-index: 0;
   }
 
   .inner-content-wrapper {
     position: relative;
     z-index: 2;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
   }
 
-  /* Universal Page Footer */
+  /* Inner Pages Universal Footer */
   .page-footer {
     position: relative;
     z-index: 2;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 8px;
+    font-size: 7.8px;
     font-weight: 600;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border-subtle);
-    padding-top: 5px;
+    color: #64748b;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 4px;
     margin-top: auto;
   }
   .footer-sub-link {
-    color: var(--brand-blue);
+    color: #1e40af;
     font-weight: 700;
+    text-decoration: underline;
   }
 
-  /* PAGE 1: EDITORIAL READER */
-  .reader-header {
-    margin-bottom: 8px;
-  }
-  .reader-top-meta {
+  /* Page 1 (Reader) */
+  .p1-top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
-  .newspaper-badge {
+  .p1-newspaper-tag {
     font-size: 8.5px;
     font-weight: 800;
     text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 4px;
-    letter-spacing: 0.4px;
+    padding: 2px 7px;
+    border-radius: 3px;
   }
-  .tag-the-hindu { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
-  .tag-the-indian-express { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
-  .tag-default { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
+  .tag-hindu { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .tag-express { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
 
-  .topic-pill {
+  .p1-topic-chip {
     font-size: 8px;
     font-weight: 700;
-    background: #f8fafc;
-    color: #475569;
-    padding: 3px 10px;
+    background: #f1f5f9;
+    color: #334155;
+    padding: 2px 8px;
     border-radius: 12px;
     text-transform: uppercase;
-    border: 1px solid var(--border-subtle);
   }
 
-  .reader-title {
+  .p1-title {
     font-family: 'Lora', Georgia, serif;
-    font-size: 19.5px;
+    font-size: 19px;
     font-weight: 700;
-    color: var(--brand-dark);
-    line-height: 1.25;
-    margin: 4px 0 6px 0;
+    color: #0f2b48;
+    line-height: 1.22;
+    margin: 3px 0 5px 0;
   }
 
-  .reader-sub-quote {
-    border-left: 3.5px solid var(--brand-accent);
-    padding: 3.5px 0 3.5px 10px;
-    margin-bottom: 6px;
+  .p1-subheading-box {
+    border-left: 3px solid #b45309;
+    padding: 2.5px 0 2.5px 7px;
+    margin-bottom: 5px;
     font-family: 'Lora', Georgia, serif;
     font-size: 9.8px;
     font-style: italic;
     color: #92400e;
-    line-height: 1.4;
-    background: var(--brand-accent-light);
-    border-radius: 0 6px 6px 0;
+    line-height: 1.35;
   }
 
-  .reader-bar {
+  .p1-meta-line {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 8px;
-    font-weight: 600;
-    color: var(--text-muted);
-    border-bottom: 1.5px solid var(--brand-dark);
-    padding-bottom: 4px;
+    color: #64748b;
+    border-bottom: 1.5px solid #0f2b48;
+    padding-bottom: 3px;
+    margin-bottom: 7px;
   }
 
-  .reader-layout {
+  .p1-layout-grid {
     display: grid;
     grid-template-columns: 1fr 58mm;
-    gap: 7.5mm;
+    gap: 7mm;
     flex-grow: 1;
-    margin-top: 8px;
   }
 
-  .reader-column-main {
+  .p1-left-col {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
-  .reader-article-body {
+  .p1-article-body {
     font-family: 'Lora', Georgia, serif;
     font-size: 9.6px;
-    line-height: 1.62;
+    line-height: 1.6;
     color: #1e293b;
     text-align: justify;
-    hyphens: auto;
   }
-  .reader-article-body p {
-    margin-bottom: 8.5px;
+  .p1-article-body p {
+    margin-bottom: 9px;
   }
 
-  .reader-article-body p:first-of-type::first-letter {
+  /* Drop-Cap */
+  .p1-article-body p:first-of-type::first-letter {
     font-family: 'Lora', Georgia, serif;
-    font-size: 38px;
-    line-height: 0.8;
+    font-size: 36px;
+    line-height: 0.82;
     float: left;
-    padding-right: 6px;
-    padding-top: 4px;
-    color: var(--brand-accent);
+    padding-right: 5px;
+    padding-top: 3px;
+    color: #b45309;
     font-weight: 700;
   }
 
-  .vocab-badge {
+  /* Highlight Without Underline (Tiny Superscript) */
+  .vocab-hl {
     font-weight: 700;
-    color: var(--brand-dark);
+    color: #0f2b48;
     background: #f0f7ff;
-    padding: 1px 3.5px;
-    border-radius: 3px;
-    border-bottom: 1.5px solid #93c5fd;
+    padding: 0 2px;
+    border-radius: 2px;
     display: inline;
   }
-  .v-num {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 6.5px !important;
+  .v-idx {
+    font-family: 'Inter', sans-serif;
+    font-size: 6px !important;
     font-weight: 800;
     color: #b45309;
     vertical-align: super;
     line-height: 0;
-    margin-left: 2px;
+    margin-left: 1px;
   }
 
-  .reader-source-note {
+  .p1-article-footer-note {
     font-size: 7.8px;
-    color: var(--text-muted);
+    color: #64748b;
     font-style: italic;
-    border-top: 1px dashed var(--border-subtle);
+    border-top: 1px dashed #cbd5e1;
     padding-top: 4px;
   }
 
-  /* Reader Sidebar */
-  .reader-sidebar {
-    border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    background: #fdfdfd;
-    padding: 7px 9px;
+  /* Sidebar */
+  .p1-sidebar {
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #fcfcfd;
+    padding: 6px 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
   }
-  .sidebar-header {
+  .p1-sidebar-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    border-bottom: 1.5px solid var(--brand-dark);
-    padding-bottom: 4px;
-    margin-bottom: 6px;
+    gap: 4px;
+    border-bottom: 1.5px solid #0f2b48;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
   }
-  .sidebar-header span {
+  .p1-sidebar-header span {
     font-size: 9px;
     font-weight: 800;
-    color: var(--brand-dark);
+    color: #0f2b48;
     text-transform: uppercase;
-    letter-spacing: 0.4px;
   }
-  .sidebar-badge {
-    font-size: 7px;
-    font-weight: 800;
-    background: var(--brand-dark);
-    color: #ffffff;
-    padding: 1.5px 5px;
-    border-radius: 10px;
-  }
-  .sidebar-vocab-list {
+  .p1-vocab-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 3.8px;
+    gap: 3.5px;
   }
-  .sidebar-vocab-item {
+  .p1-vocab-item {
     font-size: 7.8px;
-    line-height: 1.25;
+    line-height: 1.22;
   }
-  .sidebar-vocab-item strong {
+  .p1-vocab-item-top {
+    color: #0f172a;
+  }
+  .p1-vocab-item-top strong {
     font-weight: 700;
-    color: var(--brand-dark);
   }
-  .sidebar-vocab-item .pos {
-    color: var(--text-muted);
-    font-weight: 600;
+  .p1-vocab-item-top .pos {
+    color: #64748b;
+    font-weight: 500;
     font-size: 7px;
   }
-  .sidebar-vocab-def {
-    color: var(--brand-emerald);
+  .p1-vocab-item-def {
+    color: #047857;
     font-weight: 600;
     padding-left: 10px;
     font-size: 7.4px;
   }
 
-  .sidebar-cta-card {
-    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-    border: 1px solid #fde68a;
-    border-radius: 6px;
-    padding: 6px 8px;
-    margin-top: 5px;
+  .p1-cta-card {
+    background: #fefce8;
+    border: 1px solid #fef08a;
+    border-radius: 4px;
+    padding: 4px 6px;
+    margin-top: 4px;
   }
-  .sidebar-cta-title {
-    font-size: 8px;
+  .p1-cta-title {
+    font-size: 7.8px;
     font-weight: 800;
-    color: #92400e;
-    margin-bottom: 1.5px;
+    color: #854d0e;
+    margin-bottom: 1px;
   }
-  .sidebar-cta-btn {
+  .p1-cta-btn {
     display: block;
     width: 100%;
-    background: var(--brand-dark);
+    background: #0f2b48;
     color: #ffffff;
     text-align: center;
-    font-size: 7.6px;
+    font-size: 7.5px;
     font-weight: 700;
-    padding: 4px 0;
-    border-radius: 4px;
+    padding: 3px 0;
+    border-radius: 3px;
     text-decoration: none;
-    margin-top: 3.5px;
+    margin-top: 2px;
   }
 
-  /* =========================================================
-     PAGES 2+: VISUAL VOCABULARY LAB & BENTO MATRICES
-     ========================================================= */
-  .lab-header {
+  /* Page 2 (Analysis & Vocab Lab) */
+  .p2-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    border-bottom: 2px solid var(--brand-dark);
-    padding-bottom: 4px;
-    margin-bottom: 8px;
+    border-bottom: 2px solid #0f2b48;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
   }
-  .lab-header-title {
+  .p2-header-title {
     font-size: 13.5px;
     font-weight: 800;
-    color: var(--brand-dark);
-    letter-spacing: -0.2px;
+    color: #0f2b48;
   }
-  .lab-header-sub {
+  .p2-header-sub {
     font-size: 8px;
     font-weight: 600;
-    color: var(--text-muted);
+    color: #64748b;
   }
 
-  /* Editorial Stance Banner */
-  .lab-stance-card {
+  .p2-analysis-card {
     display: grid;
-    grid-template-columns: 38mm 1fr;
-    gap: 10px;
+    grid-template-columns: 36mm 1fr;
+    gap: 8px;
     background: #f0f7ff;
     border: 1px solid #bfdbfe;
     border-left: 4px solid #0284c7;
-    border-radius: 6px;
-    padding: 6px 10px;
-    margin-bottom: 8px;
+    border-radius: 4px;
+    padding: 5px 8px;
+    margin-bottom: 5px;
     align-items: center;
   }
-  .stance-badge-block {
+  .p2-tone-block {
     border-right: 1px solid #bfdbfe;
-    padding-right: 8px;
+    padding-right: 6px;
   }
-  .stance-label {
+  .p2-tone-label {
     font-size: 7px;
     font-weight: 800;
     text-transform: uppercase;
     color: #0369a1;
-    letter-spacing: 0.4px;
   }
-  .stance-tone {
-    font-size: 10.5px;
+  .p2-tone-value {
+    font-size: 9.5px;
     font-weight: 800;
-    color: var(--brand-dark);
-    line-height: 1.15;
+    color: #0f2b48;
+    line-height: 1.1;
   }
-  .stance-expl {
+  .p2-tone-expl {
     font-size: 7.2px;
-    color: #0284c7;
+    color: #0369a1;
     font-weight: 600;
   }
-  .stance-summary {
-    font-size: 8px;
+  .p2-analysis-summary {
+    font-size: 7.8px;
     color: #1e3a8a;
-    line-height: 1.35;
+    line-height: 1.32;
     font-style: italic;
   }
 
-  /* Bento Vocab Cards Grid (2 Columns) */
-  .bento-vocab-grid {
+  .p2-table-wrapper {
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 5px;
+  }
+  .p2-table-head {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    margin-bottom: 8px;
-  }
-
-  .bento-word-card {
-    background: #ffffff;
-    border: 1px solid var(--border-subtle);
-    border-radius: 6px;
-    padding: 6px 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
-    border-top: 3px solid var(--brand-dark);
-  }
-  .bento-word-card.accent-1 { border-top-color: var(--brand-accent); }
-  .bento-word-card.accent-2 { border-top-color: var(--brand-emerald); }
-  .bento-word-card.accent-3 { border-top-color: var(--brand-blue); }
-  .bento-word-card.accent-4 { border-top-color: #7c3aed; }
-  .bento-word-card.accent-5 { border-top-color: #e11d48; }
-  .bento-word-card.accent-6 { border-top-color: #0891b2; }
-
-  .bento-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 3px;
-  }
-  .bento-card-title {
-    font-size: 10px;
+    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
+    background: #0f2b48;
+    color: #ffffff;
+    font-size: 7.5px;
     font-weight: 800;
-    color: var(--brand-dark);
+    text-transform: uppercase;
+    padding: 3px 5px;
+  }
+
+  .p2-vocab-row {
+    border-bottom: 1px solid #e2e8f0;
+    border-left: 3px solid transparent;
+  }
+  .p2-vocab-row:last-child {
+    border-bottom: none;
+  }
+  .p2-vocab-row.t-1 { border-left-color: #d97706; }
+  .p2-vocab-row.t-2 { border-left-color: #059669; }
+  .p2-vocab-row.t-3 { border-left-color: #2563eb; }
+  .p2-vocab-row.t-4 { border-left-color: #7c3aed; }
+  .p2-vocab-row.t-5 { border-left-color: #e11d48; }
+  .p2-vocab-row.t-6 { border-left-color: #0891b2; }
+  .p2-vocab-row.t-7 { border-left-color: #4f46e5; }
+  .p2-vocab-row.t-8 { border-left-color: #d97706; }
+  .p2-vocab-row.t-9 { border-left-color: #059669; }
+  .p2-vocab-row.t-10 { border-left-color: #2563eb; }
+  .p2-vocab-row.t-11 { border-left-color: #7c3aed; }
+  .p2-vocab-row.t-12 { border-left-color: #e11d48; }
+  .p2-vocab-row.t-13 { border-left-color: #0891b2; }
+
+  .p2-vocab-top {
+    display: grid;
+    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
+    padding: 3.5px 5px 2.5px 5px;
+    align-items: flex-start;
+  }
+  .p2-num-badge {
+    width: 14px;
+    height: 14px;
+    background: #0f2b48;
+    color: #ffffff;
+    font-size: 7px;
+    font-weight: 800;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .p2-word {
+    font-size: 9.8px;
+    font-weight: 800;
+    color: #0f2b48;
     line-height: 1.1;
   }
-  .bento-pills {
+  .p2-badges {
     display: flex;
-    gap: 3px;
+    gap: 2.5px;
+    margin-top: 1.5px;
   }
-  .pill-pos {
+  .p2-pos-pill {
     font-size: 6px;
     font-weight: 800;
-    padding: 1px 4px;
+    padding: 0.5px 3.5px;
     border-radius: 4px;
-    background: #f1f5f9;
-    color: #475569;
-    border: 1px solid var(--border-subtle);
+    background: #e2e8f0;
+    color: #334155;
     text-transform: uppercase;
   }
-  .pill-connot {
+  .p2-connot {
     font-size: 6px;
     font-weight: 800;
-    padding: 1px 4px;
+    padding: 0.5px 3.5px;
     border-radius: 4px;
   }
-  .connot-Positive { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
-  .connot-Negative { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
-  .connot-Neutral { background: #f1f5f9; color: #475569; border: 1px solid var(--border-subtle); }
+  .connot-Positive { background: #dcfce7; color: #166534; }
+  .connot-Negative { background: #fee2e2; color: #991b1b; }
+  .connot-Neutral { background: #f1f5f9; color: #475569; }
 
-  .bento-hindi-meaning {
-    font-size: 9.5px;
+  .p2-hindi {
+    font-size: 9px;
     font-weight: 700;
     color: #0369a1;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
-  .bento-english-def {
-    font-size: 7.4px;
-    color: #334155;
-    line-height: 1.25;
-    margin-bottom: 4px;
-  }
-
-  .bento-tags-row {
+  .p2-def {
     font-size: 7.2px;
-    line-height: 1.25;
-    margin-bottom: 2px;
+    color: #475569;
+    line-height: 1.2;
   }
-  .tag-syn-label { font-weight: 700; color: var(--brand-emerald); }
-  .tag-ant-label { font-weight: 700; color: var(--brand-rose); }
+  .p2-syns {
+    font-size: 7.2px;
+    color: #047857;
+    font-weight: 600;
+    line-height: 1.2;
+    padding-right: 3px;
+  }
+  .p2-ants {
+    font-size: 7.2px;
+    color: #b91c1c;
+    font-weight: 600;
+    line-height: 1.2;
+  }
 
-  .bento-memory-hook {
+  .p2-mnemonic-row {
+    margin: 0 5px 3px 20px;
+    padding: 1.5px 5px;
+    border-radius: 2px;
     background: #f8fafc;
     border: 1px dashed #cbd5e1;
-    border-radius: 4px;
-    padding: 2.5px 5px;
     font-size: 6.8px;
     color: #475569;
-    line-height: 1.25;
-    margin-top: 3px;
+    line-height: 1.2;
   }
-  .bento-memory-hook strong {
-    color: var(--brand-dark);
+  .p2-mnemonic-row strong {
+    color: #0f2b48;
+    font-weight: 700;
   }
 
-  /* Applied Grammar Section */
-  .grammar-matrix-grid {
+  .p2-grammar-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    margin-bottom: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(47%, 1fr));
+    gap: 4px;
+    margin-bottom: 4px;
   }
-  .grammar-card {
-    border: 1px solid var(--border-subtle);
-    border-radius: 6px;
-    background: #ffffff;
-    padding: 6px 8px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  .p2-card {
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #f8fafc;
+    padding: 4px 6px;
   }
-  .grammar-card-title {
-    font-size: 7.6px;
+  .p2-card h3 {
+    font-size: 7.2px;
     font-weight: 800;
     text-transform: uppercase;
-    color: var(--brand-blue);
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 2px;
-    margin-bottom: 3.5px;
-    letter-spacing: 0.4px;
+    color: #1e40af;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1.5px;
+    margin-bottom: 2px;
   }
-  .grammar-item {
-    font-size: 7.2px;
-    line-height: 1.25;
-    margin-bottom: 3px;
+  .p2-card-item {
+    font-size: 7px;
+    line-height: 1.2;
+    margin-bottom: 2px;
     color: #1e293b;
   }
-  .grammar-item:last-child {
+  .p2-card-item:last-child {
     margin-bottom: 0;
   }
-  .grammar-item strong {
-    color: var(--brand-dark);
+  .p2-card-item strong {
+    color: #0f172a;
+  }
+  .p2-card-item .devanagari {
+    color: #0369a1;
+    font-weight: 600;
   }
 
-  .lab-study-tip {
-    background: var(--brand-accent-light);
-    border-left: 3.5px solid var(--brand-accent);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 7.4px;
-    line-height: 1.3;
+  .p2-study-tip {
+    background: #fef3c7;
+    border-left: 3.5px solid #f59e0b;
+    padding: 3.5px 7px;
+    border-radius: 3px;
+    font-size: 7.2px;
+    line-height: 1.25;
     color: #78350f;
   }
-  .lab-study-tip strong {
+  .p2-study-tip strong {
     text-transform: uppercase;
     color: #92400e;
-    font-weight: 800;
   }
 </style>
 </head>
 <body>
 
-<!-- PAGE 1: FRONT COVER -->
+<!-- =========================================================
+     PAGE 1: FRONT COVER
+     ========================================================= -->
 {% if data.has_front_cover %}
 <div class="page cover-page" style="background-image: url('{{ data.front_cover_src }}');">
   <div class="front-date-stamp">{{ data.date_formatted }}</div>
+
+  <!-- Bottom Footer with Clickable Embedded Telegram Links -->
   <div class="front-footer-bar">
     <a href="https://t.me/Prathuadhe" target="_blank" class="front-footer-link">CURATED BY PRATHU</a>
     <a href="https://t.me/Contact_ez" target="_blank" class="front-footer-link">PUBLISHED BY EZ</a>
@@ -678,23 +682,27 @@
 </div>
 {% endif %}
 
-<!-- PAGE 2: TABLE OF CONTENTS -->
+<!-- =========================================================
+     PAGE 2: DYNAMIC TABLE OF CONTENTS
+     ========================================================= -->
 {% if data.has_toc_bg %}
 <div class="page cover-page" style="background-image: url('{{ data.toc_bg_src }}');">
   <div class="toc-date-stamp">{{ data.date_formatted }}</div>
 
+  <!-- Dynamic Content Injected Over the 6 TOC Rows -->
   <div class="toc-list-container">
     {% for entry in data.toc_entries %}
     <div class="toc-row">
       <div class="toc-article-title">{{ entry.title }}</div>
       <div class="toc-article-meta">
-        <span class="toc-newspaper">({{ entry.newspaper }}) &nbsp;·&nbsp; {{ entry.topic }}</span>
+        <span class="toc-newspaper">({{ entry.newspaper }})</span>
         <span>{{ entry.page_num }}</span>
       </div>
     </div>
     {% endfor %}
   </div>
 
+  <!-- TOC Bottom Footer Link -->
   <div class="toc-footer-container">
     <a href="https://t.me/ezeditorialgroup/" target="_blank" class="toc-channel-link">
       ✈ Subscribe to our Ez Editorialś Channel
@@ -703,69 +711,71 @@
 </div>
 {% endif %}
 
-<!-- EDITORIAL SUITE: READER & VOCABULARY DOSSIERS -->
+<!-- =========================================================
+     PAGES 3+: EDITORIAL READER & VOCABULARY LAB
+     ========================================================= -->
 {% for art in data.articles %}
-
-<!-- Editorial Reader Page -->
+<!-- Article Reader Page -->
 <div class="page inner-page">
+  <!-- Subtle Watermark (Only active on inner pages) -->
   {% if data.has_watermark %}
   <div class="inner-page-watermark" style="background-image: url('{{ data.watermark_src }}');"></div>
   {% endif %}
 
   <div class="inner-content-wrapper">
-    <div class="reader-header">
-      <div class="reader-top-meta">
-        {% set np_slug = art.newspaper | lower | replace(' ', '-') %}
-        <span class="newspaper-badge tag-{{ np_slug }}">{{ art.newspaper }}</span>
-        <span class="topic-pill">{{ art.topic }}</span>
+    <div class="p1-header">
+      <div class="p1-top-bar">
+        <span class="p1-newspaper-tag {% if 'Hindu' in art.newspaper %}tag-hindu{% else %}tag-express{% endif %}">
+          {{ art.newspaper }}
+        </span>
+        <span class="p1-topic-chip">{{ art.topic }}</span>
       </div>
-      <h1 class="reader-title">{{ art.title }}</h1>
+      <h1 class="p1-title">{{ art.title }}</h1>
       {% if art.subtitle %}
-      <div class="reader-sub-quote">{{ art.subtitle }}</div>
+      <div class="p1-subheading-box">{{ art.subtitle }}</div>
       {% endif %}
-      <div class="reader-bar">
+      <div class="p1-meta-line">
         <span>📅 {{ data.date_formatted }} &nbsp;|&nbsp; ⏱ {{ art.reading_time }}</span>
         <span>Daily Editorial Reader</span>
       </div>
     </div>
 
-    <div class="reader-layout">
-      <!-- Main Passage Column -->
-      <div class="reader-column-main">
-        <div class="reader-article-body">
+    <div class="p1-layout-grid">
+      <!-- Left Column: Passage -->
+      <div class="p1-left-col">
+        <div class="p1-article-body">
           {% for para in art.paragraphs %}
           <p>{{ para | safe }}</p>
           {% endfor %}
         </div>
-        <div class="reader-source-note">
-          Source: {{ art.newspaper }} &nbsp;·&nbsp; Editorial Edition: {{ data.date_scraped }}
+        <div class="p1-article-footer-note">
+          Published: {{ data.date_scraped }} &nbsp;·&nbsp; Source: {{ art.newspaper }}
         </div>
       </div>
 
-      <!-- Quick Vocabulary Sidebar -->
-      <div class="reader-sidebar">
+      <!-- Right Column: Quick Vocabulary -->
+      <div class="p1-sidebar">
         <div>
-          <div class="sidebar-header">
+          <div class="p1-sidebar-header">
             <span>VOCABULARY 101</span>
-            <span class="sidebar-badge">{{ art.all_vocab|length }} TERMS</span>
           </div>
-          <ul class="sidebar-vocab-list">
+          <ul class="p1-vocab-list">
             {% for item in art.all_vocab %}
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>{{ item.order_index }}. {{ item.word_or_phrase }}</strong>
                 <span class="pos">({{ item.part_of_speech }})</span>
               </div>
-              <div class="sidebar-vocab-def">{{ item.easy_synonym }} &nbsp;·&nbsp; <span class="devanagari">{{ item.hindi_meaning }}</span></div>
+              <div class="p1-vocab-item-def">{{ item.easy_synonym }} &nbsp;·&nbsp; <span class="devanagari">{{ item.hindi_meaning }}</span></div>
             </li>
             {% endfor %}
           </ul>
         </div>
 
-        <div class="sidebar-cta-card">
-          <div class="sidebar-cta-title">🔔 Daily Revision Lab</div>
-          <div style="font-size: 7.2px; color: #78350f;">Complete definitions, mnemonics &amp; applied grammar follow on Next Page.</div>
-          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="sidebar-cta-btn">✈ Join Ez Editorialś</a>
+        <div class="p1-cta-card">
+          <div class="p1-cta-title">🔔 Daily Revision</div>
+          <div style="font-size: 7.2px; color: #713f12;">Revise definitions &amp; grammar rules on Page {{ art.page_p2 }}.</div>
+          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="p1-cta-btn">✈ Join Ez Editorialś</a>
         </div>
       </div>
     </div>
@@ -774,79 +784,80 @@
   <div class="page-footer">
     <span>Ez Editorial Daily Series · {{ data.date_formatted }}</span>
     <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-sub-link">Subscribe to our Ez Editorialś Channel</a>
-    <span>Page {{ art.page_reader }}</span>
+    <span>Page {{ art.page_p1 }}</span>
   </div>
 </div>
 
-<!-- Dynamic Vocabulary Lab Pages (Spaced & Bento Structured) -->
-{% for vpage in art.vocab_pages %}
+<!-- Article Vocabulary Lab Page -->
 <div class="page inner-page">
+  <!-- Subtle Watermark (Only active on inner pages) -->
   {% if data.has_watermark %}
   <div class="inner-page-watermark" style="background-image: url('{{ data.watermark_src }}');"></div>
   {% endif %}
 
   <div class="inner-content-wrapper">
-    <div class="lab-header">
+    <div class="p2-header">
       <div>
-        <div class="lab-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
-        <div class="lab-header-sub">{{ art.title | truncate(65) }}</div>
+        <div class="p2-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
+        <div class="p2-header-sub">{{ art.title | truncate(60) }}</div>
       </div>
-      <div class="lab-header-sub">{{ art.newspaper }} &nbsp;·&nbsp; Part {{ vpage.page_index }} of {{ vpage.total_pages }}</div>
+      <div class="p2-header-sub">{{ art.newspaper }} &nbsp;·&nbsp; {{ art.topic }}</div>
     </div>
 
-    <!-- Editorial Stance Card (Rendered on First Vocab Page) -->
-    {% if vpage.is_first_page %}
-    <div class="lab-stance-card">
-      <div class="stance-badge-block">
-        <div class="stance-label">Editorial Stance</div>
-        <div class="stance-tone">{{ art.analysis.tone }}</div>
-        <div class="stance-expl">({{ art.analysis.tone_simple_explanation }})</div>
+    <!-- Editorial Stance & Tone -->
+    <div class="p2-analysis-card">
+      <div class="p2-tone-block">
+        <div class="p2-tone-label">Editorial Stance</div>
+        <div class="p2-tone-value">{{ art.analysis.tone }}</div>
+        <div class="p2-tone-expl">({{ art.analysis.tone_simple_explanation }})</div>
       </div>
-      <div class="stance-summary">
+      <div class="p2-analysis-summary">
         {{ art.analysis.analysis_summary }}
       </div>
     </div>
-    {% endif %}
 
-    <!-- Bento Core Vocab Grid (Up to 6 words per page) -->
-    {% if vpage.items %}
-    <div class="bento-vocab-grid">
-      {% for item in vpage.items %}
-      <div class="bento-word-card accent-{{ loop.index }}">
-        <div class="bento-card-top">
-          <div class="bento-card-title">{{ item.order_index }}. {{ item.word_or_phrase }}</div>
-          <div class="bento-pills">
-            <span class="pill-pos">{{ item.part_of_speech }}</span>
-            <span class="pill-connot connot-{{ item.connotation }}">{{ item.connotation }}</span>
+    <!-- Master Vocabulary Table -->
+    <div class="p2-table-wrapper">
+      <div class="p2-table-head">
+        <div>#</div>
+        <div>WORD &amp; POS</div>
+        <div>MEANING (HINDI &amp; ENGLISH)</div>
+        <div>SYNONYMS (UK)</div>
+        <div>ANTONYMS (UK)</div>
+      </div>
+
+      {% for item in art.categorized_vocab.core_vocab %}
+      <div class="p2-vocab-row t-{{ loop.index }}">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">{{ loop.index }}</div>
+          <div>
+            <div class="p2-word">{{ item.word_or_phrase }}</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">{{ item.part_of_speech }}</span>
+              <span class="p2-connot connot-{{ item.connotation }}">{{ item.connotation }}</span>
+            </div>
           </div>
+          <div>
+            <div class="p2-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="p2-def">{{ item.concise_meaning }}</div>
+          </div>
+          <div class="p2-syns">{{ item.british_synonyms | join(', ') }}</div>
+          <div class="p2-ants">{{ item.british_antonyms | join(', ') }}</div>
         </div>
-        
-        <div class="bento-hindi-meaning devanagari">{{ item.hindi_meaning }}</div>
-        <div class="bento-english-def">{{ item.concise_meaning }}</div>
-        
-        <div class="bento-tags-row">
-          <span class="tag-syn-label">Synonyms:</span> {{ item.british_synonyms | join(', ') }}
-        </div>
-        <div class="bento-tags-row">
-          <span class="tag-ant-label">Antonyms:</span> {{ item.british_antonyms | join(', ') }}
-        </div>
-        
-        <div class="bento-memory-hook">
+        <div class="p2-mnemonic-row">
           <strong>Memory Hook:</strong> {{ item.mnemonic_trick }}
         </div>
       </div>
       {% endfor %}
     </div>
-    {% endif %}
 
-    <!-- Applied Grammar Section (Rendered on Final Vocab Page) -->
-    {% if vpage.is_last_page %}
-    <div class="grammar-matrix-grid">
+    <!-- Dynamic Applied Grammar Matrix -->
+    <div class="p2-grammar-grid">
       {% if art.categorized_vocab.fixed_prepositions %}
-      <div class="grammar-card">
-        <div class="grammar-card-title">Fixed Prepositions</div>
+      <div class="p2-card">
+        <h3>Fixed Prepositions</h3>
         {% for fp in art.categorized_vocab.fixed_prepositions %}
-        <div class="grammar-item">
+        <div class="p2-card-item">
           <strong>{{ fp.word_or_phrase }}</strong> (<span class="devanagari">{{ fp.hindi_meaning }}</span>): {{ fp.concise_meaning }}
         </div>
         {% endfor %}
@@ -854,10 +865,10 @@
       {% endif %}
 
       {% if art.categorized_vocab.phrasal_verbs %}
-      <div class="grammar-card">
-        <div class="grammar-card-title">Phrasal Verbs</div>
+      <div class="p2-card">
+        <h3>Phrasal Verbs</h3>
         {% for pv in art.categorized_vocab.phrasal_verbs %}
-        <div class="grammar-item">
+        <div class="p2-card-item">
           <strong>{{ pv.word_or_phrase }}</strong> (<span class="devanagari">{{ pv.hindi_meaning }}</span>): {{ pv.concise_meaning }}
         </div>
         {% endfor %}
@@ -865,10 +876,10 @@
       {% endif %}
 
       {% if art.categorized_vocab.one_word_subs %}
-      <div class="grammar-card">
-        <div class="grammar-card-title">One-Word Substitutions</div>
+      <div class="p2-card">
+        <h3>One-Word Substitutions</h3>
         {% for ows in art.categorized_vocab.one_word_subs %}
-        <div class="grammar-item">
+        <div class="p2-card-item">
           <strong>{{ ows.word_or_phrase }}</strong> (<span class="devanagari">{{ ows.hindi_meaning }}</span>): {{ ows.concise_meaning }}
         </div>
         {% endfor %}
@@ -876,37 +887,48 @@
       {% endif %}
 
       {% if art.categorized_vocab.idioms %}
-      <div class="grammar-card">
-        <div class="grammar-card-title">Idioms &amp; Phrases</div>
+      <div class="p2-card">
+        <h3>Idioms &amp; Phrases</h3>
         {% for idm in art.categorized_vocab.idioms %}
-        <div class="grammar-item">
+        <div class="p2-card-item">
           <strong>{{ idm.word_or_phrase }}</strong> (<span class="devanagari">{{ idm.hindi_meaning }}</span>): {{ idm.concise_meaning }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if art.categorized_vocab.foreign_words %}
+      <div class="p2-card">
+        <h3>Foreign Words</h3>
+        {% for fw in art.categorized_vocab.foreign_words %}
+        <div class="p2-card-item">
+          <strong>{{ fw.word_or_phrase }}</strong> (<span class="devanagari">{{ fw.hindi_meaning }}</span>): {{ fw.concise_meaning }}
         </div>
         {% endfor %}
       </div>
       {% endif %}
     </div>
 
-    <!-- Exam Study Tip -->
-    <div class="lab-study-tip">
-      <strong>Exam Study Tip:</strong> Pay special attention to word connotations and preposition pairings during Cloze Tests, Sentence Correction, and Reading Comprehension.
+    <!-- Bottom Study Tip Box -->
+    <div class="p2-study-tip">
+      <strong>Study Tip:</strong> Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.
     </div>
-    {% endif %}
   </div>
 
   <div class="page-footer">
     <span>Ez Editorial Daily Series · {{ data.date_formatted }}</span>
     <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-sub-link">Subscribe to our Ez Editorialś Channel</a>
-    <span>Page {{ vpage.page_num }}</span>
+    <span>Page {{ art.page_p2 }}</span>
   </div>
 </div>
 {% endfor %}
 
-{% endfor %}
-
-<!-- LAST PAGE: BACK COVER -->
+<!-- =========================================================
+     LAST PAGE: BACK COVER
+     ========================================================= -->
 {% if data.has_back_cover %}
-<div class="page cover-page" style="background-image: url('{{ data.back_cover_src }}');"></div>
+<div class="page cover-page" style="background-image: url('{{ data.back_cover_src }}');">
+</div>
 {% endif %}
 
 </body>

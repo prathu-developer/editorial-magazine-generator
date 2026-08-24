@@ -3,38 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
 
   @page {
     size: 210mm 297mm;
     margin: 0;
   }
 
-  :root {
-    --brand-dark: #091a2f;
-    --brand-accent: #d97706;
-    --brand-accent-light: #fffbeb;
-    --brand-blue: #1d4ed8;
-    --brand-emerald: #059669;
-    --brand-rose: #dc2626;
-    --text-primary: #0f172a;
-    --text-muted: #64748b;
-    --bg-light: #f8fafc;
-    --border-subtle: #e2e8f0;
-  }
-
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    letter-spacing: 0 !important;
+    word-spacing: normal !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: #ffffff;
-    color: var(--text-primary);
+    color: #1e293b;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -44,7 +33,7 @@
   }
 
   .devanagari {
-    font-family: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
   }
 
   .page {
@@ -58,7 +47,7 @@
     overflow: hidden;
   }
 
-  /* Full-bleed Covers */
+  /* Full-bleed Cover Pages */
   .cover-page {
     padding: 0;
     background-size: 100% 100%;
@@ -66,21 +55,22 @@
     background-repeat: no-repeat;
   }
 
-  /* FRONT COVER */
+  /* =========================================================
+     FRONT COVER: DATE STAMP & FOOTER LINKS
+     ========================================================= */
   .front-date-stamp {
     position: absolute;
     top: 15mm;
     right: 14mm;
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--brand-dark);
-    background: rgba(255, 255, 255, 0.96);
-    padding: 5px 14px;
-    border-radius: 6px;
-    border-bottom: 3px solid var(--brand-accent);
+    font-size: 13.5px;
+    font-weight: 900;
+    color: #0f2b48;
+    background: rgba(255, 255, 255, 0.94);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border-bottom: 2.5px solid #d97706; /* Golden Yellow Underline */
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 12px rgba(9, 26, 47, 0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
   }
 
   .front-footer-bar {
@@ -91,26 +81,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 8.5px;
+    font-size: 9px;
     font-weight: 800;
     letter-spacing: 0.5px;
     text-transform: uppercase;
   }
   .front-footer-link {
     color: #ffffff;
-    background: rgba(9, 26, 47, 0.92);
-    padding: 5px 12px;
-    border-radius: 6px;
+    background: rgba(15, 43, 72, 0.9);
+    padding: 4px 10px;
+    border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    display: inline-block;
   }
 
-  /* TABLE OF CONTENTS */
+  /* =========================================================
+     TABLE OF CONTENTS: LIST & FOOTER LINK
+     ========================================================= */
   .toc-date-stamp {
     position: absolute;
-    top: 26.5mm;
+    top: 26mm;
     right: 16mm;
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 800;
     color: #92400e;
     text-transform: uppercase;
@@ -135,10 +127,10 @@
 
   .toc-article-title {
     font-family: 'Lora', Georgia, serif;
-    font-size: 9.8px;
+    font-size: 9.6px;
     font-weight: 700;
-    color: var(--brand-dark);
-    line-height: 1.3;
+    color: #0f2b48;
+    line-height: 1.25;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -149,14 +141,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 8px;
+    font-size: 7.8px;
     font-weight: 700;
-    color: var(--brand-accent);
-    margin-top: 2.5px;
+    color: #b45309;
+    margin-top: 2px;
   }
   .toc-newspaper {
-    color: var(--brand-blue);
-    font-weight: 700;
+    color: #1e40af;
+    font-weight: 600;
   }
 
   .toc-footer-container {
@@ -169,508 +161,520 @@
   .toc-channel-link {
     font-size: 8.5px;
     font-weight: 800;
-    color: var(--brand-dark);
+    color: #0f2b48;
     text-transform: uppercase;
+    letter-spacing: 0.4px;
     background: #fef08a;
-    padding: 4px 14px;
-    border-radius: 20px;
+    padding: 3px 12px;
+    border-radius: 12px;
     border: 1px solid #fde047;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    display: inline-block;
   }
 
-  /* INNER EDITORIAL PAGES */
+  /* =========================================================
+     INNER EDITORIAL & VOCABULARY PAGES
+     ========================================================= */
   .inner-page {
-    padding: 10mm 12mm 8mm 12mm;
+    padding: 9mm 12mm 7mm 12mm;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
     z-index: 1;
-    background: #ffffff;
   }
 
+  /* Optimized Watermark Layer for Pre-Slanted PNG */
   .inner-page-watermark {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 175mm;
+    transform: translate(-50%, -50%); /* Centers the image without extra rotation */
+    width: 175mm;                      /* Fills the readable area of the A4 page */
     height: 120mm;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.10;
-    mix-blend-mode: multiply;
-    pointer-events: none;
+    opacity: 0.12;                     /* Calibrated for light grey PNGs */
+    mix-blend-mode: multiply;          /* Makes white backgrounds 100% transparent */
+    pointer-events: none;              /* Prevents interference with text selection */
     z-index: 0;
   }
 
   .inner-content-wrapper {
     position: relative;
     z-index: 2;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
   }
 
-  /* Universal Page Footer */
+  /* Inner Pages Universal Footer */
   .page-footer {
     position: relative;
     z-index: 2;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 8px;
+    font-size: 7.8px;
     font-weight: 600;
-    color: var(--text-muted);
-    border-top: 1px solid var(--border-subtle);
-    padding-top: 5px;
+    color: #64748b;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 4px;
     margin-top: auto;
   }
   .footer-sub-link {
-    color: var(--brand-blue);
+    color: #1e40af;
     font-weight: 700;
+    text-decoration: underline;
   }
 
-  /* PAGE 1: EDITORIAL READER */
-  .reader-header {
-    margin-bottom: 8px;
-  }
-  .reader-top-meta {
+  /* Page 1 (Reader) */
+  .p1-top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
-  .newspaper-badge {
+  .p1-newspaper-tag {
     font-size: 8.5px;
     font-weight: 800;
     text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 4px;
-    letter-spacing: 0.4px;
+    padding: 2px 7px;
+    border-radius: 3px;
   }
-  .tag-the-hindu { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
-  .tag-the-indian-express { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
-  .tag-default { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
+  .tag-hindu { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .tag-express { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
 
-  .topic-pill {
+  .p1-topic-chip {
     font-size: 8px;
     font-weight: 700;
-    background: #f8fafc;
-    color: #475569;
-    padding: 3px 10px;
+    background: #f1f5f9;
+    color: #334155;
+    padding: 2px 8px;
     border-radius: 12px;
     text-transform: uppercase;
-    border: 1px solid var(--border-subtle);
   }
 
-  .reader-title {
+  .p1-title {
     font-family: 'Lora', Georgia, serif;
-    font-size: 19.5px;
+    font-size: 19px;
     font-weight: 700;
-    color: var(--brand-dark);
-    line-height: 1.25;
-    margin: 4px 0 6px 0;
+    color: #0f2b48;
+    line-height: 1.22;
+    margin: 3px 0 5px 0;
   }
 
-  .reader-sub-quote {
-    border-left: 3.5px solid var(--brand-accent);
-    padding: 3.5px 0 3.5px 10px;
-    margin-bottom: 6px;
+  .p1-subheading-box {
+    border-left: 3px solid #b45309;
+    padding: 2.5px 0 2.5px 7px;
+    margin-bottom: 5px;
     font-family: 'Lora', Georgia, serif;
     font-size: 9.8px;
     font-style: italic;
     color: #92400e;
-    line-height: 1.4;
-    background: var(--brand-accent-light);
-    border-radius: 0 6px 6px 0;
+    line-height: 1.35;
   }
 
-  .reader-bar {
+  .p1-meta-line {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 8px;
-    font-weight: 600;
-    color: var(--text-muted);
-    border-bottom: 1.5px solid var(--brand-dark);
-    padding-bottom: 4px;
+    color: #64748b;
+    border-bottom: 1.5px solid #0f2b48;
+    padding-bottom: 3px;
+    margin-bottom: 7px;
   }
 
-  .reader-layout {
+  .p1-layout-grid {
     display: grid;
     grid-template-columns: 1fr 58mm;
-    gap: 7.5mm;
+    gap: 7mm;
     flex-grow: 1;
-    margin-top: 8px;
   }
 
-  .reader-column-main {
+  .p1-left-col {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
-  .reader-article-body {
+  .p1-article-body {
     font-family: 'Lora', Georgia, serif;
     font-size: 9.6px;
-    line-height: 1.62;
+    line-height: 1.6;
     color: #1e293b;
     text-align: justify;
-    hyphens: auto;
   }
-  .reader-article-body p {
-    margin-bottom: 8.5px;
+  .p1-article-body p {
+    margin-bottom: 9px;
   }
 
-  .reader-article-body p:first-of-type::first-letter {
+  /* Drop-Cap */
+  .p1-article-body p:first-of-type::first-letter {
     font-family: 'Lora', Georgia, serif;
-    font-size: 38px;
-    line-height: 0.8;
+    font-size: 36px;
+    line-height: 0.82;
     float: left;
-    padding-right: 6px;
-    padding-top: 4px;
-    color: var(--brand-accent);
+    padding-right: 5px;
+    padding-top: 3px;
+    color: #b45309;
     font-weight: 700;
   }
 
-  .vocab-badge {
+  /* Highlight Without Underline (Tiny Superscript) */
+  .vocab-hl {
     font-weight: 700;
-    color: var(--brand-dark);
+    color: #0f2b48;
     background: #f0f7ff;
-    padding: 1px 3.5px;
-    border-radius: 3px;
-    border-bottom: 1.5px solid #93c5fd;
+    padding: 0 2px;
+    border-radius: 2px;
     display: inline;
   }
-  .v-num {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 6.5px !important;
+  .v-idx {
+    font-family: 'Inter', sans-serif;
+    font-size: 6px !important;
     font-weight: 800;
     color: #b45309;
     vertical-align: super;
     line-height: 0;
-    margin-left: 2px;
+    margin-left: 1px;
   }
 
-  .reader-source-note {
+  .p1-article-footer-note {
     font-size: 7.8px;
-    color: var(--text-muted);
+    color: #64748b;
     font-style: italic;
-    border-top: 1px dashed var(--border-subtle);
+    border-top: 1px dashed #cbd5e1;
     padding-top: 4px;
   }
 
-  /* Reader Sidebar */
-  .reader-sidebar {
-    border: 1px solid var(--border-subtle);
-    border-radius: 8px;
-    background: #fdfdfd;
-    padding: 7px 9px;
+  /* Sidebar */
+  .p1-sidebar {
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #fcfcfd;
+    padding: 6px 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
   }
-  .sidebar-header {
+  .p1-sidebar-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    border-bottom: 1.5px solid var(--brand-dark);
-    padding-bottom: 4px;
-    margin-bottom: 6px;
+    gap: 4px;
+    border-bottom: 1.5px solid #0f2b48;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
   }
-  .sidebar-header span {
+  .p1-sidebar-header span {
     font-size: 9px;
     font-weight: 800;
-    color: var(--brand-dark);
+    color: #0f2b48;
     text-transform: uppercase;
-    letter-spacing: 0.4px;
   }
-  .sidebar-badge {
-    font-size: 7px;
-    font-weight: 800;
-    background: var(--brand-dark);
-    color: #ffffff;
-    padding: 1.5px 5px;
-    border-radius: 10px;
-  }
-  .sidebar-vocab-list {
+  .p1-vocab-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 3.8px;
+    gap: 3.5px;
   }
-  .sidebar-vocab-item {
+  .p1-vocab-item {
     font-size: 7.8px;
-    line-height: 1.25;
+    line-height: 1.22;
   }
-  .sidebar-vocab-item strong {
+  .p1-vocab-item-top {
+    color: #0f172a;
+  }
+  .p1-vocab-item-top strong {
     font-weight: 700;
-    color: var(--brand-dark);
   }
-  .sidebar-vocab-item .pos {
-    color: var(--text-muted);
-    font-weight: 600;
+  .p1-vocab-item-top .pos {
+    color: #64748b;
+    font-weight: 500;
     font-size: 7px;
   }
-  .sidebar-vocab-def {
-    color: var(--brand-emerald);
+  .p1-vocab-item-def {
+    color: #047857;
     font-weight: 600;
     padding-left: 10px;
     font-size: 7.4px;
   }
 
-  .sidebar-cta-card {
-    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
-    border: 1px solid #fde68a;
-    border-radius: 6px;
-    padding: 6px 8px;
-    margin-top: 5px;
+  .p1-cta-card {
+    background: #fefce8;
+    border: 1px solid #fef08a;
+    border-radius: 4px;
+    padding: 4px 6px;
+    margin-top: 4px;
   }
-  .sidebar-cta-title {
-    font-size: 8px;
+  .p1-cta-title {
+    font-size: 7.8px;
     font-weight: 800;
-    color: #92400e;
-    margin-bottom: 1.5px;
+    color: #854d0e;
+    margin-bottom: 1px;
   }
-  .sidebar-cta-btn {
+  .p1-cta-btn {
     display: block;
     width: 100%;
-    background: var(--brand-dark);
+    background: #0f2b48;
     color: #ffffff;
     text-align: center;
-    font-size: 7.6px;
+    font-size: 7.5px;
     font-weight: 700;
-    padding: 4px 0;
-    border-radius: 4px;
+    padding: 3px 0;
+    border-radius: 3px;
     text-decoration: none;
-    margin-top: 3.5px;
+    margin-top: 2px;
   }
 
-  /* =========================================================
-     PAGES 2+: VISUAL VOCABULARY LAB & BENTO MATRICES
-     ========================================================= */
-  .lab-header {
+  /* Page 2 (Analysis & Vocab Lab) */
+  .p2-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    border-bottom: 2px solid var(--brand-dark);
-    padding-bottom: 4px;
-    margin-bottom: 8px;
+    border-bottom: 2px solid #0f2b48;
+    padding-bottom: 3px;
+    margin-bottom: 5px;
   }
-  .lab-header-title {
+  .p2-header-title {
     font-size: 13.5px;
     font-weight: 800;
-    color: var(--brand-dark);
-    letter-spacing: -0.2px;
+    color: #0f2b48;
   }
-  .lab-header-sub {
+  .p2-header-sub {
     font-size: 8px;
     font-weight: 600;
-    color: var(--text-muted);
+    color: #64748b;
   }
 
-  /* Editorial Stance Banner */
-  .lab-stance-card {
+  .p2-analysis-card {
     display: grid;
-    grid-template-columns: 38mm 1fr;
-    gap: 10px;
+    grid-template-columns: 36mm 1fr;
+    gap: 8px;
     background: #f0f7ff;
     border: 1px solid #bfdbfe;
     border-left: 4px solid #0284c7;
-    border-radius: 6px;
-    padding: 6px 10px;
-    margin-bottom: 8px;
+    border-radius: 4px;
+    padding: 5px 8px;
+    margin-bottom: 5px;
     align-items: center;
   }
-  .stance-badge-block {
+  .p2-tone-block {
     border-right: 1px solid #bfdbfe;
-    padding-right: 8px;
+    padding-right: 6px;
   }
-  .stance-label {
+  .p2-tone-label {
     font-size: 7px;
     font-weight: 800;
     text-transform: uppercase;
     color: #0369a1;
-    letter-spacing: 0.4px;
   }
-  .stance-tone {
-    font-size: 10.5px;
+  .p2-tone-value {
+    font-size: 9.5px;
     font-weight: 800;
-    color: var(--brand-dark);
-    line-height: 1.15;
+    color: #0f2b48;
+    line-height: 1.1;
   }
-  .stance-expl {
+  .p2-tone-expl {
     font-size: 7.2px;
-    color: #0284c7;
+    color: #0369a1;
     font-weight: 600;
   }
-  .stance-summary {
-    font-size: 8px;
+  .p2-analysis-summary {
+    font-size: 7.8px;
     color: #1e3a8a;
-    line-height: 1.35;
+    line-height: 1.32;
     font-style: italic;
   }
 
-  /* Bento Vocab Cards Grid (2 Columns) */
-  .bento-vocab-grid {
+  .p2-table-wrapper {
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 5px;
+  }
+  .p2-table-head {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    margin-bottom: 8px;
-  }
-
-  .bento-word-card {
-    background: #ffffff;
-    border: 1px solid var(--border-subtle);
-    border-radius: 6px;
-    padding: 6px 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
-    border-top: 3px solid var(--brand-dark);
-  }
-  .bento-word-card.accent-1 { border-top-color: var(--brand-accent); }
-  .bento-word-card.accent-2 { border-top-color: var(--brand-emerald); }
-  .bento-word-card.accent-3 { border-top-color: var(--brand-blue); }
-  .bento-word-card.accent-4 { border-top-color: #7c3aed; }
-  .bento-word-card.accent-5 { border-top-color: #e11d48; }
-  .bento-word-card.accent-6 { border-top-color: #0891b2; }
-
-  .bento-card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 3px;
-  }
-  .bento-card-title {
-    font-size: 10px;
+    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
+    background: #0f2b48;
+    color: #ffffff;
+    font-size: 7.5px;
     font-weight: 800;
-    color: var(--brand-dark);
+    text-transform: uppercase;
+    padding: 3px 5px;
+  }
+
+  .p2-vocab-row {
+    border-bottom: 1px solid #e2e8f0;
+    border-left: 3px solid transparent;
+  }
+  .p2-vocab-row:last-child {
+    border-bottom: none;
+  }
+  .p2-vocab-row.t-1 { border-left-color: #d97706; }
+  .p2-vocab-row.t-2 { border-left-color: #059669; }
+  .p2-vocab-row.t-3 { border-left-color: #2563eb; }
+  .p2-vocab-row.t-4 { border-left-color: #7c3aed; }
+  .p2-vocab-row.t-5 { border-left-color: #e11d48; }
+  .p2-vocab-row.t-6 { border-left-color: #0891b2; }
+  .p2-vocab-row.t-7 { border-left-color: #4f46e5; }
+  .p2-vocab-row.t-8 { border-left-color: #d97706; }
+  .p2-vocab-row.t-9 { border-left-color: #059669; }
+  .p2-vocab-row.t-10 { border-left-color: #2563eb; }
+  .p2-vocab-row.t-11 { border-left-color: #7c3aed; }
+  .p2-vocab-row.t-12 { border-left-color: #e11d48; }
+  .p2-vocab-row.t-13 { border-left-color: #0891b2; }
+
+  .p2-vocab-top {
+    display: grid;
+    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
+    padding: 3.5px 5px 2.5px 5px;
+    align-items: flex-start;
+  }
+  .p2-num-badge {
+    width: 14px;
+    height: 14px;
+    background: #0f2b48;
+    color: #ffffff;
+    font-size: 7px;
+    font-weight: 800;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .p2-word {
+    font-size: 9.8px;
+    font-weight: 800;
+    color: #0f2b48;
     line-height: 1.1;
   }
-  .bento-pills {
+  .p2-badges {
     display: flex;
-    gap: 3px;
+    gap: 2.5px;
+    margin-top: 1.5px;
   }
-  .pill-pos {
+  .p2-pos-pill {
     font-size: 6px;
     font-weight: 800;
-    padding: 1px 4px;
+    padding: 0.5px 3.5px;
     border-radius: 4px;
-    background: #f1f5f9;
-    color: #475569;
-    border: 1px solid var(--border-subtle);
+    background: #e2e8f0;
+    color: #334155;
     text-transform: uppercase;
   }
-  .pill-connot {
+  .p2-connot {
     font-size: 6px;
     font-weight: 800;
-    padding: 1px 4px;
+    padding: 0.5px 3.5px;
     border-radius: 4px;
   }
-  .connot-Positive { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
-  .connot-Negative { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
-  .connot-Neutral { background: #f1f5f9; color: #475569; border: 1px solid var(--border-subtle); }
+  .connot-Positive { background: #dcfce7; color: #166534; }
+  .connot-Negative { background: #fee2e2; color: #991b1b; }
+  .connot-Neutral { background: #f1f5f9; color: #475569; }
 
-  .bento-hindi-meaning {
-    font-size: 9.5px;
+  .p2-hindi {
+    font-size: 9px;
     font-weight: 700;
     color: #0369a1;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
-  .bento-english-def {
-    font-size: 7.4px;
-    color: #334155;
-    line-height: 1.25;
-    margin-bottom: 4px;
-  }
-
-  .bento-tags-row {
+  .p2-def {
     font-size: 7.2px;
-    line-height: 1.25;
-    margin-bottom: 2px;
+    color: #475569;
+    line-height: 1.2;
   }
-  .tag-syn-label { font-weight: 700; color: var(--brand-emerald); }
-  .tag-ant-label { font-weight: 700; color: var(--brand-rose); }
+  .p2-syns {
+    font-size: 7.2px;
+    color: #047857;
+    font-weight: 600;
+    line-height: 1.2;
+    padding-right: 3px;
+  }
+  .p2-ants {
+    font-size: 7.2px;
+    color: #b91c1c;
+    font-weight: 600;
+    line-height: 1.2;
+  }
 
-  .bento-memory-hook {
+  .p2-mnemonic-row {
+    margin: 0 5px 3px 20px;
+    padding: 1.5px 5px;
+    border-radius: 2px;
     background: #f8fafc;
     border: 1px dashed #cbd5e1;
-    border-radius: 4px;
-    padding: 2.5px 5px;
     font-size: 6.8px;
     color: #475569;
-    line-height: 1.25;
-    margin-top: 3px;
+    line-height: 1.2;
   }
-  .bento-memory-hook strong {
-    color: var(--brand-dark);
+  .p2-mnemonic-row strong {
+    color: #0f2b48;
+    font-weight: 700;
   }
 
-  /* Applied Grammar Section */
-  .grammar-matrix-grid {
+  .p2-grammar-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-    margin-bottom: 6px;
+    grid-template-columns: repeat(auto-fit, minmax(47%, 1fr));
+    gap: 4px;
+    margin-bottom: 4px;
   }
-  .grammar-card {
-    border: 1px solid var(--border-subtle);
-    border-radius: 6px;
-    background: #ffffff;
-    padding: 6px 8px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+  .p2-card {
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background: #f8fafc;
+    padding: 4px 6px;
   }
-  .grammar-card-title {
-    font-size: 7.6px;
+  .p2-card h3 {
+    font-size: 7.2px;
     font-weight: 800;
     text-transform: uppercase;
-    color: var(--brand-blue);
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 2px;
-    margin-bottom: 3.5px;
-    letter-spacing: 0.4px;
+    color: #1e40af;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1.5px;
+    margin-bottom: 2px;
   }
-  .grammar-item {
-    font-size: 7.2px;
-    line-height: 1.25;
-    margin-bottom: 3px;
+  .p2-card-item {
+    font-size: 7px;
+    line-height: 1.2;
+    margin-bottom: 2px;
     color: #1e293b;
   }
-  .grammar-item:last-child {
+  .p2-card-item:last-child {
     margin-bottom: 0;
   }
-  .grammar-item strong {
-    color: var(--brand-dark);
+  .p2-card-item strong {
+    color: #0f172a;
+  }
+  .p2-card-item .devanagari {
+    color: #0369a1;
+    font-weight: 600;
   }
 
-  .lab-study-tip {
-    background: var(--brand-accent-light);
-    border-left: 3.5px solid var(--brand-accent);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 7.4px;
-    line-height: 1.3;
+  .p2-study-tip {
+    background: #fef3c7;
+    border-left: 3.5px solid #f59e0b;
+    padding: 3.5px 7px;
+    border-radius: 3px;
+    font-size: 7.2px;
+    line-height: 1.25;
     color: #78350f;
   }
-  .lab-study-tip strong {
+  .p2-study-tip strong {
     text-transform: uppercase;
     color: #92400e;
-    font-weight: 800;
   }
 </style>
 </head>
 <body>
 
-<!-- PAGE 1: FRONT COVER -->
+<!-- =========================================================
+     PAGE 1: FRONT COVER
+     ========================================================= -->
 
 <div class="page cover-page" style="background-image: url('../assets/front_cover_bg.jpg');">
   <div class="front-date-stamp">August 24, 2026</div>
+
+  <!-- Bottom Footer with Clickable Embedded Telegram Links -->
   <div class="front-footer-bar">
     <a href="https://t.me/Prathuadhe" target="_blank" class="front-footer-link">CURATED BY PRATHU</a>
     <a href="https://t.me/Contact_ez" target="_blank" class="front-footer-link">PUBLISHED BY EZ</a>
@@ -678,17 +682,20 @@
 </div>
 
 
-<!-- PAGE 2: TABLE OF CONTENTS -->
+<!-- =========================================================
+     PAGE 2: DYNAMIC TABLE OF CONTENTS
+     ========================================================= -->
 
 <div class="page cover-page" style="background-image: url('../assets/toc_bg.jpg');">
   <div class="toc-date-stamp">August 24, 2026</div>
 
+  <!-- Dynamic Content Injected Over the 6 TOC Rows -->
   <div class="toc-list-container">
     
     <div class="toc-row">
       <div class="toc-article-title">Triple test, adrift: On the ruling on definition of ‘industry’</div>
       <div class="toc-article-meta">
-        <span class="toc-newspaper">(The Hindu) &nbsp;·&nbsp; </span>
+        <span class="toc-newspaper">(The Hindu)</span>
         <span>Page 03</span>
       </div>
     </div>
@@ -696,7 +703,7 @@
     <div class="toc-row">
       <div class="toc-article-title">Core concerns: On the Indian economy, the road ahead</div>
       <div class="toc-article-meta">
-        <span class="toc-newspaper">(The Hindu) &nbsp;·&nbsp; </span>
+        <span class="toc-newspaper">(The Hindu)</span>
         <span>Page 05</span>
       </div>
     </div>
@@ -704,13 +711,14 @@
     <div class="toc-row">
       <div class="toc-article-title">To build Delhi’s future, learn from past missteps</div>
       <div class="toc-article-meta">
-        <span class="toc-newspaper">(The Indian Express) &nbsp;·&nbsp; </span>
+        <span class="toc-newspaper">(The Indian Express)</span>
         <span>Page 07</span>
       </div>
     </div>
     
   </div>
 
+  <!-- TOC Bottom Footer Link -->
   <div class="toc-footer-container">
     <a href="https://t.me/ezeditorialgroup/" target="_blank" class="toc-channel-link">
       ✈ Subscribe to our Ez Editorialś Channel
@@ -719,36 +727,39 @@
 </div>
 
 
-<!-- EDITORIAL SUITE: READER & VOCABULARY DOSSIERS -->
+<!-- =========================================================
+     PAGES 3+: EDITORIAL READER & VOCABULARY LAB
+     ========================================================= -->
 
-
-<!-- Editorial Reader Page -->
+<!-- Article Reader Page -->
 <div class="page inner-page">
+  <!-- Subtle Watermark (Only active on inner pages) -->
   
   <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
   
 
   <div class="inner-content-wrapper">
-    <div class="reader-header">
-      <div class="reader-top-meta">
-        
-        <span class="newspaper-badge tag-the-hindu">The Hindu</span>
-        <span class="topic-pill">Judicial Reform</span>
+    <div class="p1-header">
+      <div class="p1-top-bar">
+        <span class="p1-newspaper-tag tag-hindu">
+          The Hindu
+        </span>
+        <span class="p1-topic-chip">Judicial Reform</span>
       </div>
-      <h1 class="reader-title">Triple test, adrift: On the ruling on definition of ‘industry’</h1>
+      <h1 class="p1-title">Triple test, adrift: On the ruling on definition of ‘industry’</h1>
       
-      <div class="reader-sub-quote">The Supreme Court's decision on industrial disputes risks undermining crucial labour protections and legislative intent.</div>
+      <div class="p1-subheading-box">The Supreme Court's decision on industrial disputes risks undermining crucial labour protections and legislative intent.</div>
       
-      <div class="reader-bar">
+      <div class="p1-meta-line">
         <span>📅 August 24, 2026 &nbsp;|&nbsp; ⏱ 3 min read</span>
         <span>Daily Editorial Reader</span>
       </div>
     </div>
 
-    <div class="reader-layout">
-      <!-- Main Passage Column -->
-      <div class="reader-column-main">
-        <div class="reader-article-body">
+    <div class="p1-layout-grid">
+      <!-- Left Column: Passage -->
+      <div class="p1-left-col">
+        <div class="p1-article-body">
           
           <p>On August 20, a nine-judge Bench of the Supreme Court of India delivered a judgment on the correctness of the ruling in Bangalore Water Supply and Sewerage Board vs A. Rajappa (BWSSB) (1978). In that judgment, Justice V.R. Krishna Iyer had <span class="vocab-hl">laid down<sup class="v-idx">1</sup></span> what was called the “Triple Test” on what counts as an “industry” under Section 2(j) of the Industrial Disputes (ID) Act, 1947 (ID Act). Three conditions were to be met for an industry — a systematic activity, employer-employee cooperation, and production/distribution of goods and services to satisfy human wants other than those that are purely religious or spiritual. <span class="vocab-hl">Profit motive<sup class="v-idx">2</sup></span> was <span class="vocab-hl">irrelevant<sup class="v-idx">3</sup></span>; what mattered in this determination was the nature of the activity, and only “sovereign functions” stood outside it. A five-judge Bench in State of U.P. vs Jai Bir Singh (2005) raised a doubt about this definition and a seven-judge Bench sent it to the current nine-judge Bench. This Bench, led by Chief Justice of India Surya Kant, left the Triple Test standing for all pending disputes under the older ID Act, which was <span class="vocab-hl">repealed<sup class="v-idx">4</sup></span> on November 21, 2025 when the Industrial Relations Code, 2020 (IRC) <span class="vocab-hl">came into force<sup class="v-idx">5</sup></span>. However, a majority of the nine-judge Bench also ruled that BWSSB will not be a “<span class="vocab-hl">sheet anchor<sup class="v-idx">6</sup></span>” for interpreting Section 2(p) of the IRC. That is a mistake. In her <span class="vocab-hl">dissenting opinion<sup class="v-idx">7</sup></span>, Justice B.V. Nagarathna held that the reference itself was unnecessary and that the Triple Test requires no interference — a view shared by three other judges. Her reasoning is <span class="vocab-hl">compelling<sup class="v-idx">8</sup></span>. Since 1978, and particularly after the <span class="vocab-hl">liberalisation<sup class="v-idx">9</sup></span> and privatisation reforms of 1991, a far higher number of workers have moved to the private sector, out of the security of public employment. An <span class="vocab-hl">expansive<sup class="v-idx">10</sup></span> definition of industry, as <span class="vocab-hl">entailed in<sup class="v-idx">11</sup></span> the Triple Test, is therefore even more necessary now as a <span class="vocab-hl">bulwark<sup class="v-idx">12</sup></span> for the worker.</p>
           
@@ -757,187 +768,186 @@
           <p>court / industrial production / employment / employer / employee / public employees / tribunal</p>
           
         </div>
-        <div class="reader-source-note">
-          Source: The Hindu &nbsp;·&nbsp; Editorial Edition: 2026-08-24
+        <div class="p1-article-footer-note">
+          Published: 2026-08-24 &nbsp;·&nbsp; Source: The Hindu
         </div>
       </div>
 
-      <!-- Quick Vocabulary Sidebar -->
-      <div class="reader-sidebar">
+      <!-- Right Column: Quick Vocabulary -->
+      <div class="p1-sidebar">
         <div>
-          <div class="sidebar-header">
+          <div class="p1-sidebar-header">
             <span>VOCABULARY 101</span>
-            <span class="sidebar-badge">20 TERMS</span>
           </div>
-          <ul class="sidebar-vocab-list">
+          <ul class="p1-vocab-list">
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>1. Laid down</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">established &nbsp;·&nbsp; <span class="devanagari">निर्धारित करना</span></div>
+              <div class="p1-vocab-item-def">established &nbsp;·&nbsp; <span class="devanagari">निर्धारित करना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>2. Profit motive</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">financial gain drive &nbsp;·&nbsp; <span class="devanagari">लाभ कमाने का उद्देश्य</span></div>
+              <div class="p1-vocab-item-def">financial gain drive &nbsp;·&nbsp; <span class="devanagari">लाभ कमाने का उद्देश्य</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>3. Irrelevant</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">unimportant &nbsp;·&nbsp; <span class="devanagari">अप्रासंगिक</span></div>
+              <div class="p1-vocab-item-def">unimportant &nbsp;·&nbsp; <span class="devanagari">अप्रासंगिक</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>4. Repealed</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">cancelled &nbsp;·&nbsp; <span class="devanagari">निरस्त किया गया</span></div>
+              <div class="p1-vocab-item-def">cancelled &nbsp;·&nbsp; <span class="devanagari">निरस्त किया गया</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>5. Came into force</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">became effective &nbsp;·&nbsp; <span class="devanagari">लागू होना</span></div>
+              <div class="p1-vocab-item-def">became effective &nbsp;·&nbsp; <span class="devanagari">लागू होना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>6. Sheet anchor</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">main support &nbsp;·&nbsp; <span class="devanagari">मुख्य सहारा</span></div>
+              <div class="p1-vocab-item-def">main support &nbsp;·&nbsp; <span class="devanagari">मुख्य सहारा</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>7. Dissenting opinion</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">disagreeing view &nbsp;·&nbsp; <span class="devanagari">असहमतिपूर्ण विचार</span></div>
+              <div class="p1-vocab-item-def">disagreeing view &nbsp;·&nbsp; <span class="devanagari">असहमतिपूर्ण विचार</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>8. Compelling</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">convincing &nbsp;·&nbsp; <span class="devanagari">प्रभावी / तर्कसंगत</span></div>
+              <div class="p1-vocab-item-def">convincing &nbsp;·&nbsp; <span class="devanagari">प्रभावी / तर्कसंगत</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>9. Liberalisation</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">deregulation &nbsp;·&nbsp; <span class="devanagari">उदारीकरण</span></div>
+              <div class="p1-vocab-item-def">deregulation &nbsp;·&nbsp; <span class="devanagari">उदारीकरण</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>10. Expansive</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">broad &nbsp;·&nbsp; <span class="devanagari">व्यापक</span></div>
+              <div class="p1-vocab-item-def">broad &nbsp;·&nbsp; <span class="devanagari">व्यापक</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>11. Entailed in</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">involved in &nbsp;·&nbsp; <span class="devanagari">में शामिल</span></div>
+              <div class="p1-vocab-item-def">involved in &nbsp;·&nbsp; <span class="devanagari">में शामिल</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>12. Bulwark</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">shield &nbsp;·&nbsp; <span class="devanagari">रक्षात्मक ढांचा / बचाव</span></div>
+              <div class="p1-vocab-item-def">shield &nbsp;·&nbsp; <span class="devanagari">रक्षात्मक ढांचा / बचाव</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>13. Move away from</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">depart from &nbsp;·&nbsp; <span class="devanagari">अलग होना / दूर हटना</span></div>
+              <div class="p1-vocab-item-def">depart from &nbsp;·&nbsp; <span class="devanagari">अलग होना / दूर हटना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>14. Set aside</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">annul &nbsp;·&nbsp; <span class="devanagari">रद्द करना</span></div>
+              <div class="p1-vocab-item-def">annul &nbsp;·&nbsp; <span class="devanagari">रद्द करना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>15. Retrenchment</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">downsizing &nbsp;·&nbsp; <span class="devanagari">छंटनी</span></div>
+              <div class="p1-vocab-item-def">downsizing &nbsp;·&nbsp; <span class="devanagari">छंटनी</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>16. At will</strong>
                 <span class="pos">(Adverb)</span>
               </div>
-              <div class="sidebar-vocab-def">as desired &nbsp;·&nbsp; <span class="devanagari">अपनी मर्जी से</span></div>
+              <div class="p1-vocab-item-def">as desired &nbsp;·&nbsp; <span class="devanagari">अपनी मर्जी से</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>17. In essence</strong>
                 <span class="pos">(Adverb)</span>
               </div>
-              <div class="sidebar-vocab-def">fundamentally &nbsp;·&nbsp; <span class="devanagari">मूल रूप से</span></div>
+              <div class="p1-vocab-item-def">fundamentally &nbsp;·&nbsp; <span class="devanagari">मूल रूप से</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>18. Severing</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">cutting off &nbsp;·&nbsp; <span class="devanagari">अलग करना</span></div>
+              <div class="p1-vocab-item-def">cutting off &nbsp;·&nbsp; <span class="devanagari">अलग करना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>19. Cuts away</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">removes &nbsp;·&nbsp; <span class="devanagari">हटा देना / काट देना</span></div>
+              <div class="p1-vocab-item-def">removes &nbsp;·&nbsp; <span class="devanagari">हटा देना / काट देना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>20. Incumbent upon</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">obligatory for &nbsp;·&nbsp; <span class="devanagari">का कर्तव्य होना</span></div>
+              <div class="p1-vocab-item-def">obligatory for &nbsp;·&nbsp; <span class="devanagari">का कर्तव्य होना</span></div>
             </li>
             
           </ul>
         </div>
 
-        <div class="sidebar-cta-card">
-          <div class="sidebar-cta-title">🔔 Daily Revision Lab</div>
-          <div style="font-size: 7.2px; color: #78350f;">Complete definitions, mnemonics &amp; applied grammar follow on Next Page.</div>
-          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="sidebar-cta-btn">✈ Join Ez Editorialś</a>
+        <div class="p1-cta-card">
+          <div class="p1-cta-title">🔔 Daily Revision</div>
+          <div style="font-size: 7.2px; color: #713f12;">Revise definitions &amp; grammar rules on Page 4.</div>
+          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="p1-cta-btn">✈ Join Ez Editorialś</a>
         </div>
       </div>
     </div>
@@ -946,42 +956,296 @@
   <div class="page-footer">
     <span>Ez Editorial Daily Series · August 24, 2026</span>
     <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-sub-link">Subscribe to our Ez Editorialś Channel</a>
-    <span>Page </span>
+    <span>Page 3</span>
   </div>
 </div>
 
-<!-- Dynamic Vocabulary Lab Pages (Spaced & Bento Structured) -->
-
-
-
-
-<!-- Editorial Reader Page -->
+<!-- Article Vocabulary Lab Page -->
 <div class="page inner-page">
+  <!-- Subtle Watermark (Only active on inner pages) -->
   
   <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
   
 
   <div class="inner-content-wrapper">
-    <div class="reader-header">
-      <div class="reader-top-meta">
-        
-        <span class="newspaper-badge tag-the-hindu">The Hindu</span>
-        <span class="topic-pill">Macroeconomics</span>
+    <div class="p2-header">
+      <div>
+        <div class="p2-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
+        <div class="p2-header-sub">Triple test, adrift: On the ruling on definition of ‘industry’</div>
       </div>
-      <h1 class="reader-title">Core concerns: On the Indian economy, the road ahead</h1>
+      <div class="p2-header-sub">The Hindu &nbsp;·&nbsp; Judicial Reform</div>
+    </div>
+
+    <!-- Editorial Stance & Tone -->
+    <div class="p2-analysis-card">
+      <div class="p2-tone-block">
+        <div class="p2-tone-label">Editorial Stance</div>
+        <div class="p2-tone-value">Critical</div>
+        <div class="p2-tone-expl">(expressing sharp disagreement)</div>
+      </div>
+      <div class="p2-analysis-summary">
+        The author adopts a critical tone regarding the Supreme Court's majority ruling that disconnects the established 'Triple Test' from the new Industrial Relations Code. This perspective is taken because discarding this landmark precedent weakens key safeguards for private sector workers while disrupting a balanced mechanism for resolving workplace disputes. Ultimately, the editorial contends that judicial bodies must continue preserving the original legislative intent of industrial stability despite the court's verdict.
+      </div>
+    </div>
+
+    <!-- Master Vocabulary Table -->
+    <div class="p2-table-wrapper">
+      <div class="p2-table-head">
+        <div>#</div>
+        <div>WORD &amp; POS</div>
+        <div>MEANING (HINDI &amp; ENGLISH)</div>
+        <div>SYNONYMS (UK)</div>
+        <div>ANTONYMS (UK)</div>
+      </div>
+
       
-      <div class="reader-sub-quote">Sluggish industrial core growth signals upcoming economic headwinds and softening domestic consumer demand.</div>
+      <div class="p2-vocab-row t-1">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">1</div>
+          <div>
+            <div class="p2-word">Irrelevant</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Negative">Negative</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">अप्रासंगिक</div>
+            <div class="p2-def">Not connected with or relevant to something; having no legal or contextual significance.</div>
+          </div>
+          <div class="p2-syns">inapplicable, extraneous, immaterial</div>
+          <div class="p2-ants">pertinent, germane, applicable</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Ir- (not) + relevant — having no bearing or connection to the matter at hand.
+        </div>
+      </div>
       
-      <div class="reader-bar">
+      <div class="p2-vocab-row t-2">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">2</div>
+          <div>
+            <div class="p2-word">Compelling</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Positive">Positive</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">प्रभावी / तर्कसंगत</div>
+            <div class="p2-def">Evoking interest, attention, or belief through powerful and logical reasoning.</div>
+          </div>
+          <div class="p2-syns">persuasive, cogent, irresistible</div>
+          <div class="p2-ants">unconvincing, weak, implausible</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Compel = forces agreement because the logic is so strong and sound.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-3">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">3</div>
+          <div>
+            <div class="p2-word">Liberalisation</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Noun</span>
+              <span class="p2-connot connot-Neutral">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">उदारीकरण</div>
+            <div class="p2-def">The removal or reduction of state restrictions on economic and social activities.</div>
+          </div>
+          <div class="p2-syns">deregulation, opening up, decontrol</div>
+          <div class="p2-ants">regulation, restriction, nationalisation</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Liberal (free) + -isation = making economic policies freer by reducing controls.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-4">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">4</div>
+          <div>
+            <div class="p2-word">Expansive</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Positive">Positive</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">व्यापक</div>
+            <div class="p2-def">Covering a wide scope, broad in extent, or comprehensive in legal applicability.</div>
+          </div>
+          <div class="p2-syns">comprehensive, wide-ranging, broad-based</div>
+          <div class="p2-ants">narrow, restrictive, limited</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Expand = to enlarge. Expansive means covering a wide range or scope.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-5">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">5</div>
+          <div>
+            <div class="p2-word">Severing</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Verb</span>
+              <span class="p2-connot connot-Negative">Negative</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">अलग करना</div>
+            <div class="p2-def">Dividing, breaking off, or terminating a legal or conceptual relationship abruptly.</div>
+          </div>
+          <div class="p2-syns">disconnecting, detaching, sundering</div>
+          <div class="p2-ants">unifying, joining, attaching</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> A severe cut that completely severs a connection between two things.
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Dynamic Applied Grammar Matrix -->
+    <div class="p2-grammar-grid">
+      
+      <div class="p2-card">
+        <h3>Fixed Prepositions</h3>
+        
+        <div class="p2-card-item">
+          <strong>Entailed in</strong> (<span class="devanagari">में शामिल</span>): Involved or included as a necessary or inevitable component or consequence.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Incumbent upon</strong> (<span class="devanagari">का कर्तव्य होना</span>): Necessary as an official duty or moral responsibility for a named party or authority.
+        </div>
+        
+      </div>
+      
+
+      
+      <div class="p2-card">
+        <h3>Phrasal Verbs</h3>
+        
+        <div class="p2-card-item">
+          <strong>Laid down</strong> (<span class="devanagari">निर्धारित करना</span>): Formally established or formulated rules, guidelines, or legal principles.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Move away from</strong> (<span class="devanagari">अलग होना / दूर हटना</span>): To alter one's ideas, policies, or methods so that they differ from previous practices.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Set aside</strong> (<span class="devanagari">रद्द करना</span>): To declare a legal judgment, decision, or precedent invalid or void.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Cuts away</strong> (<span class="devanagari">हटा देना / काट देना</span>): Removes or strips away an essential supporting structure or interpretive framework.
+        </div>
+        
+      </div>
+      
+
+      
+      <div class="p2-card">
+        <h3>One-Word Substitutions</h3>
+        
+        <div class="p2-card-item">
+          <strong>Repealed</strong> (<span class="devanagari">निरस्त किया गया</span>): Revoked or annulled an official law, act, or statutory provision.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Bulwark</strong> (<span class="devanagari">रक्षात्मक ढांचा / बचाव</span>): A defensive wall, safeguard, or protection against external danger, hardship, or abuse.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Retrenchment</strong> (<span class="devanagari">छंटनी</span>): The reduction of costs or operational scale, specifically through employee lay-offs.
+        </div>
+        
+      </div>
+      
+
+      
+      <div class="p2-card">
+        <h3>Idioms &amp; Phrases</h3>
+        
+        <div class="p2-card-item">
+          <strong>Profit motive</strong> (<span class="devanagari">लाभ कमाने का उद्देश्य</span>): The desire or drive to undertake an activity specifically to earn financial gain.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Came into force</strong> (<span class="devanagari">लागू होना</span>): Reached the legal date from which a law, statute, or contract becomes active and enforceable.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Sheet anchor</strong> (<span class="devanagari">मुख्य सहारा</span>): A primary reliance, main safeguard, or central foundational authority during times of uncertainty.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Dissenting opinion</strong> (<span class="devanagari">असहमतिपूर्ण विचार</span>): An explicit opinion written by one or more judges expressing disagreement with the majority verdict.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>At will</strong> (<span class="devanagari">अपनी मर्जी से</span>): Whenever or however one chooses, without regulatory restrictions or constraint.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>In essence</strong> (<span class="devanagari">मूल रूप से</span>): Regarding the most basic, central, or fundamental nature of a legal principle or situation.
+        </div>
+        
+      </div>
+      
+
+      
+    </div>
+
+    <!-- Bottom Study Tip Box -->
+    <div class="p2-study-tip">
+      <strong>Study Tip:</strong> Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Ez Editorial Daily Series · August 24, 2026</span>
+    <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-sub-link">Subscribe to our Ez Editorialś Channel</a>
+    <span>Page 4</span>
+  </div>
+</div>
+
+<!-- Article Reader Page -->
+<div class="page inner-page">
+  <!-- Subtle Watermark (Only active on inner pages) -->
+  
+  <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
+  
+
+  <div class="inner-content-wrapper">
+    <div class="p1-header">
+      <div class="p1-top-bar">
+        <span class="p1-newspaper-tag tag-hindu">
+          The Hindu
+        </span>
+        <span class="p1-topic-chip">Macroeconomics</span>
+      </div>
+      <h1 class="p1-title">Core concerns: On the Indian economy, the road ahead</h1>
+      
+      <div class="p1-subheading-box">Sluggish industrial core growth signals upcoming economic headwinds and softening domestic consumer demand.</div>
+      
+      <div class="p1-meta-line">
         <span>📅 August 24, 2026 &nbsp;|&nbsp; ⏱ 2 min read</span>
         <span>Daily Editorial Reader</span>
       </div>
     </div>
 
-    <div class="reader-layout">
-      <!-- Main Passage Column -->
-      <div class="reader-column-main">
-        <div class="reader-article-body">
+    <div class="p1-layout-grid">
+      <!-- Left Column: Passage -->
+      <div class="p1-left-col">
+        <div class="p1-article-body">
           
           <p>The slowdown in the growth of India’s core industrial sectors in July was not surprising, with other indicators predicting <span class="vocab-hl">easing<sup class="v-idx">1</sup></span> demand conditions as well. Growth in the index of core industries (ICI) slowed to 5.4% in July from 6% in the previous month. This was <span class="vocab-hl">in keeping with<sup class="v-idx">2</sup></span> the Manufacturing Purchasing Managers’ Index, which in July eased to its lowest level since August 2021 due to weak domestic demand conditions. While July’s growth in the ICI was the second-highest growth rate in the last seven months, the data nevertheless highlight some concerning aspects of the Indian economy. The first has to do with the fact that a large part of even this slower growth seems to be based on a statistical low <span class="vocab-hl">base effect<sup class="v-idx">3</sup></span>. The coal sector, for example, grew at an 11-month high of 7.6% in July, but this was based on a contraction of 12.3% in July of last year. Similarly, the refinery products sector <span class="vocab-hl">snapped<sup class="v-idx">4</sup></span> a three-month streak of contraction to grow at 2.7%, but this too was based on a contraction in July 2025. The iron ore sector, however, grew at a very <span class="vocab-hl">robust<sup class="v-idx">5</sup></span> 29.5%, <span class="vocab-hl">albeit<sup class="v-idx">6</sup></span> slower than a <span class="vocab-hl">blistering<sup class="v-idx">7</sup></span> 44.5% in June. This seems <span class="vocab-hl">heartening<sup class="v-idx">8</sup></span> regardless of the contractions of 16.4% and 7.1% in June and July of last year, respectively. But the steel sector slowed <span class="vocab-hl">drastically<sup class="v-idx">9</sup></span> in July to 2.9% from 5.6% in June and 15.7% in July of last year.</p>
           
@@ -990,187 +1254,186 @@
           <p>India / industrial production / economy (general) / coal / oil and gas - upstream activities / iron and steel / natural gas / imports / taxes and duties / USA / Russia / Ethanol / electricity production and distribution / heatwave</p>
           
         </div>
-        <div class="reader-source-note">
-          Source: The Hindu &nbsp;·&nbsp; Editorial Edition: 2026-08-24
+        <div class="p1-article-footer-note">
+          Published: 2026-08-24 &nbsp;·&nbsp; Source: The Hindu
         </div>
       </div>
 
-      <!-- Quick Vocabulary Sidebar -->
-      <div class="reader-sidebar">
+      <!-- Right Column: Quick Vocabulary -->
+      <div class="p1-sidebar">
         <div>
-          <div class="sidebar-header">
+          <div class="p1-sidebar-header">
             <span>VOCABULARY 101</span>
-            <span class="sidebar-badge">20 TERMS</span>
           </div>
-          <ul class="sidebar-vocab-list">
+          <ul class="p1-vocab-list">
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>1. Easing</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">softening &nbsp;·&nbsp; <span class="devanagari">धीमा पड़ता हुआ</span></div>
+              <div class="p1-vocab-item-def">softening &nbsp;·&nbsp; <span class="devanagari">धीमा पड़ता हुआ</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>2. In keeping with</strong>
                 <span class="pos">(Prepositional Phrase)</span>
               </div>
-              <div class="sidebar-vocab-def">matching &nbsp;·&nbsp; <span class="devanagari">के अनुरूप</span></div>
+              <div class="p1-vocab-item-def">matching &nbsp;·&nbsp; <span class="devanagari">के अनुरूप</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>3. Base effect</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">comparison distortion &nbsp;·&nbsp; <span class="devanagari">आधार प्रभाव</span></div>
+              <div class="p1-vocab-item-def">comparison distortion &nbsp;·&nbsp; <span class="devanagari">आधार प्रभाव</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>4. Snapped</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">broke &nbsp;·&nbsp; <span class="devanagari">तोड़ दिया</span></div>
+              <div class="p1-vocab-item-def">broke &nbsp;·&nbsp; <span class="devanagari">तोड़ दिया</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>5. Robust</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">strong &nbsp;·&nbsp; <span class="devanagari">मजबूत</span></div>
+              <div class="p1-vocab-item-def">strong &nbsp;·&nbsp; <span class="devanagari">मजबूत</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>6. Albeit</strong>
                 <span class="pos">(Conjunction)</span>
               </div>
-              <div class="sidebar-vocab-def">although &nbsp;·&nbsp; <span class="devanagari">यद्यपि</span></div>
+              <div class="p1-vocab-item-def">although &nbsp;·&nbsp; <span class="devanagari">यद्यपि</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>7. Blistering</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">extremely fast &nbsp;·&nbsp; <span class="devanagari">तेज़ तर्रार</span></div>
+              <div class="p1-vocab-item-def">extremely fast &nbsp;·&nbsp; <span class="devanagari">तेज़ तर्रार</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>8. Heartening</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">encouraging &nbsp;·&nbsp; <span class="devanagari">आशाजनक</span></div>
+              <div class="p1-vocab-item-def">encouraging &nbsp;·&nbsp; <span class="devanagari">आशाजनक</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>9. Drastically</strong>
                 <span class="pos">(Adverb)</span>
               </div>
-              <div class="sidebar-vocab-def">severely &nbsp;·&nbsp; <span class="devanagari">भीषण रूप से</span></div>
+              <div class="p1-vocab-item-def">severely &nbsp;·&nbsp; <span class="devanagari">भीषण रूप से</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>10. Drag on</strong>
                 <span class="pos">(Phrasal Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">burden on &nbsp;·&nbsp; <span class="devanagari">बोझ बनना</span></div>
+              <div class="p1-vocab-item-def">burden on &nbsp;·&nbsp; <span class="devanagari">बोझ बनना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>11. Marginal</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">slight &nbsp;·&nbsp; <span class="devanagari">मामूली</span></div>
+              <div class="p1-vocab-item-def">slight &nbsp;·&nbsp; <span class="devanagari">मामूली</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>12. Whet the appetite</strong>
                 <span class="pos">(Idiom)</span>
               </div>
-              <div class="sidebar-vocab-def">stimulate desire &nbsp;·&nbsp; <span class="devanagari">इच्छा को बढ़ाना</span></div>
+              <div class="p1-vocab-item-def">stimulate desire &nbsp;·&nbsp; <span class="devanagari">इच्छा को बढ़ाना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>13. External dependence</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">foreign reliance &nbsp;·&nbsp; <span class="devanagari">बाहरी निर्भरता</span></div>
+              <div class="p1-vocab-item-def">foreign reliance &nbsp;·&nbsp; <span class="devanagari">बाहरी निर्भरता</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>14. Levy on</strong>
                 <span class="pos">(Verb + Preposition)</span>
               </div>
-              <div class="sidebar-vocab-def">impose tax on &nbsp;·&nbsp; <span class="devanagari">कर लगाना</span></div>
+              <div class="p1-vocab-item-def">impose tax on &nbsp;·&nbsp; <span class="devanagari">कर लगाना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>15. Materially</strong>
                 <span class="pos">(Adverb)</span>
               </div>
-              <div class="sidebar-vocab-def">significantly &nbsp;·&nbsp; <span class="devanagari">काफी हद तक</span></div>
+              <div class="p1-vocab-item-def">significantly &nbsp;·&nbsp; <span class="devanagari">काफी हद तक</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>16. Bright spot</strong>
                 <span class="pos">(Noun Phrase)</span>
               </div>
-              <div class="sidebar-vocab-def">silver lining &nbsp;·&nbsp; <span class="devanagari">उम्मीद की किरण</span></div>
+              <div class="p1-vocab-item-def">silver lining &nbsp;·&nbsp; <span class="devanagari">उम्मीद की किरण</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>17. Prevalent</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">widespread &nbsp;·&nbsp; <span class="devanagari">प्रचलित / व्यापक</span></div>
+              <div class="p1-vocab-item-def">widespread &nbsp;·&nbsp; <span class="devanagari">प्रचलित / व्यापक</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>18. Few and far between</strong>
                 <span class="pos">(Idiom)</span>
               </div>
-              <div class="sidebar-vocab-def">rare &nbsp;·&nbsp; <span class="devanagari">दुर्लभ / विरला</span></div>
+              <div class="p1-vocab-item-def">rare &nbsp;·&nbsp; <span class="devanagari">दुर्लभ / विरला</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>19. Slack</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">sluggish &nbsp;·&nbsp; <span class="devanagari">सुस्त / मंद</span></div>
+              <div class="p1-vocab-item-def">sluggish &nbsp;·&nbsp; <span class="devanagari">सुस्त / मंद</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>20. Moderating</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">slowing down &nbsp;·&nbsp; <span class="devanagari">धीमा होना</span></div>
+              <div class="p1-vocab-item-def">slowing down &nbsp;·&nbsp; <span class="devanagari">धीमा होना</span></div>
             </li>
             
           </ul>
         </div>
 
-        <div class="sidebar-cta-card">
-          <div class="sidebar-cta-title">🔔 Daily Revision Lab</div>
-          <div style="font-size: 7.2px; color: #78350f;">Complete definitions, mnemonics &amp; applied grammar follow on Next Page.</div>
-          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="sidebar-cta-btn">✈ Join Ez Editorialś</a>
+        <div class="p1-cta-card">
+          <div class="p1-cta-title">🔔 Daily Revision</div>
+          <div style="font-size: 7.2px; color: #713f12;">Revise definitions &amp; grammar rules on Page 6.</div>
+          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="p1-cta-btn">✈ Join Ez Editorialś</a>
         </div>
       </div>
     </div>
@@ -1179,42 +1442,440 @@
   <div class="page-footer">
     <span>Ez Editorial Daily Series · August 24, 2026</span>
     <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-sub-link">Subscribe to our Ez Editorialś Channel</a>
-    <span>Page </span>
+    <span>Page 5</span>
   </div>
 </div>
 
-<!-- Dynamic Vocabulary Lab Pages (Spaced & Bento Structured) -->
-
-
-
-
-<!-- Editorial Reader Page -->
+<!-- Article Vocabulary Lab Page -->
 <div class="page inner-page">
+  <!-- Subtle Watermark (Only active on inner pages) -->
   
   <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
   
 
   <div class="inner-content-wrapper">
-    <div class="reader-header">
-      <div class="reader-top-meta">
-        
-        <span class="newspaper-badge tag-the-indian-express">The Indian Express</span>
-        <span class="topic-pill">Urban Governance & Town Planning</span>
+    <div class="p2-header">
+      <div>
+        <div class="p2-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
+        <div class="p2-header-sub">Core concerns: On the Indian economy, the road ahead</div>
       </div>
-      <h1 class="reader-title">To build Delhi’s future, learn from past missteps</h1>
+      <div class="p2-header-sub">The Hindu &nbsp;·&nbsp; Macroeconomics</div>
+    </div>
+
+    <!-- Editorial Stance & Tone -->
+    <div class="p2-analysis-card">
+      <div class="p2-tone-block">
+        <div class="p2-tone-label">Editorial Stance</div>
+        <div class="p2-tone-value">Cautious</div>
+        <div class="p2-tone-expl">(carefully concerned)</div>
+      </div>
+      <div class="p2-analysis-summary">
+        The author adopts a cautious tone to evaluate India's recent economic performance, highlighting that headline core growth is largely inflated by a statistical base effect rather than genuine expansion. Persistent drag in domestic crude oil output combined with external tariff risks indicates a challenging road ahead. By balancing weak domestic indicators against a few temporary bright spots like cement, the editorial stresses the need to prepare for sluggish demand and higher import costs.
+      </div>
+    </div>
+
+    <!-- Master Vocabulary Table -->
+    <div class="p2-table-wrapper">
+      <div class="p2-table-head">
+        <div>#</div>
+        <div>WORD &amp; POS</div>
+        <div>MEANING (HINDI &amp; ENGLISH)</div>
+        <div>SYNONYMS (UK)</div>
+        <div>ANTONYMS (UK)</div>
+      </div>
+
       
-      <div class="reader-sub-quote">Delhi’s latest Master Plan must overcome bureaucratic inertia and agency fragmentation to succeed.</div>
+      <div class="p2-vocab-row t-1">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">1</div>
+          <div>
+            <div class="p2-word">Easing</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Neutral">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">धीमा पड़ता हुआ</div>
+            <div class="p2-def">Becoming less intense, severe, or active; moderating in level or momentum.</div>
+          </div>
+          <div class="p2-syns">softening, subsiding, relaxing</div>
+          <div class="p2-ants">intensifying, surging, escalating</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Think of 'ease' — taking it easy, so activity or pressure decreases.
+        </div>
+      </div>
       
-      <div class="reader-bar">
+      <div class="p2-vocab-row t-2">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">2</div>
+          <div>
+            <div class="p2-word">Base effect</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Noun</span>
+              <span class="p2-connot connot-Neutral">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">आधार प्रभाव</div>
+            <div class="p2-def">The distortion in comparative growth figures caused by an unusually low or high reference point in the prior period.</div>
+          </div>
+          <div class="p2-syns">statistical distortion, comparative skew, reference shift</div>
+          <div class="p2-ants">absolute growth, baseline stability, real change</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Base = starting point. If the base was very low, even a minor rise looks like a huge percentage jump.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-3">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">3</div>
+          <div>
+            <div class="p2-word">Snapped</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Verb</span>
+              <span class="p2-connot connot-Neutral">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">तोड़ दिया</div>
+            <div class="p2-def">Abruptly ended or broke a continuous run, trend, or streak.</div>
+          </div>
+          <div class="p2-syns">halted, severed, terminated</div>
+          <div class="p2-ants">continued, prolonged, extended</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Think of snapping a stick — a sudden, decisive break in a continuous line.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-4">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">4</div>
+          <div>
+            <div class="p2-word">Robust</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Positive">Positive</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">मजबूत</div>
+            <div class="p2-def">Strong, vigorous, and healthy; showing solid economic health or growth.</div>
+          </div>
+          <div class="p2-syns">vigorous, sturdy, flourishing</div>
+          <div class="p2-ants">fragile, feeble, sluggish</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Sounds like 'robot' — strong, sturdy, and reliable under difficult conditions.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-5">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">5</div>
+          <div>
+            <div class="p2-word">Albeit</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Conjunction</span>
+              <span class="p2-connot connot-Neutral">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">यद्यपि</div>
+            <div class="p2-def">Though; even though (used to introduce a qualifying statement or caveat).</div>
+          </div>
+          <div class="p2-syns">although, even if, notwithstanding</div>
+          <div class="p2-ants">furthermore, consequently, moreover</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Shortened form of 'all be it' — meaning 'even though it be so'.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-6">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">6</div>
+          <div>
+            <div class="p2-word">Blistering</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Positive">Positive</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">तेज़ तर्रार</div>
+            <div class="p2-def">Extremely fast, intense, or energetic in rate, force, or pace.</div>
+          </div>
+          <div class="p2-syns">breakneck, dazzling, rapid</div>
+          <div class="p2-ants">sluggish, plodding, tardy</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Running so fast that friction causes blisters on your feet — blistering speed.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-7">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">7</div>
+          <div>
+            <div class="p2-word">Heartening</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Positive">Positive</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">आशाजनक</div>
+            <div class="p2-def">Inspiring hope, cheerfulness, or renewed confidence.</div>
+          </div>
+          <div class="p2-syns">cheering, reassuring, promising</div>
+          <div class="p2-ants">disheartening, dismal, depressing</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Giving warmth or cheer to your 'heart', filling you with hope.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-8">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">8</div>
+          <div>
+            <div class="p2-word">Drastically</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adverb</span>
+              <span class="p2-connot connot-Negative">Negative</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">भीषण रूप से</div>
+            <div class="p2-def">In an extreme, severe, or strikingly sudden manner.</div>
+          </div>
+          <div class="p2-syns">sharply, substantially, steeply</div>
+          <div class="p2-ants">marginally, gradually, subtly</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Sounds like 'drastic' action — sharp, severe, and sudden.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-9">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">9</div>
+          <div>
+            <div class="p2-word">Marginal</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Neutral">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">मामूली</div>
+            <div class="p2-def">Small, limited, or minor in extent, degree, or overall significance.</div>
+          </div>
+          <div class="p2-syns">negligible, slight, incremental</div>
+          <div class="p2-ants">substantial, significant, considerable</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Notes written in the 'margin' of a book — small and secondary to the main text.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-10">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">10</div>
+          <div>
+            <div class="p2-word">Materially</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adverb</span>
+              <span class="p2-connot connot-Neutral">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">काफी हद तक</div>
+            <div class="p2-def">To a substantial, important, or noticeable degree; significantly.</div>
+          </div>
+          <div class="p2-syns">substantially, significantly, appreciably</div>
+          <div class="p2-ants">immaterially, trivially, insignificantly</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Material = physical substance; acting materially means making a real, tangible impact.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-11">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">11</div>
+          <div>
+            <div class="p2-word">Prevalent</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Neutral">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">प्रचलित / व्यापक</div>
+            <div class="p2-def">Widespread, common, or generally present in a particular place at a given time.</div>
+          </div>
+          <div class="p2-syns">widespread, pervasive, predominant</div>
+          <div class="p2-ants">rare, uncommon, isolated</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Prevail = to win over or dominate; prevalent means dominating a region or time.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-12">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">12</div>
+          <div>
+            <div class="p2-word">Slack</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Negative">Negative</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">सुस्त / मंद</div>
+            <div class="p2-def">Characterised by a lack of business activity, demand, or movement; sluggish.</div>
+          </div>
+          <div class="p2-syns">sluggish, depressed, inactive</div>
+          <div class="p2-ants">brisk, buoyant, vigorous</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> A slack rope has no tension or action; slack demand means a quiet, inactive market.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-13">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">13</div>
+          <div>
+            <div class="p2-word">Moderating</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Verb</span>
+              <span class="p2-connot connot-Neutral">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">धीमा होना</div>
+            <div class="p2-def">Becoming less intense, extreme, rapid, or rigorous; decelerating.</div>
+          </div>
+          <div class="p2-syns">decelerating, easing, tempering</div>
+          <div class="p2-ants">accelerating, intensifying, surging</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Shifting from high speed to a 'moderate' speed — reducing intensity.
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Dynamic Applied Grammar Matrix -->
+    <div class="p2-grammar-grid">
+      
+      <div class="p2-card">
+        <h3>Fixed Prepositions</h3>
+        
+        <div class="p2-card-item">
+          <strong>Levy on</strong> (<span class="devanagari">कर लगाना</span>): To officially impose or collect a tax, duty, or tariff upon a target entity or commodity.
+        </div>
+        
+      </div>
+      
+
+      
+      <div class="p2-card">
+        <h3>Phrasal Verbs</h3>
+        
+        <div class="p2-card-item">
+          <strong>Drag on</strong> (<span class="devanagari">बोझ बनना</span>): To act as a persistent handicap, weight, or slowing influence upon something.
+        </div>
+        
+      </div>
+      
+
+      
+      <div class="p2-card">
+        <h3>One-Word Substitutions</h3>
+        
+        <div class="p2-card-item">
+          <strong>External dependence</strong> (<span class="devanagari">बाहरी निर्भरता</span>): Over-reliance on foreign nations or outside entities for critical resources or economic needs.
+        </div>
+        
+      </div>
+      
+
+      
+      <div class="p2-card">
+        <h3>Idioms &amp; Phrases</h3>
+        
+        <div class="p2-card-item">
+          <strong>In keeping with</strong> (<span class="devanagari">के अनुरूप</span>): In conformity, agreement, or harmony with a prevailing trend or standard.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Whet the appetite</strong> (<span class="devanagari">इच्छा को बढ़ाना</span>): To sharpen, excite, or increase someone's desire or demand for something.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Bright spot</strong> (<span class="devanagari">उम्मीद की किरण</span>): A positive, successful, or hopeful feature in a generally difficult or disappointing situation.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Few and far between</strong> (<span class="devanagari">दुर्लभ / विरला</span>): Not happening often; scarce, rare, or widely spaced out in frequency.
+        </div>
+        
+      </div>
+      
+
+      
+    </div>
+
+    <!-- Bottom Study Tip Box -->
+    <div class="p2-study-tip">
+      <strong>Study Tip:</strong> Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Ez Editorial Daily Series · August 24, 2026</span>
+    <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-sub-link">Subscribe to our Ez Editorialś Channel</a>
+    <span>Page 6</span>
+  </div>
+</div>
+
+<!-- Article Reader Page -->
+<div class="page inner-page">
+  <!-- Subtle Watermark (Only active on inner pages) -->
+  
+  <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
+  
+
+  <div class="inner-content-wrapper">
+    <div class="p1-header">
+      <div class="p1-top-bar">
+        <span class="p1-newspaper-tag tag-express">
+          The Indian Express
+        </span>
+        <span class="p1-topic-chip">Urban Governance & Town Planning</span>
+      </div>
+      <h1 class="p1-title">To build Delhi’s future, learn from past missteps</h1>
+      
+      <div class="p1-subheading-box">Delhi’s latest Master Plan must overcome bureaucratic inertia and agency fragmentation to succeed.</div>
+      
+      <div class="p1-meta-line">
         <span>📅 August 24, 2026 &nbsp;|&nbsp; ⏱ 2 min read</span>
         <span>Daily Editorial Reader</span>
       </div>
     </div>
 
-    <div class="reader-layout">
-      <!-- Main Passage Column -->
-      <div class="reader-column-main">
-        <div class="reader-article-body">
+    <div class="p1-layout-grid">
+      <!-- Left Column: Passage -->
+      <div class="p1-left-col">
+        <div class="p1-article-body">
           
           <p>About 25 years ago, when Delhi’s third Master Plan came into effect, the city’s population was about 14 million, Gurugram and Noida were <span class="vocab-hl">fledgling<sup class="v-idx">2</sup></span> suburbs, the first lines of the capital’s Metro network were being laid, and a CNG policy for public transport had been introduced as a pollution-control measure. Since then, another 10 million people have made the capital their home, civic infrastructure of its neighbouring cities has come under <span class="vocab-hl">acute<sup class="v-idx">3</sup></span> stress, and the improvement in air quality that Delhi experienced for much of the 2000s and early 2010s has given way to an almost <span class="vocab-hl">intractable<sup class="v-idx">5</sup></span> pollution crisis. Delhi’s fourth Master Plan, notified last week, acknowledges these challenges. Its emphasis on expanding public transport, ecological <span class="vocab-hl">restoration<sup class="v-idx">6</sup></span>, redevelopment, affordable housing and mixed land use is welcome.</p>
           
@@ -1223,203 +1884,202 @@
           <p>None of these ideas will succeed, however, without confronting the national capital’s most persistent governance problems: Municipal <span class="vocab-hl">inertia<sup class="v-idx">12</sup></span> and a lack of <span class="vocab-hl">alignment<sup class="v-idx">13</sup></span> among civic agencies, Centre and Delhi government. These deficits were the biggest <span class="vocab-hl">bottleneck<sup class="v-idx">14</sup></span> in realising the previous Master Plan’s vision of a more sustainable city. Over the past 25 years, research on pollution, Yamuna <span class="vocab-hl">restoration<sup class="v-idx">6</sup></span>, waste management, urban flooding and transport development has pointed to the need for <span class="vocab-hl">concerted<sup class="v-idx">15</sup></span> action among departments. Metro expansion, for instance, works best when bus routes, <span class="vocab-hl">last-mile connectivity<sup class="v-idx">16</sup></span>, parking rules and pedestrian facilities are designed around it. Land-use planning and infrastructure development cannot be <span class="vocab-hl">divorced from<sup class="v-idx">17</sup></span> the requirements of <span class="vocab-hl">curbing<sup class="v-idx">18</sup></span> water logging, while building approvals, fire safety and emergency response require effective information-sharing among construction, fire and municipal authorities. Repeated fire incidents, building collapses and the strain placed on the city’s infrastructure during heavy rainfall have exposed the risks of <span class="vocab-hl">fragmented<sup class="v-idx">20</sup></span> and overlapping responsibilities among its agencies. Delhi has a <span class="vocab-hl">blueprint<sup class="v-idx">21</sup></span> for improving <span class="vocab-hl">liveability<sup class="v-idx">22</sup></span>. It needs to learn from past failures.</p>
           
         </div>
-        <div class="reader-source-note">
-          Source: The Indian Express &nbsp;·&nbsp; Editorial Edition: 2026-08-24
+        <div class="p1-article-footer-note">
+          Published: 2026-08-24 &nbsp;·&nbsp; Source: The Indian Express
         </div>
       </div>
 
-      <!-- Quick Vocabulary Sidebar -->
-      <div class="reader-sidebar">
+      <!-- Right Column: Quick Vocabulary -->
+      <div class="p1-sidebar">
         <div>
-          <div class="sidebar-header">
+          <div class="p1-sidebar-header">
             <span>VOCABULARY 101</span>
-            <span class="sidebar-badge">22 TERMS</span>
           </div>
-          <ul class="sidebar-vocab-list">
+          <ul class="p1-vocab-list">
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>1. Come into effect</strong>
                 <span class="pos">(Verb phrase)</span>
               </div>
-              <div class="sidebar-vocab-def">become operative &nbsp;·&nbsp; <span class="devanagari">लागू होना</span></div>
+              <div class="p1-vocab-item-def">become operative &nbsp;·&nbsp; <span class="devanagari">लागू होना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>2. Fledgling</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">emerging &nbsp;·&nbsp; <span class="devanagari">नया और अनुभवहीन</span></div>
+              <div class="p1-vocab-item-def">emerging &nbsp;·&nbsp; <span class="devanagari">नया और अनुभवहीन</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>3. Acute</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">severe &nbsp;·&nbsp; <span class="devanagari">गंभीर या तीव्र</span></div>
+              <div class="p1-vocab-item-def">severe &nbsp;·&nbsp; <span class="devanagari">गंभीर या तीव्र</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>4. Give way to</strong>
                 <span class="pos">(Verb phrase)</span>
               </div>
-              <div class="sidebar-vocab-def">be replaced by &nbsp;·&nbsp; <span class="devanagari">का स्थान किसी और चीज़ द्वारा ले लिया जाना</span></div>
+              <div class="p1-vocab-item-def">be replaced by &nbsp;·&nbsp; <span class="devanagari">का स्थान किसी और चीज़ द्वारा ले लिया जाना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>5. Intractable</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">unmanageable &nbsp;·&nbsp; <span class="devanagari">असाध्य या अनसुलझा</span></div>
+              <div class="p1-vocab-item-def">unmanageable &nbsp;·&nbsp; <span class="devanagari">असाध्य या अनसुलझा</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>6. Restoration</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">renewal &nbsp;·&nbsp; <span class="devanagari">पुनर्स्थापना</span></div>
+              <div class="p1-vocab-item-def">renewal &nbsp;·&nbsp; <span class="devanagari">पुनर्स्थापना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>7. Utilisation</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">application &nbsp;·&nbsp; <span class="devanagari">उपयोग</span></div>
+              <div class="p1-vocab-item-def">application &nbsp;·&nbsp; <span class="devanagari">उपयोग</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>8. Futility</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">uselessness &nbsp;·&nbsp; <span class="devanagari">निरर्थकता</span></div>
+              <div class="p1-vocab-item-def">uselessness &nbsp;·&nbsp; <span class="devanagari">निरर्थकता</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>9. Demarcating</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">delimiting &nbsp;·&nbsp; <span class="devanagari">सीमांकन करना</span></div>
+              <div class="p1-vocab-item-def">delimiting &nbsp;·&nbsp; <span class="devanagari">सीमांकन करना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>10. Nurturing</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">fostering &nbsp;·&nbsp; <span class="devanagari">संवर्धन या पोषण करना</span></div>
+              <div class="p1-vocab-item-def">fostering &nbsp;·&nbsp; <span class="devanagari">संवर्धन या पोषण करना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>11. Contribute to</strong>
                 <span class="pos">(Verb phrase)</span>
               </div>
-              <div class="sidebar-vocab-def">lead to &nbsp;·&nbsp; <span class="devanagari">में योगदान देना</span></div>
+              <div class="p1-vocab-item-def">lead to &nbsp;·&nbsp; <span class="devanagari">में योगदान देना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>12. Inertia</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">inactivity &nbsp;·&nbsp; <span class="devanagari">जड़ता या अकर्मण्यता</span></div>
+              <div class="p1-vocab-item-def">inactivity &nbsp;·&nbsp; <span class="devanagari">जड़ता या अकर्मण्यता</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>13. Alignment</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">coordination &nbsp;·&nbsp; <span class="devanagari">तालमेल या संरेखन</span></div>
+              <div class="p1-vocab-item-def">coordination &nbsp;·&nbsp; <span class="devanagari">तालमेल या संरेखन</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>14. Bottleneck</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">impediment &nbsp;·&nbsp; <span class="devanagari">अवरोध या अड़चन</span></div>
+              <div class="p1-vocab-item-def">impediment &nbsp;·&nbsp; <span class="devanagari">अवरोध या अड़चन</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>15. Concerted</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">collaborative &nbsp;·&nbsp; <span class="devanagari">संयुक्त या समन्वित</span></div>
+              <div class="p1-vocab-item-def">collaborative &nbsp;·&nbsp; <span class="devanagari">संयुक्त या समन्वित</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>16. Last-mile connectivity</strong>
                 <span class="pos">(Noun phrase)</span>
               </div>
-              <div class="sidebar-vocab-def">feeder transport &nbsp;·&nbsp; <span class="devanagari">अंतिम छोर तक संपर्क सुविधा</span></div>
+              <div class="p1-vocab-item-def">feeder transport &nbsp;·&nbsp; <span class="devanagari">अंतिम छोर तक संपर्क सुविधा</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>17. Divorced from</strong>
                 <span class="pos">(Adjective phrase)</span>
               </div>
-              <div class="sidebar-vocab-def">detached from &nbsp;·&nbsp; <span class="devanagari">से पूरी तरह अलग या विमुख</span></div>
+              <div class="p1-vocab-item-def">detached from &nbsp;·&nbsp; <span class="devanagari">से पूरी तरह अलग या विमुख</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>18. Curbing</strong>
                 <span class="pos">(Verb)</span>
               </div>
-              <div class="sidebar-vocab-def">restraining &nbsp;·&nbsp; <span class="devanagari">रोकथाम या नियंत्रण करना</span></div>
+              <div class="p1-vocab-item-def">restraining &nbsp;·&nbsp; <span class="devanagari">रोकथाम या नियंत्रण करना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>19. Strain on</strong>
                 <span class="pos">(Noun phrase)</span>
               </div>
-              <div class="sidebar-vocab-def">burden on &nbsp;·&nbsp; <span class="devanagari">पर भारी दबाव या तनाव</span></div>
+              <div class="p1-vocab-item-def">burden on &nbsp;·&nbsp; <span class="devanagari">पर भारी दबाव या तनाव</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>20. Fragmented</strong>
                 <span class="pos">(Adjective)</span>
               </div>
-              <div class="sidebar-vocab-def">disjointed &nbsp;·&nbsp; <span class="devanagari">खंडित या बिखरा हुआ</span></div>
+              <div class="p1-vocab-item-def">disjointed &nbsp;·&nbsp; <span class="devanagari">खंडित या बिखरा हुआ</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>21. Blueprint</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">master plan &nbsp;·&nbsp; <span class="devanagari">विस्तृत रूपरेखा या योजना</span></div>
+              <div class="p1-vocab-item-def">master plan &nbsp;·&nbsp; <span class="devanagari">विस्तृत रूपरेखा या योजना</span></div>
             </li>
             
-            <li class="sidebar-vocab-item">
-              <div>
+            <li class="p1-vocab-item">
+              <div class="p1-vocab-item-top">
                 <strong>22. Liveability</strong>
                 <span class="pos">(Noun)</span>
               </div>
-              <div class="sidebar-vocab-def">habitability &nbsp;·&nbsp; <span class="devanagari">रहने की अनुकूलता</span></div>
+              <div class="p1-vocab-item-def">habitability &nbsp;·&nbsp; <span class="devanagari">रहने की अनुकूलता</span></div>
             </li>
             
           </ul>
         </div>
 
-        <div class="sidebar-cta-card">
-          <div class="sidebar-cta-title">🔔 Daily Revision Lab</div>
-          <div style="font-size: 7.2px; color: #78350f;">Complete definitions, mnemonics &amp; applied grammar follow on Next Page.</div>
-          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="sidebar-cta-btn">✈ Join Ez Editorialś</a>
+        <div class="p1-cta-card">
+          <div class="p1-cta-title">🔔 Daily Revision</div>
+          <div style="font-size: 7.2px; color: #713f12;">Revise definitions &amp; grammar rules on Page 8.</div>
+          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="p1-cta-btn">✈ Join Ez Editorialś</a>
         </div>
       </div>
     </div>
@@ -1428,18 +2088,372 @@
   <div class="page-footer">
     <span>Ez Editorial Daily Series · August 24, 2026</span>
     <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-sub-link">Subscribe to our Ez Editorialś Channel</a>
-    <span>Page </span>
+    <span>Page 7</span>
   </div>
 </div>
 
-<!-- Dynamic Vocabulary Lab Pages (Spaced & Bento Structured) -->
+<!-- Article Vocabulary Lab Page -->
+<div class="page inner-page">
+  <!-- Subtle Watermark (Only active on inner pages) -->
+  
+  <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
+  
+
+  <div class="inner-content-wrapper">
+    <div class="p2-header">
+      <div>
+        <div class="p2-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
+        <div class="p2-header-sub">To build Delhi’s future, learn from past missteps</div>
+      </div>
+      <div class="p2-header-sub">The Indian Express &nbsp;·&nbsp; Urban Governance & Town Planning</div>
+    </div>
+
+    <!-- Editorial Stance & Tone -->
+    <div class="p2-analysis-card">
+      <div class="p2-tone-block">
+        <div class="p2-tone-label">Editorial Stance</div>
+        <div class="p2-tone-value">Pragmatic</div>
+        <div class="p2-tone-expl">(practical and realistic)</div>
+      </div>
+      <div class="p2-analysis-summary">
+        The author adopts a pragmatic tone to evaluate Delhi's new Master Plan, welcoming its forward-looking urban and ecological vision while highlighting chronic institutional bottlenecks. The editorial contends that comprehensive urban plans inevitably fail without synchronized governance between municipal, state, and central bodies. It concludes by stressing that the capital must actively learn from past implementation deficits to build a sustainable, liveable future.
+      </div>
+    </div>
+
+    <!-- Master Vocabulary Table -->
+    <div class="p2-table-wrapper">
+      <div class="p2-table-head">
+        <div>#</div>
+        <div>WORD &amp; POS</div>
+        <div>MEANING (HINDI &amp; ENGLISH)</div>
+        <div>SYNONYMS (UK)</div>
+        <div>ANTONYMS (UK)</div>
+      </div>
+
+      
+      <div class="p2-vocab-row t-1">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">1</div>
+          <div>
+            <div class="p2-word">Acute</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Negative">Negative</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">गंभीर या तीव्र</div>
+            <div class="p2-def">Presenting or experienced to a severe, intense, or critical degree.</div>
+          </div>
+          <div class="p2-syns">severe, intense, grave</div>
+          <div class="p2-ants">mild, slight, moderate</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Acute sounds like 'a cute' needle prick—sharp, piercing, and intensely felt.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-2">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">2</div>
+          <div>
+            <div class="p2-word">Intractable</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Negative">Negative</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">असाध्य या अनसुलझा</div>
+            <div class="p2-def">Extremely hard to manage, control, cure, or resolve.</div>
+          </div>
+          <div class="p2-syns">unmanageable, incorrigible, unyielding</div>
+          <div class="p2-ants">tractable, manageable, amenable</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> In- (not) + tractable (track/steer) = a problem that cannot be tracked, steered, or handled.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-3">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">3</div>
+          <div>
+            <div class="p2-word">Utilisation</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Noun</span>
+              <span class="p2-connot connot-Neutral">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">उपयोग</div>
+            <div class="p2-def">The action of making practical, effective use of available resources.</div>
+          </div>
+          <div class="p2-syns">employment, exploitation, application</div>
+          <div class="p2-ants">wastage, disuse, underutilisation</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Connected to 'utility' — turning available resources into practical utility.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-4">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">4</div>
+          <div>
+            <div class="p2-word">Demarcating</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Verb</span>
+              <span class="p2-connot connot-Neutral">Neutral</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">सीमांकन करना</div>
+            <div class="p2-def">Setting or clearly showing the limits, boundaries, or separation between distinct zones.</div>
+          </div>
+          <div class="p2-syns">delineating, delimiting, bounding</div>
+          <div class="p2-ants">blurring, confounding, integrating</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> De-mark = setting clear visual marks for boundaries.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-5">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">5</div>
+          <div>
+            <div class="p2-word">Nurturing</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Verb</span>
+              <span class="p2-connot connot-Positive">Positive</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">संवर्धन या पोषण करना</div>
+            <div class="p2-def">Caring for, supporting, and actively encouraging the growth or development of something.</div>
+          </div>
+          <div class="p2-syns">fostering, cultivating, cherishing</div>
+          <div class="p2-ants">neglecting, stifling, hindering</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Like 'nutrition' feeds the body, nurturing feeds growth and survival.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-6">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">6</div>
+          <div>
+            <div class="p2-word">Alignment</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Noun</span>
+              <span class="p2-connot connot-Positive">Positive</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">तालमेल या संरेखन</div>
+            <div class="p2-def">Arrangement in a straight line, or a state of close agreement and shared policy between groups.</div>
+          </div>
+          <div class="p2-syns">coordination, synchronisation, congruence</div>
+          <div class="p2-ants">divergence, misalignment, discord</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Bringing separate entities onto the same 'line' of policy and purpose.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-7">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">7</div>
+          <div>
+            <div class="p2-word">Concerted</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Positive">Positive</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">संयुक्त या समन्वित</div>
+            <div class="p2-def">Jointly planned, arranged, or carried out with coordinated effort.</div>
+          </div>
+          <div class="p2-syns">collaborative, co-ordinated, joint</div>
+          <div class="p2-ants">disjointed, unilateral, fragmentary</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Like a musical 'concert' where musicians play in unified, coordinated harmony.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-8">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">8</div>
+          <div>
+            <div class="p2-word">Curbing</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Verb</span>
+              <span class="p2-connot connot-Positive">Positive</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">रोकथाम या नियंत्रण करना</div>
+            <div class="p2-def">Restraining, checking, or holding back an undesirable phenomenon.</div>
+          </div>
+          <div class="p2-syns">restraining, suppressing, reining in</div>
+          <div class="p2-ants">unleashing, encouraging, fostering</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> The 'curb' of a road keeps vehicles from sliding off; curbing restrains excesses.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-9">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">9</div>
+          <div>
+            <div class="p2-word">Fragmented</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Adjective</span>
+              <span class="p2-connot connot-Negative">Negative</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">खंडित या बिखरा हुआ</div>
+            <div class="p2-def">Disorganized and broken into separate, uncoordinated parts.</div>
+          </div>
+          <div class="p2-syns">disjointed, splintered, compartmentalised</div>
+          <div class="p2-ants">unified, consolidated, integrated</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Broken into separate, fragile 'fragments' instead of working as a solid whole.
+        </div>
+      </div>
+      
+      <div class="p2-vocab-row t-10">
+        <div class="p2-vocab-top">
+          <div class="p2-num-badge">10</div>
+          <div>
+            <div class="p2-word">Liveability</div>
+            <div class="p2-badges">
+              <span class="p2-pos-pill">Noun</span>
+              <span class="p2-connot connot-Positive">Positive</span>
+            </div>
+          </div>
+          <div>
+            <div class="p2-hindi devanagari">रहने की अनुकूलता</div>
+            <div class="p2-def">The degree to which an urban environment is suitable, safe, and comfortable for human habitation.</div>
+          </div>
+          <div class="p2-syns">habitability, comfort, sustainability</div>
+          <div class="p2-ants">uninhabitability, squalor, inhospitableness</div>
+        </div>
+        <div class="p2-mnemonic-row">
+          <strong>Memory Hook:</strong> Live + ability = the capacity of an urban space to support high-quality human living.
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- Dynamic Applied Grammar Matrix -->
+    <div class="p2-grammar-grid">
+      
+      <div class="p2-card">
+        <h3>Fixed Prepositions</h3>
+        
+        <div class="p2-card-item">
+          <strong>Contribute to</strong> (<span class="devanagari">में योगदान देना</span>): To help bring about, cause, or advance a specific outcome or condition.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Divorced from</strong> (<span class="devanagari">से पूरी तरह अलग या विमुख</span>): Completely separated, disconnected, or isolated from something.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Strain on</strong> (<span class="devanagari">पर भारी दबाव या तनाव</span>): Severe pressure, demand, or tension exerted upon an existing resource or system.
+        </div>
+        
+      </div>
+      
+
+      
+      <div class="p2-card">
+        <h3>Phrasal Verbs</h3>
+        
+        <div class="p2-card-item">
+          <strong>Come into effect</strong> (<span class="devanagari">लागू होना</span>): To begin to apply or take official legal force.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Give way to</strong> (<span class="devanagari">का स्थान किसी और चीज़ द्वारा ले लिया जाना</span>): To be replaced, superseded, or followed by something else.
+        </div>
+        
+      </div>
+      
+
+      
+      <div class="p2-card">
+        <h3>One-Word Substitutions</h3>
+        
+        <div class="p2-card-item">
+          <strong>Fledgling</strong> (<span class="devanagari">नया और अनुभवहीन</span>): An entity, settlement, or enterprise that is young, newly developed, and inexperienced.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Restoration</strong> (<span class="devanagari">पुनर्स्थापना</span>): The action of returning something to a former, healthy, or unimpaired condition.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Futility</strong> (<span class="devanagari">निरर्थकता</span>): The quality of being completely pointlessness or incapable of producing any useful result.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Inertia</strong> (<span class="devanagari">जड़ता या अकर्मण्यता</span>): A tendency to do nothing or to remain unchanged; sluggishness in administrative action.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Bottleneck</strong> (<span class="devanagari">अवरोध या अड़चन</span>): A point of congestion, constriction, or blockage that severely impedes progress.
+        </div>
+        
+        <div class="p2-card-item">
+          <strong>Blueprint</strong> (<span class="devanagari">विस्तृत रूपरेखा या योजना</span>): A comprehensive design, technical drawing, or systematic roadmap for future execution.
+        </div>
+        
+      </div>
+      
+
+      
+      <div class="p2-card">
+        <h3>Idioms &amp; Phrases</h3>
+        
+        <div class="p2-card-item">
+          <strong>Last-mile connectivity</strong> (<span class="devanagari">अंतिम छोर तक संपर्क सुविधा</span>): The final stage of a transit network delivering passengers directly to their ultimate destinations.
+        </div>
+        
+      </div>
+      
+
+      
+    </div>
+
+    <!-- Bottom Study Tip Box -->
+    <div class="p2-study-tip">
+      <strong>Study Tip:</strong> Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Ez Editorial Daily Series · August 24, 2026</span>
+    <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-sub-link">Subscribe to our Ez Editorialś Channel</a>
+    <span>Page 8</span>
+  </div>
+</div>
 
 
+<!-- =========================================================
+     LAST PAGE: BACK COVER
+     ========================================================= -->
 
-
-<!-- LAST PAGE: BACK COVER -->
-
-<div class="page cover-page" style="background-image: url('../assets/back_cover_bg.jpg');"></div>
+<div class="page cover-page" style="background-image: url('../assets/back_cover_bg.jpg');">
+</div>
 
 
 </body>

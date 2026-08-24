@@ -2,8 +2,8 @@ name: Generate Daily Editorial Magazine
 
 on:
   schedule:
-    # Runs daily at 01:00 UTC (06:30 AM IST)
-    - cron: '0 1 * * *'
+    # Runs daily at 02:50 UTC (08:20 AM IST)
+    - cron: '50 2 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI
 
 permissions:

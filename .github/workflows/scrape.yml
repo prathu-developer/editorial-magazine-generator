@@ -2,8 +2,8 @@ name: Daily Editorial Scraper
 
 on:
   schedule:
-    # Runs at 01:30 UTC every day (07:00 AM IST)
-    - cron: '30 1 * * *'
+    # Runs at 02:30 UTC every day (08:00 AM IST)
+    - cron: '30 2 * * *'
   workflow_dispatch:
 
 permissions:

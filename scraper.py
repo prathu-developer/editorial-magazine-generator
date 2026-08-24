@@ -41,8 +41,46 @@ def fetch_page(url):
         print(f"⚠️ Fetch error for {url}: {e}")
         return ""
 
+def extract_article_date(html):
+    """Extracts the article publication date in IST to prevent fetching yesterday's articles."""
+    soup = BeautifulSoup(html, 'html.parser')
+    
+    # 1. Check Meta tags
+    for meta in soup.find_all('meta'):
+        prop = meta.get('property', '') or meta.get('name', '') or meta.get('itemprop', '')
+        if prop in ['article:published_time', 'publish-date', 'datePublished', 'og:published_time']:
+            content = meta.get('content', '')
+            if content:
+                try:
+                    dt = datetime.fromisoformat(content.replace('Z', '+00:00')).astimezone(IST)
+                    return dt.date()
+                except Exception:
+                    match = re.search(r'(\d{4}-\d{2}-\d{2})', content)
+                    if match:
+                        return datetime.strptime(match.group(1), "%Y-%m-%d").date()
+
+    # 2. Check JSON-LD metadata
+    for script in soup.find_all('script', type='application/ld+json'):
+        try:
+            data = json.loads(script.string or '')
+            items = data if isinstance(data, list) else [data]
+            for item in items:
+                if 'datePublished' in item:
+                    date_str = str(item['datePublished'])
+                    try:
+                        dt = datetime.fromisoformat(date_str.replace('Z', '+00:00')).astimezone(IST)
+                        return dt.date()
+                    except Exception:
+                        match = re.search(r'(\d{4}-\d{2}-\d{2})', date_str)
+                        if match:
+                            return datetime.strptime(match.group(1), "%Y-%m-%d").date()
+        except Exception:
+            continue
+
+    return None
+
 def extract_clean_paragraphs(container):
-    """Extracts text from <p> tags while preventing inline links from causing extra line breaks."""
+    """Extracts text from <p> tags while keeping inline links smoothly inside sentences."""
     for unwanted in container.find_all(['script', 'style', 'aside', 'figure', 'button', 'iframe']):
         unwanted.decompose()
     for ad in container.find_all(class_=re.compile(r'ad-|ad_|newsletter|social|also-read|comment', re.I)):
@@ -50,10 +88,8 @@ def extract_clean_paragraphs(container):
 
     paragraphs = []
     for p in container.find_all('p'):
-        # Normalize internal whitespace so inline <a> tags merge seamlessly into text
         text = re.sub(r'\s+', ' ', p.get_text()).strip()
         
-        # Filter out empty text, timestamps, and Google source labels
         if not text or len(text) < 25:
             continue
         if re.match(r'^(published|updated|first published)\s*[-:]', text, re.I):
@@ -69,7 +105,6 @@ def extract_indian_express_content(html):
     """Extracts Indian Express editorial paragraphs preserving original paragraph breaks."""
     soup = BeautifulSoup(html, 'html.parser')
 
-    # 1. Prefer story containers to keep true paragraph structure
     selectors = ['#pcl-full-content', '.story-details', '.full-details', 'div[itemprop="articleBody"]']
     for selector in selectors:
         container = soup.select_one(selector)
@@ -78,7 +113,6 @@ def extract_indian_express_content(html):
             if len(text) > 300:
                 return text
 
-    # 2. Fallback to JSON-LD metadata
     for script in soup.find_all('script', type='application/ld+json'):
         try:
             data = json.loads(script.string or '')
@@ -91,7 +125,6 @@ def extract_indian_express_content(html):
         except Exception:
             continue
 
-    # 3. Readability fallback
     doc = Document(html)
     summary_soup = BeautifulSoup(doc.summary(), 'html.parser')
     return extract_clean_paragraphs(summary_soup)
@@ -99,7 +132,6 @@ def extract_indian_express_content(html):
 def extract_hindu_content(html):
     """Extracts clean editorial paragraphs from The Hindu without mid-sentence breaks."""
     soup = BeautifulSoup(html, 'html.parser')
-
     container = soup.select_one('.articlebodycontent, div[itemprop="articleBody"], .storycontent, .content')
     if container:
         text = extract_clean_paragraphs(container)
@@ -111,15 +143,16 @@ def extract_hindu_content(html):
     return extract_clean_paragraphs(summary_soup)
 
 def apply_speedreader(url, newspaper="The Indian Express"):
-    """Extracts clean title, proper paragraphs, and estimated reading time."""
+    """Extracts clean title, proper paragraphs, estimated reading time, and publish date."""
     html = fetch_page(url)
     if not html:
-        return "", "", ""
+        return "", "", "", None
 
     try:
+        pub_date = extract_article_date(html)
         soup = BeautifulSoup(html, 'html.parser')
         
-        # 1. Extract and clean title
+        # 1. Clean Title
         h1 = soup.find('h1')
         if h1:
             for badge in h1.find_all(['span', 'div', 'a']):
@@ -129,11 +162,10 @@ def apply_speedreader(url, newspaper="The Indian Express"):
             raw_title = Document(html).title()
 
         clean_title = raw_title.split(' - ')[0].split(' | ')[0].strip()
-        # Clean glued or prepended "Opinion" / "Editorial"
         clean_title = re.sub(r'^Opinion([A-Z])', r'\1', clean_title)
         clean_title = re.sub(r'^(Opinion|Editorial)\s*:?\s*', '', clean_title, flags=re.IGNORECASE).strip()
 
-        # 2. Extract passage without broken lines
+        # 2. Extract Passage
         if newspaper == "The Indian Express":
             passage = extract_indian_express_content(html)
         else:
@@ -141,10 +173,10 @@ def apply_speedreader(url, newspaper="The Indian Express"):
 
         words = len(passage.split())
         r_time = f"{max(1, round(words / 200))} min read"
-        return clean_title, passage, r_time
+        return clean_title, passage, r_time, pub_date
     except Exception as e:
         print(f"⚠️ Parsing error for {url}: {e}")
-        return "", "", ""
+        return "", "", "", None
 
 def get_hindu_editorials():
     print("📰 Visiting The Hindu Editorial Section...")
@@ -160,15 +192,21 @@ def get_hindu_editorials():
             links.append(href)
 
     articles = []
-    for link in links[:5]:
-        title, passage, r_time = apply_speedreader(link, "The Hindu")
+    for link in links[:4]:
+        title, passage, r_time, pub_date = apply_speedreader(link, "The Hindu")
+        
+        # Discard articles not published today in IST
+        if pub_date and pub_date != TODAY_DATE:
+            print(f"  ⏭️ Skipping older Hindu editorial ({pub_date}): {title[:40]}...")
+            continue
+
         if passage and len(passage) > 300:
             print(f"  ✓ Fetched: {title[:55]}...")
             articles.append({
                 "newspaper": "The Hindu",
                 "title": title,
                 "link": link,
-                "timestamp": str(TODAY_DATE),
+                "timestamp": str(pub_date or TODAY_DATE),
                 "reading_time": r_time,
                 "passage": passage
             })
@@ -200,8 +238,14 @@ def get_indian_express_editorials():
     print(f"  ℹ️ Found {len(links)} Indian Express editorial candidate links.")
 
     candidates = []
-    for link in links[:4]:
-        title, passage, r_time = apply_speedreader(link, "The Indian Express")
+    for link in links[:5]:
+        title, passage, r_time, pub_date = apply_speedreader(link, "The Indian Express")
+        
+        # Discard articles not published today in IST
+        if pub_date and pub_date != TODAY_DATE:
+            print(f"  ⏭️ Skipping older Express editorial ({pub_date}): {title[:40]}...")
+            continue
+
         if passage and len(passage) > 300:
             words = len(passage.split())
             print(f"  ✓ Fetched: {title[:45]}... ({words} words)")
@@ -209,13 +253,13 @@ def get_indian_express_editorials():
                 "newspaper": "The Indian Express",
                 "title": title,
                 "link": link,
-                "timestamp": str(TODAY_DATE),
+                "timestamp": str(pub_date or TODAY_DATE),
                 "reading_time": r_time,
                 "passage": passage,
                 "word_count": words
             })
 
-    # Sort descending by word count and keep only the top 2 longest articles
+    # Sort today's candidates by word count (descending) and take at most 2
     candidates.sort(key=lambda item: item["word_count"], reverse=True)
     selected_articles = candidates[:2]
 

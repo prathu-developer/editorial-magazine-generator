@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
 
   @page {
     size: 210mm 297mm;
@@ -25,6 +25,11 @@
     background-color: #ffffff;
     color: #1e293b;
     -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
   }
 
   .devanagari {
@@ -50,22 +55,48 @@
     background-repeat: no-repeat;
   }
 
-  /* Front Cover Date Badge */
+  /* =========================================================
+     FRONT COVER: DATE STAMP & FOOTER LINKS
+     ========================================================= */
   .front-date-stamp {
     position: absolute;
-    top: 14mm;
+    top: 15mm;
     right: 14mm;
-    font-size: 11px;
-    font-weight: 800;
+    font-size: 13.5px;
+    font-weight: 900;
     color: #0f2b48;
-    background: rgba(255, 255, 255, 0.92);
-    padding: 3px 8px;
+    background: rgba(255, 255, 255, 0.94);
+    padding: 4px 10px;
     border-radius: 4px;
+    border-bottom: 2.5px solid #d97706; /* Golden Yellow Underline */
     text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+  }
+
+  .front-footer-bar {
+    position: absolute;
+    bottom: 9mm;
+    left: 14mm;
+    right: 14mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .front-footer-link {
+    color: #ffffff;
+    background: rgba(15, 43, 72, 0.9);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: inline-block;
   }
 
   /* =========================================================
-     TABLE OF CONTENTS (TEXT ALIGNED TO THE RIGHT OF NUMBERS)
+     TABLE OF CONTENTS: LIST & FOOTER LINK
      ========================================================= */
   .toc-date-stamp {
     position: absolute;
@@ -80,14 +111,14 @@
   .toc-list-container {
     position: absolute;
     top: 96mm;
-    left: 102mm;      /* Positioned directly to the right of the yellow numbers */
-    width: 96mm;       /* Fills the remaining right portion of the A4 canvas */
+    left: 102mm;
+    width: 96mm;
     display: flex;
     flex-direction: column;
   }
 
   .toc-row {
-    height: 21.6mm;    /* Exactly calibrated to match the 6 pre-printed rows */
+    height: 21.6mm;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -120,26 +151,78 @@
     font-weight: 600;
   }
 
+  .toc-footer-container {
+    position: absolute;
+    bottom: 12mm;
+    left: 14mm;
+    right: 14mm;
+    text-align: center;
+  }
+  .toc-channel-link {
+    font-size: 8.5px;
+    font-weight: 800;
+    color: #0f2b48;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    background: #fef08a;
+    padding: 3px 12px;
+    border-radius: 12px;
+    border: 1px solid #fde047;
+    display: inline-block;
+  }
+
   /* =========================================================
-     INNER EDITORIAL PAGES
+     INNER EDITORIAL & VOCABULARY PAGES
      ========================================================= */
   .inner-page {
     padding: 9mm 12mm 7mm 12mm;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    z-index: 1;
   }
 
+  /* Optimized Watermark Layer for Pre-Slanted PNG */
+  .inner-page-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centers the image without extra rotation */
+    width: 175mm;                      /* Fills the readable area of the A4 page */
+    height: 120mm;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.12;                     /* Calibrated for light grey PNGs */
+    mix-blend-mode: multiply;          /* Makes white backgrounds 100% transparent */
+    pointer-events: none;              /* Prevents interference with text selection */
+    z-index: 0;
+  }
+
+  .inner-content-wrapper {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Inner Pages Universal Footer */
   .page-footer {
+    position: relative;
+    z-index: 2;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 8px;
+    font-size: 7.8px;
     font-weight: 600;
     color: #64748b;
     border-top: 1px solid #e2e8f0;
     padding-top: 4px;
     margin-top: auto;
+  }
+  .footer-sub-link {
+    color: #1e40af;
+    font-weight: 700;
+    text-decoration: underline;
   }
 
   /* Page 1 (Reader) */
@@ -236,7 +319,7 @@
     font-weight: 700;
   }
 
-  /* Clean Highlight Without Underline (Tiny Superscript) */
+  /* Highlight Without Underline (Tiny Superscript) */
   .vocab-hl {
     font-weight: 700;
     color: #0f2b48;
@@ -590,6 +673,12 @@
 {% if data.has_front_cover %}
 <div class="page cover-page" style="background-image: url('{{ data.front_cover_src }}');">
   <div class="front-date-stamp">{{ data.date_formatted }}</div>
+
+  <!-- Bottom Footer with Clickable Embedded Telegram Links -->
+  <div class="front-footer-bar">
+    <a href="https://t.me/Prathuadhe" target="_blank" class="front-footer-link">CURATED BY PRATHU</a>
+    <a href="https://t.me/Contact_ez" target="_blank" class="front-footer-link">PUBLISHED BY EZ</a>
+  </div>
 </div>
 {% endif %}
 
@@ -600,7 +689,7 @@
 <div class="page cover-page" style="background-image: url('{{ data.toc_bg_src }}');">
   <div class="toc-date-stamp">{{ data.date_formatted }}</div>
 
-  <!-- Injected dynamically right next to the 01-06 yellow numbers -->
+  <!-- Dynamic Content Injected Over the 6 TOC Rows -->
   <div class="toc-list-container">
     {% for entry in data.toc_entries %}
     <div class="toc-row">
@@ -612,6 +701,13 @@
     </div>
     {% endfor %}
   </div>
+
+  <!-- TOC Bottom Footer Link -->
+  <div class="toc-footer-container">
+    <a href="https://t.me/ezeditorialgroup/" target="_blank" class="toc-channel-link">
+      ✈ Subscribe to our Ez Editorialś Channel
+    </a>
+  </div>
 </div>
 {% endif %}
 
@@ -621,7 +717,12 @@
 {% for art in data.articles %}
 <!-- Article Reader Page -->
 <div class="page inner-page">
-  <div>
+  <!-- Subtle Watermark (Only active on inner pages) -->
+  {% if data.has_watermark %}
+  <div class="inner-page-watermark" style="background-image: url('{{ data.watermark_src }}');"></div>
+  {% endif %}
+
+  <div class="inner-content-wrapper">
     <div class="p1-header">
       <div class="p1-top-bar">
         <span class="p1-newspaper-tag {% if 'Hindu' in art.newspaper %}tag-hindu{% else %}tag-express{% endif %}">
@@ -674,7 +775,7 @@
         <div class="p1-cta-card">
           <div class="p1-cta-title">🔔 Daily Revision</div>
           <div style="font-size: 7.2px; color: #713f12;">Revise definitions &amp; grammar rules on Page {{ art.page_p2 }}.</div>
-          <a href="https://t.me/EzEditorials" class="p1-cta-btn">✈ Join Ez Editorials</a>
+          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="p1-cta-btn">✈ Join Ez Editorialś</a>
         </div>
       </div>
     </div>
@@ -682,14 +783,19 @@
 
   <div class="page-footer">
     <span>Ez Editorial Daily Series · {{ data.date_formatted }}</span>
-    <span>{{ art.newspaper }} · {{ art.topic }}</span>
+    <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-sub-link">Subscribe to our Ez Editorialś Channel</a>
     <span>Page {{ art.page_p1 }}</span>
   </div>
 </div>
 
 <!-- Article Vocabulary Lab Page -->
 <div class="page inner-page">
-  <div>
+  <!-- Subtle Watermark (Only active on inner pages) -->
+  {% if data.has_watermark %}
+  <div class="inner-page-watermark" style="background-image: url('{{ data.watermark_src }}');"></div>
+  {% endif %}
+
+  <div class="inner-content-wrapper">
     <div class="p2-header">
       <div>
         <div class="p2-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
@@ -745,7 +851,7 @@
       {% endfor %}
     </div>
 
-    <!-- Dynamic Applied Grammar Matrix (Only renders non-empty categories) -->
+    <!-- Dynamic Applied Grammar Matrix -->
     <div class="p2-grammar-grid">
       {% if art.categorized_vocab.fixed_prepositions %}
       <div class="p2-card">
@@ -811,7 +917,7 @@
 
   <div class="page-footer">
     <span>Ez Editorial Daily Series · {{ data.date_formatted }}</span>
-    <span>Vocabulary Mastery &amp; Applied Grammar</span>
+    <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-sub-link">Subscribe to our Ez Editorialś Channel</a>
     <span>Page {{ art.page_p2 }}</span>
   </div>
 </div>

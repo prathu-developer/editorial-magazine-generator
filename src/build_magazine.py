@@ -96,7 +96,6 @@ def compile_magazine():
         categorized_vocab = categorize_vocabulary(vocab_list)
         paragraphs = clean_and_highlight_passage(art.get("passage", ""), vocab_list)
         
-        # Clean double brackets from tone explanation
         tone_data = art.get("analysis", {})
         raw_expl = tone_data.get("tone_simple_explanation", "")
         clean_expl = raw_expl.strip("()")
@@ -104,7 +103,6 @@ def compile_magazine():
         meta_sub = art.get("editorial_metadata", {}).get("subtitle", "")
         subtitle = meta_sub if meta_sub and meta_sub != "N/A" else None
 
-        # Clean TOC entry without duplicating numbers
         toc_entries.append({
             "title": art.get("title", ""),
             "newspaper": art.get("newspaper", "Editorial"),
@@ -131,11 +129,20 @@ def compile_magazine():
         })
         page_counter += 2
 
-    # Check asset paths (.jpg format for reduced file sizes)
+    # Check asset paths (.jpg format)
     assets_dir = os.path.join(base_dir, "assets")
     front_cover_path = os.path.join(assets_dir, "front_cover_bg.jpg")
     toc_bg_path = os.path.join(assets_dir, "toc_bg.jpg")
     back_cover_path = os.path.join(assets_dir, "back_cover_bg.jpg")
+    
+    # Check watermark path (supports SVG or PNG)
+    watermark_svg = os.path.join(assets_dir, "watermark.svg")
+    watermark_png = os.path.join(assets_dir, "watermark.png")
+    watermark_src = None
+    if os.path.exists(watermark_svg):
+        watermark_src = f"file://{watermark_svg}"
+    elif os.path.exists(watermark_png):
+        watermark_src = f"file://{watermark_png}"
 
     render_payload = {
         "date_formatted": formatted_date_ist,
@@ -146,6 +153,8 @@ def compile_magazine():
         "toc_bg_src": f"file://{toc_bg_path}",
         "has_back_cover": os.path.exists(back_cover_path),
         "back_cover_src": f"file://{back_cover_path}",
+        "has_watermark": watermark_src is not None,
+        "watermark_src": watermark_src,
         "toc_entries": toc_entries,
         "total_articles": len(processed_articles),
         "articles": processed_articles
@@ -159,7 +168,7 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # Single-pass PDF generation
+    # Single-pass PDF generation with full font & link rendering
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         page = browser.new_page()
@@ -174,7 +183,7 @@ def compile_magazine():
         )
         browser.close()
 
-    print(f"✅ Generated Complete Magazine with TOC at: {output_pdf_path}")
+    print(f"✅ Generated Complete Magazine with Links & Watermark at: {output_pdf_path}")
 
 if __name__ == "__main__":
     compile_magazine()

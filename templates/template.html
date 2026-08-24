@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
 
   @page {
     size: 210mm 297mm;
@@ -14,16 +14,14 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    letter-spacing: 0 !important;
-    word-spacing: normal !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
 
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #ffffff;
-    color: #1e293b;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -33,7 +31,7 @@
   }
 
   .devanagari {
-    font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+    font-family: 'Noto Sans Devanagari', 'Plus Jakarta Sans', sans-serif;
   }
 
   .page {
@@ -47,7 +45,7 @@
     overflow: hidden;
   }
 
-  /* Full-bleed Cover Pages */
+  /* Full-bleed Covers */
   .cover-page {
     padding: 0;
     background-size: 100% 100%;
@@ -55,22 +53,20 @@
     background-repeat: no-repeat;
   }
 
-  /* =========================================================
-     FRONT COVER: DATE STAMP & FOOTER LINKS
-     ========================================================= */
+  /* FRONT COVER */
   .front-date-stamp {
     position: absolute;
     top: 15mm;
     right: 14mm;
-    font-size: 13.5px;
-    font-weight: 900;
-    color: #0f2b48;
-    background: rgba(255, 255, 255, 0.94);
-    padding: 4px 10px;
-    border-radius: 4px;
-    border-bottom: 2.5px solid #d97706; /* Golden Yellow Underline */
+    font-size: 13px;
+    font-weight: 800;
+    color: #091e3a;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 5px 12px;
+    border-radius: 6px;
+    border-bottom: 3px solid #d97706;
     text-transform: uppercase;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
   }
 
   .front-footer-bar {
@@ -88,21 +84,19 @@
   }
   .front-footer-link {
     color: #ffffff;
-    background: rgba(15, 43, 72, 0.9);
-    padding: 4px 10px;
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    display: inline-block;
+    background: rgba(9, 30, 58, 0.92);
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   }
 
-  /* =========================================================
-     TABLE OF CONTENTS: LIST & FOOTER LINK
-     ========================================================= */
+  /* TABLE OF CONTENTS */
   .toc-date-stamp {
     position: absolute;
-    top: 26mm;
+    top: 26.5mm;
     right: 16mm;
-    font-size: 9.5px;
+    font-size: 10px;
     font-weight: 800;
     color: #92400e;
     text-transform: uppercase;
@@ -127,10 +121,10 @@
 
   .toc-article-title {
     font-family: 'Lora', Georgia, serif;
-    font-size: 9.6px;
+    font-size: 9.8px;
     font-weight: 700;
-    color: #0f2b48;
-    line-height: 1.25;
+    color: #091e3a;
+    line-height: 1.3;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -141,14 +135,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 7.8px;
+    font-size: 8px;
     font-weight: 700;
-    color: #b45309;
-    margin-top: 2px;
+    color: #d97706;
+    margin-top: 2.5px;
   }
   .toc-newspaper {
     color: #1e40af;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .toc-footer-container {
@@ -161,21 +155,18 @@
   .toc-channel-link {
     font-size: 8.5px;
     font-weight: 800;
-    color: #0f2b48;
+    color: #091e3a;
     text-transform: uppercase;
-    letter-spacing: 0.4px;
     background: #fef08a;
-    padding: 3px 12px;
-    border-radius: 12px;
+    padding: 4px 14px;
+    border-radius: 20px;
     border: 1px solid #fde047;
-    display: inline-block;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
   }
 
-  /* =========================================================
-     INNER EDITORIAL & VOCABULARY PAGES
-     ========================================================= */
+  /* INNER EDITORIAL PAGES */
   .inner-page {
-    padding: 9mm 12mm 7mm 12mm;
+    padding: 10mm 12mm 8mm 12mm;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -183,61 +174,66 @@
     z-index: 1;
   }
 
-  /* Optimized Watermark Layer for Pre-Slanted PNG */
   .inner-page-watermark {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centers the image without extra rotation */
-    width: 175mm;                      /* Fills the readable area of the A4 page */
+    transform: translate(-50%, -50%);
+    width: 175mm;
     height: 120mm;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.12;                     /* Calibrated for light grey PNGs */
-    mix-blend-mode: multiply;          /* Makes white backgrounds 100% transparent */
-    pointer-events: none;              /* Prevents interference with text selection */
+    opacity: 0.10;
+    mix-blend-mode: multiply;
+    pointer-events: none;
     z-index: 0;
   }
 
   .inner-content-wrapper {
     position: relative;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
-  /* Inner Pages Universal Footer */
+  /* Universal Footer */
   .page-footer {
     position: relative;
     z-index: 2;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 7.8px;
+    font-size: 8px;
     font-weight: 600;
     color: #64748b;
     border-top: 1px solid #e2e8f0;
-    padding-top: 4px;
+    padding-top: 5px;
     margin-top: auto;
   }
   .footer-sub-link {
     color: #1e40af;
     font-weight: 700;
+  }
+  .footer-sub-link:hover {
     text-decoration: underline;
   }
 
-  /* Page 1 (Reader) */
+  /* PAGE 1: READER */
   .p1-top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
   }
   .p1-newspaper-tag {
     font-size: 8.5px;
     font-weight: 800;
     text-transform: uppercase;
-    padding: 2px 7px;
-    border-radius: 3px;
+    padding: 2.5px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
   }
   .tag-hindu { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
   .tag-express { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
@@ -247,29 +243,32 @@
     font-weight: 700;
     background: #f1f5f9;
     color: #334155;
-    padding: 2px 8px;
+    padding: 2.5px 9px;
     border-radius: 12px;
     text-transform: uppercase;
+    border: 1px solid #e2e8f0;
   }
 
   .p1-title {
     font-family: 'Lora', Georgia, serif;
-    font-size: 19px;
+    font-size: 19.5px;
     font-weight: 700;
-    color: #0f2b48;
-    line-height: 1.22;
-    margin: 3px 0 5px 0;
+    color: #091e3a;
+    line-height: 1.25;
+    margin: 4px 0 6px 0;
   }
 
   .p1-subheading-box {
-    border-left: 3px solid #b45309;
-    padding: 2.5px 0 2.5px 7px;
-    margin-bottom: 5px;
+    border-left: 3.5px solid #d97706;
+    padding: 3px 0 3px 9px;
+    margin-bottom: 6px;
     font-family: 'Lora', Georgia, serif;
     font-size: 9.8px;
     font-style: italic;
     color: #92400e;
-    line-height: 1.35;
+    line-height: 1.4;
+    background: #fffbeb;
+    border-radius: 0 4px 4px 0;
   }
 
   .p1-meta-line {
@@ -277,16 +276,17 @@
     justify-content: space-between;
     align-items: center;
     font-size: 8px;
+    font-weight: 600;
     color: #64748b;
-    border-bottom: 1.5px solid #0f2b48;
-    padding-bottom: 3px;
-    margin-bottom: 7px;
+    border-bottom: 1.5px solid #091e3a;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
   }
 
   .p1-layout-grid {
     display: grid;
     grid-template-columns: 1fr 58mm;
-    gap: 7mm;
+    gap: 7.5mm;
     flex-grow: 1;
   }
 
@@ -299,43 +299,45 @@
   .p1-article-body {
     font-family: 'Lora', Georgia, serif;
     font-size: 9.6px;
-    line-height: 1.6;
+    line-height: 1.62;
     color: #1e293b;
     text-align: justify;
+    hyphens: auto;
   }
   .p1-article-body p {
-    margin-bottom: 9px;
+    margin-bottom: 8.5px;
   }
 
-  /* Drop-Cap */
+  /* Elegant Drop-Cap */
   .p1-article-body p:first-of-type::first-letter {
     font-family: 'Lora', Georgia, serif;
-    font-size: 36px;
-    line-height: 0.82;
+    font-size: 38px;
+    line-height: 0.8;
     float: left;
-    padding-right: 5px;
-    padding-top: 3px;
-    color: #b45309;
+    padding-right: 6px;
+    padding-top: 4px;
+    color: #d97706;
     font-weight: 700;
   }
 
-  /* Highlight Without Underline (Tiny Superscript) */
+  /* Vocab Highlights */
   .vocab-hl {
     font-weight: 700;
-    color: #0f2b48;
+    color: #091e3a;
     background: #f0f7ff;
-    padding: 0 2px;
-    border-radius: 2px;
+    padding: 1px 3.5px;
+    border-radius: 3px;
+    border-bottom: 1.5px solid #93c5fd;
     display: inline;
   }
   .v-idx {
-    font-family: 'Inter', sans-serif;
-    font-size: 6px !important;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 6.5px !important;
     font-weight: 800;
     color: #b45309;
     vertical-align: super;
     line-height: 0;
-    margin-left: 1px;
+    margin-left: 2px;
   }
 
   .p1-article-footer-note {
@@ -348,97 +350,109 @@
 
   /* Sidebar */
   .p1-sidebar {
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    background: #fcfcfd;
-    padding: 6px 8px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #fdfdfd;
+    padding: 7px 9px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.02);
   }
   .p1-sidebar-header {
     display: flex;
     align-items: center;
-    gap: 4px;
-    border-bottom: 1.5px solid #0f2b48;
-    padding-bottom: 3px;
-    margin-bottom: 5px;
+    justify-content: space-between;
+    border-bottom: 1.5px solid #091e3a;
+    padding-bottom: 3.5px;
+    margin-bottom: 6px;
   }
   .p1-sidebar-header span {
     font-size: 9px;
     font-weight: 800;
-    color: #0f2b48;
+    color: #091e3a;
     text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .p1-sidebar-badge {
+    font-size: 7px;
+    font-weight: 800;
+    background: #091e3a;
+    color: #ffffff;
+    padding: 1px 5px;
+    border-radius: 10px;
   }
   .p1-vocab-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 3.5px;
+    gap: 3.8px;
   }
   .p1-vocab-item {
     font-size: 7.8px;
-    line-height: 1.22;
+    line-height: 1.25;
   }
   .p1-vocab-item-top {
     color: #0f172a;
   }
   .p1-vocab-item-top strong {
     font-weight: 700;
+    color: #091e3a;
   }
   .p1-vocab-item-top .pos {
     color: #64748b;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 7px;
   }
   .p1-vocab-item-def {
-    color: #047857;
+    color: #059669;
     font-weight: 600;
     padding-left: 10px;
     font-size: 7.4px;
   }
 
   .p1-cta-card {
-    background: #fefce8;
-    border: 1px solid #fef08a;
-    border-radius: 4px;
-    padding: 4px 6px;
-    margin-top: 4px;
+    background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+    border: 1px solid #fde68a;
+    border-radius: 6px;
+    padding: 6px 8px;
+    margin-top: 5px;
   }
   .p1-cta-title {
-    font-size: 7.8px;
+    font-size: 8px;
     font-weight: 800;
-    color: #854d0e;
-    margin-bottom: 1px;
+    color: #92400e;
+    margin-bottom: 1.5px;
   }
   .p1-cta-btn {
     display: block;
     width: 100%;
-    background: #0f2b48;
+    background: #091e3a;
     color: #ffffff;
     text-align: center;
-    font-size: 7.5px;
+    font-size: 7.6px;
     font-weight: 700;
-    padding: 3px 0;
-    border-radius: 3px;
+    padding: 3.5px 0;
+    border-radius: 4px;
     text-decoration: none;
-    margin-top: 2px;
+    margin-top: 3.5px;
   }
 
-  /* Page 2 (Analysis & Vocab Lab) */
+  /* PAGE 2: VOCABULARY LAB & ANALYSIS */
   .p2-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    border-bottom: 2px solid #0f2b48;
-    padding-bottom: 3px;
-    margin-bottom: 5px;
+    border-bottom: 2px solid #091e3a;
+    padding-bottom: 4px;
+    margin-bottom: 6px;
   }
   .p2-header-title {
-    font-size: 13.5px;
+    font-size: 14px;
     font-weight: 800;
-    color: #0f2b48;
+    color: #091e3a;
+    letter-spacing: -0.2px;
   }
   .p2-header-sub {
     font-size: 8px;
@@ -448,64 +462,69 @@
 
   .p2-analysis-card {
     display: grid;
-    grid-template-columns: 36mm 1fr;
-    gap: 8px;
+    grid-template-columns: 38mm 1fr;
+    gap: 10px;
     background: #f0f7ff;
     border: 1px solid #bfdbfe;
     border-left: 4px solid #0284c7;
-    border-radius: 4px;
-    padding: 5px 8px;
-    margin-bottom: 5px;
+    border-radius: 6px;
+    padding: 6px 9px;
+    margin-bottom: 6px;
     align-items: center;
   }
   .p2-tone-block {
     border-right: 1px solid #bfdbfe;
-    padding-right: 6px;
+    padding-right: 8px;
   }
   .p2-tone-label {
     font-size: 7px;
     font-weight: 800;
     text-transform: uppercase;
     color: #0369a1;
+    letter-spacing: 0.3px;
   }
   .p2-tone-value {
-    font-size: 9.5px;
+    font-size: 10px;
     font-weight: 800;
-    color: #0f2b48;
-    line-height: 1.1;
+    color: #091e3a;
+    line-height: 1.15;
   }
   .p2-tone-expl {
     font-size: 7.2px;
-    color: #0369a1;
+    color: #0284c7;
     font-weight: 600;
   }
   .p2-analysis-summary {
-    font-size: 7.8px;
+    font-size: 8px;
     color: #1e3a8a;
-    line-height: 1.32;
+    line-height: 1.35;
     font-style: italic;
   }
 
+  /* Master Vocab Table */
   .p2-table-wrapper {
     border: 1px solid #cbd5e1;
-    border-radius: 4px;
+    border-radius: 6px;
     overflow: hidden;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
   }
   .p2-table-head {
     display: grid;
-    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
-    background: #0f2b48;
+    grid-template-columns: 22px 1.4fr 2.1fr 1.5fr 1.5fr;
+    background: #091e3a;
     color: #ffffff;
     font-size: 7.5px;
     font-weight: 800;
     text-transform: uppercase;
-    padding: 3px 5px;
+    padding: 4px 6px;
+    letter-spacing: 0.3px;
   }
 
   .p2-vocab-row {
-    border-bottom: 1px solid #e2e8f0;
-    border-left: 3px solid transparent;
+    border-bottom: 1px solid #f1f5f9;
+    border-left: 3.5px solid transparent;
   }
   .p2-vocab-row:last-child {
     border-bottom: none;
@@ -522,18 +541,17 @@
   .p2-vocab-row.t-10 { border-left-color: #2563eb; }
   .p2-vocab-row.t-11 { border-left-color: #7c3aed; }
   .p2-vocab-row.t-12 { border-left-color: #e11d48; }
-  .p2-vocab-row.t-13 { border-left-color: #0891b2; }
 
   .p2-vocab-top {
     display: grid;
-    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
-    padding: 3.5px 5px 2.5px 5px;
+    grid-template-columns: 22px 1.4fr 2.1fr 1.5fr 1.5fr;
+    padding: 4px 6px 3px 6px;
     align-items: flex-start;
   }
   .p2-num-badge {
-    width: 14px;
-    height: 14px;
-    background: #0f2b48;
+    width: 15px;
+    height: 15px;
+    background: #091e3a;
     color: #ffffff;
     font-size: 7px;
     font-weight: 800;
@@ -545,136 +563,138 @@
   .p2-word {
     font-size: 9.8px;
     font-weight: 800;
-    color: #0f2b48;
-    line-height: 1.1;
+    color: #091e3a;
+    line-height: 1.15;
   }
   .p2-badges {
     display: flex;
-    gap: 2.5px;
-    margin-top: 1.5px;
+    gap: 3px;
+    margin-top: 2px;
   }
   .p2-pos-pill {
     font-size: 6px;
     font-weight: 800;
-    padding: 0.5px 3.5px;
+    padding: 1px 4px;
     border-radius: 4px;
-    background: #e2e8f0;
+    background: #f1f5f9;
     color: #334155;
+    border: 1px solid #e2e8f0;
     text-transform: uppercase;
   }
   .p2-connot {
     font-size: 6px;
     font-weight: 800;
-    padding: 0.5px 3.5px;
+    padding: 1px 4px;
     border-radius: 4px;
   }
-  .connot-Positive { background: #dcfce7; color: #166534; }
-  .connot-Negative { background: #fee2e2; color: #991b1b; }
-  .connot-Neutral { background: #f1f5f9; color: #475569; }
+  .connot-Positive { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+  .connot-Negative { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+  .connot-Neutral { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
 
   .p2-hindi {
-    font-size: 9px;
+    font-size: 9.2px;
     font-weight: 700;
     color: #0369a1;
-    margin-bottom: 1px;
+    margin-bottom: 1.5px;
   }
   .p2-def {
-    font-size: 7.2px;
-    color: #475569;
-    line-height: 1.2;
+    font-size: 7.4px;
+    color: #334155;
+    line-height: 1.25;
   }
   .p2-syns {
-    font-size: 7.2px;
+    font-size: 7.4px;
     color: #047857;
     font-weight: 600;
-    line-height: 1.2;
-    padding-right: 3px;
+    line-height: 1.25;
+    padding-right: 4px;
   }
   .p2-ants {
-    font-size: 7.2px;
+    font-size: 7.4px;
     color: #b91c1c;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.25;
   }
 
   .p2-mnemonic-row {
-    margin: 0 5px 3px 20px;
-    padding: 1.5px 5px;
-    border-radius: 2px;
+    margin: 0 6px 4px 22px;
+    padding: 2.5px 6px;
+    border-radius: 4px;
     background: #f8fafc;
     border: 1px dashed #cbd5e1;
-    font-size: 6.8px;
+    font-size: 7px;
     color: #475569;
-    line-height: 1.2;
+    line-height: 1.25;
   }
   .p2-mnemonic-row strong {
-    color: #0f2b48;
+    color: #091e3a;
     font-weight: 700;
   }
 
+  /* Grammar Matrix Cards */
   .p2-grammar-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(47%, 1fr));
-    gap: 4px;
-    margin-bottom: 4px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    margin-bottom: 5px;
   }
   .p2-card {
-    border: 1px solid #cbd5e1;
-    border-radius: 4px;
-    background: #f8fafc;
-    padding: 4px 6px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: #ffffff;
+    padding: 5px 7px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
   }
   .p2-card h3 {
-    font-size: 7.2px;
+    font-size: 7.5px;
     font-weight: 800;
     text-transform: uppercase;
     color: #1e40af;
-    border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 1.5px;
-    margin-bottom: 2px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 2px;
+    margin-bottom: 3px;
+    letter-spacing: 0.3px;
   }
   .p2-card-item {
-    font-size: 7px;
-    line-height: 1.2;
-    margin-bottom: 2px;
+    font-size: 7.2px;
+    line-height: 1.25;
+    margin-bottom: 2.5px;
     color: #1e293b;
   }
   .p2-card-item:last-child {
     margin-bottom: 0;
   }
   .p2-card-item strong {
-    color: #0f172a;
+    color: #091e3a;
   }
   .p2-card-item .devanagari {
     color: #0369a1;
     font-weight: 600;
   }
 
+  /* Bottom Study Tip */
   .p2-study-tip {
-    background: #fef3c7;
+    background: #fffbeb;
     border-left: 3.5px solid #f59e0b;
-    padding: 3.5px 7px;
-    border-radius: 3px;
-    font-size: 7.2px;
-    line-height: 1.25;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 7.4px;
+    line-height: 1.3;
     color: #78350f;
   }
   .p2-study-tip strong {
     text-transform: uppercase;
     color: #92400e;
+    font-weight: 800;
   }
 </style>
 </head>
 <body>
 
-<!-- =========================================================
-     PAGE 1: FRONT COVER
-     ========================================================= -->
+<!-- PAGE 1: FRONT COVER -->
 {% if data.has_front_cover %}
 <div class="page cover-page" style="background-image: url('{{ data.front_cover_src }}');">
   <div class="front-date-stamp">{{ data.date_formatted }}</div>
-
-  <!-- Bottom Footer with Clickable Embedded Telegram Links -->
   <div class="front-footer-bar">
     <a href="https://t.me/Prathuadhe" target="_blank" class="front-footer-link">CURATED BY PRATHU</a>
     <a href="https://t.me/Contact_ez" target="_blank" class="front-footer-link">PUBLISHED BY EZ</a>
@@ -682,27 +702,23 @@
 </div>
 {% endif %}
 
-<!-- =========================================================
-     PAGE 2: DYNAMIC TABLE OF CONTENTS
-     ========================================================= -->
+<!-- PAGE 2: DYNAMIC TABLE OF CONTENTS -->
 {% if data.has_toc_bg %}
 <div class="page cover-page" style="background-image: url('{{ data.toc_bg_src }}');">
   <div class="toc-date-stamp">{{ data.date_formatted }}</div>
 
-  <!-- Dynamic Content Injected Over the 6 TOC Rows -->
   <div class="toc-list-container">
     {% for entry in data.toc_entries %}
     <div class="toc-row">
       <div class="toc-article-title">{{ entry.title }}</div>
       <div class="toc-article-meta">
-        <span class="toc-newspaper">({{ entry.newspaper }})</span>
+        <span class="toc-newspaper">({{ entry.newspaper }}) &nbsp;·&nbsp; {{ entry.topic }}</span>
         <span>{{ entry.page_num }}</span>
       </div>
     </div>
     {% endfor %}
   </div>
 
-  <!-- TOC Bottom Footer Link -->
   <div class="toc-footer-container">
     <a href="https://t.me/ezeditorialgroup/" target="_blank" class="toc-channel-link">
       ✈ Subscribe to our Ez Editorialś Channel
@@ -711,13 +727,10 @@
 </div>
 {% endif %}
 
-<!-- =========================================================
-     PAGES 3+: EDITORIAL READER & VOCABULARY LAB
-     ========================================================= -->
+<!-- PAGES 3+: EDITORIAL READER & VOCABULARY LAB -->
 {% for art in data.articles %}
 <!-- Article Reader Page -->
 <div class="page inner-page">
-  <!-- Subtle Watermark (Only active on inner pages) -->
   {% if data.has_watermark %}
   <div class="inner-page-watermark" style="background-image: url('{{ data.watermark_src }}');"></div>
   {% endif %}
@@ -749,7 +762,7 @@
           {% endfor %}
         </div>
         <div class="p1-article-footer-note">
-          Published: {{ data.date_scraped }} &nbsp;·&nbsp; Source: {{ art.newspaper }}
+          Source: {{ art.newspaper }} &nbsp;·&nbsp; Processed on {{ data.date_scraped }}
         </div>
       </div>
 
@@ -758,6 +771,7 @@
         <div>
           <div class="p1-sidebar-header">
             <span>VOCABULARY 101</span>
+            <span class="p1-sidebar-badge">{{ art.all_vocab|length }} TERMS</span>
           </div>
           <ul class="p1-vocab-list">
             {% for item in art.all_vocab %}
@@ -773,8 +787,8 @@
         </div>
 
         <div class="p1-cta-card">
-          <div class="p1-cta-title">🔔 Daily Revision</div>
-          <div style="font-size: 7.2px; color: #713f12;">Revise definitions &amp; grammar rules on Page {{ art.page_p2 }}.</div>
+          <div class="p1-cta-title">🔔 Daily Revision Matrix</div>
+          <div style="font-size: 7.2px; color: #78350f;">Complete definitions, mnemonics &amp; grammar rules on Page {{ art.page_p2 }}.</div>
           <a href="https://t.me/ezeditorialgroup/" target="_blank" class="p1-cta-btn">✈ Join Ez Editorialś</a>
         </div>
       </div>
@@ -790,7 +804,6 @@
 
 <!-- Article Vocabulary Lab Page -->
 <div class="page inner-page">
-  <!-- Subtle Watermark (Only active on inner pages) -->
   {% if data.has_watermark %}
   <div class="inner-page-watermark" style="background-image: url('{{ data.watermark_src }}');"></div>
   {% endif %}
@@ -799,7 +812,7 @@
     <div class="p2-header">
       <div>
         <div class="p2-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
-        <div class="p2-header-sub">{{ art.title | truncate(60) }}</div>
+        <div class="p2-header-sub">{{ art.title | truncate(65) }}</div>
       </div>
       <div class="p2-header-sub">{{ art.newspaper }} &nbsp;·&nbsp; {{ art.topic }}</div>
     </div>
@@ -851,7 +864,7 @@
       {% endfor %}
     </div>
 
-    <!-- Dynamic Applied Grammar Matrix -->
+    <!-- Applied Grammar Matrix -->
     <div class="p2-grammar-grid">
       {% if art.categorized_vocab.fixed_prepositions %}
       <div class="p2-card">
@@ -911,7 +924,7 @@
 
     <!-- Bottom Study Tip Box -->
     <div class="p2-study-tip">
-      <strong>Study Tip:</strong> Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.
+      <strong>Study Tip:</strong> Pay special attention to word connotations and preposition pairings during Cloze Tests, Sentence Correction, and Reading Comprehension.
     </div>
   </div>
 
@@ -923,12 +936,9 @@
 </div>
 {% endfor %}
 
-<!-- =========================================================
-     LAST PAGE: BACK COVER
-     ========================================================= -->
+<!-- LAST PAGE: BACK COVER -->
 {% if data.has_back_cover %}
-<div class="page cover-page" style="background-image: url('{{ data.back_cover_src }}');">
-</div>
+<div class="page cover-page" style="background-image: url('{{ data.back_cover_src }}');"></div>
 {% endif %}
 
 </body>

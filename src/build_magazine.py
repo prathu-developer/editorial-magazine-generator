@@ -10,6 +10,7 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     raw_paras = [p.strip() for p in passage_text.split("\n\n") if p.strip()]
     cleaned_paras = []
     
+    # Sort descending by term length to prevent shorter substrings from overriding longer phrases
     sorted_vocab = sorted(
         vocab_items,
         key=lambda x: len(x.get("word_or_phrase", "")),
@@ -17,7 +18,12 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     )
 
     for p in raw_paras:
-        if p.startswith("Published") or p.startswith("Updated") or p.startswith("- August") or p.startswith("-August"):
+        # Filter date lines and trailing keyword/category tag dumps
+        if (p.startswith("Published") or 
+            p.startswith("Updated") or 
+            p.startswith("- August") or 
+            p.startswith("-August") or
+            p.count(" / ") >= 3):
             continue
             
         highlighted = p
@@ -27,6 +33,7 @@ def clean_and_highlight_passage(passage_text, vocab_items):
             if not term:
                 continue
             
+            # Word boundary regex with case-insensitive search
             pattern = re.compile(rf'\b({re.escape(term)})\b', re.IGNORECASE)
             highlighted = pattern.sub(
                 rf'<span class="vocab-hl">\1<sup class="v-idx">{idx}</sup></span>',
@@ -74,11 +81,9 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
         print("⚠️ Telegram BOT_TOKEN or ADMIN_CHAT_ID missing. Skipping Telegram delivery.")
         return
 
-    # Build formatted lines for the quote box
     quote_lines = [f"{idx:02d} {title}" for idx, title in enumerate(editorial_titles, start=1)]
     quote_content = "\n".join(quote_lines)
 
-    # Telegram HTML caption with expandable blockquote
     caption = (
         f"📝 <b>Today's Editorials ({ist_date_short})</b>\n"
         f"<blockquote expandable>{quote_content}</blockquote>"
@@ -89,9 +94,7 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
 
     print(f"📤 Uploading {filename} to Telegram...")
     with open(pdf_path, "rb") as doc:
-        files = {
-            "document": (filename, doc, "application/pdf")
-        }
+        files = {"document": (filename, doc, "application/pdf")}
         payload = {
             "chat_id": chat_id,
             "caption": caption,
@@ -120,22 +123,20 @@ def compile_magazine():
     with open(json_path, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
-    # Calculate real-time Indian Standard Time (IST) Date (UTC+5:30)
+    # Indian Standard Time (IST) Date (UTC+5:30)
     ist_offset = timezone(timedelta(hours=5, minutes=30))
     ist_time = datetime.now(ist_offset)
     
-    # "24-Aug-2026.pdf" format for file output
     pdf_filename = f"{ist_time.strftime('%d-%b-%Y')}.pdf"
     output_pdf_path = os.path.join(output_dir, pdf_filename)
     
-    # Formatted date strings for display
-    formatted_date_ist = ist_time.strftime(f"%B {ist_time.day}, %Y")   # August 24, 2026
-    ist_date_short = ist_time.strftime(f"{ist_time.day} %b %Y")         # 24 Aug 2026
+    formatted_date_ist = ist_time.strftime(f"%B {ist_time.day}, %Y")
+    ist_date_short = ist_time.strftime(f"{ist_time.day} %b %Y")
 
     processed_articles = []
     toc_entries = []
     editorial_titles = []
-    page_counter = 3  # Page 1 = Front Cover, Page 2 = TOC
+    page_counter = 3  # Page 1: Cover, Page 2: TOC
 
     for art in raw_data.get("editorials", []):
         vocab_list = art.get("editorial_vocabulary", [])
@@ -155,6 +156,8 @@ def compile_magazine():
         toc_entries.append({
             "title": title_clean,
             "newspaper": art.get("newspaper", "Editorial"),
+            "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
+            "reading_time": art.get("reading_time", "3 min read"),
             "page_num": f"Page {page_counter:02d}"
         })
         
@@ -163,7 +166,7 @@ def compile_magazine():
             "title": title_clean,
             "subtitle": subtitle,
             "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
-            "reading_time": art.get("reading_time", "2 min read"),
+            "reading_time": art.get("reading_time", "3 min read"),
             "timestamp": art.get("timestamp", formatted_date_ist),
             "analysis": {
                 "tone": tone_data.get("tone", "Analytical"),
@@ -178,13 +181,11 @@ def compile_magazine():
         })
         page_counter += 2
 
-    # Check asset paths (.jpg format)
     assets_dir = os.path.join(base_dir, "assets")
     front_cover_path = os.path.join(assets_dir, "front_cover_bg.jpg")
     toc_bg_path = os.path.join(assets_dir, "toc_bg.jpg")
     back_cover_path = os.path.join(assets_dir, "back_cover_bg.jpg")
     
-    # Check watermark path
     watermark_png = os.path.join(assets_dir, "watermark.png")
     watermark_svg = os.path.join(assets_dir, "watermark.svg")
     watermark_src = None
@@ -217,7 +218,6 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # Single-pass PDF generation
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         page = browser.new_page()
@@ -233,8 +233,6 @@ def compile_magazine():
         browser.close()
 
     print(f"✅ Generated Complete Magazine: {output_pdf_path}")
-
-    # Dispatch to Telegram DM
     send_to_telegram(output_pdf_path, ist_date_short, editorial_titles)
 
 if __name__ == "__main__":

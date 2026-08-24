@@ -74,11 +74,9 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
         print("⚠️ Telegram BOT_TOKEN or ADMIN_CHAT_ID missing. Skipping Telegram delivery.")
         return
 
-    # Build formatted lines for the quote box
     quote_lines = [f"{idx:02d} {title}" for idx, title in enumerate(editorial_titles, start=1)]
     quote_content = "\n".join(quote_lines)
 
-    # Telegram HTML caption with expandable blockquote
     caption = (
         f"📝 <b>Today's Editorials ({ist_date_short})</b>\n"
         f"<blockquote expandable>{quote_content}</blockquote>"
@@ -120,17 +118,15 @@ def compile_magazine():
     with open(json_path, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
-    # Calculate real-time Indian Standard Time (IST) Date (UTC+5:30)
+    # Calculate Indian Standard Time (IST) Date (UTC+5:30)
     ist_offset = timezone(timedelta(hours=5, minutes=30))
     ist_time = datetime.now(ist_offset)
     
-    # "24-Aug-2026.pdf" format for file output
     pdf_filename = f"{ist_time.strftime('%d-%b-%Y')}.pdf"
     output_pdf_path = os.path.join(output_dir, pdf_filename)
     
-    # Formatted date strings for display
-    formatted_date_ist = ist_time.strftime(f"%B {ist_time.day}, %Y")   # August 24, 2026
-    ist_date_short = ist_time.strftime(f"{ist_time.day} %b %Y")         # 24 Aug 2026
+    formatted_date_ist = ist_time.strftime(f"%B {ist_time.day}, %Y")
+    ist_date_short = ist_time.strftime(f"{ist_time.day} %b %Y")
 
     processed_articles = []
     toc_entries = []
@@ -158,6 +154,25 @@ def compile_magazine():
             "page_num": f"Page {page_counter:02d}"
         })
         
+        # Split Core Vocab into balanced chunks (Max 5 on Page 2, rest on Page 3)
+        core_vocab = categorized_vocab["core_vocab"]
+        vocab_chunk_1 = core_vocab[:5]
+        vocab_chunk_2 = core_vocab[5:]
+        
+        # Has 3rd page if remaining words exist OR any grammar cards exist
+        has_grammar = any([
+            categorized_vocab["fixed_prepositions"],
+            categorized_vocab["phrasal_verbs"],
+            categorized_vocab["one_word_subs"],
+            categorized_vocab["idioms"],
+            categorized_vocab["foreign_words"]
+        ])
+        has_page_3 = bool(vocab_chunk_2 or has_grammar)
+
+        page_p1 = page_counter
+        page_p2 = page_counter + 1
+        page_p3 = page_counter + 2 if has_page_3 else None
+        
         processed_articles.append({
             "newspaper": art.get("newspaper", "Editorial"),
             "title": title_clean,
@@ -173,18 +188,22 @@ def compile_magazine():
             "paragraphs": paragraphs,
             "all_vocab": vocab_list,
             "categorized_vocab": categorized_vocab,
-            "page_p1": page_counter,
-            "page_p2": page_counter + 1
+            "vocab_chunk_1": vocab_chunk_1,
+            "vocab_chunk_2": vocab_chunk_2,
+            "has_page_3": has_page_3,
+            "page_p1": page_p1,
+            "page_p2": page_p2,
+            "page_p3": page_p3
         })
-        page_counter += 2
+        
+        page_counter += 3 if has_page_3 else 2
 
-    # Check asset paths (.jpg format)
+    # Check asset paths
     assets_dir = os.path.join(base_dir, "assets")
     front_cover_path = os.path.join(assets_dir, "front_cover_bg.jpg")
     toc_bg_path = os.path.join(assets_dir, "toc_bg.jpg")
     back_cover_path = os.path.join(assets_dir, "back_cover_bg.jpg")
     
-    # Check watermark path
     watermark_png = os.path.join(assets_dir, "watermark.png")
     watermark_svg = os.path.join(assets_dir, "watermark.svg")
     watermark_src = None
@@ -217,7 +236,6 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # Single-pass PDF generation
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         page = browser.new_page()
@@ -233,8 +251,6 @@ def compile_magazine():
         browser.close()
 
     print(f"✅ Generated Complete Magazine: {output_pdf_path}")
-
-    # Dispatch to Telegram DM
     send_to_telegram(output_pdf_path, ist_date_short, editorial_titles)
 
 if __name__ == "__main__":

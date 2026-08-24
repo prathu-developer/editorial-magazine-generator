@@ -55,22 +55,19 @@
     background-repeat: no-repeat;
   }
 
-  /* =========================================================
-     FRONT COVER: DATE STAMP & FOOTER LINKS
-     ========================================================= */
+  /* Front Cover Date Badge */
   .front-date-stamp {
     position: absolute;
     top: 15mm;
     right: 14mm;
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 900;
     color: #0f2b48;
-    background: rgba(255, 255, 255, 0.94);
+    background: rgba(255, 255, 255, 0.95);
     padding: 4px 10px;
     border-radius: 4px;
-    border-bottom: 2.5px solid #d97706; /* Golden Yellow Underline */
+    border-bottom: 2.5px solid #d97706;
     text-transform: uppercase;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
   }
 
   .front-footer-bar {
@@ -92,12 +89,9 @@
     padding: 4px 10px;
     border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    display: inline-block;
   }
 
-  /* =========================================================
-     TABLE OF CONTENTS: LIST & FOOTER LINK
-     ========================================================= */
+  /* Table of Contents */
   .toc-date-stamp {
     position: absolute;
     top: 26mm;
@@ -171,11 +165,9 @@
     display: inline-block;
   }
 
-  /* =========================================================
-     INNER EDITORIAL & VOCABULARY PAGES
-     ========================================================= */
+  /* Inner Pages Setup */
   .inner-page {
-    padding: 9mm 12mm 7mm 12mm;
+    padding: 8.5mm 12mm 6.5mm 12mm;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -183,20 +175,19 @@
     z-index: 1;
   }
 
-  /* Optimized Watermark Layer for Pre-Slanted PNG */
   .inner-page-watermark {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centers the image without extra rotation */
-    width: 175mm;                      /* Fills the readable area of the A4 page */
+    transform: translate(-50%, -50%);
+    width: 175mm;
     height: 120mm;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.12;                     /* Calibrated for light grey PNGs */
-    mix-blend-mode: multiply;          /* Makes white backgrounds 100% transparent */
-    pointer-events: none;              /* Prevents interference with text selection */
+    opacity: 0.12;
+    mix-blend-mode: multiply;
+    pointer-events: none;
     z-index: 0;
   }
 
@@ -205,7 +196,6 @@
     z-index: 2;
   }
 
-  /* Inner Pages Universal Footer */
   .page-footer {
     position: relative;
     z-index: 2;
@@ -216,7 +206,7 @@
     font-weight: 600;
     color: #64748b;
     border-top: 1px solid #e2e8f0;
-    padding-top: 4px;
+    padding-top: 3.5px;
     margin-top: auto;
   }
   .footer-sub-link {
@@ -225,7 +215,9 @@
     text-decoration: underline;
   }
 
-  /* Page 1 (Reader) */
+  /* =========================================================
+     PAGE 1: EDITORIAL READER
+     ========================================================= */
   .p1-top-bar {
     display: flex;
     justify-content: space-between;
@@ -307,7 +299,6 @@
     margin-bottom: 9px;
   }
 
-  /* Drop-Cap */
   .p1-article-body p:first-of-type::first-letter {
     font-family: 'Lora', Georgia, serif;
     font-size: 36px;
@@ -319,7 +310,6 @@
     font-weight: 700;
   }
 
-  /* Highlight Without Underline (Tiny Superscript) */
   .vocab-hl {
     font-weight: 700;
     color: #0f2b48;
@@ -346,7 +336,6 @@
     padding-top: 4px;
   }
 
-  /* Sidebar */
   .p1-sidebar {
     border: 1px solid #cbd5e1;
     border-radius: 6px;
@@ -426,8 +415,10 @@
     margin-top: 2px;
   }
 
-  /* Page 2 (Analysis & Vocab Lab) */
-  .p2-header {
+  /* =========================================================
+     PAGE 2 & 3: EZ EDITORIAL LEXICON DOSSIER (NEW THEME)
+     ========================================================= */
+  .lex-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -435,233 +426,240 @@
     padding-bottom: 3px;
     margin-bottom: 5px;
   }
-  .p2-header-title {
+  .lex-header-title {
     font-size: 13.5px;
     font-weight: 800;
     color: #0f2b48;
   }
-  .p2-header-sub {
+  .lex-header-sub {
     font-size: 8px;
     font-weight: 600;
     color: #64748b;
   }
 
-  .p2-analysis-card {
+  /* Editorial Stance Card */
+  .lex-stance-card {
     display: grid;
-    grid-template-columns: 36mm 1fr;
+    grid-template-columns: 34mm 1fr;
     gap: 8px;
-    background: #f0f7ff;
-    border: 1px solid #bfdbfe;
-    border-left: 4px solid #0284c7;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #0f2b48;
     border-radius: 4px;
     padding: 5px 8px;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     align-items: center;
   }
-  .p2-tone-block {
-    border-right: 1px solid #bfdbfe;
+  .lex-stance-block {
+    border-right: 1px solid #e2e8f0;
     padding-right: 6px;
   }
-  .p2-tone-label {
-    font-size: 7px;
+  .lex-stance-label {
+    font-size: 6.8px;
     font-weight: 800;
     text-transform: uppercase;
-    color: #0369a1;
+    color: #64748b;
   }
-  .p2-tone-value {
-    font-size: 9.5px;
-    font-weight: 800;
+  .lex-stance-value {
+    font-size: 10.5px;
+    font-weight: 900;
     color: #0f2b48;
-    line-height: 1.1;
   }
-  .p2-tone-expl {
-    font-size: 7.2px;
-    color: #0369a1;
+  .lex-stance-expl {
+    font-size: 7px;
+    color: #0284c7;
     font-weight: 600;
   }
-  .p2-analysis-summary {
+  .lex-stance-summary {
     font-size: 7.8px;
-    color: #1e3a8a;
-    line-height: 1.32;
+    color: #334155;
+    line-height: 1.34;
     font-style: italic;
   }
 
-  .p2-table-wrapper {
+  /* Lexicon Cards Stack */
+  .lex-cards-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 5.5px;
+    margin-bottom: 6px;
+  }
+
+  /* Individual Lexicon Card */
+  .lex-card {
     border: 1px solid #cbd5e1;
-    border-radius: 4px;
+    border-radius: 5px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     overflow: hidden;
-    margin-bottom: 5px;
-  }
-  .p2-table-head {
-    display: grid;
-    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
-    background: #0f2b48;
-    color: #ffffff;
-    font-size: 7.5px;
-    font-weight: 800;
-    text-transform: uppercase;
-    padding: 3px 5px;
   }
 
-  .p2-vocab-row {
+  /* Card Head */
+  .lex-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+    padding: 3.5px 8px;
     border-bottom: 1px solid #e2e8f0;
-    border-left: 3px solid transparent;
   }
-  .p2-vocab-row:last-child {
-    border-bottom: none;
-  }
-  .p2-vocab-row.t-1 { border-left-color: #d97706; }
-  .p2-vocab-row.t-2 { border-left-color: #059669; }
-  .p2-vocab-row.t-3 { border-left-color: #2563eb; }
-  .p2-vocab-row.t-4 { border-left-color: #7c3aed; }
-  .p2-vocab-row.t-5 { border-left-color: #e11d48; }
-  .p2-vocab-row.t-6 { border-left-color: #0891b2; }
-  .p2-vocab-row.t-7 { border-left-color: #4f46e5; }
-  .p2-vocab-row.t-8 { border-left-color: #d97706; }
-  .p2-vocab-row.t-9 { border-left-color: #059669; }
-  .p2-vocab-row.t-10 { border-left-color: #2563eb; }
-  .p2-vocab-row.t-11 { border-left-color: #7c3aed; }
-  .p2-vocab-row.t-12 { border-left-color: #e11d48; }
-  .p2-vocab-row.t-13 { border-left-color: #0891b2; }
-
-  .p2-vocab-top {
-    display: grid;
-    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
-    padding: 3.5px 5px 2.5px 5px;
-    align-items: flex-start;
-  }
-  .p2-num-badge {
-    width: 14px;
-    height: 14px;
-    background: #0f2b48;
-    color: #ffffff;
-    font-size: 7px;
-    font-weight: 800;
-    border-radius: 50%;
+  .lex-card-title-group {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 6px;
   }
-  .p2-word {
-    font-size: 9.8px;
-    font-weight: 800;
+  .lex-index-badge {
+    font-size: 7.5px;
+    font-weight: 900;
+    color: #ffffff;
+    background: #0f2b48;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  .lex-word-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 11.5px;
+    font-weight: 700;
     color: #0f2b48;
-    line-height: 1.1;
   }
-  .p2-badges {
+  .lex-hindi-tag {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #b45309;
+  }
+
+  .lex-badge-group {
     display: flex;
-    gap: 2.5px;
-    margin-top: 1.5px;
+    gap: 3px;
   }
-  .p2-pos-pill {
-    font-size: 6px;
+  .lex-pill {
+    font-size: 6.2px;
     font-weight: 800;
-    padding: 0.5px 3.5px;
-    border-radius: 4px;
-    background: #e2e8f0;
-    color: #334155;
+    padding: 1px 4px;
+    border-radius: 3px;
     text-transform: uppercase;
   }
-  .p2-connot {
-    font-size: 6px;
-    font-weight: 800;
-    padding: 0.5px 3.5px;
-    border-radius: 4px;
-  }
-  .connot-Positive { background: #dcfce7; color: #166534; }
-  .connot-Negative { background: #fee2e2; color: #991b1b; }
-  .connot-Neutral { background: #f1f5f9; color: #475569; }
+  .pill-pos { background: #e2e8f0; color: #334155; }
+  .pill-Positive { background: #dcfce7; color: #166534; }
+  .pill-Negative { background: #fee2e2; color: #991b1b; }
+  .pill-Neutral { background: #f1f5f9; color: #475569; }
 
-  .p2-hindi {
-    font-size: 9px;
-    font-weight: 700;
-    color: #0369a1;
-    margin-bottom: 1px;
-  }
-  .p2-def {
-    font-size: 7.2px;
-    color: #475569;
-    line-height: 1.2;
-  }
-  .p2-syns {
-    font-size: 7.2px;
-    color: #047857;
-    font-weight: 600;
-    line-height: 1.2;
-    padding-right: 3px;
-  }
-  .p2-ants {
-    font-size: 7.2px;
-    color: #b91c1c;
-    font-weight: 600;
-    line-height: 1.2;
-  }
-
-  .p2-mnemonic-row {
-    margin: 0 5px 3px 20px;
-    padding: 1.5px 5px;
-    border-radius: 2px;
-    background: #f8fafc;
-    border: 1px dashed #cbd5e1;
-    font-size: 6.8px;
-    color: #475569;
-    line-height: 1.2;
-  }
-  .p2-mnemonic-row strong {
-    color: #0f2b48;
-    font-weight: 700;
-  }
-
-  .p2-grammar-grid {
+  /* Card Body (2-Column Grid) */
+  .lex-card-body {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(47%, 1fr));
-    gap: 4px;
-    margin-bottom: 4px;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 8px;
+    padding: 5px 8px;
+    background: #ffffff;
   }
-  .p2-card {
+
+  .lex-def-box {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    border-right: 1px solid #f1f5f9;
+    padding-right: 6px;
+  }
+  .lex-def-text {
+    font-size: 7.6px;
+    color: #1e293b;
+    line-height: 1.3;
+  }
+  .lex-mnemonic-box {
+    font-size: 7px;
+    color: #475569;
+    background: #fffbeb;
+    border-left: 2px solid #d97706;
+    padding: 2px 5px;
+    border-radius: 2px;
+    line-height: 1.25;
+  }
+  .lex-mnemonic-box strong {
+    color: #92400e;
+  }
+
+  /* Thesaurus Box */
+  .lex-thesaurus-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5px;
+    justify-content: center;
+  }
+  .lex-syn-line {
+    font-size: 7.3px;
+    line-height: 1.25;
+    color: #065f46;
+  }
+  .lex-ant-line {
+    font-size: 7.3px;
+    line-height: 1.25;
+    color: #991b1b;
+  }
+  .lex-thesaurus-label {
+    font-weight: 800;
+    font-size: 6.8px;
+    text-transform: uppercase;
+  }
+
+  /* =========================================================
+     PAGE 3: APPLIED GRAMMAR & IDIOM MATRIX
+     ========================================================= */
+  .lex-grammar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .lex-grammar-card {
     border: 1px solid #cbd5e1;
     border-radius: 4px;
     background: #f8fafc;
-    padding: 4px 6px;
+    padding: 5px 8px;
   }
-  .p2-card h3 {
-    font-size: 7.2px;
+  .lex-grammar-card h3 {
+    font-size: 8px;
     font-weight: 800;
     text-transform: uppercase;
-    color: #1e40af;
-    border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 1.5px;
-    margin-bottom: 2px;
+    color: #0f2b48;
+    border-bottom: 1.5px solid #e2e8f0;
+    padding-bottom: 2px;
+    margin-bottom: 3.5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
-  .p2-card-item {
-    font-size: 7px;
-    line-height: 1.2;
-    margin-bottom: 2px;
+  .lex-grammar-item {
+    font-size: 7.5px;
+    line-height: 1.35;
+    margin-bottom: 3px;
     color: #1e293b;
   }
-  .p2-card-item:last-child {
+  .lex-grammar-item:last-child {
     margin-bottom: 0;
   }
-  .p2-card-item strong {
-    color: #0f172a;
+  .lex-grammar-item strong {
+    color: #0f2b48;
   }
-  .p2-card-item .devanagari {
-    color: #0369a1;
+  .lex-grammar-item .devanagari {
+    color: #b45309;
     font-weight: 600;
   }
 
-  .p2-study-tip {
-    background: #fef3c7;
-    border-left: 3.5px solid #f59e0b;
-    padding: 3.5px 7px;
+  /* Study Strategy Tip */
+  .lex-strategy-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 3.5px solid #16a34a;
+    padding: 4px 8px;
     border-radius: 3px;
-    font-size: 7.2px;
-    line-height: 1.25;
-    color: #78350f;
+    font-size: 7.4px;
+    line-height: 1.3;
+    color: #14532d;
   }
-  .p2-study-tip strong {
+  .lex-strategy-box strong {
     text-transform: uppercase;
-    color: #92400e;
+    color: #15803d;
   }
 </style>
 </head>
@@ -673,8 +671,6 @@
 {% if data.has_front_cover %}
 <div class="page cover-page" style="background-image: url('{{ data.front_cover_src }}');">
   <div class="front-date-stamp">{{ data.date_formatted }}</div>
-
-  <!-- Bottom Footer with Clickable Embedded Telegram Links -->
   <div class="front-footer-bar">
     <a href="https://t.me/Prathuadhe" target="_blank" class="front-footer-link">CURATED BY PRATHU</a>
     <a href="https://t.me/Contact_ez" target="_blank" class="front-footer-link">PUBLISHED BY EZ</a>
@@ -689,7 +685,6 @@
 <div class="page cover-page" style="background-image: url('{{ data.toc_bg_src }}');">
   <div class="toc-date-stamp">{{ data.date_formatted }}</div>
 
-  <!-- Dynamic Content Injected Over the 6 TOC Rows -->
   <div class="toc-list-container">
     {% for entry in data.toc_entries %}
     <div class="toc-row">
@@ -702,7 +697,6 @@
     {% endfor %}
   </div>
 
-  <!-- TOC Bottom Footer Link -->
   <div class="toc-footer-container">
     <a href="https://t.me/ezeditorialgroup/" target="_blank" class="toc-channel-link">
       ✈ Subscribe to our Ez Editorialś Channel
@@ -712,12 +706,12 @@
 {% endif %}
 
 <!-- =========================================================
-     PAGES 3+: EDITORIAL READER & VOCABULARY LAB
+     PAGES 3+: EDITORIAL ARTICLE MODULES
      ========================================================= -->
 {% for art in data.articles %}
-<!-- Article Reader Page -->
+
+<!-- PART 1: EDITORIAL READER -->
 <div class="page inner-page">
-  <!-- Subtle Watermark (Only active on inner pages) -->
   {% if data.has_watermark %}
   <div class="inner-page-watermark" style="background-image: url('{{ data.watermark_src }}');"></div>
   {% endif %}
@@ -741,7 +735,6 @@
     </div>
 
     <div class="p1-layout-grid">
-      <!-- Left Column: Passage -->
       <div class="p1-left-col">
         <div class="p1-article-body">
           {% for para in art.paragraphs %}
@@ -753,7 +746,6 @@
         </div>
       </div>
 
-      <!-- Right Column: Quick Vocabulary -->
       <div class="p1-sidebar">
         <div>
           <div class="p1-sidebar-header">
@@ -773,8 +765,8 @@
         </div>
 
         <div class="p1-cta-card">
-          <div class="p1-cta-title">🔔 Daily Revision</div>
-          <div style="font-size: 7.2px; color: #713f12;">Revise definitions &amp; grammar rules on Page {{ art.page_p2 }}.</div>
+          <div class="p1-cta-title">🔔 Detailed Lexicon</div>
+          <div style="font-size: 7.2px; color: #713f12;">In-depth dossiers &amp; memory hooks on Page {{ art.page_p2 }}.</div>
           <a href="https://t.me/ezeditorialgroup/" target="_blank" class="p1-cta-btn">✈ Join Ez Editorialś</a>
         </div>
       </div>
@@ -788,130 +780,62 @@
   </div>
 </div>
 
-<!-- Article Vocabulary Lab Page -->
+<!-- PART 2: EDITORIAL LEXICON DOSSIER (PAGE 1 OF VOCAB) -->
 <div class="page inner-page">
-  <!-- Subtle Watermark (Only active on inner pages) -->
   {% if data.has_watermark %}
   <div class="inner-page-watermark" style="background-image: url('{{ data.watermark_src }}');"></div>
   {% endif %}
 
   <div class="inner-content-wrapper">
-    <div class="p2-header">
+    <div class="lex-header">
       <div>
-        <div class="p2-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
-        <div class="p2-header-sub">{{ art.title | truncate(60) }}</div>
+        <div class="lex-header-title">Editorial Lexicon &amp; Analysis</div>
+        <div class="lex-header-sub">{{ art.title | truncate(60) }}</div>
       </div>
-      <div class="p2-header-sub">{{ art.newspaper }} &nbsp;·&nbsp; {{ art.topic }}</div>
+      <div class="lex-header-sub">{{ art.newspaper }} &nbsp;·&nbsp; {{ art.topic }}</div>
     </div>
 
-    <!-- Editorial Stance & Tone -->
-    <div class="p2-analysis-card">
-      <div class="p2-tone-block">
-        <div class="p2-tone-label">Editorial Stance</div>
-        <div class="p2-tone-value">{{ art.analysis.tone }}</div>
-        <div class="p2-tone-expl">({{ art.analysis.tone_simple_explanation }})</div>
+    <!-- Stance & Tone Card -->
+    <div class="lex-stance-card">
+      <div class="lex-stance-block">
+        <div class="lex-stance-label">Authorial Stance</div>
+        <div class="lex-stance-value">{{ art.analysis.tone }}</div>
+        <div class="lex-stance-expl">({{ art.analysis.tone_simple_explanation }})</div>
       </div>
-      <div class="p2-analysis-summary">
+      <div class="lex-stance-summary">
         {{ art.analysis.analysis_summary }}
       </div>
     </div>
 
-    <!-- Master Vocabulary Table -->
-    <div class="p2-table-wrapper">
-      <div class="p2-table-head">
-        <div>#</div>
-        <div>WORD &amp; POS</div>
-        <div>MEANING (HINDI &amp; ENGLISH)</div>
-        <div>SYNONYMS (UK)</div>
-        <div>ANTONYMS (UK)</div>
-      </div>
-
-      {% for item in art.categorized_vocab.core_vocab %}
-      <div class="p2-vocab-row t-{{ loop.index }}">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">{{ loop.index }}</div>
-          <div>
-            <div class="p2-word">{{ item.word_or_phrase }}</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">{{ item.part_of_speech }}</span>
-              <span class="p2-connot connot-{{ item.connotation }}">{{ item.connotation }}</span>
-            </div>
+    <!-- Lexicon Cards (Part 1: 01 to 05) -->
+    <div class="lex-cards-stack">
+      {% for item in art.vocab_chunk_1 %}
+      <div class="lex-card">
+        <div class="lex-card-head">
+          <div class="lex-card-title-group">
+            <span class="lex-index-badge">{{ "%02d" % item.order_index }}</span>
+            <span class="lex-word-title">{{ item.word_or_phrase }}</span>
+            <span class="lex-hindi-tag devanagari">{{ item.hindi_meaning }}</span>
           </div>
-          <div>
-            <div class="p2-hindi devanagari">{{ item.hindi_meaning }}</div>
-            <div class="p2-def">{{ item.concise_meaning }}</div>
+          <div class="lex-badge-group">
+            <span class="lex-pill pill-pos">{{ item.part_of_speech }}</span>
+            <span class="lex-pill pill-{{ item.connotation }}">{{ item.connotation }}</span>
           </div>
-          <div class="p2-syns">{{ item.british_synonyms | join(', ') }}</div>
-          <div class="p2-ants">{{ item.british_antonyms | join(', ') }}</div>
         </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> {{ item.mnemonic_trick }}
+        <div class="lex-card-body">
+          <div class="lex-def-box">
+            <div class="lex-def-text">{{ item.concise_meaning }}</div>
+            {% if item.mnemonic_trick %}
+            <div class="lex-mnemonic-box"><strong>Memory Hook:</strong> {{ item.mnemonic_trick }}</div>
+            {% endif %}
+          </div>
+          <div class="lex-thesaurus-box">
+            <div class="lex-syn-line"><span class="lex-thesaurus-label">Synonyms:</span> {{ item.british_synonyms | join(', ') }}</div>
+            <div class="lex-ant-line"><span class="lex-thesaurus-label">Antonyms:</span> {{ item.british_antonyms | join(', ') }}</div>
+          </div>
         </div>
       </div>
       {% endfor %}
-    </div>
-
-    <!-- Dynamic Applied Grammar Matrix -->
-    <div class="p2-grammar-grid">
-      {% if art.categorized_vocab.fixed_prepositions %}
-      <div class="p2-card">
-        <h3>Fixed Prepositions</h3>
-        {% for fp in art.categorized_vocab.fixed_prepositions %}
-        <div class="p2-card-item">
-          <strong>{{ fp.word_or_phrase }}</strong> (<span class="devanagari">{{ fp.hindi_meaning }}</span>): {{ fp.concise_meaning }}
-        </div>
-        {% endfor %}
-      </div>
-      {% endif %}
-
-      {% if art.categorized_vocab.phrasal_verbs %}
-      <div class="p2-card">
-        <h3>Phrasal Verbs</h3>
-        {% for pv in art.categorized_vocab.phrasal_verbs %}
-        <div class="p2-card-item">
-          <strong>{{ pv.word_or_phrase }}</strong> (<span class="devanagari">{{ pv.hindi_meaning }}</span>): {{ pv.concise_meaning }}
-        </div>
-        {% endfor %}
-      </div>
-      {% endif %}
-
-      {% if art.categorized_vocab.one_word_subs %}
-      <div class="p2-card">
-        <h3>One-Word Substitutions</h3>
-        {% for ows in art.categorized_vocab.one_word_subs %}
-        <div class="p2-card-item">
-          <strong>{{ ows.word_or_phrase }}</strong> (<span class="devanagari">{{ ows.hindi_meaning }}</span>): {{ ows.concise_meaning }}
-        </div>
-        {% endfor %}
-      </div>
-      {% endif %}
-
-      {% if art.categorized_vocab.idioms %}
-      <div class="p2-card">
-        <h3>Idioms &amp; Phrases</h3>
-        {% for idm in art.categorized_vocab.idioms %}
-        <div class="p2-card-item">
-          <strong>{{ idm.word_or_phrase }}</strong> (<span class="devanagari">{{ idm.hindi_meaning }}</span>): {{ idm.concise_meaning }}
-        </div>
-        {% endfor %}
-      </div>
-      {% endif %}
-
-      {% if art.categorized_vocab.foreign_words %}
-      <div class="p2-card">
-        <h3>Foreign Words</h3>
-        {% for fw in art.categorized_vocab.foreign_words %}
-        <div class="p2-card-item">
-          <strong>{{ fw.word_or_phrase }}</strong> (<span class="devanagari">{{ fw.hindi_meaning }}</span>): {{ fw.concise_meaning }}
-        </div>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-
-    <!-- Bottom Study Tip Box -->
-    <div class="p2-study-tip">
-      <strong>Study Tip:</strong> Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.
     </div>
   </div>
 
@@ -921,6 +845,128 @@
     <span>Page {{ art.page_p2 }}</span>
   </div>
 </div>
+
+<!-- PART 3: APPLIED GRAMMAR & REMAINING VOCAB (IF PRESENT) -->
+{% if art.has_page_3 %}
+<div class="page inner-page">
+  {% if data.has_watermark %}
+  <div class="inner-page-watermark" style="background-image: url('{{ data.watermark_src }}');"></div>
+  {% endif %}
+
+  <div class="inner-content-wrapper">
+    <div class="lex-header">
+      <div>
+        <div class="lex-header-title">Applied Grammar &amp; Language Matrix</div>
+        <div class="lex-header-sub">{{ art.title | truncate(60) }}</div>
+      </div>
+      <div class="lex-header-sub">{{ art.newspaper }} &nbsp;·&nbsp; {{ art.topic }}</div>
+    </div>
+
+    <!-- Remaining Lexicon Cards (Part 2: 06+) -->
+    {% if art.vocab_chunk_2 %}
+    <div class="lex-cards-stack" style="margin-bottom: 5px;">
+      {% for item in art.vocab_chunk_2 %}
+      <div class="lex-card">
+        <div class="lex-card-head">
+          <div class="lex-card-title-group">
+            <span class="lex-index-badge">{{ "%02d" % item.order_index }}</span>
+            <span class="lex-word-title">{{ item.word_or_phrase }}</span>
+            <span class="lex-hindi-tag devanagari">{{ item.hindi_meaning }}</span>
+          </div>
+          <div class="lex-badge-group">
+            <span class="lex-pill pill-pos">{{ item.part_of_speech }}</span>
+            <span class="lex-pill pill-{{ item.connotation }}">{{ item.connotation }}</span>
+          </div>
+        </div>
+        <div class="lex-card-body">
+          <div class="lex-def-box">
+            <div class="lex-def-text">{{ item.concise_meaning }}</div>
+            {% if item.mnemonic_trick %}
+            <div class="lex-mnemonic-box"><strong>Memory Hook:</strong> {{ item.mnemonic_trick }}</div>
+            {% endif %}
+          </div>
+          <div class="lex-thesaurus-box">
+            <div class="lex-syn-line"><span class="lex-thesaurus-label">Synonyms:</span> {{ item.british_synonyms | join(', ') }}</div>
+            <div class="lex-ant-line"><span class="lex-thesaurus-label">Antonyms:</span> {{ item.british_antonyms | join(', ') }}</div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Dedicated Grammar Cards -->
+    <div class="lex-grammar-container">
+      {% if art.categorized_vocab.fixed_prepositions %}
+      <div class="lex-grammar-card">
+        <h3>📌 Fixed Prepositions</h3>
+        {% for fp in art.categorized_vocab.fixed_prepositions %}
+        <div class="lex-grammar-item">
+          <strong>{{ fp.word_or_phrase }}</strong> (<span class="devanagari">{{ fp.hindi_meaning }}</span>): {{ fp.concise_meaning }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if art.categorized_vocab.phrasal_verbs %}
+      <div class="lex-grammar-card">
+        <h3>⚡ Phrasal Verbs</h3>
+        {% for pv in art.categorized_vocab.phrasal_verbs %}
+        <div class="lex-grammar-item">
+          <strong>{{ pv.word_or_phrase }}</strong> (<span class="devanagari">{{ pv.hindi_meaning }}</span>): {{ pv.concise_meaning }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if art.categorized_vocab.one_word_subs %}
+      <div class="lex-grammar-card">
+        <h3>🎯 One-Word Substitutions</h3>
+        {% for ows in art.categorized_vocab.one_word_subs %}
+        <div class="lex-grammar-item">
+          <strong>{{ ows.word_or_phrase }}</strong> (<span class="devanagari">{{ ows.hindi_meaning }}</span>): {{ ows.concise_meaning }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if art.categorized_vocab.idioms %}
+      <div class="lex-grammar-card">
+        <h3>💡 Idioms &amp; Phrases</h3>
+        {% for idm in art.categorized_vocab.idioms %}
+        <div class="lex-grammar-item">
+          <strong>{{ idm.word_or_phrase }}</strong> (<span class="devanagari">{{ idm.hindi_meaning }}</span>): {{ idm.concise_meaning }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if art.categorized_vocab.foreign_words %}
+      <div class="lex-grammar-card">
+        <h3>🌐 Foreign Terms &amp; Latin Phrases</h3>
+        {% for fw in art.categorized_vocab.foreign_words %}
+        <div class="lex-grammar-item">
+          <strong>{{ fw.word_or_phrase }}</strong> (<span class="devanagari">{{ fw.hindi_meaning }}</span>): {{ fw.concise_meaning }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Strategic Recall Tip -->
+    <div class="lex-strategy-box">
+      <strong>3-Day Spaced Repetition:</strong> Re-test this vocabulary set tomorrow morning, then on Day 3. Active retrieval locks words into long-term recall for Error Detection and Cloze Tests.
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>Ez Editorial Daily Series · {{ data.date_formatted }}</span>
+    <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-sub-link">Subscribe to our Ez Editorialś Channel</a>
+    <span>Page {{ art.page_p3 }}</span>
+  </div>
+</div>
+{% endif %}
+
 {% endfor %}
 
 <!-- =========================================================

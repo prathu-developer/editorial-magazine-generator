@@ -55,22 +55,19 @@
     background-repeat: no-repeat;
   }
 
-  /* =========================================================
-     FRONT COVER: DATE STAMP & FOOTER LINKS
-     ========================================================= */
+  /* Front Cover Date Badge */
   .front-date-stamp {
     position: absolute;
     top: 15mm;
     right: 14mm;
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 900;
     color: #0f2b48;
-    background: rgba(255, 255, 255, 0.94);
+    background: rgba(255, 255, 255, 0.95);
     padding: 4px 10px;
     border-radius: 4px;
-    border-bottom: 2.5px solid #d97706; /* Golden Yellow Underline */
+    border-bottom: 2.5px solid #d97706;
     text-transform: uppercase;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
   }
 
   .front-footer-bar {
@@ -92,12 +89,9 @@
     padding: 4px 10px;
     border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    display: inline-block;
   }
 
-  /* =========================================================
-     TABLE OF CONTENTS: LIST & FOOTER LINK
-     ========================================================= */
+  /* Table of Contents */
   .toc-date-stamp {
     position: absolute;
     top: 26mm;
@@ -171,11 +165,9 @@
     display: inline-block;
   }
 
-  /* =========================================================
-     INNER EDITORIAL & VOCABULARY PAGES
-     ========================================================= */
+  /* Inner Pages Setup */
   .inner-page {
-    padding: 9mm 12mm 7mm 12mm;
+    padding: 8.5mm 12mm 6.5mm 12mm;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -183,20 +175,19 @@
     z-index: 1;
   }
 
-  /* Optimized Watermark Layer for Pre-Slanted PNG */
   .inner-page-watermark {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centers the image without extra rotation */
-    width: 175mm;                      /* Fills the readable area of the A4 page */
+    transform: translate(-50%, -50%);
+    width: 175mm;
     height: 120mm;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.12;                     /* Calibrated for light grey PNGs */
-    mix-blend-mode: multiply;          /* Makes white backgrounds 100% transparent */
-    pointer-events: none;              /* Prevents interference with text selection */
+    opacity: 0.12;
+    mix-blend-mode: multiply;
+    pointer-events: none;
     z-index: 0;
   }
 
@@ -205,7 +196,6 @@
     z-index: 2;
   }
 
-  /* Inner Pages Universal Footer */
   .page-footer {
     position: relative;
     z-index: 2;
@@ -216,7 +206,7 @@
     font-weight: 600;
     color: #64748b;
     border-top: 1px solid #e2e8f0;
-    padding-top: 4px;
+    padding-top: 3.5px;
     margin-top: auto;
   }
   .footer-sub-link {
@@ -225,7 +215,9 @@
     text-decoration: underline;
   }
 
-  /* Page 1 (Reader) */
+  /* =========================================================
+     PAGE 1: EDITORIAL READER
+     ========================================================= */
   .p1-top-bar {
     display: flex;
     justify-content: space-between;
@@ -307,7 +299,6 @@
     margin-bottom: 9px;
   }
 
-  /* Drop-Cap */
   .p1-article-body p:first-of-type::first-letter {
     font-family: 'Lora', Georgia, serif;
     font-size: 36px;
@@ -319,7 +310,6 @@
     font-weight: 700;
   }
 
-  /* Highlight Without Underline (Tiny Superscript) */
   .vocab-hl {
     font-weight: 700;
     color: #0f2b48;
@@ -346,7 +336,6 @@
     padding-top: 4px;
   }
 
-  /* Sidebar */
   .p1-sidebar {
     border: 1px solid #cbd5e1;
     border-radius: 6px;
@@ -426,8 +415,10 @@
     margin-top: 2px;
   }
 
-  /* Page 2 (Analysis & Vocab Lab) */
-  .p2-header {
+  /* =========================================================
+     PAGE 2 & 3: EZ EDITORIAL LEXICON DOSSIER (NEW THEME)
+     ========================================================= */
+  .lex-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -435,233 +426,240 @@
     padding-bottom: 3px;
     margin-bottom: 5px;
   }
-  .p2-header-title {
+  .lex-header-title {
     font-size: 13.5px;
     font-weight: 800;
     color: #0f2b48;
   }
-  .p2-header-sub {
+  .lex-header-sub {
     font-size: 8px;
     font-weight: 600;
     color: #64748b;
   }
 
-  .p2-analysis-card {
+  /* Editorial Stance Card */
+  .lex-stance-card {
     display: grid;
-    grid-template-columns: 36mm 1fr;
+    grid-template-columns: 34mm 1fr;
     gap: 8px;
-    background: #f0f7ff;
-    border: 1px solid #bfdbfe;
-    border-left: 4px solid #0284c7;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #0f2b48;
     border-radius: 4px;
     padding: 5px 8px;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
     align-items: center;
   }
-  .p2-tone-block {
-    border-right: 1px solid #bfdbfe;
+  .lex-stance-block {
+    border-right: 1px solid #e2e8f0;
     padding-right: 6px;
   }
-  .p2-tone-label {
-    font-size: 7px;
+  .lex-stance-label {
+    font-size: 6.8px;
     font-weight: 800;
     text-transform: uppercase;
-    color: #0369a1;
+    color: #64748b;
   }
-  .p2-tone-value {
-    font-size: 9.5px;
-    font-weight: 800;
+  .lex-stance-value {
+    font-size: 10.5px;
+    font-weight: 900;
     color: #0f2b48;
-    line-height: 1.1;
   }
-  .p2-tone-expl {
-    font-size: 7.2px;
-    color: #0369a1;
+  .lex-stance-expl {
+    font-size: 7px;
+    color: #0284c7;
     font-weight: 600;
   }
-  .p2-analysis-summary {
+  .lex-stance-summary {
     font-size: 7.8px;
-    color: #1e3a8a;
-    line-height: 1.32;
+    color: #334155;
+    line-height: 1.34;
     font-style: italic;
   }
 
-  .p2-table-wrapper {
+  /* Lexicon Cards Stack */
+  .lex-cards-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 5.5px;
+    margin-bottom: 6px;
+  }
+
+  /* Individual Lexicon Card */
+  .lex-card {
     border: 1px solid #cbd5e1;
-    border-radius: 4px;
+    border-radius: 5px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
     overflow: hidden;
-    margin-bottom: 5px;
-  }
-  .p2-table-head {
-    display: grid;
-    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
-    background: #0f2b48;
-    color: #ffffff;
-    font-size: 7.5px;
-    font-weight: 800;
-    text-transform: uppercase;
-    padding: 3px 5px;
   }
 
-  .p2-vocab-row {
+  /* Card Head */
+  .lex-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+    padding: 3.5px 8px;
     border-bottom: 1px solid #e2e8f0;
-    border-left: 3px solid transparent;
   }
-  .p2-vocab-row:last-child {
-    border-bottom: none;
-  }
-  .p2-vocab-row.t-1 { border-left-color: #d97706; }
-  .p2-vocab-row.t-2 { border-left-color: #059669; }
-  .p2-vocab-row.t-3 { border-left-color: #2563eb; }
-  .p2-vocab-row.t-4 { border-left-color: #7c3aed; }
-  .p2-vocab-row.t-5 { border-left-color: #e11d48; }
-  .p2-vocab-row.t-6 { border-left-color: #0891b2; }
-  .p2-vocab-row.t-7 { border-left-color: #4f46e5; }
-  .p2-vocab-row.t-8 { border-left-color: #d97706; }
-  .p2-vocab-row.t-9 { border-left-color: #059669; }
-  .p2-vocab-row.t-10 { border-left-color: #2563eb; }
-  .p2-vocab-row.t-11 { border-left-color: #7c3aed; }
-  .p2-vocab-row.t-12 { border-left-color: #e11d48; }
-  .p2-vocab-row.t-13 { border-left-color: #0891b2; }
-
-  .p2-vocab-top {
-    display: grid;
-    grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
-    padding: 3.5px 5px 2.5px 5px;
-    align-items: flex-start;
-  }
-  .p2-num-badge {
-    width: 14px;
-    height: 14px;
-    background: #0f2b48;
-    color: #ffffff;
-    font-size: 7px;
-    font-weight: 800;
-    border-radius: 50%;
+  .lex-card-title-group {
     display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 6px;
   }
-  .p2-word {
-    font-size: 9.8px;
-    font-weight: 800;
+  .lex-index-badge {
+    font-size: 7.5px;
+    font-weight: 900;
+    color: #ffffff;
+    background: #0f2b48;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  .lex-word-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 11.5px;
+    font-weight: 700;
     color: #0f2b48;
-    line-height: 1.1;
   }
-  .p2-badges {
+  .lex-hindi-tag {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #b45309;
+  }
+
+  .lex-badge-group {
     display: flex;
-    gap: 2.5px;
-    margin-top: 1.5px;
+    gap: 3px;
   }
-  .p2-pos-pill {
-    font-size: 6px;
+  .lex-pill {
+    font-size: 6.2px;
     font-weight: 800;
-    padding: 0.5px 3.5px;
-    border-radius: 4px;
-    background: #e2e8f0;
-    color: #334155;
+    padding: 1px 4px;
+    border-radius: 3px;
     text-transform: uppercase;
   }
-  .p2-connot {
-    font-size: 6px;
-    font-weight: 800;
-    padding: 0.5px 3.5px;
-    border-radius: 4px;
-  }
-  .connot-Positive { background: #dcfce7; color: #166534; }
-  .connot-Negative { background: #fee2e2; color: #991b1b; }
-  .connot-Neutral { background: #f1f5f9; color: #475569; }
+  .pill-pos { background: #e2e8f0; color: #334155; }
+  .pill-Positive { background: #dcfce7; color: #166534; }
+  .pill-Negative { background: #fee2e2; color: #991b1b; }
+  .pill-Neutral { background: #f1f5f9; color: #475569; }
 
-  .p2-hindi {
-    font-size: 9px;
-    font-weight: 700;
-    color: #0369a1;
-    margin-bottom: 1px;
-  }
-  .p2-def {
-    font-size: 7.2px;
-    color: #475569;
-    line-height: 1.2;
-  }
-  .p2-syns {
-    font-size: 7.2px;
-    color: #047857;
-    font-weight: 600;
-    line-height: 1.2;
-    padding-right: 3px;
-  }
-  .p2-ants {
-    font-size: 7.2px;
-    color: #b91c1c;
-    font-weight: 600;
-    line-height: 1.2;
-  }
-
-  .p2-mnemonic-row {
-    margin: 0 5px 3px 20px;
-    padding: 1.5px 5px;
-    border-radius: 2px;
-    background: #f8fafc;
-    border: 1px dashed #cbd5e1;
-    font-size: 6.8px;
-    color: #475569;
-    line-height: 1.2;
-  }
-  .p2-mnemonic-row strong {
-    color: #0f2b48;
-    font-weight: 700;
-  }
-
-  .p2-grammar-grid {
+  /* Card Body (2-Column Grid) */
+  .lex-card-body {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(47%, 1fr));
-    gap: 4px;
-    margin-bottom: 4px;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 8px;
+    padding: 5px 8px;
+    background: #ffffff;
   }
-  .p2-card {
+
+  .lex-def-box {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    border-right: 1px solid #f1f5f9;
+    padding-right: 6px;
+  }
+  .lex-def-text {
+    font-size: 7.6px;
+    color: #1e293b;
+    line-height: 1.3;
+  }
+  .lex-mnemonic-box {
+    font-size: 7px;
+    color: #475569;
+    background: #fffbeb;
+    border-left: 2px solid #d97706;
+    padding: 2px 5px;
+    border-radius: 2px;
+    line-height: 1.25;
+  }
+  .lex-mnemonic-box strong {
+    color: #92400e;
+  }
+
+  /* Thesaurus Box */
+  .lex-thesaurus-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5px;
+    justify-content: center;
+  }
+  .lex-syn-line {
+    font-size: 7.3px;
+    line-height: 1.25;
+    color: #065f46;
+  }
+  .lex-ant-line {
+    font-size: 7.3px;
+    line-height: 1.25;
+    color: #991b1b;
+  }
+  .lex-thesaurus-label {
+    font-weight: 800;
+    font-size: 6.8px;
+    text-transform: uppercase;
+  }
+
+  /* =========================================================
+     PAGE 3: APPLIED GRAMMAR & IDIOM MATRIX
+     ========================================================= */
+  .lex-grammar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .lex-grammar-card {
     border: 1px solid #cbd5e1;
     border-radius: 4px;
     background: #f8fafc;
-    padding: 4px 6px;
+    padding: 5px 8px;
   }
-  .p2-card h3 {
-    font-size: 7.2px;
+  .lex-grammar-card h3 {
+    font-size: 8px;
     font-weight: 800;
     text-transform: uppercase;
-    color: #1e40af;
-    border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 1.5px;
-    margin-bottom: 2px;
+    color: #0f2b48;
+    border-bottom: 1.5px solid #e2e8f0;
+    padding-bottom: 2px;
+    margin-bottom: 3.5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
-  .p2-card-item {
-    font-size: 7px;
-    line-height: 1.2;
-    margin-bottom: 2px;
+  .lex-grammar-item {
+    font-size: 7.5px;
+    line-height: 1.35;
+    margin-bottom: 3px;
     color: #1e293b;
   }
-  .p2-card-item:last-child {
+  .lex-grammar-item:last-child {
     margin-bottom: 0;
   }
-  .p2-card-item strong {
-    color: #0f172a;
+  .lex-grammar-item strong {
+    color: #0f2b48;
   }
-  .p2-card-item .devanagari {
-    color: #0369a1;
+  .lex-grammar-item .devanagari {
+    color: #b45309;
     font-weight: 600;
   }
 
-  .p2-study-tip {
-    background: #fef3c7;
-    border-left: 3.5px solid #f59e0b;
-    padding: 3.5px 7px;
+  /* Study Strategy Tip */
+  .lex-strategy-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 3.5px solid #16a34a;
+    padding: 4px 8px;
     border-radius: 3px;
-    font-size: 7.2px;
-    line-height: 1.25;
-    color: #78350f;
+    font-size: 7.4px;
+    line-height: 1.3;
+    color: #14532d;
   }
-  .p2-study-tip strong {
+  .lex-strategy-box strong {
     text-transform: uppercase;
-    color: #92400e;
+    color: #15803d;
   }
 </style>
 </head>
@@ -673,8 +671,6 @@
 
 <div class="page cover-page" style="background-image: url('../assets/front_cover_bg.jpg');">
   <div class="front-date-stamp">August 24, 2026</div>
-
-  <!-- Bottom Footer with Clickable Embedded Telegram Links -->
   <div class="front-footer-bar">
     <a href="https://t.me/Prathuadhe" target="_blank" class="front-footer-link">CURATED BY PRATHU</a>
     <a href="https://t.me/Contact_ez" target="_blank" class="front-footer-link">PUBLISHED BY EZ</a>
@@ -689,7 +685,6 @@
 <div class="page cover-page" style="background-image: url('../assets/toc_bg.jpg');">
   <div class="toc-date-stamp">August 24, 2026</div>
 
-  <!-- Dynamic Content Injected Over the 6 TOC Rows -->
   <div class="toc-list-container">
     
     <div class="toc-row">
@@ -718,7 +713,6 @@
     
   </div>
 
-  <!-- TOC Bottom Footer Link -->
   <div class="toc-footer-container">
     <a href="https://t.me/ezeditorialgroup/" target="_blank" class="toc-channel-link">
       ✈ Subscribe to our Ez Editorialś Channel
@@ -728,12 +722,12 @@
 
 
 <!-- =========================================================
-     PAGES 3+: EDITORIAL READER & VOCABULARY LAB
+     PAGES 3+: EDITORIAL ARTICLE MODULES
      ========================================================= -->
 
-<!-- Article Reader Page -->
+
+<!-- PART 1: EDITORIAL READER -->
 <div class="page inner-page">
-  <!-- Subtle Watermark (Only active on inner pages) -->
   
   <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
   
@@ -757,7 +751,6 @@
     </div>
 
     <div class="p1-layout-grid">
-      <!-- Left Column: Passage -->
       <div class="p1-left-col">
         <div class="p1-article-body">
           
@@ -773,7 +766,6 @@
         </div>
       </div>
 
-      <!-- Right Column: Quick Vocabulary -->
       <div class="p1-sidebar">
         <div>
           <div class="p1-sidebar-header">
@@ -945,8 +937,8 @@
         </div>
 
         <div class="p1-cta-card">
-          <div class="p1-cta-title">🔔 Daily Revision</div>
-          <div style="font-size: 7.2px; color: #713f12;">Revise definitions &amp; grammar rules on Page 4.</div>
+          <div class="p1-cta-title">🔔 Detailed Lexicon</div>
+          <div style="font-size: 7.2px; color: #713f12;">In-depth dossiers &amp; memory hooks on Page 4.</div>
           <a href="https://t.me/ezeditorialgroup/" target="_blank" class="p1-cta-btn">✈ Join Ez Editorialś</a>
         </div>
       </div>
@@ -960,253 +952,36 @@
   </div>
 </div>
 
-<!-- Article Vocabulary Lab Page -->
+<!-- PART 2: EDITORIAL LEXICON DOSSIER (PAGE 1 OF VOCAB) -->
 <div class="page inner-page">
-  <!-- Subtle Watermark (Only active on inner pages) -->
   
   <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
   
 
   <div class="inner-content-wrapper">
-    <div class="p2-header">
+    <div class="lex-header">
       <div>
-        <div class="p2-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
-        <div class="p2-header-sub">Triple test, adrift: On the ruling on definition of ‘industry’</div>
+        <div class="lex-header-title">Editorial Lexicon &amp; Analysis</div>
+        <div class="lex-header-sub">Triple test, adrift: On the ruling on definition of ‘industry’</div>
       </div>
-      <div class="p2-header-sub">The Hindu &nbsp;·&nbsp; Judicial Reform</div>
+      <div class="lex-header-sub">The Hindu &nbsp;·&nbsp; Judicial Reform</div>
     </div>
 
-    <!-- Editorial Stance & Tone -->
-    <div class="p2-analysis-card">
-      <div class="p2-tone-block">
-        <div class="p2-tone-label">Editorial Stance</div>
-        <div class="p2-tone-value">Critical</div>
-        <div class="p2-tone-expl">(expressing sharp disagreement)</div>
+    <!-- Stance & Tone Card -->
+    <div class="lex-stance-card">
+      <div class="lex-stance-block">
+        <div class="lex-stance-label">Authorial Stance</div>
+        <div class="lex-stance-value">Critical</div>
+        <div class="lex-stance-expl">(expressing sharp disagreement)</div>
       </div>
-      <div class="p2-analysis-summary">
+      <div class="lex-stance-summary">
         The author adopts a critical tone regarding the Supreme Court's majority ruling that disconnects the established 'Triple Test' from the new Industrial Relations Code. This perspective is taken because discarding this landmark precedent weakens key safeguards for private sector workers while disrupting a balanced mechanism for resolving workplace disputes. Ultimately, the editorial contends that judicial bodies must continue preserving the original legislative intent of industrial stability despite the court's verdict.
       </div>
     </div>
 
-    <!-- Master Vocabulary Table -->
-    <div class="p2-table-wrapper">
-      <div class="p2-table-head">
-        <div>#</div>
-        <div>WORD &amp; POS</div>
-        <div>MEANING (HINDI &amp; ENGLISH)</div>
-        <div>SYNONYMS (UK)</div>
-        <div>ANTONYMS (UK)</div>
-      </div>
-
+    <!-- Lexicon Cards (Part 1: 01 to 05) -->
+    <div class="lex-cards-stack">
       
-      <div class="p2-vocab-row t-1">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">1</div>
-          <div>
-            <div class="p2-word">Irrelevant</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Negative">Negative</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">अप्रासंगिक</div>
-            <div class="p2-def">Not connected with or relevant to something; having no legal or contextual significance.</div>
-          </div>
-          <div class="p2-syns">inapplicable, extraneous, immaterial</div>
-          <div class="p2-ants">pertinent, germane, applicable</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Ir- (not) + relevant — having no bearing or connection to the matter at hand.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-2">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">2</div>
-          <div>
-            <div class="p2-word">Compelling</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Positive">Positive</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">प्रभावी / तर्कसंगत</div>
-            <div class="p2-def">Evoking interest, attention, or belief through powerful and logical reasoning.</div>
-          </div>
-          <div class="p2-syns">persuasive, cogent, irresistible</div>
-          <div class="p2-ants">unconvincing, weak, implausible</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Compel = forces agreement because the logic is so strong and sound.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-3">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">3</div>
-          <div>
-            <div class="p2-word">Liberalisation</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Noun</span>
-              <span class="p2-connot connot-Neutral">Neutral</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">उदारीकरण</div>
-            <div class="p2-def">The removal or reduction of state restrictions on economic and social activities.</div>
-          </div>
-          <div class="p2-syns">deregulation, opening up, decontrol</div>
-          <div class="p2-ants">regulation, restriction, nationalisation</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Liberal (free) + -isation = making economic policies freer by reducing controls.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-4">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">4</div>
-          <div>
-            <div class="p2-word">Expansive</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Positive">Positive</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">व्यापक</div>
-            <div class="p2-def">Covering a wide scope, broad in extent, or comprehensive in legal applicability.</div>
-          </div>
-          <div class="p2-syns">comprehensive, wide-ranging, broad-based</div>
-          <div class="p2-ants">narrow, restrictive, limited</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Expand = to enlarge. Expansive means covering a wide range or scope.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-5">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">5</div>
-          <div>
-            <div class="p2-word">Severing</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Verb</span>
-              <span class="p2-connot connot-Negative">Negative</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">अलग करना</div>
-            <div class="p2-def">Dividing, breaking off, or terminating a legal or conceptual relationship abruptly.</div>
-          </div>
-          <div class="p2-syns">disconnecting, detaching, sundering</div>
-          <div class="p2-ants">unifying, joining, attaching</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> A severe cut that completely severs a connection between two things.
-        </div>
-      </div>
-      
-    </div>
-
-    <!-- Dynamic Applied Grammar Matrix -->
-    <div class="p2-grammar-grid">
-      
-      <div class="p2-card">
-        <h3>Fixed Prepositions</h3>
-        
-        <div class="p2-card-item">
-          <strong>Entailed in</strong> (<span class="devanagari">में शामिल</span>): Involved or included as a necessary or inevitable component or consequence.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Incumbent upon</strong> (<span class="devanagari">का कर्तव्य होना</span>): Necessary as an official duty or moral responsibility for a named party or authority.
-        </div>
-        
-      </div>
-      
-
-      
-      <div class="p2-card">
-        <h3>Phrasal Verbs</h3>
-        
-        <div class="p2-card-item">
-          <strong>Laid down</strong> (<span class="devanagari">निर्धारित करना</span>): Formally established or formulated rules, guidelines, or legal principles.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Move away from</strong> (<span class="devanagari">अलग होना / दूर हटना</span>): To alter one's ideas, policies, or methods so that they differ from previous practices.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Set aside</strong> (<span class="devanagari">रद्द करना</span>): To declare a legal judgment, decision, or precedent invalid or void.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Cuts away</strong> (<span class="devanagari">हटा देना / काट देना</span>): Removes or strips away an essential supporting structure or interpretive framework.
-        </div>
-        
-      </div>
-      
-
-      
-      <div class="p2-card">
-        <h3>One-Word Substitutions</h3>
-        
-        <div class="p2-card-item">
-          <strong>Repealed</strong> (<span class="devanagari">निरस्त किया गया</span>): Revoked or annulled an official law, act, or statutory provision.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Bulwark</strong> (<span class="devanagari">रक्षात्मक ढांचा / बचाव</span>): A defensive wall, safeguard, or protection against external danger, hardship, or abuse.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Retrenchment</strong> (<span class="devanagari">छंटनी</span>): The reduction of costs or operational scale, specifically through employee lay-offs.
-        </div>
-        
-      </div>
-      
-
-      
-      <div class="p2-card">
-        <h3>Idioms &amp; Phrases</h3>
-        
-        <div class="p2-card-item">
-          <strong>Profit motive</strong> (<span class="devanagari">लाभ कमाने का उद्देश्य</span>): The desire or drive to undertake an activity specifically to earn financial gain.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Came into force</strong> (<span class="devanagari">लागू होना</span>): Reached the legal date from which a law, statute, or contract becomes active and enforceable.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Sheet anchor</strong> (<span class="devanagari">मुख्य सहारा</span>): A primary reliance, main safeguard, or central foundational authority during times of uncertainty.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Dissenting opinion</strong> (<span class="devanagari">असहमतिपूर्ण विचार</span>): An explicit opinion written by one or more judges expressing disagreement with the majority verdict.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>At will</strong> (<span class="devanagari">अपनी मर्जी से</span>): Whenever or however one chooses, without regulatory restrictions or constraint.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>In essence</strong> (<span class="devanagari">मूल रूप से</span>): Regarding the most basic, central, or fundamental nature of a legal principle or situation.
-        </div>
-        
-      </div>
-      
-
-      
-    </div>
-
-    <!-- Bottom Study Tip Box -->
-    <div class="p2-study-tip">
-      <strong>Study Tip:</strong> Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.
     </div>
   </div>
 
@@ -1217,9 +992,13 @@
   </div>
 </div>
 
-<!-- Article Reader Page -->
+<!-- PART 3: APPLIED GRAMMAR & REMAINING VOCAB (IF PRESENT) -->
+
+
+
+
+<!-- PART 1: EDITORIAL READER -->
 <div class="page inner-page">
-  <!-- Subtle Watermark (Only active on inner pages) -->
   
   <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
   
@@ -1243,7 +1022,6 @@
     </div>
 
     <div class="p1-layout-grid">
-      <!-- Left Column: Passage -->
       <div class="p1-left-col">
         <div class="p1-article-body">
           
@@ -1259,7 +1037,6 @@
         </div>
       </div>
 
-      <!-- Right Column: Quick Vocabulary -->
       <div class="p1-sidebar">
         <div>
           <div class="p1-sidebar-header">
@@ -1431,8 +1208,8 @@
         </div>
 
         <div class="p1-cta-card">
-          <div class="p1-cta-title">🔔 Daily Revision</div>
-          <div style="font-size: 7.2px; color: #713f12;">Revise definitions &amp; grammar rules on Page 6.</div>
+          <div class="p1-cta-title">🔔 Detailed Lexicon</div>
+          <div style="font-size: 7.2px; color: #713f12;">In-depth dossiers &amp; memory hooks on Page 6.</div>
           <a href="https://t.me/ezeditorialgroup/" target="_blank" class="p1-cta-btn">✈ Join Ez Editorialś</a>
         </div>
       </div>
@@ -1446,397 +1223,36 @@
   </div>
 </div>
 
-<!-- Article Vocabulary Lab Page -->
+<!-- PART 2: EDITORIAL LEXICON DOSSIER (PAGE 1 OF VOCAB) -->
 <div class="page inner-page">
-  <!-- Subtle Watermark (Only active on inner pages) -->
   
   <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
   
 
   <div class="inner-content-wrapper">
-    <div class="p2-header">
+    <div class="lex-header">
       <div>
-        <div class="p2-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
-        <div class="p2-header-sub">Core concerns: On the Indian economy, the road ahead</div>
+        <div class="lex-header-title">Editorial Lexicon &amp; Analysis</div>
+        <div class="lex-header-sub">Core concerns: On the Indian economy, the road ahead</div>
       </div>
-      <div class="p2-header-sub">The Hindu &nbsp;·&nbsp; Macroeconomics</div>
+      <div class="lex-header-sub">The Hindu &nbsp;·&nbsp; Macroeconomics</div>
     </div>
 
-    <!-- Editorial Stance & Tone -->
-    <div class="p2-analysis-card">
-      <div class="p2-tone-block">
-        <div class="p2-tone-label">Editorial Stance</div>
-        <div class="p2-tone-value">Cautious</div>
-        <div class="p2-tone-expl">(carefully concerned)</div>
+    <!-- Stance & Tone Card -->
+    <div class="lex-stance-card">
+      <div class="lex-stance-block">
+        <div class="lex-stance-label">Authorial Stance</div>
+        <div class="lex-stance-value">Cautious</div>
+        <div class="lex-stance-expl">(carefully concerned)</div>
       </div>
-      <div class="p2-analysis-summary">
+      <div class="lex-stance-summary">
         The author adopts a cautious tone to evaluate India's recent economic performance, highlighting that headline core growth is largely inflated by a statistical base effect rather than genuine expansion. Persistent drag in domestic crude oil output combined with external tariff risks indicates a challenging road ahead. By balancing weak domestic indicators against a few temporary bright spots like cement, the editorial stresses the need to prepare for sluggish demand and higher import costs.
       </div>
     </div>
 
-    <!-- Master Vocabulary Table -->
-    <div class="p2-table-wrapper">
-      <div class="p2-table-head">
-        <div>#</div>
-        <div>WORD &amp; POS</div>
-        <div>MEANING (HINDI &amp; ENGLISH)</div>
-        <div>SYNONYMS (UK)</div>
-        <div>ANTONYMS (UK)</div>
-      </div>
-
+    <!-- Lexicon Cards (Part 1: 01 to 05) -->
+    <div class="lex-cards-stack">
       
-      <div class="p2-vocab-row t-1">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">1</div>
-          <div>
-            <div class="p2-word">Easing</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Neutral">Neutral</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">धीमा पड़ता हुआ</div>
-            <div class="p2-def">Becoming less intense, severe, or active; moderating in level or momentum.</div>
-          </div>
-          <div class="p2-syns">softening, subsiding, relaxing</div>
-          <div class="p2-ants">intensifying, surging, escalating</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Think of 'ease' — taking it easy, so activity or pressure decreases.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-2">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">2</div>
-          <div>
-            <div class="p2-word">Base effect</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Noun</span>
-              <span class="p2-connot connot-Neutral">Neutral</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">आधार प्रभाव</div>
-            <div class="p2-def">The distortion in comparative growth figures caused by an unusually low or high reference point in the prior period.</div>
-          </div>
-          <div class="p2-syns">statistical distortion, comparative skew, reference shift</div>
-          <div class="p2-ants">absolute growth, baseline stability, real change</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Base = starting point. If the base was very low, even a minor rise looks like a huge percentage jump.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-3">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">3</div>
-          <div>
-            <div class="p2-word">Snapped</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Verb</span>
-              <span class="p2-connot connot-Neutral">Neutral</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">तोड़ दिया</div>
-            <div class="p2-def">Abruptly ended or broke a continuous run, trend, or streak.</div>
-          </div>
-          <div class="p2-syns">halted, severed, terminated</div>
-          <div class="p2-ants">continued, prolonged, extended</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Think of snapping a stick — a sudden, decisive break in a continuous line.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-4">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">4</div>
-          <div>
-            <div class="p2-word">Robust</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Positive">Positive</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">मजबूत</div>
-            <div class="p2-def">Strong, vigorous, and healthy; showing solid economic health or growth.</div>
-          </div>
-          <div class="p2-syns">vigorous, sturdy, flourishing</div>
-          <div class="p2-ants">fragile, feeble, sluggish</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Sounds like 'robot' — strong, sturdy, and reliable under difficult conditions.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-5">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">5</div>
-          <div>
-            <div class="p2-word">Albeit</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Conjunction</span>
-              <span class="p2-connot connot-Neutral">Neutral</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">यद्यपि</div>
-            <div class="p2-def">Though; even though (used to introduce a qualifying statement or caveat).</div>
-          </div>
-          <div class="p2-syns">although, even if, notwithstanding</div>
-          <div class="p2-ants">furthermore, consequently, moreover</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Shortened form of 'all be it' — meaning 'even though it be so'.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-6">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">6</div>
-          <div>
-            <div class="p2-word">Blistering</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Positive">Positive</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">तेज़ तर्रार</div>
-            <div class="p2-def">Extremely fast, intense, or energetic in rate, force, or pace.</div>
-          </div>
-          <div class="p2-syns">breakneck, dazzling, rapid</div>
-          <div class="p2-ants">sluggish, plodding, tardy</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Running so fast that friction causes blisters on your feet — blistering speed.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-7">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">7</div>
-          <div>
-            <div class="p2-word">Heartening</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Positive">Positive</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">आशाजनक</div>
-            <div class="p2-def">Inspiring hope, cheerfulness, or renewed confidence.</div>
-          </div>
-          <div class="p2-syns">cheering, reassuring, promising</div>
-          <div class="p2-ants">disheartening, dismal, depressing</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Giving warmth or cheer to your 'heart', filling you with hope.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-8">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">8</div>
-          <div>
-            <div class="p2-word">Drastically</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adverb</span>
-              <span class="p2-connot connot-Negative">Negative</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">भीषण रूप से</div>
-            <div class="p2-def">In an extreme, severe, or strikingly sudden manner.</div>
-          </div>
-          <div class="p2-syns">sharply, substantially, steeply</div>
-          <div class="p2-ants">marginally, gradually, subtly</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Sounds like 'drastic' action — sharp, severe, and sudden.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-9">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">9</div>
-          <div>
-            <div class="p2-word">Marginal</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Neutral">Neutral</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">मामूली</div>
-            <div class="p2-def">Small, limited, or minor in extent, degree, or overall significance.</div>
-          </div>
-          <div class="p2-syns">negligible, slight, incremental</div>
-          <div class="p2-ants">substantial, significant, considerable</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Notes written in the 'margin' of a book — small and secondary to the main text.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-10">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">10</div>
-          <div>
-            <div class="p2-word">Materially</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adverb</span>
-              <span class="p2-connot connot-Neutral">Neutral</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">काफी हद तक</div>
-            <div class="p2-def">To a substantial, important, or noticeable degree; significantly.</div>
-          </div>
-          <div class="p2-syns">substantially, significantly, appreciably</div>
-          <div class="p2-ants">immaterially, trivially, insignificantly</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Material = physical substance; acting materially means making a real, tangible impact.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-11">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">11</div>
-          <div>
-            <div class="p2-word">Prevalent</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Neutral">Neutral</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">प्रचलित / व्यापक</div>
-            <div class="p2-def">Widespread, common, or generally present in a particular place at a given time.</div>
-          </div>
-          <div class="p2-syns">widespread, pervasive, predominant</div>
-          <div class="p2-ants">rare, uncommon, isolated</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Prevail = to win over or dominate; prevalent means dominating a region or time.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-12">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">12</div>
-          <div>
-            <div class="p2-word">Slack</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Negative">Negative</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">सुस्त / मंद</div>
-            <div class="p2-def">Characterised by a lack of business activity, demand, or movement; sluggish.</div>
-          </div>
-          <div class="p2-syns">sluggish, depressed, inactive</div>
-          <div class="p2-ants">brisk, buoyant, vigorous</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> A slack rope has no tension or action; slack demand means a quiet, inactive market.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-13">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">13</div>
-          <div>
-            <div class="p2-word">Moderating</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Verb</span>
-              <span class="p2-connot connot-Neutral">Neutral</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">धीमा होना</div>
-            <div class="p2-def">Becoming less intense, extreme, rapid, or rigorous; decelerating.</div>
-          </div>
-          <div class="p2-syns">decelerating, easing, tempering</div>
-          <div class="p2-ants">accelerating, intensifying, surging</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Shifting from high speed to a 'moderate' speed — reducing intensity.
-        </div>
-      </div>
-      
-    </div>
-
-    <!-- Dynamic Applied Grammar Matrix -->
-    <div class="p2-grammar-grid">
-      
-      <div class="p2-card">
-        <h3>Fixed Prepositions</h3>
-        
-        <div class="p2-card-item">
-          <strong>Levy on</strong> (<span class="devanagari">कर लगाना</span>): To officially impose or collect a tax, duty, or tariff upon a target entity or commodity.
-        </div>
-        
-      </div>
-      
-
-      
-      <div class="p2-card">
-        <h3>Phrasal Verbs</h3>
-        
-        <div class="p2-card-item">
-          <strong>Drag on</strong> (<span class="devanagari">बोझ बनना</span>): To act as a persistent handicap, weight, or slowing influence upon something.
-        </div>
-        
-      </div>
-      
-
-      
-      <div class="p2-card">
-        <h3>One-Word Substitutions</h3>
-        
-        <div class="p2-card-item">
-          <strong>External dependence</strong> (<span class="devanagari">बाहरी निर्भरता</span>): Over-reliance on foreign nations or outside entities for critical resources or economic needs.
-        </div>
-        
-      </div>
-      
-
-      
-      <div class="p2-card">
-        <h3>Idioms &amp; Phrases</h3>
-        
-        <div class="p2-card-item">
-          <strong>In keeping with</strong> (<span class="devanagari">के अनुरूप</span>): In conformity, agreement, or harmony with a prevailing trend or standard.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Whet the appetite</strong> (<span class="devanagari">इच्छा को बढ़ाना</span>): To sharpen, excite, or increase someone's desire or demand for something.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Bright spot</strong> (<span class="devanagari">उम्मीद की किरण</span>): A positive, successful, or hopeful feature in a generally difficult or disappointing situation.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Few and far between</strong> (<span class="devanagari">दुर्लभ / विरला</span>): Not happening often; scarce, rare, or widely spaced out in frequency.
-        </div>
-        
-      </div>
-      
-
-      
-    </div>
-
-    <!-- Bottom Study Tip Box -->
-    <div class="p2-study-tip">
-      <strong>Study Tip:</strong> Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.
     </div>
   </div>
 
@@ -1847,9 +1263,13 @@
   </div>
 </div>
 
-<!-- Article Reader Page -->
+<!-- PART 3: APPLIED GRAMMAR & REMAINING VOCAB (IF PRESENT) -->
+
+
+
+
+<!-- PART 1: EDITORIAL READER -->
 <div class="page inner-page">
-  <!-- Subtle Watermark (Only active on inner pages) -->
   
   <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
   
@@ -1873,7 +1293,6 @@
     </div>
 
     <div class="p1-layout-grid">
-      <!-- Left Column: Passage -->
       <div class="p1-left-col">
         <div class="p1-article-body">
           
@@ -1889,7 +1308,6 @@
         </div>
       </div>
 
-      <!-- Right Column: Quick Vocabulary -->
       <div class="p1-sidebar">
         <div>
           <div class="p1-sidebar-header">
@@ -2077,8 +1495,8 @@
         </div>
 
         <div class="p1-cta-card">
-          <div class="p1-cta-title">🔔 Daily Revision</div>
-          <div style="font-size: 7.2px; color: #713f12;">Revise definitions &amp; grammar rules on Page 8.</div>
+          <div class="p1-cta-title">🔔 Detailed Lexicon</div>
+          <div style="font-size: 7.2px; color: #713f12;">In-depth dossiers &amp; memory hooks on Page 8.</div>
           <a href="https://t.me/ezeditorialgroup/" target="_blank" class="p1-cta-btn">✈ Join Ez Editorialś</a>
         </div>
       </div>
@@ -2092,351 +1510,36 @@
   </div>
 </div>
 
-<!-- Article Vocabulary Lab Page -->
+<!-- PART 2: EDITORIAL LEXICON DOSSIER (PAGE 1 OF VOCAB) -->
 <div class="page inner-page">
-  <!-- Subtle Watermark (Only active on inner pages) -->
   
   <div class="inner-page-watermark" style="background-image: url('../assets/watermark.png');"></div>
   
 
   <div class="inner-content-wrapper">
-    <div class="p2-header">
+    <div class="lex-header">
       <div>
-        <div class="p2-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
-        <div class="p2-header-sub">To build Delhi’s future, learn from past missteps</div>
+        <div class="lex-header-title">Editorial Lexicon &amp; Analysis</div>
+        <div class="lex-header-sub">To build Delhi’s future, learn from past missteps</div>
       </div>
-      <div class="p2-header-sub">The Indian Express &nbsp;·&nbsp; Urban Governance & Town Planning</div>
+      <div class="lex-header-sub">The Indian Express &nbsp;·&nbsp; Urban Governance & Town Planning</div>
     </div>
 
-    <!-- Editorial Stance & Tone -->
-    <div class="p2-analysis-card">
-      <div class="p2-tone-block">
-        <div class="p2-tone-label">Editorial Stance</div>
-        <div class="p2-tone-value">Pragmatic</div>
-        <div class="p2-tone-expl">(practical and realistic)</div>
+    <!-- Stance & Tone Card -->
+    <div class="lex-stance-card">
+      <div class="lex-stance-block">
+        <div class="lex-stance-label">Authorial Stance</div>
+        <div class="lex-stance-value">Pragmatic</div>
+        <div class="lex-stance-expl">(practical and realistic)</div>
       </div>
-      <div class="p2-analysis-summary">
+      <div class="lex-stance-summary">
         The author adopts a pragmatic tone to evaluate Delhi's new Master Plan, welcoming its forward-looking urban and ecological vision while highlighting chronic institutional bottlenecks. The editorial contends that comprehensive urban plans inevitably fail without synchronized governance between municipal, state, and central bodies. It concludes by stressing that the capital must actively learn from past implementation deficits to build a sustainable, liveable future.
       </div>
     </div>
 
-    <!-- Master Vocabulary Table -->
-    <div class="p2-table-wrapper">
-      <div class="p2-table-head">
-        <div>#</div>
-        <div>WORD &amp; POS</div>
-        <div>MEANING (HINDI &amp; ENGLISH)</div>
-        <div>SYNONYMS (UK)</div>
-        <div>ANTONYMS (UK)</div>
-      </div>
-
+    <!-- Lexicon Cards (Part 1: 01 to 05) -->
+    <div class="lex-cards-stack">
       
-      <div class="p2-vocab-row t-1">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">1</div>
-          <div>
-            <div class="p2-word">Acute</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Negative">Negative</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">गंभीर या तीव्र</div>
-            <div class="p2-def">Presenting or experienced to a severe, intense, or critical degree.</div>
-          </div>
-          <div class="p2-syns">severe, intense, grave</div>
-          <div class="p2-ants">mild, slight, moderate</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Acute sounds like 'a cute' needle prick—sharp, piercing, and intensely felt.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-2">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">2</div>
-          <div>
-            <div class="p2-word">Intractable</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Negative">Negative</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">असाध्य या अनसुलझा</div>
-            <div class="p2-def">Extremely hard to manage, control, cure, or resolve.</div>
-          </div>
-          <div class="p2-syns">unmanageable, incorrigible, unyielding</div>
-          <div class="p2-ants">tractable, manageable, amenable</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> In- (not) + tractable (track/steer) = a problem that cannot be tracked, steered, or handled.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-3">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">3</div>
-          <div>
-            <div class="p2-word">Utilisation</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Noun</span>
-              <span class="p2-connot connot-Neutral">Neutral</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">उपयोग</div>
-            <div class="p2-def">The action of making practical, effective use of available resources.</div>
-          </div>
-          <div class="p2-syns">employment, exploitation, application</div>
-          <div class="p2-ants">wastage, disuse, underutilisation</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Connected to 'utility' — turning available resources into practical utility.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-4">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">4</div>
-          <div>
-            <div class="p2-word">Demarcating</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Verb</span>
-              <span class="p2-connot connot-Neutral">Neutral</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">सीमांकन करना</div>
-            <div class="p2-def">Setting or clearly showing the limits, boundaries, or separation between distinct zones.</div>
-          </div>
-          <div class="p2-syns">delineating, delimiting, bounding</div>
-          <div class="p2-ants">blurring, confounding, integrating</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> De-mark = setting clear visual marks for boundaries.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-5">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">5</div>
-          <div>
-            <div class="p2-word">Nurturing</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Verb</span>
-              <span class="p2-connot connot-Positive">Positive</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">संवर्धन या पोषण करना</div>
-            <div class="p2-def">Caring for, supporting, and actively encouraging the growth or development of something.</div>
-          </div>
-          <div class="p2-syns">fostering, cultivating, cherishing</div>
-          <div class="p2-ants">neglecting, stifling, hindering</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Like 'nutrition' feeds the body, nurturing feeds growth and survival.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-6">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">6</div>
-          <div>
-            <div class="p2-word">Alignment</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Noun</span>
-              <span class="p2-connot connot-Positive">Positive</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">तालमेल या संरेखन</div>
-            <div class="p2-def">Arrangement in a straight line, or a state of close agreement and shared policy between groups.</div>
-          </div>
-          <div class="p2-syns">coordination, synchronisation, congruence</div>
-          <div class="p2-ants">divergence, misalignment, discord</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Bringing separate entities onto the same 'line' of policy and purpose.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-7">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">7</div>
-          <div>
-            <div class="p2-word">Concerted</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Positive">Positive</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">संयुक्त या समन्वित</div>
-            <div class="p2-def">Jointly planned, arranged, or carried out with coordinated effort.</div>
-          </div>
-          <div class="p2-syns">collaborative, co-ordinated, joint</div>
-          <div class="p2-ants">disjointed, unilateral, fragmentary</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Like a musical 'concert' where musicians play in unified, coordinated harmony.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-8">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">8</div>
-          <div>
-            <div class="p2-word">Curbing</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Verb</span>
-              <span class="p2-connot connot-Positive">Positive</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">रोकथाम या नियंत्रण करना</div>
-            <div class="p2-def">Restraining, checking, or holding back an undesirable phenomenon.</div>
-          </div>
-          <div class="p2-syns">restraining, suppressing, reining in</div>
-          <div class="p2-ants">unleashing, encouraging, fostering</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> The 'curb' of a road keeps vehicles from sliding off; curbing restrains excesses.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-9">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">9</div>
-          <div>
-            <div class="p2-word">Fragmented</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Adjective</span>
-              <span class="p2-connot connot-Negative">Negative</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">खंडित या बिखरा हुआ</div>
-            <div class="p2-def">Disorganized and broken into separate, uncoordinated parts.</div>
-          </div>
-          <div class="p2-syns">disjointed, splintered, compartmentalised</div>
-          <div class="p2-ants">unified, consolidated, integrated</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Broken into separate, fragile 'fragments' instead of working as a solid whole.
-        </div>
-      </div>
-      
-      <div class="p2-vocab-row t-10">
-        <div class="p2-vocab-top">
-          <div class="p2-num-badge">10</div>
-          <div>
-            <div class="p2-word">Liveability</div>
-            <div class="p2-badges">
-              <span class="p2-pos-pill">Noun</span>
-              <span class="p2-connot connot-Positive">Positive</span>
-            </div>
-          </div>
-          <div>
-            <div class="p2-hindi devanagari">रहने की अनुकूलता</div>
-            <div class="p2-def">The degree to which an urban environment is suitable, safe, and comfortable for human habitation.</div>
-          </div>
-          <div class="p2-syns">habitability, comfort, sustainability</div>
-          <div class="p2-ants">uninhabitability, squalor, inhospitableness</div>
-        </div>
-        <div class="p2-mnemonic-row">
-          <strong>Memory Hook:</strong> Live + ability = the capacity of an urban space to support high-quality human living.
-        </div>
-      </div>
-      
-    </div>
-
-    <!-- Dynamic Applied Grammar Matrix -->
-    <div class="p2-grammar-grid">
-      
-      <div class="p2-card">
-        <h3>Fixed Prepositions</h3>
-        
-        <div class="p2-card-item">
-          <strong>Contribute to</strong> (<span class="devanagari">में योगदान देना</span>): To help bring about, cause, or advance a specific outcome or condition.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Divorced from</strong> (<span class="devanagari">से पूरी तरह अलग या विमुख</span>): Completely separated, disconnected, or isolated from something.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Strain on</strong> (<span class="devanagari">पर भारी दबाव या तनाव</span>): Severe pressure, demand, or tension exerted upon an existing resource or system.
-        </div>
-        
-      </div>
-      
-
-      
-      <div class="p2-card">
-        <h3>Phrasal Verbs</h3>
-        
-        <div class="p2-card-item">
-          <strong>Come into effect</strong> (<span class="devanagari">लागू होना</span>): To begin to apply or take official legal force.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Give way to</strong> (<span class="devanagari">का स्थान किसी और चीज़ द्वारा ले लिया जाना</span>): To be replaced, superseded, or followed by something else.
-        </div>
-        
-      </div>
-      
-
-      
-      <div class="p2-card">
-        <h3>One-Word Substitutions</h3>
-        
-        <div class="p2-card-item">
-          <strong>Fledgling</strong> (<span class="devanagari">नया और अनुभवहीन</span>): An entity, settlement, or enterprise that is young, newly developed, and inexperienced.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Restoration</strong> (<span class="devanagari">पुनर्स्थापना</span>): The action of returning something to a former, healthy, or unimpaired condition.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Futility</strong> (<span class="devanagari">निरर्थकता</span>): The quality of being completely pointlessness or incapable of producing any useful result.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Inertia</strong> (<span class="devanagari">जड़ता या अकर्मण्यता</span>): A tendency to do nothing or to remain unchanged; sluggishness in administrative action.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Bottleneck</strong> (<span class="devanagari">अवरोध या अड़चन</span>): A point of congestion, constriction, or blockage that severely impedes progress.
-        </div>
-        
-        <div class="p2-card-item">
-          <strong>Blueprint</strong> (<span class="devanagari">विस्तृत रूपरेखा या योजना</span>): A comprehensive design, technical drawing, or systematic roadmap for future execution.
-        </div>
-        
-      </div>
-      
-
-      
-      <div class="p2-card">
-        <h3>Idioms &amp; Phrases</h3>
-        
-        <div class="p2-card-item">
-          <strong>Last-mile connectivity</strong> (<span class="devanagari">अंतिम छोर तक संपर्क सुविधा</span>): The final stage of a transit network delivering passengers directly to their ultimate destinations.
-        </div>
-        
-      </div>
-      
-
-      
-    </div>
-
-    <!-- Bottom Study Tip Box -->
-    <div class="p2-study-tip">
-      <strong>Study Tip:</strong> Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.
     </div>
   </div>
 
@@ -2446,6 +1549,10 @@
     <span>Page 8</span>
   </div>
 </div>
+
+<!-- PART 3: APPLIED GRAMMAR & REMAINING VOCAB (IF PRESENT) -->
+
+
 
 
 <!-- =========================================================

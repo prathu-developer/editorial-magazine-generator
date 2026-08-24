@@ -35,18 +35,101 @@
     width: 210mm;
     height: 297mm;
     max-height: 297mm;
-    padding: 9mm 12mm 7mm 12mm;
     background: #ffffff;
     page-break-after: always;
     break-after: page;
     position: relative;
     overflow: hidden;
+  }
+
+  /* Full-bleed Cover Pages */
+  .cover-page {
+    padding: 0;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* Date stamp on Cover */
+  .front-date-stamp {
+    position: absolute;
+    top: 14mm;
+    right: 14mm;
+    font-size: 11px;
+    font-weight: 800;
+    color: #0f2b48;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  /* =========================================================
+     TABLE OF CONTENTS OVERLAY
+     ========================================================= */
+  .toc-date-stamp {
+    position: absolute;
+    top: 27.5mm;
+    right: 16mm;
+    font-size: 9.5px;
+    font-weight: 800;
+    color: #92400e;
+    text-transform: uppercase;
+  }
+
+  .toc-list-container {
+    position: absolute;
+    top: 102.5mm;
+    left: 77mm;
+    width: 118mm;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .toc-row {
+    height: 20.3mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 4mm;
+  }
+
+  .toc-article-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 10.2px;
+    font-weight: 700;
+    color: #0f2b48;
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .toc-article-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8px;
+    font-weight: 700;
+    color: #b45309;
+    margin-top: 2px;
+  }
+  .toc-newspaper {
+    color: #1e40af;
+    font-weight: 600;
+  }
+
+  /* =========================================================
+     INNER EDITORIAL PAGES
+     ========================================================= */
+  .inner-page {
+    padding: 9mm 12mm 7mm 12mm;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
-  /* Universal Footer */
   .page-footer {
     display: flex;
     justify-content: space-between;
@@ -59,9 +142,7 @@
     margin-top: auto;
   }
 
-  /* =========================================================
-     PAGE 1: EDITORIAL READER & SIDEBAR
-     ========================================================= */
+  /* Page 1 (Reader) */
   .p1-top-bar {
     display: flex;
     justify-content: space-between;
@@ -90,7 +171,7 @@
 
   .p1-title {
     font-family: 'Lora', Georgia, serif;
-    font-size: 19.5px;
+    font-size: 19px;
     font-weight: 700;
     color: #0f2b48;
     line-height: 1.22;
@@ -102,7 +183,7 @@
     padding: 2.5px 0 2.5px 7px;
     margin-bottom: 5px;
     font-family: 'Lora', Georgia, serif;
-    font-size: 10px;
+    font-size: 9.8px;
     font-style: italic;
     color: #92400e;
     line-height: 1.35;
@@ -126,7 +207,6 @@
     flex-grow: 1;
   }
 
-  /* Editorial Column & Drop-Cap */
   .p1-left-col {
     display: flex;
     flex-direction: column;
@@ -135,7 +215,7 @@
 
   .p1-article-body {
     font-family: 'Lora', Georgia, serif;
-    font-size: 9.7px;
+    font-size: 9.6px;
     line-height: 1.6;
     color: #1e293b;
     text-align: justify;
@@ -144,7 +224,7 @@
     margin-bottom: 9px;
   }
 
-  /* Elegant Drop-Cap */
+  /* Drop-Cap */
   .p1-article-body p:first-of-type::first-letter {
     font-family: 'Lora', Georgia, serif;
     font-size: 36px;
@@ -156,7 +236,7 @@
     font-weight: 700;
   }
 
-  /* Highlighted Vocabulary in Passage (No underline, subtle accent tint, tiny superscript) */
+  /* Clean Highlight Without Underline */
   .vocab-hl {
     font-weight: 700;
     color: #0f2b48;
@@ -183,7 +263,7 @@
     padding-top: 4px;
   }
 
-  /* Sidebar: Vocabulary 101 */
+  /* Sidebar */
   .p1-sidebar {
     border: 1px solid #cbd5e1;
     border-radius: 6px;
@@ -263,9 +343,7 @@
     margin-top: 2px;
   }
 
-  /* =========================================================
-     PAGE 2: EDITORIAL ANALYSIS & VOCABULARY LAB
-     ========================================================= */
+  /* Page 2 (Analysis & Vocab Lab) */
   .p2-header {
     display: flex;
     justify-content: space-between;
@@ -285,7 +363,6 @@
     color: #64748b;
   }
 
-  /* Redesigned Analysis & Stance Split Banner */
   .p2-analysis-card {
     display: grid;
     grid-template-columns: 36mm 1fr;
@@ -309,7 +386,7 @@
     color: #0369a1;
   }
   .p2-tone-value {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 800;
     color: #0f2b48;
     line-height: 1.1;
@@ -326,7 +403,6 @@
     font-style: italic;
   }
 
-  /* Master Vocabulary Table with Dynamic Sizing */
   .p2-table-wrapper {
     border: 1px solid #cbd5e1;
     border-radius: 4px;
@@ -351,7 +427,6 @@
   .p2-vocab-row:last-child {
     border-bottom: none;
   }
-
   .p2-vocab-row.t-1 { border-left-color: #d97706; }
   .p2-vocab-row.t-2 { border-left-color: #059669; }
   .p2-vocab-row.t-3 { border-left-color: #2563eb; }
@@ -366,14 +441,12 @@
   .p2-vocab-row.t-12 { border-left-color: #e11d48; }
   .p2-vocab-row.t-13 { border-left-color: #0891b2; }
 
-  /* Compact top section of row */
   .p2-vocab-top {
     display: grid;
     grid-template-columns: 20px 1.35fr 2.1fr 1.5fr 1.5fr;
     padding: 3.5px 5px 2.5px 5px;
     align-items: flex-start;
   }
-
   .p2-num-badge {
     width: 14px;
     height: 14px;
@@ -386,7 +459,6 @@
     align-items: center;
     justify-content: center;
   }
-
   .p2-word {
     font-size: 9.8px;
     font-weight: 800;
@@ -428,7 +500,6 @@
     color: #475569;
     line-height: 1.2;
   }
-
   .p2-syns {
     font-size: 7.2px;
     color: #047857;
@@ -442,7 +513,6 @@
     font-weight: 600;
     line-height: 1.2;
   }
-
   .p2-mnemonic-row {
     margin: 0 5px 3px 20px;
     padding: 1.5px 5px;
@@ -458,7 +528,6 @@
     font-weight: 700;
   }
 
-  /* Compact Grammar Matrix (Never overflows) */
   .p2-grammar-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(47%, 1fr));
@@ -497,10 +566,9 @@
     font-weight: 600;
   }
 
-  /* Bottom Study Tip Box */
   .p2-study-tip {
     background: #fef3c7;
-    border-left: 3px solid #f59e0b;
+    border-left: 3.5px solid #f59e0b;
     padding: 3.5px 7px;
     border-radius: 3px;
     font-size: 7.2px;
@@ -515,11 +583,43 @@
 </head>
 <body>
 
-{% for art in data.articles %}
 <!-- =========================================================
-     PAGE 1: EDITORIAL READER & SIDEBAR
+     PAGE 1: FRONT COVER
      ========================================================= -->
-<div class="page">
+{% if data.has_front_cover %}
+<div class="page cover-page" style="background-image: url('{{ data.front_cover_src }}');">
+  <div class="front-date-stamp">{{ data.date_formatted }}</div>
+</div>
+{% endif %}
+
+<!-- =========================================================
+     PAGE 2: DYNAMIC TABLE OF CONTENTS
+     ========================================================= -->
+{% if data.has_toc_bg %}
+<div class="page cover-page" style="background-image: url('{{ data.toc_bg_src }}');">
+  <div class="toc-date-stamp">{{ data.date_formatted }}</div>
+
+  <!-- Dynamic Content Injected Over the 6 TOC Rows -->
+  <div class="toc-list-container">
+    {% for entry in data.toc_entries %}
+    <div class="toc-row">
+      <div class="toc-article-title">{{ entry.slot_num }}. {{ entry.title }}</div>
+      <div class="toc-article-meta">
+        <span class="toc-newspaper">({{ entry.newspaper }})</span>
+        <span>{{ entry.page_num }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- =========================================================
+     PAGES 3+: EDITORIAL READER & VOCABULARY LAB
+     ========================================================= -->
+{% for art in data.articles %}
+<!-- Article Reader Page -->
+<div class="page inner-page">
   <div>
     <div class="p1-header">
       <div class="p1-top-bar">
@@ -533,13 +633,13 @@
       <div class="p1-subheading-box">{{ art.subtitle }}</div>
       {% endif %}
       <div class="p1-meta-line">
-        <span>📅 {{ data.date_scraped }} &nbsp;|&nbsp; ⏱ {{ art.reading_time }}</span>
+        <span>📅 {{ data.date_formatted }} &nbsp;|&nbsp; ⏱ {{ art.reading_time }}</span>
         <span>Daily Editorial Reader</span>
       </div>
     </div>
 
     <div class="p1-layout-grid">
-      <!-- Left Column: Editorial Text -->
+      <!-- Left Column: Passage -->
       <div class="p1-left-col">
         <div class="p1-article-body">
           {% for para in art.paragraphs %}
@@ -551,7 +651,7 @@
         </div>
       </div>
 
-      <!-- Right Column: Vocabulary 101 -->
+      <!-- Right Column: Quick Vocabulary -->
       <div class="p1-sidebar">
         <div>
           <div class="p1-sidebar-header">
@@ -572,7 +672,7 @@
 
         <div class="p1-cta-card">
           <div class="p1-cta-title">🔔 Daily Revision</div>
-          <div style="font-size: 7.2px; color: #713f12;">Detailed definitions &amp; grammar rules on Page {{ art.page_p2 }}.</div>
+          <div style="font-size: 7.2px; color: #713f12;">Revise definitions &amp; grammar rules on Page {{ art.page_p2 }}.</div>
           <a href="https://t.me/EzEditorials" class="p1-cta-btn">✈ Join Ez Editorials</a>
         </div>
       </div>
@@ -580,16 +680,14 @@
   </div>
 
   <div class="page-footer">
-    <span>Ez Editorial Daily Series · {{ data.date_scraped }}</span>
+    <span>Ez Editorial Daily Series · {{ data.date_formatted }}</span>
     <span>{{ art.newspaper }} · {{ art.topic }}</span>
     <span>Page {{ art.page_p1 }}</span>
   </div>
 </div>
 
-<!-- =========================================================
-     PAGE 2: EDITORIAL ANALYSIS & VOCABULARY LAB
-     ========================================================= -->
-<div class="page">
+<!-- Article Vocabulary Lab Page -->
+<div class="page inner-page">
   <div>
     <div class="p2-header">
       <div>
@@ -599,10 +697,10 @@
       <div class="p2-header-sub">{{ art.newspaper }} &nbsp;·&nbsp; {{ art.topic }}</div>
     </div>
 
-    <!-- Redesigned Left-Aligned Analysis & Stance Banner -->
+    <!-- Editorial Stance & Tone -->
     <div class="p2-analysis-card">
       <div class="p2-tone-block">
-        <div class="p2-tone-label">Tone Analysis</div>
+        <div class="p2-tone-label">Editorial Stance</div>
         <div class="p2-tone-value">{{ art.analysis.tone }}</div>
         <div class="p2-tone-expl">({{ art.analysis.tone_simple_explanation }})</div>
       </div>
@@ -611,7 +709,7 @@
       </div>
     </div>
 
-    <!-- Master Vocabulary Table with Calibrated Row Heights -->
+    <!-- Master Vocabulary Table -->
     <div class="p2-table-wrapper">
       <div class="p2-table-head">
         <div>#</div>
@@ -646,7 +744,7 @@
       {% endfor %}
     </div>
 
-    <!-- Dynamic Applied Grammar Matrix (Strictly only non-empty categories) -->
+    <!-- Dynamic Applied Grammar Matrix (Only renders non-empty categories) -->
     <div class="p2-grammar-grid">
       {% if art.categorized_vocab.fixed_prepositions %}
       <div class="p2-card">
@@ -711,12 +809,20 @@
   </div>
 
   <div class="page-footer">
-    <span>Ez Editorial Daily Series · {{ data.date_scraped }}</span>
+    <span>Ez Editorial Daily Series · {{ data.date_formatted }}</span>
     <span>Vocabulary Mastery &amp; Applied Grammar</span>
     <span>Page {{ art.page_p2 }}</span>
   </div>
 </div>
 {% endfor %}
+
+<!-- =========================================================
+     LAST PAGE: BACK COVER
+     ========================================================= -->
+{% if data.has_back_cover %}
+<div class="page cover-page" style="background-image: url('{{ data.back_cover_src }}');">
+</div>
+{% endif %}
 
 </body>
 </html>

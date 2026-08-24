@@ -7,6 +7,10 @@ from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
 
 def clean_and_highlight_passage(passage_text, vocab_items):
+    """
+    Cleans passage paragraphs, removes trailing metadata/tags,
+    and applies subtle background highlight with tiny superscript index.
+    """
     raw_paras = [p.strip() for p in passage_text.split("\n\n") if p.strip()]
     cleaned_paras = []
     
@@ -17,7 +21,12 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     )
 
     for p in raw_paras:
-        if p.startswith("Published") or p.startswith("Updated") or p.startswith("- August") or p.startswith("-August"):
+        # Filter out trailing metadata, timestamps, and tag lists (e.g. "court / industrial...")
+        if (p.startswith("Published") or 
+            p.startswith("Updated") or 
+            p.startswith("- August") or 
+            p.startswith("-August") or 
+            "/" in p and len(p.split("/")) > 3):
             continue
             
         highlighted = p
@@ -38,6 +47,9 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     return cleaned_paras
 
 def categorize_vocabulary(vocab_items):
+    """
+    Groups vocabulary items into discrete grammatical categories.
+    """
     categorized = {
         "core_vocab": [],
         "fixed_prepositions": [],
@@ -71,7 +83,7 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
     chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
     
     if not bot_token or not chat_id:
-        print("⚠️ Telegram BOT_TOKEN or ADMIN_CHAT_ID missing. Skipping Telegram delivery.")
+        print("⚠️ Telegram BOT_TOKEN or ADMIN_CHAT_ID missing. Skipping Telegram dispatch.")
         return
 
     quote_lines = [f"{idx:02d} {title}" for idx, title in enumerate(editorial_titles, start=1)]
@@ -85,11 +97,9 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
     url = f"https://api.telegram.org/bot{bot_token}/sendDocument"
     filename = os.path.basename(pdf_path)
 
-    print(f"📤 Uploading {filename} to Telegram...")
+    print(f"📤 Dispatching {filename} to Telegram...")
     with open(pdf_path, "rb") as doc:
-        files = {
-            "document": (filename, doc, "application/pdf")
-        }
+        files = {"document": (filename, doc, "application/pdf")}
         payload = {
             "chat_id": chat_id,
             "caption": caption,
@@ -118,7 +128,7 @@ def compile_magazine():
     with open(json_path, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
-    # Calculate Indian Standard Time (IST) Date (UTC+5:30)
+    # Standard IST Calculation (UTC+5:30)
     ist_offset = timezone(timedelta(hours=5, minutes=30))
     ist_time = datetime.now(ist_offset)
     
@@ -159,20 +169,11 @@ def compile_magazine():
         vocab_chunk_1 = core_vocab[:5]
         vocab_chunk_2 = core_vocab[5:]
         
-        # Has 3rd page if remaining words exist OR any grammar cards exist
-        has_grammar = any([
-            categorized_vocab["fixed_prepositions"],
-            categorized_vocab["phrasal_verbs"],
-            categorized_vocab["one_word_subs"],
-            categorized_vocab["idioms"],
-            categorized_vocab["foreign_words"]
-        ])
-        has_page_3 = bool(vocab_chunk_2 or has_grammar)
-
+        # Page budget: Exactly 3 pages per article for 100% full-canvas utilization
         page_p1 = page_counter
         page_p2 = page_counter + 1
-        page_p3 = page_counter + 2 if has_page_3 else None
-        
+        page_p3 = page_counter + 2
+
         processed_articles.append({
             "newspaper": art.get("newspaper", "Editorial"),
             "title": title_clean,
@@ -190,15 +191,14 @@ def compile_magazine():
             "categorized_vocab": categorized_vocab,
             "vocab_chunk_1": vocab_chunk_1,
             "vocab_chunk_2": vocab_chunk_2,
-            "has_page_3": has_page_3,
             "page_p1": page_p1,
             "page_p2": page_p2,
             "page_p3": page_p3
         })
         
-        page_counter += 3 if has_page_3 else 2
+        page_counter += 3
 
-    # Check asset paths
+    # Asset paths
     assets_dir = os.path.join(base_dir, "assets")
     front_cover_path = os.path.join(assets_dir, "front_cover_bg.jpg")
     toc_bg_path = os.path.join(assets_dir, "toc_bg.jpg")
@@ -236,6 +236,7 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
+    # Render PDF via Playwright
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         page = browser.new_page()
@@ -250,7 +251,7 @@ def compile_magazine():
         )
         browser.close()
 
-    print(f"✅ Generated Complete Magazine: {output_pdf_path}")
+    print(f"✅ Generated Complete Magazine at: {output_pdf_path}")
     send_to_telegram(output_pdf_path, ist_date_short, editorial_titles)
 
 if __name__ == "__main__":

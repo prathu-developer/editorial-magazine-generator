@@ -132,11 +132,11 @@ def compile_magazine():
         })
         page_counter += 2
 
-    # Check asset paths
+    # Check asset paths (Updated to .jpg for massive file size reduction)
     assets_dir = os.path.join(base_dir, "assets")
-    front_cover_path = os.path.join(assets_dir, "front_cover_bg.png")
-    toc_bg_path = os.path.join(assets_dir, "toc_bg.png")
-    back_cover_path = os.path.join(assets_dir, "back_cover_bg.png")
+    front_cover_path = os.path.join(assets_dir, "front_cover_bg.jpg")
+    toc_bg_path = os.path.join(assets_dir, "toc_bg.jpg")
+    back_cover_path = os.path.join(assets_dir, "back_cover_bg.jpg")
 
     render_payload = {
         "date_formatted": formatted_date_ist,

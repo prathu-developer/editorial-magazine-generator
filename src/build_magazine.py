@@ -10,7 +10,7 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     raw_paras = [p.strip() for p in passage_text.split("\n\n") if p.strip()]
     cleaned_paras = []
     
-    # Sort descending by term length to prevent shorter substrings from overriding longer phrases
+    # Sort descending by word length to prevent substring clashes
     sorted_vocab = sorted(
         vocab_items,
         key=lambda x: len(x.get("word_or_phrase", "")),
@@ -18,7 +18,7 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     )
 
     for p in raw_paras:
-        # Filter date lines and trailing keyword/category tag dumps
+        # Filter out scrape metadata headers/footers and keyword dumps
         if (p.startswith("Published") or 
             p.startswith("Updated") or 
             p.startswith("- August") or 
@@ -33,10 +33,9 @@ def clean_and_highlight_passage(passage_text, vocab_items):
             if not term:
                 continue
             
-            # Word boundary regex with case-insensitive search
             pattern = re.compile(rf'\b({re.escape(term)})\b', re.IGNORECASE)
             highlighted = pattern.sub(
-                rf'<span class="vocab-hl">\1<sup class="v-idx">{idx}</sup></span>',
+                rf'<mark class="vocab-badge">\1<span class="v-num">{idx}</span></mark>',
                 highlighted
             )
             
@@ -85,7 +84,7 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
     quote_content = "\n".join(quote_lines)
 
     caption = (
-        f"📝 <b>Today's Editorials ({ist_date_short})</b>\n"
+        f"📚 <b>Today's Editorial Master Edition ({ist_date_short})</b>\n"
         f"<blockquote expandable>{quote_content}</blockquote>"
     )
 
@@ -103,7 +102,7 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
         res = requests.post(url, data=payload, files=files)
         
     if res.status_code == 200:
-        print("🚀 Successfully delivered magazine PDF to Telegram!")
+        print("🚀 Delivered magazine PDF to Telegram!")
     else:
         print(f"❌ Telegram API Error ({res.status_code}): {res.text}")
 
@@ -136,7 +135,7 @@ def compile_magazine():
     processed_articles = []
     toc_entries = []
     editorial_titles = []
-    page_counter = 3  # Page 1: Cover, Page 2: TOC
+    page_counter = 3  # Page 1: Front Cover, Page 2: TOC
 
     for art in raw_data.get("editorials", []):
         vocab_list = art.get("editorial_vocabulary", [])
@@ -153,12 +152,35 @@ def compile_magazine():
         title_clean = art.get("title", "")
         editorial_titles.append(title_clean)
 
+        reader_page = page_counter
+        
+        # Split Core Vocab into chunks of 6 for spacious bento cards
+        core_vocab_items = categorized_vocab["core_vocab"]
+        chunk_size = 6
+        vocab_chunks = [core_vocab_items[i:i + chunk_size] for i in range(0, len(core_vocab_items), chunk_size)]
+        if not vocab_chunks:
+            vocab_chunks = [[]]
+            
+        vocab_page_count = len(vocab_chunks)
+        vocab_pages_info = []
+        
+        current_vocab_page = reader_page + 1
+        for idx, chunk in enumerate(vocab_chunks):
+            vocab_pages_info.append({
+                "page_num": current_vocab_page,
+                "items": chunk,
+                "is_first_page": (idx == 0),
+                "is_last_page": (idx == vocab_page_count - 1),
+                "page_index": idx + 1,
+                "total_pages": vocab_page_count
+            })
+            current_vocab_page += 1
+
         toc_entries.append({
             "title": title_clean,
             "newspaper": art.get("newspaper", "Editorial"),
             "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
-            "reading_time": art.get("reading_time", "3 min read"),
-            "page_num": f"Page {page_counter:02d}"
+            "page_num": f"P.{reader_page:02d}"
         })
         
         processed_articles.append({
@@ -176,11 +198,14 @@ def compile_magazine():
             "paragraphs": paragraphs,
             "all_vocab": vocab_list,
             "categorized_vocab": categorized_vocab,
-            "page_p1": page_counter,
-            "page_p2": page_counter + 1
+            "page_reader": reader_page,
+            "vocab_pages": vocab_pages_info,
+            "total_article_pages": 1 + vocab_page_count
         })
-        page_counter += 2
+        
+        page_counter = current_vocab_page
 
+    # Assets
     assets_dir = os.path.join(base_dir, "assets")
     front_cover_path = os.path.join(assets_dir, "front_cover_bg.jpg")
     toc_bg_path = os.path.join(assets_dir, "toc_bg.jpg")

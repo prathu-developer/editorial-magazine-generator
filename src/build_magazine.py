@@ -91,7 +91,7 @@ def compile_magazine():
     toc_entries = []
     page_counter = 3  # Page 1 = Front Cover, Page 2 = TOC
 
-    for idx, art in enumerate(raw_data.get("editorials", []), start=1):
+    for art in raw_data.get("editorials", []):
         vocab_list = art.get("editorial_vocabulary", [])
         categorized_vocab = categorize_vocabulary(vocab_list)
         paragraphs = clean_and_highlight_passage(art.get("passage", ""), vocab_list)
@@ -104,9 +104,8 @@ def compile_magazine():
         meta_sub = art.get("editorial_metadata", {}).get("subtitle", "")
         subtitle = meta_sub if meta_sub and meta_sub != "N/A" else None
 
-        # Build TOC Entry
+        # Clean TOC entry without duplicating numbers
         toc_entries.append({
-            "slot_num": f"{idx:02d}",
             "title": art.get("title", ""),
             "newspaper": art.get("newspaper", "Editorial"),
             "page_num": f"Page {page_counter:02d}"
@@ -132,7 +131,7 @@ def compile_magazine():
         })
         page_counter += 2
 
-    # Check asset paths (Updated to .jpg for massive file size reduction)
+    # Check asset paths (.jpg format for reduced file sizes)
     assets_dir = os.path.join(base_dir, "assets")
     front_cover_path = os.path.join(assets_dir, "front_cover_bg.jpg")
     toc_bg_path = os.path.join(assets_dir, "toc_bg.jpg")
@@ -160,7 +159,7 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # Render all pages in one pass
+    # Single-pass PDF generation
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         page = browser.new_page()

@@ -50,7 +50,7 @@
     background-repeat: no-repeat;
   }
 
-  /* Date stamp on Cover */
+  /* Front Cover Date Badge */
   .front-date-stamp {
     position: absolute;
     top: 14mm;
@@ -58,18 +58,18 @@
     font-size: 11px;
     font-weight: 800;
     color: #0f2b48;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.92);
     padding: 3px 8px;
     border-radius: 4px;
     text-transform: uppercase;
   }
 
   /* =========================================================
-     TABLE OF CONTENTS OVERLAY
+     TABLE OF CONTENTS (TEXT ALIGNED TO THE RIGHT OF NUMBERS)
      ========================================================= */
   .toc-date-stamp {
     position: absolute;
-    top: 27.5mm;
+    top: 26mm;
     right: 16mm;
     font-size: 9.5px;
     font-weight: 800;
@@ -79,15 +79,15 @@
 
   .toc-list-container {
     position: absolute;
-    top: 102.5mm;
-    left: 77mm;
-    width: 118mm;
+    top: 96mm;
+    left: 102mm;      /* Positioned directly to the right of the yellow numbers */
+    width: 96mm;       /* Fills the remaining right portion of the A4 canvas */
     display: flex;
     flex-direction: column;
   }
 
   .toc-row {
-    height: 20.3mm;
+    height: 21.6mm;    /* Exactly calibrated to match the 6 pre-printed rows */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -96,7 +96,7 @@
 
   .toc-article-title {
     font-family: 'Lora', Georgia, serif;
-    font-size: 10.2px;
+    font-size: 9.6px;
     font-weight: 700;
     color: #0f2b48;
     line-height: 1.25;
@@ -110,7 +110,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 8px;
+    font-size: 7.8px;
     font-weight: 700;
     color: #b45309;
     margin-top: 2px;
@@ -236,7 +236,7 @@
     font-weight: 700;
   }
 
-  /* Clean Highlight Without Underline */
+  /* Clean Highlight Without Underline (Tiny Superscript) */
   .vocab-hl {
     font-weight: 700;
     color: #0f2b48;
@@ -513,6 +513,7 @@
     font-weight: 600;
     line-height: 1.2;
   }
+
   .p2-mnemonic-row {
     margin: 0 5px 3px 20px;
     padding: 1.5px 5px;
@@ -599,11 +600,11 @@
 <div class="page cover-page" style="background-image: url('{{ data.toc_bg_src }}');">
   <div class="toc-date-stamp">{{ data.date_formatted }}</div>
 
-  <!-- Dynamic Content Injected Over the 6 TOC Rows -->
+  <!-- Injected dynamically right next to the 01-06 yellow numbers -->
   <div class="toc-list-container">
     {% for entry in data.toc_entries %}
     <div class="toc-row">
-      <div class="toc-article-title">{{ entry.slot_num }}. {{ entry.title }}</div>
+      <div class="toc-article-title">{{ entry.title }}</div>
       <div class="toc-article-meta">
         <span class="toc-newspaper">({{ entry.newspaper }})</span>
         <span>{{ entry.page_num }}</span>

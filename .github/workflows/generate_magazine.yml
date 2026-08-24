@@ -2,12 +2,12 @@ name: Generate Daily Editorial Magazine
 
 on:
   schedule:
-    # Runs automatically every day at 01:00 UTC (06:30 AM IST)
+    # Runs daily at 01:00 UTC (06:30 AM IST)
     - cron: '0 1 * * *'
-  workflow_dispatch: # Enables the manual "Run workflow" button in GitHub
+  workflow_dispatch: # Allows manual trigger from GitHub UI
 
 permissions:
-  contents: write # Grants permission to save/commit the generated PDF to the repository
+  contents: write
 
 jobs:
   build-and-publish:
@@ -32,11 +32,11 @@ jobs:
         run: |
           playwright install --with-deps chromium
 
-      - name: Run Magazine Generator
+      - name: Run Magazine Generator & Telegram Bot
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
         run: |
           python src/build_magazine.py
 

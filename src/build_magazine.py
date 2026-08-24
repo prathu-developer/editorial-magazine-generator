@@ -1,8 +1,8 @@
 import os
 import re
 import json
-from datetime import datetime
-from zoneinfo import ZoneInfo
+import requests
+from datetime import datetime, timezone, timedelta
 from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
 
@@ -66,13 +66,50 @@ def categorize_vocabulary(vocab_items):
             
     return categorized
 
+def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
+    
+    if not bot_token or not chat_id:
+        print("⚠️ Telegram BOT_TOKEN or ADMIN_CHAT_ID missing. Skipping Telegram delivery.")
+        return
+
+    # Build formatted lines for the quote box
+    quote_lines = [f"{idx:02d} {title}" for idx, title in enumerate(editorial_titles, start=1)]
+    quote_content = "\n".join(quote_lines)
+
+    # Telegram HTML caption with expandable blockquote
+    caption = (
+        f"📝 <b>Today's Editorials ({ist_date_short})</b>\n"
+        f"<blockquote expandable>{quote_content}</blockquote>"
+    )
+
+    url = f"https://api.telegram.org/bot{bot_token}/sendDocument"
+    filename = os.path.basename(pdf_path)
+
+    print(f"📤 Uploading {filename} to Telegram...")
+    with open(pdf_path, "rb") as doc:
+        files = {
+            "document": (filename, doc, "application/pdf")
+        }
+        payload = {
+            "chat_id": chat_id,
+            "caption": caption,
+            "parse_mode": "HTML"
+        }
+        res = requests.post(url, data=payload, files=files)
+        
+    if res.status_code == 200:
+        print("🚀 Successfully delivered magazine PDF to Telegram!")
+    else:
+        print(f"❌ Telegram API Error ({res.status_code}): {res.text}")
+
 def compile_magazine():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     json_path = os.path.join(base_dir, "schema.json")
     templates_dir = os.path.join(base_dir, "templates")
     build_dir = os.path.join(base_dir, "build")
     output_dir = os.path.join(base_dir, "output")
-    output_pdf_path = os.path.join(output_dir, "Daily_Editorial_Magazine.pdf")
 
     os.makedirs(build_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
@@ -83,12 +120,21 @@ def compile_magazine():
     with open(json_path, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
-    # Calculate real-time Indian Standard Time (IST) Date
-    ist_time = datetime.now(ZoneInfo("Asia/Kolkata"))
-    formatted_date_ist = ist_time.strftime(f"%B {ist_time.day}, %Y")
+    # Calculate real-time Indian Standard Time (IST) Date (UTC+5:30)
+    ist_offset = timezone(timedelta(hours=5, minutes=30))
+    ist_time = datetime.now(ist_offset)
+    
+    # "24-Aug-2026.pdf" format for file output
+    pdf_filename = f"{ist_time.strftime('%d-%b-%Y')}.pdf"
+    output_pdf_path = os.path.join(output_dir, pdf_filename)
+    
+    # Formatted date strings for display
+    formatted_date_ist = ist_time.strftime(f"%B {ist_time.day}, %Y")   # August 24, 2026
+    ist_date_short = ist_time.strftime(f"{ist_time.day} %b %Y")         # 24 Aug 2026
 
     processed_articles = []
     toc_entries = []
+    editorial_titles = []
     page_counter = 3  # Page 1 = Front Cover, Page 2 = TOC
 
     for art in raw_data.get("editorials", []):
@@ -103,15 +149,18 @@ def compile_magazine():
         meta_sub = art.get("editorial_metadata", {}).get("subtitle", "")
         subtitle = meta_sub if meta_sub and meta_sub != "N/A" else None
 
+        title_clean = art.get("title", "")
+        editorial_titles.append(title_clean)
+
         toc_entries.append({
-            "title": art.get("title", ""),
+            "title": title_clean,
             "newspaper": art.get("newspaper", "Editorial"),
             "page_num": f"Page {page_counter:02d}"
         })
         
         processed_articles.append({
             "newspaper": art.get("newspaper", "Editorial"),
-            "title": art.get("title", ""),
+            "title": title_clean,
             "subtitle": subtitle,
             "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
             "reading_time": art.get("reading_time", "2 min read"),
@@ -135,14 +184,14 @@ def compile_magazine():
     toc_bg_path = os.path.join(assets_dir, "toc_bg.jpg")
     back_cover_path = os.path.join(assets_dir, "back_cover_bg.jpg")
     
-    # Check watermark path (supports SVG or PNG)
-    watermark_svg = os.path.join(assets_dir, "watermark.svg")
+    # Check watermark path
     watermark_png = os.path.join(assets_dir, "watermark.png")
+    watermark_svg = os.path.join(assets_dir, "watermark.svg")
     watermark_src = None
-    if os.path.exists(watermark_svg):
-        watermark_src = f"file://{watermark_svg}"
-    elif os.path.exists(watermark_png):
+    if os.path.exists(watermark_png):
         watermark_src = f"file://{watermark_png}"
+    elif os.path.exists(watermark_svg):
+        watermark_src = f"file://{watermark_svg}"
 
     render_payload = {
         "date_formatted": formatted_date_ist,
@@ -168,7 +217,7 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # Single-pass PDF generation with full font & link rendering
+    # Single-pass PDF generation
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         page = browser.new_page()
@@ -183,7 +232,10 @@ def compile_magazine():
         )
         browser.close()
 
-    print(f"✅ Generated Complete Magazine with Links & Watermark at: {output_pdf_path}")
+    print(f"✅ Generated Complete Magazine: {output_pdf_path}")
+
+    # Dispatch to Telegram DM
+    send_to_telegram(output_pdf_path, ist_date_short, editorial_titles)
 
 if __name__ == "__main__":
     compile_magazine()

@@ -542,29 +542,29 @@
     justify-content: space-between;
   }
 
-  /* Article Body in Montserrat with Scaled Typography */
+  /* Scaled Editorial Body Text */
   .p1-article-body {
     font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
+    font-size: 11.8px; /* Scaled up from 11px */
     font-weight: 500;
-    line-height: 1.62;
+    line-height: 1.58; /* Balanced line-height to maintain vertical budget */
     color: #1e293b;
     text-align: justify;
-    letter-spacing: -0.15px !important;
+    letter-spacing: -0.12px !important;
   }
 
   .p1-article-body p {
-    margin-bottom: 11px;
+    margin-bottom: 9.5px; /* Slightly tightened from 11px to fit larger text */
   }
 
-  /* Drop-Cap Scaled for Montserrat */
+  /* Re-calibrated Drop-Cap */
   .p1-article-body p:first-of-type::first-letter {
     font-family: 'Montserrat', sans-serif;
-    font-size: 34px;
+    font-size: 36px; /* Scaled up from 34px to span 2.5–3 lines cleanly */
     line-height: 0.82;
     float: left;
     margin-right: 7px;
-    margin-top: 3px;
+    margin-top: 2px;
     padding: 3px 7px;
     background: #0f2b48;
     color: #fef08a;
@@ -706,11 +706,13 @@
     margin-top: 1px;
   }
 
+  /* Container adjustments */
   .p1-vocab-details {
     display: flex;
     flex-direction: column;
-    gap: 0.5px;
+    gap: 1px;
     flex: 1;
+    min-width: 0; /* Allows text truncation without breaking child layout */
     overflow: hidden;
   }
 
@@ -718,6 +720,7 @@
     display: flex;
     align-items: baseline;
     gap: 3px;
+    line-height: 1.2;
   }
 
   .p1-word-term {
@@ -734,32 +737,61 @@
     color: #64748b;
   }
 
-  .p1-vocab-def-line {
-    font-size: 7.6px; /* Scaled up from 6.8px */
-    line-height: 1.2;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  /* Container adjustments */
+  .p1-vocab-details {
     display: flex;
-    align-items: center;
-    gap: 3.5px;
+    flex-direction: column;
+    gap: 1px;
+    flex: 1;
+    min-width: 0; /* Allows text truncation without breaking child layout */
+    overflow: hidden;
+  }
+
+  .p1-vocab-word-line {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
+    line-height: 1.2;
+  }
+
+  /* Definition Line: Fixed Baseline Alignment & Glyph Clearance */
+  .p1-vocab-def-line {
+    display: flex;
+    align-items: baseline; /* Locks English and Hindi to the exact same baseline */
+    gap: 4px;
+    width: 100%;
+    min-width: 0;
+    padding: 1.5px 0; /* Provides vertical buffer so top matras never clip */
+    line-height: 1.35; /* Crucial height allowance for Devanagari ascenders */
   }
 
   .p1-def-eng {
-    color: #334155;
-    font-weight: 600;
+    color: #b45309; /* Warm Amber / Ochre */
+    font-weight: 700;
+    font-size: 7.4px;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .p1-def-bullet {
     color: #0d9488;
     font-weight: 900;
-    font-size: 6.5px;
+    font-size: 6px;
+    flex-shrink: 0;
+    align-self: center; /* Keeps the dot centered relative to the text */
+    margin-top: -1px;
   }
 
   .p1-def-hindi {
     color: #0d9488;
+    font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
     font-weight: 700;
-    font-size: 8.2px; /* Scaled up from 7.2px */
+    font-size: 7.8px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Gracefully truncates long Hindi phrases */
+    min-width: 0;
   }
 
   /* Bottom Action CTA */
@@ -956,7 +988,7 @@
      ========================================================= */
   .p2-analysis-container {
     display: grid;
-    grid-template-columns: 46mm 1fr;
+    grid-template-columns: 48mm 1fr; /* Adjusted from 46mm for better breathing room */
     gap: 8px;
     margin-bottom: 6px;
     align-items: stretch;
@@ -995,8 +1027,9 @@
     height: 14px;
   }
 
+  /* Left Stance Card Typography */
   .p2-stance-title {
-    font-size: 8px;
+    font-size: 8.8px; /* Scaled up from 8px */
     font-weight: 900;
     color: #0b1e36;
     letter-spacing: 0.5px;
@@ -1004,17 +1037,17 @@
   }
 
   .p2-stance-tone {
-    font-size: 14.5px;
+    font-size: 16px; /* Scaled up from 14.5px */
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 0.2px;
-    margin: 6px 0 2px 0;
+    margin: 5px 0 2px 0;
     position: relative;
     z-index: 2;
   }
 
   .p2-stance-expl {
-    font-size: 8.4px;
+    font-size: 9.4px; /* Scaled up from 8.4px */
     font-weight: 600;
     color: #334155;
     line-height: 1.25;
@@ -1116,8 +1149,9 @@
     height: 10px;
   }
 
+  /* Right Executive Perspective Card Typography */
   .p2-perspective-title {
-    font-size: 8.5px;
+    font-size: 9.2px; /* Scaled up from 8.5px */
     font-weight: 900;
     color: #0b1e36;
     letter-spacing: 0.5px;
@@ -1126,16 +1160,97 @@
 
   .p2-perspective-body {
     font-family: 'Montserrat', sans-serif;
-    font-size: 8.8px;
+    font-size: 9.8px; /* Scaled up from 8.8px */
     font-weight: 500;
     color: #1e293b;
-    line-height: 1.48;
+    line-height: 1.45; /* Balanced line-height to keep the card compact */
     text-align: justify;
     letter-spacing: -0.1px !important;
   }
 
   /* =========================================================
-     SUBSECTION 4.3: REORDERED & CENTERED LEXICAL RIBBONS
+     UNIVERSAL SECTION HEADERS & ACCENT THEMES
+     ========================================================= */
+  .lex-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+    margin-top: 6px;
+    padding: 3px 8px;
+    background: #f8fafc;
+    border: 1.1px solid #e2e8f0;
+    border-left: 4px solid #0b1e36;
+    border-radius: 5px;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .lex-header-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .lex-header-icon {
+    font-size: 11px;
+    line-height: 1;
+  }
+
+  .lex-section-title {
+    font-size: 8.4px;
+    font-weight: 900;
+    color: #0b1e36;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .lex-header-tag {
+    font-size: 6.8px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  /* Header Color Accents */
+  .hdr-vocab { border-left-color: #0b1e36; }
+  .hdr-vocab .lex-header-tag { background: #e0f2fe; color: #0369a1; }
+
+  .hdr-ows { border-left-color: #d97706; }
+  .hdr-ows .lex-header-tag { background: #fef3c7; color: #b45309; }
+
+  .hdr-prep { border-left-color: #0f766e; }
+  .hdr-prep .lex-header-tag { background: #ccfbf1; color: #0f766e; }
+
+  .hdr-phr { border-left-color: #6d28d9; }
+  .hdr-phr .lex-header-tag { background: #ede9fe; color: #6d28d9; }
+
+  .hdr-idm { border-left-color: #e11d48; }
+  .hdr-idm .lex-header-tag { background: #ffe4e6; color: #e11d48; }
+
+  /* Header Color Accents */
+  .hdr-vocab { border-left-color: #0b1e36; }
+  .hdr-vocab .lex-header-tag { background: #e0f2fe; color: #0369a1; }
+
+  .hdr-ows { border-left-color: #d97706; }
+  .hdr-ows .lex-header-tag { background: #fef3c7; color: #b45309; }
+
+  .hdr-prep { border-left-color: #0f766e; }
+  .hdr-prep .lex-header-tag { background: #ccfbf1; color: #0f766e; }
+
+  .hdr-phr { border-left-color: #6d28d9; }
+  .hdr-phr .lex-header-tag { background: #ede9fe; color: #6d28d9; }
+
+  .hdr-idm { border-left-color: #e11d48; }
+  .hdr-idm .lex-header-tag { background: #ffe4e6; color: #e11d48; }
+
+  .hdr-foreign { border-left-color: #2563eb; }
+  .hdr-foreign .lex-header-tag { background: #dbeafe; color: #1e40af; }
+
+  /* =========================================================
+     6-COLUMN FULL LEXICAL RIBBONS
      ========================================================= */
   .lex-ribbon-stack {
     display: flex;
@@ -1155,7 +1270,9 @@
     overflow: hidden;
     box-shadow: 0 1px 3px rgba(15, 43, 72, 0.04);
     align-items: stretch;
-    max-height: 22mm; /* Locks ribbon height across all 4 rows */
+    min-height: 20mm;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
 
   .ribbon-col-word,
@@ -1166,7 +1283,7 @@
     padding: 3.5px 6px;
   }
 
-  /* Col 1: Dark Navy Number Tab */
+  /* Col 1: Number Tab */
   .ribbon-col-num {
     background: #0b1e36;
     display: flex;
@@ -1222,7 +1339,7 @@
   .connot-positive { background: #dcfce7; color: #16a34a; }
   .connot-neutral  { background: #e0f2fe; color: #0284c7; }
 
-  /* Col 3: Definition (Hindi on Top, Meaning on New Line) */
+  /* Col 3: Semantic Icon & Definition */
   .ribbon-col-def {
     padding: 6px 8px;
     display: flex;
@@ -1270,12 +1387,12 @@
     line-height: 1.35;
   }
 
-  /* Col 4: Side-by-Side Centered Memory Hook */
+  /* Col 4: Memory Hook */
   .ribbon-col-hook {
     padding: 6px 8px;
     display: flex !important;
-    flex-direction: row !important; /* Places brain icon on the left of the text */
-    align-items: center;           /* Vertically centers the icon with the text */
+    flex-direction: row !important;
+    align-items: center;
     gap: 8px;
     border-right: 1px solid #f1f5f9;
     background: #ffffff;
@@ -1288,7 +1405,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;                /* Keeps icon round and aligned to the left */
+    flex-shrink: 0;
   }
   .hook-brain-circle svg {
     width: 12px;
@@ -1303,7 +1420,7 @@
     flex-direction: column;
     justify-content: center;
     gap: 2px;
-    flex: 1;                       /* Fills remaining column space */
+    flex: 1;
   }
 
   .hook-header-title {
@@ -1323,7 +1440,7 @@
     line-height: 1.32;
   }
 
-  /* Col 5 & 6: Centered Synonyms & Antonyms Blocks */
+  /* Col 5 & 6: Synonyms & Antonyms */
   .ribbon-col-syn, .ribbon-col-ant {
     padding: 6px 4px;
     display: flex;
@@ -1366,137 +1483,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
-
-  /* =========================================================
-     SUBSECTION 4.4: 4-COLUMN APPLIED GRAMMAR MATRIX
-     ========================================================= */
-  .grammar-matrix-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    margin-bottom: 6px;
-    align-items: stretch;
-  }
-
-  .grammar-col-card {
-    background: #ffffff;
-    border: 1.2px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 7px 8px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 1.5px 5px rgba(15, 43, 72, 0.04);
-    break-inside: avoid;
-  }
-
-  /* Card Header */
-  .grammar-card-header {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding-bottom: 5px;
-    margin-bottom: 5px;
-    border-bottom: 1px solid #f1f5f9;
-  }
-
-  .grammar-icon-box {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .grammar-icon-box svg {
-    width: 12px;
-    height: 12px;
-  }
-
-  .grammar-header-title {
-    font-size: 7.6px;
-    font-weight: 900;
-    line-height: 1.15;
-    letter-spacing: 0.3px;
-    text-transform: uppercase;
-  }
-
-  /* Distinct Colour Themes */
-  .theme-prepositions .grammar-icon-box { background: #f0fdfa; color: #0f766e; }
-  .theme-prepositions .grammar-header-title { color: #0f766e; }
-  .theme-prepositions .term-bullet { color: #0f766e; }
-
-  .theme-phrasals .grammar-icon-box { background: #f5f3ff; color: #6d28d9; }
-  .theme-phrasals .grammar-header-title { color: #6d28d9; }
-  .theme-phrasals .term-bullet { color: #6d28d9; }
-
-  .theme-substitutions .grammar-icon-box { background: #fffbeb; color: #d97706; }
-  .theme-substitutions .grammar-header-title { color: #d97706; }
-  .theme-substitutions .term-bullet { color: #d97706; }
-
-  .theme-idioms .grammar-icon-box { background: #fff1f2; color: #e11d48; }
-  .theme-idioms .grammar-header-title { color: #e11d48; }
-  .theme-idioms .term-bullet { color: #e11d48; }
-
-  .theme-foreign .grammar-icon-box { background: #eff6ff; color: #2563eb; }
-  .theme-foreign .grammar-header-title { color: #2563eb; }
-  .theme-foreign .term-bullet { color: #2563eb; }
-
-  /* Entry Content Layout */
-  .grammar-items-list {
-    display: flex;
-    flex-direction: column;
-    gap: 4.5px;
-    flex-grow: 1;
-  }
-
-  .grammar-entry {
-    padding-bottom: 2.5px;
-    margin-bottom: 2.5px;
-    border-bottom: 1px dotted #e2e8f0;
-  }
-  .grammar-entry:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-    margin-bottom: 0;
-  }
-
-  .grammar-entry-term {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 7.4px;
-    line-height: 1.2;
-    margin-bottom: 1px;
-  }
-
-  .term-bullet {
-    font-weight: 900;
-    margin-right: 2px;
-  }
-
-  .grammar-entry-term strong {
-    font-weight: 800;
-    color: #0f172a;
-  }
-
-  .grammar-hindi {
-    color: #475569;
-    font-size: 7.4px;
-    font-weight: 600;
-  }
-
-  .grammar-entry-def {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 6.8px;
-    font-weight: 500;
-    color: #334155;
-    line-height: 1.25;
-    padding-left: 5px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
 
   /* =========================================================
@@ -2048,25 +2034,29 @@
       </div>
     </div>
 
-    <!-- Subsection 4.3: Lexical Ribbon Stack -->
+    <!-- =========================================================
+         SECTION 1: EDITORIAL VOCABULARY
+         ========================================================= -->
+    {% if art.categorized_vocab.core_vocab %}
+    <div class="lex-section-header hdr-vocab">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">📖</span>
+        <span class="lex-section-title">EDITORIAL VOCABULARY</span>
+      </div>
+      <span class="lex-header-tag">{{ art.categorized_vocab.core_vocab | length }} {% if (art.categorized_vocab.core_vocab | length) == 1 %}WORD{% else %}WORDS{% endif %}</span>
+    </div>
+
     <div class="lex-ribbon-stack">
       {% for item in art.categorized_vocab.core_vocab %}
       <div class="lex-ribbon-row">
-        <!-- Col 1: Number Column -->
-        <div class="ribbon-col-num">
+        <div class="ribbon-col-num" style="background: #0b1e36;">
           <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
         </div>
-
-        <!-- Col 2: Word, POS & Connotation -->
         <div class="ribbon-col-word">
           <div class="ribbon-term">{{ item.word_or_phrase }}</div>
           <div class="ribbon-pos">{{ item.part_of_speech }}</div>
-          <div class="ribbon-connot connot-{{ item.connotation | lower }}">
-            {{ item.connotation }}
-          </div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
         </div>
-
-        <!-- Col 3: Semantic Icon & Definition (Hindi on Top, Meaning on New Line) -->
         <div class="ribbon-col-def">
           <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
             {% if item.connotation == 'Negative' %}
@@ -2082,8 +2072,6 @@
             <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
           </div>
         </div>
-
-        <!-- Col 4: Memory Hook (Icon on Left, Title & Text on Right) -->
         <div class="ribbon-col-hook">
           <div class="hook-brain-circle brain-{{ item.connotation | lower }}">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -2095,8 +2083,6 @@
             <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
           </div>
         </div>
-
-        <!-- Col 5: British Synonyms (Centered) -->
         <div class="ribbon-col-syn">
           <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
           <div class="ribbon-bullet-list syn-bullets">
@@ -2105,8 +2091,6 @@
             {% endfor %}
           </div>
         </div>
-
-        <!-- Col 6: British Antonyms (Centered) -->
         <div class="ribbon-col-ant">
           <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
           <div class="ribbon-bullet-list ant-bullets">
@@ -2118,161 +2102,357 @@
       </div>
       {% endfor %}
     </div>
+    {% endif %}
 
-    <!-- Subsection 4.4: Modern Dynamic Applied Grammar Matrix -->
-    <div class="grammar-matrix-grid">
-      <!-- Card 1: Fixed Prepositions -->
-      {% if art.categorized_vocab.fixed_prepositions %}
-      <div class="grammar-col-card theme-prepositions">
-        <div class="grammar-card-header">
-          <div class="grammar-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-            </svg>
-          </div>
-          <div class="grammar-header-title">FIXED<br>PREPOSITIONS</div>
-        </div>
-        <div class="grammar-items-list">
-          {% for fp in art.categorized_vocab.fixed_prepositions %}
-          <div class="grammar-entry">
-            <div class="grammar-entry-term">
-              <span class="term-bullet">•</span>
-              <strong>{{ fp.word_or_phrase }}</strong>
-              <span class="grammar-hindi devanagari">({{ fp.hindi_meaning }})</span>
-            </div>
-            <div class="grammar-entry-def">{{ fp.concise_meaning }}</div>
-          </div>
-          {% endfor %}
-        </div>
+    <!-- =========================================================
+         SECTION 2: ONE-WORD SUBSTITUTIONS
+         ========================================================= -->
+    {% if art.categorized_vocab.one_word_subs %}
+    <div class="lex-section-header hdr-ows">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">📝</span>
+        <span class="lex-section-title">ONE-WORD SUBSTITUTIONS</span>
       </div>
-      {% endif %}
-
-      <!-- Card 2: Phrasal Verbs -->
-      {% if art.categorized_vocab.phrasal_verbs %}
-      <div class="grammar-col-card theme-phrasals">
-        <div class="grammar-card-header">
-          <div class="grammar-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M9 14L4 9l5-5"/>
-              <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v5.5"/>
-            </svg>
-          </div>
-          <div class="grammar-header-title">PHRASAL<br>VERBS</div>
-        </div>
-        <div class="grammar-items-list">
-          {% for pv in art.categorized_vocab.phrasal_verbs %}
-          <div class="grammar-entry">
-            <div class="grammar-entry-term">
-              <span class="term-bullet">•</span>
-              <strong>{{ pv.word_or_phrase }}</strong>
-              <span class="grammar-hindi devanagari">({{ pv.hindi_meaning }})</span>
-            </div>
-            <div class="grammar-entry-def">{{ pv.concise_meaning }}</div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
-
-      <!-- Card 3: One-Word Substitutions -->
-      {% if art.categorized_vocab.one_word_subs %}
-      <div class="grammar-col-card theme-substitutions">
-        <div class="grammar-card-header">
-          <div class="grammar-icon-box">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-11 9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm4 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
-            </svg>
-          </div>
-          <div class="grammar-header-title">ONE-WORD<br>SUBSTITUTIONS</div>
-        </div>
-        <div class="grammar-items-list">
-          {% for ows in art.categorized_vocab.one_word_subs %}
-          <div class="grammar-entry">
-            <div class="grammar-entry-term">
-              <span class="term-bullet">•</span>
-              <strong>{{ ows.word_or_phrase }}</strong>
-              <span class="grammar-hindi devanagari">({{ ows.hindi_meaning }})</span>
-            </div>
-            <div class="grammar-entry-def">{{ ows.concise_meaning }}</div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
-
-      <!-- Card 4: Idioms & Phrases -->
-      {% if art.categorized_vocab.idioms %}
-      <div class="grammar-col-card theme-idioms">
-        <div class="grammar-card-header">
-          <div class="grammar-icon-box">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
-            </svg>
-          </div>
-          <div class="grammar-header-title">IDIOMS &amp;<br>PHRASES</div>
-        </div>
-        <div class="grammar-items-list">
-          {% for idm in art.categorized_vocab.idioms %}
-          <div class="grammar-entry">
-            <div class="grammar-entry-term">
-              <span class="term-bullet">•</span>
-              <strong>{{ idm.word_or_phrase }}</strong>
-              <span class="grammar-hindi devanagari">({{ idm.hindi_meaning }})</span>
-            </div>
-            <div class="grammar-entry-def">{{ idm.concise_meaning }}</div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
-
-      <!-- Optional Card 5: Foreign Words (if available in schema) -->
-      {% if art.categorized_vocab.foreign_words %}
-      <div class="grammar-col-card theme-foreign">
-        <div class="grammar-card-header">
-          <div class="grammar-icon-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="2" y1="12" x2="22" y2="12"/>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
-          </div>
-          <div class="grammar-header-title">FOREIGN<br>WORDS</div>
-        </div>
-        <div class="grammar-items-list">
-          {% for fw in art.categorized_vocab.foreign_words %}
-          <div class="grammar-entry">
-            <div class="grammar-entry-term">
-              <span class="term-bullet">•</span>
-              <strong>{{ fw.word_or_phrase }}</strong>
-              <span class="grammar-hindi devanagari">({{ fw.hindi_meaning }})</span>
-            </div>
-            <div class="grammar-entry-def">{{ fw.concise_meaning }}</div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
+      <span class="lex-header-tag">{{ art.categorized_vocab.one_word_subs | length }} {% if (art.categorized_vocab.one_word_subs | length) == 1 %}TERM{% else %}TERMS{% endif %}</span>
     </div>
 
-    <!-- Subsection 4.5: Study Tip Banner -->
-    <div class="study-tip-card">
-      <div class="tip-icon-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
-          <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
-          <path d="M12 11h4"/>
-          <path d="M12 16h4"/>
-          <path d="M8 11h.01"/>
-          <path d="M8 16h.01"/>
-        </svg>
+    <div class="lex-ribbon-stack">
+      {% for item in art.categorized_vocab.one_word_subs %}
+      <div class="lex-ribbon-row">
+        <div class="ribbon-col-num" style="background: #b45309;">
+          <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
+        </div>
+        <div class="ribbon-col-word">
+          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        </div>
+        <div class="ribbon-col-def">
+          <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
+            {% if item.connotation == 'Negative' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            {% elif item.connotation == 'Positive' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+            {% endif %}
+          </div>
+          <div class="ribbon-def-text-wrap">
+            <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-hook">
+          <div class="hook-brain-circle brain-{{ item.connotation | lower }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04zM14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"/>
+            </svg>
+          </div>
+          <div class="hook-content-wrap">
+            <div class="hook-header-title">MEMORY HOOK</div>
+            <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-syn">
+          <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+          <div class="ribbon-bullet-list syn-bullets">
+            {% for syn in item.british_synonyms %}
+            <span class="bullet-item">• {{ syn }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ribbon-col-ant">
+          <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+          <div class="ribbon-bullet-list ant-bullets">
+            {% for ant in item.british_antonyms %}
+            <span class="bullet-item">• {{ ant }}</span>
+            {% endfor %}
+          </div>
+        </div>
       </div>
-      <div class="tip-content">
-        <span class="tip-heading">STUDY TIP:</span>
-        <span class="tip-body">Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.</span>
-      </div>
+      {% endfor %}
     </div>
+    {% endif %}
+
+    <!-- =========================================================
+         SECTION 3: FIXED PREPOSITIONS
+         ========================================================= -->
+    {% if art.categorized_vocab.fixed_prepositions %}
+    <div class="lex-section-header hdr-prep">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">🔗</span>
+        <span class="lex-section-title">FIXED PREPOSITIONS</span>
+      </div>
+      <span class="lex-header-tag">{{ art.categorized_vocab.fixed_prepositions | length }} {% if (art.categorized_vocab.fixed_prepositions | length) == 1 %}RULE{% else %}RULES{% endif %}</span>
+    </div>
+
+    <div class="lex-ribbon-stack">
+      {% for item in art.categorized_vocab.fixed_prepositions %}
+      <div class="lex-ribbon-row">
+        <div class="ribbon-col-num" style="background: #0f766e;">
+          <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
+        </div>
+        <div class="ribbon-col-word">
+          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        </div>
+        <div class="ribbon-col-def">
+          <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
+            {% if item.connotation == 'Negative' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            {% elif item.connotation == 'Positive' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+            {% endif %}
+          </div>
+          <div class="ribbon-def-text-wrap">
+            <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-hook">
+          <div class="hook-brain-circle brain-{{ item.connotation | lower }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04zM14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"/>
+            </svg>
+          </div>
+          <div class="hook-content-wrap">
+            <div class="hook-header-title">MEMORY HOOK</div>
+            <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-syn">
+          <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+          <div class="ribbon-bullet-list syn-bullets">
+            {% for syn in item.british_synonyms %}
+            <span class="bullet-item">• {{ syn }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ribbon-col-ant">
+          <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+          <div class="ribbon-bullet-list ant-bullets">
+            {% for ant in item.british_antonyms %}
+            <span class="bullet-item">• {{ ant }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- =========================================================
+         SECTION 4: PHRASAL VERBS
+         ========================================================= -->
+    {% if art.categorized_vocab.phrasal_verbs %}
+    <div class="lex-section-header hdr-phr">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">⚡</span>
+        <span class="lex-section-title">PHRASAL VERBS</span>
+      </div>
+      <span class="lex-header-tag">{{ art.categorized_vocab.phrasal_verbs | length }} {% if (art.categorized_vocab.phrasal_verbs | length) == 1 %}PHRASE{% else %}PHRASES{% endif %}</span>
+    </div>
+
+    <div class="lex-ribbon-stack">
+      {% for item in art.categorized_vocab.phrasal_verbs %}
+      <div class="lex-ribbon-row">
+        <div class="ribbon-col-num" style="background: #6d28d9;">
+          <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
+        </div>
+        <div class="ribbon-col-word">
+          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        </div>
+        <div class="ribbon-col-def">
+          <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
+            {% if item.connotation == 'Negative' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            {% elif item.connotation == 'Positive' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+            {% endif %}
+          </div>
+          <div class="ribbon-def-text-wrap">
+            <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-hook">
+          <div class="hook-brain-circle brain-{{ item.connotation | lower }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04zM14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"/>
+            </svg>
+          </div>
+          <div class="hook-content-wrap">
+            <div class="hook-header-title">MEMORY HOOK</div>
+            <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-syn">
+          <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+          <div class="ribbon-bullet-list syn-bullets">
+            {% for syn in item.british_synonyms %}
+            <span class="bullet-item">• {{ syn }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ribbon-col-ant">
+          <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+          <div class="ribbon-bullet-list ant-bullets">
+            {% for ant in item.british_antonyms %}
+            <span class="bullet-item">• {{ ant }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- =========================================================
+         SECTION 5: IDIOMS & PHRASES
+         ========================================================= -->
+    {% if art.categorized_vocab.idioms %}
+    <div class="lex-section-header hdr-idm">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">💡</span>
+        <span class="lex-section-title">IDIOMS &amp; PHRASES</span>
+      </div>
+      <span class="lex-header-tag">{{ art.categorized_vocab.idioms | length }} {% if (art.categorized_vocab.idioms | length) == 1 %}IDIOM{% else %}IDIOMS{% endif %}</span>
+    </div>
+
+    <div class="lex-ribbon-stack">
+      {% for item in art.categorized_vocab.idioms %}
+      <div class="lex-ribbon-row">
+        <div class="ribbon-col-num" style="background: #e11d48;">
+          <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
+        </div>
+        <div class="ribbon-col-word">
+          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        </div>
+        <div class="ribbon-col-def">
+          <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
+            {% if item.connotation == 'Negative' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            {% elif item.connotation == 'Positive' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+            {% endif %}
+          </div>
+          <div class="ribbon-def-text-wrap">
+            <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-hook">
+          <div class="hook-brain-circle brain-{{ item.connotation | lower }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04zM14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"/>
+            </svg>
+          </div>
+          <div class="hook-content-wrap">
+            <div class="hook-header-title">MEMORY HOOK</div>
+            <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-syn">
+          <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+          <div class="ribbon-bullet-list syn-bullets">
+            {% for syn in item.british_synonyms %}
+            <span class="bullet-item">• {{ syn }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ribbon-col-ant">
+          <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+          <div class="ribbon-bullet-list ant-bullets">
+            {% for ant in item.british_antonyms %}
+            <span class="bullet-item">• {{ ant }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- =========================================================
+         SECTION 6: FOREIGN WORDS
+         ========================================================= -->
+    {% if art.categorized_vocab.foreign_words %}
+    <div class="lex-section-header hdr-foreign">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">🌐</span>
+        <span class="lex-section-title">FOREIGN WORDS &amp; PHRASES</span>
+      </div>
+      <span class="lex-header-tag">{{ art.categorized_vocab.foreign_words | length }} {% if (art.categorized_vocab.foreign_words | length) == 1 %}TERM{% else %}TERMS{% endif %}</span>
+    </div>
+
+    <div class="lex-ribbon-stack">
+      {% for item in art.categorized_vocab.foreign_words %}
+      <div class="lex-ribbon-row">
+        <div class="ribbon-col-num" style="background: #2563eb;">
+          <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
+        </div>
+        <div class="ribbon-col-word">
+          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        </div>
+        <div class="ribbon-col-def">
+          <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
+            {% if item.connotation == 'Negative' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            {% elif item.connotation == 'Positive' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+            {% endif %}
+          </div>
+          <div class="ribbon-def-text-wrap">
+            <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-hook">
+          <div class="hook-brain-circle brain-{{ item.connotation | lower }}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04zM14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"/>
+            </svg>
+          </div>
+          <div class="hook-content-wrap">
+            <div class="hook-header-title">MEMORY HOOK</div>
+            <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-syn">
+          <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+          <div class="ribbon-bullet-list syn-bullets">
+            {% for syn in item.british_synonyms %}
+            <span class="bullet-item">• {{ syn }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ribbon-col-ant">
+          <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+          <div class="ribbon-bullet-list ant-bullets">
+            {% for ant in item.british_antonyms %}
+            <span class="bullet-item">• {{ ant }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
 
     <!-- ========================================== -->
     <!-- NEW: Subsection 4.6: Next Editorial Banner -->

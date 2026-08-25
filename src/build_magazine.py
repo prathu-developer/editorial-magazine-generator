@@ -7,8 +7,7 @@ from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
 
 def clean_and_highlight_passage(passage_text, vocab_items):
-    # Split on double or single newlines
-    raw_paras = [p.strip() for p in re.split(r'\n+', passage_text) if p.strip()]
+    raw_paras = [p.strip() for p in re.split(r'[\r\n]+', passage_text) if p.strip()]
     cleaned_paras = []
     
     sorted_vocab = sorted(
@@ -18,13 +17,19 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     )
 
     for p in raw_paras:
-        # 1. Skip scraper date stamps
-        if re.match(r'^(Published|Updated|- ?August)', p, re.IGNORECASE):
-            continue
-        # 2. Skip topic/tag taxonomy lines containing multiple slashes
-        if len(re.findall(r'\s*/\s*', p)) >= 2:
+        # 1. Skip scraper timestamps & metadata
+        if re.match(r'^(Published|Updated|- ?[A-Za-z]+|\d{1,2}\s+[A-Za-z]+)', p, re.IGNORECASE):
             continue
             
+        # 2. Skip tag & taxonomy blocks containing multiple slashes
+        if p.count('/') >= 2 or len(re.findall(r'\s*/\s*', p)) >= 2:
+            continue
+            
+        # 3. Strip trailing inline tags attached directly to the last sentence
+        p = re.sub(r'(\s*[\w\s]+(\s*/\s*[\w\s]+){2,}\s*)$', '', p)
+        if not p.strip():
+            continue
+
         highlighted = p
         for item in sorted_vocab:
             term = item.get("word_or_phrase", "").strip()
@@ -42,43 +47,26 @@ def clean_and_highlight_passage(passage_text, vocab_items):
         
     return cleaned_paras
 
-
 def categorize_vocabulary(vocab_items):
+    def match_cat(item, target_cat):
+        cat = str(item.get("category", "")).strip().lower()
+        return cat == target_cat.lower()
+
     categorized = {
-        "core_vocab": [],
-        "fixed_prepositions": [],
-        "phrasal_verbs": [],
-        "one_word_subs": [],
-        "idioms": [],
-        "foreign_words": []
+        "core_vocab": [v for v in vocab_items if match_cat(v, "Vocabulary")],
+        "one_word_subs": [v for v in vocab_items if match_cat(v, "One-Word Substitutions")],
+        "fixed_prepositions": [v for v in vocab_items if match_cat(v, "Fixed Prepositions")],
+        "phrasal_verbs": [v for v in vocab_items if match_cat(v, "Phrasal Verbs")],
+        "idioms": [v for v in vocab_items if match_cat(v, "Idioms & Phrases") or match_cat(v, "Idioms and Phrases")],
+        "foreign_words": [v for v in vocab_items if match_cat(v, "Foreign Words")]
     }
-    
-    raw_core = []
+
+    # Catch any untagged/mismatched item and route it safely to core_vocab
+    all_matched = {id(item) for cat_list in categorized.values() for item in cat_list}
     for item in vocab_items:
-        cat = item.get("category", "Vocabulary")
-        if cat == "Fixed Prepositions":
-            categorized["fixed_prepositions"].append(item)
-        elif cat == "Phrasal Verbs":
-            categorized["phrasal_verbs"].append(item)
-        elif cat == "One-Word Substitutions":
-            categorized["one_word_subs"].append(item)
-        elif cat == "Idioms & Phrases":
-            categorized["idioms"].append(item)
-        elif cat == "Foreign Words":
-            categorized["foreign_words"].append(item)
-        else:
-            raw_core.append(item)
-            
-    # Max 4 items in high-detail ribbons to strictly protect 297mm page height
-    categorized["core_vocab"] = raw_core[:4]
-    
-    # Evenly distribute overflow items across the grammar columns so no column overflows
-    overflow = raw_core[4:]
-    target_keys = ["one_word_subs", "phrasal_verbs", "fixed_prepositions"]
-    for i, item in enumerate(overflow):
-        target_key = target_keys[i % len(target_keys)]
-        categorized[target_key].append(item)
-        
+        if id(item) not in all_matched:
+            categorized["core_vocab"].append(item)
+
     return categorized
 
 def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
@@ -135,22 +123,20 @@ def compile_magazine():
     with open(json_path, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
-    # Calculate real-time Indian Standard Time (IST) Date (UTC+5:30)
+    # Real-time Indian Standard Time (IST)
     ist_offset = timezone(timedelta(hours=5, minutes=30))
     ist_time = datetime.now(ist_offset)
     
-    # "24-Aug-2026.pdf" format for file output
     pdf_filename = f"{ist_time.strftime('%d-%b-%Y')}.pdf"
     output_pdf_path = os.path.join(output_dir, pdf_filename)
     
-    # Formatted date strings for display
-    formatted_date_ist = ist_time.strftime(f"%B {ist_time.day}, %Y")   # August 24, 2026
-    ist_date_short = ist_time.strftime(f"{ist_time.day} %b %Y")         # 24 Aug 2026
+    formatted_date_ist = ist_time.strftime(f"%B {ist_time.day}, %Y")
+    ist_date_short = ist_time.strftime(f"{ist_time.day} %b %Y")
 
     processed_articles = []
     toc_entries = []
     editorial_titles = []
-    page_counter = 3  # Page 1 = Front Cover, Page 2 = TOC
+    page_counter = 3
 
     for art in raw_data.get("editorials", []):
         vocab_list = art.get("editorial_vocabulary", [])
@@ -167,7 +153,6 @@ def compile_magazine():
         title_clean = art.get("title", "")
         editorial_titles.append(title_clean)
 
-        # Unique HTML anchor targets for PDF page jumping
         target_reader_id = f"article-p{page_counter}"
         target_vocab_id = f"article-p{page_counter + 1}"
 
@@ -177,7 +162,7 @@ def compile_magazine():
             "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
             "reading_time": art.get("reading_time", "2 min read"),
             "page_num": f"Page {page_counter:02d}",
-            "target_id": target_reader_id  # <--- Anchor reference for TOC jump
+            "target_id": target_reader_id
         })
         
         processed_articles.append({
@@ -202,13 +187,12 @@ def compile_magazine():
         })
         page_counter += 2
 
-    # Check asset paths (.jpg format)
+    # Check assets
     assets_dir = os.path.join(base_dir, "assets")
     front_cover_path = os.path.join(assets_dir, "front_cover_bg.jpg")
     toc_bg_path = os.path.join(assets_dir, "toc_bg.jpg")
     back_cover_path = os.path.join(assets_dir, "back_cover_bg.jpg")
     
-    # Check watermark path
     watermark_png = os.path.join(assets_dir, "watermark.png")
     watermark_svg = os.path.join(assets_dir, "watermark.svg")
     watermark_src = None
@@ -241,7 +225,7 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # Single-pass PDF generation
+    # PDF generation
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         page = browser.new_page()

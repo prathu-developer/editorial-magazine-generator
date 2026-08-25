@@ -283,20 +283,19 @@
   /* =========================================================
      DYNAMIC MULTI-PAGE FLOW & PRINT GEOMETRY
      ========================================================= */
-  /* Fixed Single-Page A4 Sheet with Pinned Footer */
+  /* Expanding Multi-Page A4 Sheet */
   .inner-page {
     width: 210mm;
-    height: 297mm;
-    max-height: 297mm;
-    padding: 8mm 12mm 12mm 12mm;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    min-height: 297mm;
+    padding: 8mm 12mm 0 12mm; /* Removed bottom padding here */
+    display: flex; /* Changed from block */
+    flex-direction: column; /* Stacks content and footer */
+    -webkit-box-decoration-break: clone; /* Applies 8mm top padding to spilled pages */
+    box-decoration-break: clone; 
     position: relative;
     page-break-after: always;
     break-after: page;
     box-sizing: border-box;
-    overflow: hidden;
     z-index: 1;
   }
 
@@ -334,18 +333,18 @@
     position: relative;
     z-index: 2;
     width: 100%;
+    flex-grow: 1; /* Pushes the footer down */
+    padding-bottom: 12mm; /* Keeps content away from the footer */
   }
 
   /* =========================================================
      FIXED FULL-BLEED DARK NAVY FOOTER
      ========================================================= */
   .page-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: relative; /* Changed from absolute */
     width: 210mm;
     height: 9mm;
+    margin-left: -12mm; /* Counteracts the 12mm left padding of .inner-page */
     background: #06182c;
     display: flex;
     justify-content: space-between;
@@ -353,6 +352,8 @@
     padding: 0 12mm;
     box-sizing: border-box;
     z-index: 50;
+    page-break-inside: avoid; /* Ensures the footer itself never gets sliced in half */
+    break-inside: avoid;
   }
 
   .footer-brand {
@@ -604,340 +605,531 @@
     margin-top: 4px;
   }
 
+  /* =========================================================
+     VOCABULARY 101: EXACT MATCH SIDEBAR CARD
+     ========================================================= */
   .p1-sidebar {
-    border: 1.5px solid #cbd5e1;
-    border-radius: 7px;
+    border: 1.2px solid #cbd5e1;
+    border-radius: 8px;
     background: #ffffff;
-    padding: 4px 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 2px 8px rgba(15, 43, 72, 0.05);
     height: 100%;
-  }
-
-  .p1-sidebar-header {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: #0f2b48;
-    color: #ffffff;
-    padding: 4px 7px;
-    border-radius: 4px;
-    margin-bottom: 5px;
-  }
-
-  .p1-sidebar-icon {
-    font-size: 9px;
-  }
-
-  .p1-sidebar-title {
-    font-size: 8.2px;
-    font-weight: 900;
-    letter-spacing: 0.6px;
-    color: #ffffff;
-  }
-
-  .p1-vocab-scroll-area {
-    flex-grow: 1;
     overflow: hidden;
+    padding: 0;
   }
 
-  .p1-vocab-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5px; /* Reduced from 3px to fit 20+ items */
-  }
-
-  .p1-vocab-item {
-    background: #f8fafc;
-    border: 1px solid #f1f5f9;
-    border-radius: 3px;
-    padding: 1.5px 4px; /* Ultra-compact vertical padding */
-  }
-
-  .p1-vocab-row-top {
+  /* Header Bar */
+  .p1-sidebar-header {
+    background: #0b1e36;
+    color: #ffffff;
+    padding: 6px 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 1.5px solid #06182c;
   }
 
-  .p1-word-group {
+  .p1-sidebar-header-left {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
   }
 
-  .p1-word-num {
-    font-size: 7px;
+  .p1-header-badge-icon {
+    width: 11px;
+    height: 11px;
+    fill: #f59e0b; /* Gold Accent */
+  }
+
+  .p1-sidebar-title {
+    font-size: 9.2px; /* Scaled up from 8.5px */
     font-weight: 900;
-    color: #d97706;
+    letter-spacing: 0.6px;
+    color: #ffffff;
+    text-transform: uppercase;
+  }
+
+  .p1-header-badge-icon {
+      width: 12px;
+      height: 12px;
+      fill: #f59e0b;
+    }
+
+  .p1-header-book-icon {
+    width: 12px;
+    height: 12px;
+    stroke: #94a3b8;
+  }
+
+  /* Vocab Items Area */
+  .p1-vocab-scroll-area {
+    padding: 3px 6px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .p1-vocab-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+ .p1-vocab-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 2.5px 0 3px 0;
+    border-bottom: 1px dotted #e2e8f0;
+  }
+  .p1-vocab-row:last-child {
+    border-bottom: none;
+  }
+
+  /* Number Badge */
+  .p1-num-badge {
+    width: 15px; /* Scaled up from 13.5px */
+    height: 15px;
+    background: #0b1e36;
+    color: #ffffff;
+    border-radius: 50%;
+    font-size: 7.5px; /* Scaled up from 6.8px */
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .p1-vocab-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5px;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .p1-vocab-word-line {
+    display: flex;
+    align-items: baseline;
+    gap: 3px;
   }
 
   .p1-word-term {
-    font-size: 7.5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8.8px; /* Scaled up from 7.8px */
     font-weight: 800;
-    color: #0f2b48;
+    color: #0b1e36;
+    line-height: 1.15;
   }
 
-  .p1-pos-tag {
-    font-size: 5.5px;
-    font-weight: 800;
-    padding: 0px 3px;
+  .p1-pos-text {
+    font-size: 6.8px; /* Scaled up from 6.2px */
+    font-weight: 600;
+    color: #64748b;
   }
 
-  .p1-vocab-row-def {
-    display: flex;
-    align-items: center;
-    gap: 2.5px;
-    margin-top: 0.5px;
-    font-size: 6.5px;
+  .p1-vocab-def-line {
+    font-size: 7.6px; /* Scaled up from 6.8px */
+    line-height: 1.2;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    gap: 3.5px;
   }
 
-  .def-eng {
-    color: #047857;
-    font-weight: 700;
-  }
-
-  .def-dot {
-    color: #cbd5e1;
-  }
-
-  .def-hindi {
-    color: #0284c7;
+  .p1-def-eng {
+    color: #334155;
     font-weight: 600;
   }
 
-  /* Sidebar Bottom Action Card */
-  .p1-cta-card {
-    padding: 3px 5px; /* Compact action card */
-    margin-top: 3px;
-  }
-  
-  .p1-cta-badge {
-    font-size: 7px;
+  .p1-def-bullet {
+    color: #0d9488;
     font-weight: 900;
-    color: #fde047;
-    letter-spacing: 0.5px;
-  }
-
-  .p1-cta-sub {
     font-size: 6.5px;
-    color: #e2e8f0;
-    margin: 1px 0 4px 0;
   }
 
-  .p1-cta-btn {
+  .p1-def-hindi {
+    color: #0d9488;
+    font-weight: 700;
+    font-size: 8.2px; /* Scaled up from 7.2px */
+  }
+
+  /* Bottom Action CTA */
+  .p1-cta-wrapper {
+    padding: 4px 6px 6px 6px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 3px;
+    background: #ffffff;
+    border-top: 1px solid #f1f5f9;
+  }
+
+  .p1-cta-top-card {
+    background: #fef8ee;
+    border: 1px solid #fde68a;
+    border-radius: 5px;
+    padding: 3.5px 6px;
+    display: flex;
     align-items: center;
     gap: 5px;
-    background: #d97706;
+  }
+
+  .p1-cta-icon-badge {
+    font-size: 10px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .p1-cta-text-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .p1-cta-heading {
+    font-size: 7.5px;
+    font-weight: 900;
+    color: #0b1e36;
+    line-height: 1.1;
+  }
+
+  .p1-cta-subtext {
+    font-size: 6.2px;
+    font-weight: 500;
+    color: #78350f;
+    line-height: 1.1;
+  }
+
+  .p1-cta-action-btn {
+    background: #0b1e36;
     color: #ffffff !important;
+    border-radius: 4px;
+    padding: 3.5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
     font-size: 7.6px;
     font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 3px;
     text-decoration: none !important;
-    letter-spacing: 0.3px;
+    box-shadow: 0 1px 4px rgba(11, 30, 54, 0.2);
+  }
+
+  .p1-cta-btn-icon {
+    width: 10px;
+    height: 10px;
+    stroke: #f59e0b;
   }
 
   /* =========================================================
-     SUBSECTION 4.1: VOCAB LAB HEADER & BREADCRUMB
+     SUBSECTION 4.1: LAB MASTHEAD & TOPIC BADGES
      ========================================================= */
   .p2-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    border-bottom: 2px solid #0f2b48;
-    padding-bottom: 4px;
-    margin-bottom: 5px;
+    align-items: center;
+    border-bottom: 1.5px solid #0f2b48;
+    padding-bottom: 5px;
+    margin-bottom: 6px;
   }
 
   .p2-header-left {
     display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .p2-lab-icon-badge {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #0b1e36 0%, #1e3a8a 100%);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(11, 30, 54, 0.25);
+    flex-shrink: 0;
+  }
+
+  .p2-lab-flask-icon {
+    width: 15px;
+    height: 15px;
+  }
+
+  .p2-header-text-group {
+    display: flex;
     flex-direction: column;
     gap: 1.5px;
-    max-width: 68%;
   }
 
   .p2-header-title-row {
     display: flex;
     align-items: center;
-    gap: 6px;
   }
 
-  .p2-header-icon {
-    font-size: 13px;
-    line-height: 1;
-  }
-
-  .p2-header-title {
-    font-size: 13px;
+  .p2-title-main {
+    font-size: 12.5px;
     font-weight: 900;
-    color: #0f2b48;
+    color: #0b1e36;
     letter-spacing: 0.4px;
   }
 
+  .p2-title-highlight {
+    font-size: 12.5px;
+    font-weight: 900;
+    color: #4338ca; /* Vibrant Royal Blue */
+    letter-spacing: 0.4px;
+    margin-left: 4px;
+  }
+
   .p2-header-breadcrumb {
+    font-size: 8px;
+    color: #64748b;
     display: flex;
     align-items: center;
     gap: 4px;
-    font-size: 8px;
-    color: #64748b;
-  }
-
-  .p2-bc-arrow {
-    color: #d97706;
-    font-weight: 800;
   }
 
   .p2-bc-label {
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
-    color: #475569;
+    color: #64748b;
   }
 
   .p2-bc-title {
-    font-family: 'Lora', Georgia, serif;
-    font-style: italic;
-    color: #0f2b48;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 600;
+    color: #475569;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 78mm;
+    max-width: 80mm;
   }
 
   .p2-header-right {
     display: flex;
     align-items: center;
+    gap: 6px;
+  }
+
+  .p2-newspaper-badge {
+    background: #0b1e36;
+    color: #ffffff;
+    font-size: 7.8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 3.5px 10px;
+    border-radius: 5px;
+    letter-spacing: 0.4px;
+  }
+
+  .p2-topic-badge {
+    display: inline-flex;
+    align-items: center;
     gap: 5px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 7.8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 6px;
+    border: 1.2px solid #cbd5e1;
+    letter-spacing: 0.4px;
+  }
+
+  .p2-topic-icon {
+    width: 12px;
+    height: 12px;
+    color: #d97706; /* Amber Justice Scale */
   }
 
   /* =========================================================
-     SUBSECTION 4.2: REDESIGNED EDITORIAL STANCE CARD
+     SUBSECTION 4.2: DUAL ANALYSIS CARDS
      ========================================================= */
-  .p2-analysis-card {
+  .p2-analysis-container {
     display: grid;
-    grid-template-columns: 48mm 1fr;
-    gap: 12px;
+    grid-template-columns: 46mm 1fr;
+    gap: 8px;
+    margin-bottom: 6px;
+    align-items: stretch;
+  }
+
+  /* Left Stance Card */
+  .p2-stance-card {
+    border-radius: 8px;
+    padding: 8px 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  }
+
+  .p2-stance-header {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .p2-stance-icon-circle {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .p2-stance-icon-circle svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .p2-stance-title {
+    font-size: 8px;
+    font-weight: 900;
+    color: #0b1e36;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .p2-stance-tone {
+    font-size: 14.5px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+    margin: 6px 0 2px 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .p2-stance-expl {
+    font-size: 8.4px;
+    font-weight: 600;
+    color: #334155;
+    line-height: 1.25;
+    position: relative;
+    z-index: 2;
+  }
+
+  .p2-stance-bar {
+    width: 22px;
+    height: 3.5px;
+    border-radius: 2px;
+    margin-top: 6px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Faint Decorative Target Background */
+  .p2-stance-bg-target {
+    position: absolute;
+    right: -10px;
+    bottom: -15px;
+    width: 70px;
+    height: 70px;
+    opacity: 0.12;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Dynamic Stance Themes */
+  .stance-critical {
+    background: linear-gradient(135deg, #ffffff 0%, #fff1f2 100%);
+    border: 1.2px solid #fecdd3;
+  }
+  .stance-critical .p2-stance-icon-circle svg { color: #e11d48; }
+  .stance-critical .p2-stance-tone { color: #e11d48; }
+  .stance-critical .p2-stance-bar { background: linear-gradient(90deg, #e11d48 45%, #fecdd3 45%); }
+  .stance-critical .p2-stance-bg-target { color: #e11d48; }
+
+  .stance-cautious {
+    background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
+    border: 1.2px solid #fde68a;
+  }
+  .stance-cautious .p2-stance-icon-circle svg { color: #d97706; }
+  .stance-cautious .p2-stance-tone { color: #b45309; }
+  .stance-cautious .p2-stance-bar { background: linear-gradient(90deg, #d97706 45%, #fde68a 45%); }
+  .stance-cautious .p2-stance-bg-target { color: #d97706; }
+
+  .stance-pragmatic {
+    background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+    border: 1.2px solid #bae6fd;
+  }
+  .stance-pragmatic .p2-stance-icon-circle svg { color: #0284c7; }
+  .stance-pragmatic .p2-stance-tone { color: #0369a1; }
+  .stance-pragmatic .p2-stance-bar { background: linear-gradient(90deg, #0284c7 45%, #bae6fd 45%); }
+  .stance-pragmatic .p2-stance-bg-target { color: #0284c7; }
+
+  .stance-analytical {
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+    border: 1.2px solid #cbd5e1;
+  }
+  .stance-analytical .p2-stance-icon-circle svg { color: #475569; }
+  .stance-analytical .p2-stance-tone { color: #1e293b; }
+  .stance-analytical .p2-stance-bar { background: linear-gradient(90deg, #475569 45%, #cbd5e1 45%); }
+  .stance-analytical .p2-stance-bg-target { color: #475569; }
+
+  /* Right Executive Perspective Card */
+  .p2-perspective-card {
     background: #ffffff;
-    border: 1.5px solid #cbd5e1;
-    border-left: 5px solid #0f2b48;
+    border: 1.2px solid #bfdbfe;
     border-radius: 8px;
     padding: 8px 12px;
-    margin-bottom: 7px;
-    align-items: center;
-    box-shadow: 0 4px 12px rgba(15, 43, 72, 0.06);
-  }
-
-  /* Left Column: Tone & Stance */
-  .p2-tone-block {
-    border-right: 1.5px dashed #cbd5e1;
-    padding-right: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 4px;
+    gap: 4.5px;
+    box-shadow: 0 2px 8px rgba(15, 43, 72, 0.04);
   }
 
-  .p2-tone-label {
-    font-size: 7.5px;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #64748b;
-    letter-spacing: 0.6px;
+  .p2-perspective-header {
     display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .p2-tone-icon {
-    font-size: 9px;
-  }
-
-  .p2-tone-badge {
-    display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 12px;
-    font-weight: 900;
-    padding: 3.5px 11px;
-    border-radius: 5px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    width: fit-content;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   }
 
-  /* Dynamic Tone Variants */
-  .tone-critical { background: #fee2e2; color: #991b1b; border: 1.2px solid #fca5a5; }
-  .tone-critical .tone-dot { background: #dc2626; }
-
-  .tone-cautious { background: #fef3c7; color: #92400e; border: 1.2px solid #fcd34d; }
-  .tone-cautious .tone-dot { background: #d97706; }
-
-  .tone-pragmatic { background: #e0f2fe; color: #0369a1; border: 1.2px solid #7dd3fc; }
-  .tone-pragmatic .tone-dot { background: #0284c7; }
-
-  .tone-analytical { background: #f1f5f9; color: #1e293b; border: 1.2px solid #cbd5e1; }
-  .tone-analytical .tone-dot { background: #475569; }
-
-  .tone-optimistic { background: #dcfce7; color: #166534; border: 1.2px solid #86efac; }
-  .tone-optimistic .tone-dot { background: #16a34a; }
-
-  .tone-dot {
-    width: 6.5px;
-    height: 6.5px;
+  .p2-persp-icon-circle {
+    width: 17px;
+    height: 17px;
+    background: #0b1e36;
     border-radius: 50%;
-    display: inline-block;
-  }
-
-  .p2-tone-expl {
-    font-size: 8.2px;
-    color: #475569;
-    font-weight: 700;
-    font-style: italic;
-    line-height: 1.2;
-  }
-
-  /* Right Column: Analysis Summary */
-  .p2-analysis-summary-block {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 4px;
-    padding-left: 2px;
-  }
-
-  .p2-summary-header {
     display: flex;
     align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    flex-shrink: 0;
   }
 
-  .p2-summary-tag {
-    font-size: 7px;
+  .p2-persp-icon-circle svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  .p2-perspective-title {
+    font-size: 8.5px;
     font-weight: 900;
-    color: #0369a1;
-    background: #e0f2fe;
-    padding: 1.5px 7px;
-    border-radius: 3px;
+    color: #0b1e36;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    border: 1px solid #bae6fd;
   }
 
-  .p2-analysis-summary {
+  .p2-perspective-body {
     font-family: 'Montserrat', sans-serif;
-    font-size: 9.8px;
+    font-size: 8.8px;
     font-weight: 500;
     color: #1e293b;
-    line-height: 1.52;
+    line-height: 1.48;
     text-align: justify;
     letter-spacing: -0.1px !important;
   }
@@ -950,7 +1142,8 @@
     flex-direction: column;
     gap: 3px;
     margin-bottom: 4px;
-    flex-grow: 1;
+    break-inside: auto;
+    page-break-inside: auto;
   }
 
   .lex-ribbon-row {
@@ -1361,6 +1554,88 @@
   }
 
   /* =========================================================
+     SUBSECTION 4.6: NEXT EDITORIAL NAVIGATOR
+     ========================================================= */
+  .next-editorial-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #0f2b48 0%, #1e3a8a 100%);
+    border-radius: 8px;
+    padding: 9px 14px;
+    margin-top: 12px; /* Adds breathing room below the study tip */
+    text-decoration: none !important;
+    box-shadow: 0 4px 10px rgba(15, 43, 72, 0.15);
+    border: 1.2px solid rgba(56, 189, 248, 0.4);
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .nav-left-content {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .nav-sup-title {
+    font-size: 7.2px;
+    font-weight: 900;
+    color: #38bdf8; /* Telegram Cyan */
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .nav-main-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 140mm;
+  }
+
+  .nav-arrow-circle {
+    width: 26px;
+    height: 26px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #ffffff;
+  }
+
+  .nav-arrow-circle svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* End of Magazine State for the final article */
+  .nav-end-state {
+    background: #f8fafc;
+    border: 1.2px dashed #cbd5e1;
+    justify-content: center;
+    box-shadow: none;
+  }
+  
+  .nav-end-text {
+    font-size: 8px;
+    font-weight: 800;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+
+  /* =========================================================
      CLICKABLE TOC & INTERNAL NAVIGATION
      ========================================================= */
   a.toc-row {
@@ -1375,6 +1650,83 @@
   }
 
   a.toc-row * {
+    text-decoration: none !important;
+  }
+
+  /* =========================================================
+     BACK COVER: CALIBRATED STAY CONNECTED OVERLAY
+     ========================================================= */
+  .back-cover-container {
+    position: relative;
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
+  }
+
+  /* Pinned strictly to the right side of the cards */
+  .back-connect-overlay {
+    position: absolute;
+    top: 118.2mm;
+    right: 11.5mm; /* Anchors the button against the right edge of the white card */
+    width: 24mm;
+    display: flex;
+    flex-direction: column;
+    gap: 4.8mm;
+    z-index: 30;
+  }
+
+  /* Hitbox for each button aligned cleanly to the right */
+  .back-card-link {
+    height: 14mm;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    text-decoration: none !important;
+  }
+
+  /* Compact, high-precision badge button */
+  .back-join-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3.5px;
+    font-size: 7.2px;
+    font-weight: 900;
+    color: #ffffff;
+    background: linear-gradient(135deg, #0b1e36 0%, #1e3a8a 100%);
+    padding: 2.2px 7.5px;
+    border-radius: 12px;
+    border: 1px solid rgba(254, 240, 138, 0.75);
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(11, 30, 54, 0.28);
+    white-space: nowrap;
+  }
+
+  .back-join-badge svg {
+    width: 9px;
+    height: 9px;
+    fill: #38bdf8; /* Telegram Cyan */
+    flex-shrink: 0;
+  }
+
+  .back-join-badge.badge-contact {
+    background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+    border-color: rgba(167, 243, 208, 0.85);
+  }
+
+  .back-join-badge.badge-contact svg {
+    fill: #ffffff;
+  }
+
+  /* Clickable hotspot over signature */
+  .back-signature-link {
+    position: absolute;
+    top: 206mm;
+    right: 18mm;
+    width: 38mm;
+    height: 20mm;
+    z-index: 30;
     text-decoration: none !important;
   }
 </style>
@@ -1464,13 +1816,16 @@
      ========================================================= -->
 {% for art in data.articles %}
 <!-- Article Reader Page -->
-<div class="page inner-page" id="{{ art.target_reader_id }}">
+<div class="page inner-page">
   <!-- Subtle Watermark Layer -->
   {% if data.has_watermark %}
   <div class="inner-page-watermark" style="background-image: url('{{ data.watermark_src }}');"></div>
   {% endif %}
 
   <div class="inner-content-wrapper">
+    <!-- HIDDEN PDF ANCHOR TARGET -->
+    <a id="{{ art.target_reader_id }}" name="{{ art.target_reader_id }}" style="position: absolute; top: -8mm; left: 0;"></a>
+
     <!-- Header: Newspaper Tag, Topic, Headline & Metadata -->
     <div class="p1-header">
       <div class="p1-top-bar">
@@ -1519,41 +1874,60 @@
       </div>
 
       <!-- Right Column: Quick Reference Sidebar -->
+      <!-- Right Column: Quick Reference Sidebar -->
       <div class="p1-sidebar">
+        <!-- Navy Header Bar with Gold Badge and Book Icon -->
         <div class="p1-sidebar-header">
-          <span class="p1-sidebar-icon">📚</span>
-          <span class="p1-sidebar-title">VOCABULARY 101</span>
+          <div class="p1-sidebar-header-left">
+            <svg class="p1-header-badge-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            <span class="p1-sidebar-title">VOCABULARY 101</span>
+          </div>
+          <svg class="p1-header-book-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
         </div>
 
-        <!-- In Article Reader Page: Right Column Sidebar -->
+        <!-- Numbered Vocabulary Items List -->
         <div class="p1-vocab-scroll-area">
-          <ul class="p1-vocab-list">
+          <div class="p1-vocab-list">
             {% for item in art.all_vocab %}
-            <li class="p1-vocab-item">
-              <div class="p1-vocab-row-top">
-                <div class="p1-word-group">
-                  <span class="p1-word-num">{{ '%02d' % item.order_index }}</span>
+            <div class="p1-vocab-row">
+              <div class="p1-num-badge">{{ item.order_index }}</div>
+              <div class="p1-vocab-details">
+                <div class="p1-vocab-word-line">
                   <span class="p1-word-term">{{ item.word_or_phrase }}</span>
+                  <span class="p1-pos-text">({{ item.part_of_speech | capitalize }})</span>
                 </div>
-                <span class="p1-pos-tag">{{ item.part_of_speech }}</span>
+                <div class="p1-vocab-def-line">
+                  <span class="p1-def-eng">{{ item.easy_synonym }}</span>
+                  <span class="p1-def-bullet">•</span>
+                  <span class="p1-def-hindi devanagari">{{ item.hindi_meaning }}</span>
+                </div>
               </div>
-              <div class="p1-vocab-row-def">
-                <span class="def-eng">{{ item.easy_synonym }}</span>
-                <span class="def-dot">·</span>
-                <span class="def-hindi devanagari">{{ item.hindi_meaning }}</span>
-              </div>
-            </li>
+            </div>
             {% endfor %}
-          </ul>
+          </div>
         </div>
 
-        <!-- Sidebar Jump to Vocab Lab Action Card -->
-        <div class="p1-cta-card">
-          <div class="p1-cta-badge">🔔 DEEP DIVE</div>
-          <div class="p1-cta-sub">Mnemonics &amp; applied grammar rules</div>
-          <a href="#{{ art.target_vocab_id }}" class="p1-cta-btn">
+        <!-- Bottom CTA Card -->
+        <div class="p1-cta-wrapper">
+          <div class="p1-cta-top-card">
+            <div class="p1-cta-icon-badge">💡</div>
+            <div class="p1-cta-text-group">
+              <div class="p1-cta-heading">Deep Analysis</div>
+              <div class="p1-cta-subtext">Mnemonics &amp; applied grammar rules on Page {{ art.page_p2 }}.</div>
+            </div>
+          </div>
+          <a href="#{{ art.target_vocab_id }}" class="p1-cta-action-btn">
+            <svg class="p1-cta-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 2v7.31L4.35 20.3a1 1 0 0 0 .85 1.7h13.6a1 1 0 0 0 .85-1.7L14 9.31V2"/>
+              <line x1="8" y1="2" x2="16" y2="2"/>
+              <line x1="6.8" y1="16" x2="17.2" y2="16"/>
+            </svg>
             <span>Open Vocab Lab (P. {{ art.page_p2 }})</span>
-            <span>→</span>
           </a>
         </div>
       </div>
@@ -1579,59 +1953,96 @@
 </div>
 
 <!-- Article Vocabulary Lab Page -->
-<div class="page inner-page" id="{{ art.target_vocab_id }}">
+<div class="page inner-page">
   <!-- Subtle Watermark (Only active on inner pages) -->
   {% if data.has_watermark %}
   <div class="inner-page-watermark" style="background-image: url('{{ data.watermark_src }}');"></div>
   {% endif %}
 
   <div class="inner-content-wrapper">
+    <!-- HIDDEN PDF ANCHOR TARGET -->
+    <a id="{{ art.target_vocab_id }}" name="{{ art.target_vocab_id }}" style="position: absolute; top: -8mm; left: 0;"></a>
+
+    <!-- Subsection 4.1: Lab Masthead & Topic Badges -->
     <div class="p2-header">
       <div class="p2-header-left">
-        <div class="p2-header-title-row">
-          <span class="p2-header-icon">🔬</span>
-          <span class="p2-header-title">EDITORIAL ANALYSIS &amp; VOCABULARY LAB</span>
+        <div class="p2-lab-icon-badge">
+          <svg class="p2-lab-flask-icon" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
+            <path d="M10 2v7.31L4.35 20.3a1 1 0 0 0 .85 1.7h13.6a1 1 0 0 0 .85-1.7L14 9.31V2"/>
+            <line x1="8" y1="2" x2="16" y2="2"/>
+            <path d="M6 16h12" stroke="#f59e0b" stroke-width="2.2"/>
+            <circle cx="9" cy="18.5" r="1" fill="#f59e0b"/>
+            <circle cx="14" cy="18" r="1.2" fill="#f59e0b"/>
+          </svg>
         </div>
-        <div class="p2-header-breadcrumb">
-          <span class="p2-bc-arrow">↳</span>
-          <span class="p2-bc-label">Article:</span>
-          <span class="p2-bc-title">{{ art.title }}</span>
+        <div class="p2-header-text-group">
+          <div class="p2-header-title-row">
+            <span class="p2-title-main">EDITORIAL ANALYSIS &amp;</span>
+            <span class="p2-title-highlight">VOCABULARY LAB</span>
+          </div>
+          <div class="p2-header-breadcrumb">
+            <span class="p2-bc-label">ARTICLE:</span>
+            <span class="p2-bc-title">{{ art.title }}</span>
+          </div>
         </div>
       </div>
 
       <div class="p2-header-right">
-        <span class="p1-newspaper-tag {% if 'Hindu' in art.newspaper %}tag-hindu{% else %}tag-express{% endif %}">
-          {{ art.newspaper }}
-        </span>
-        <span class="p1-topic-chip">
-          <span class="chip-dot"></span>
+        <span class="p2-newspaper-badge">{{ art.newspaper }}</span>
+        <span class="p2-topic-badge">
+          <svg class="p2-topic-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+          </svg>
           <span>{{ art.topic }}</span>
         </span>
       </div>
     </div>
 
-    <!-- Subsection 4.2: Editorial Stance & Perspective Card -->
-    <div class="p2-analysis-card">
-      <!-- Left Side: Tone Anchor -->
-      <div class="p2-tone-block">
-        <div class="p2-tone-label">
-          <span class="p2-tone-icon">🎯</span> EDITORIAL STANCE
+    <!-- Subsection 4.2: Dual Stance & Perspective Cards -->
+    <div class="p2-analysis-container">
+      <!-- Left Stance Card -->
+      <div class="p2-stance-card stance-{{ art.analysis.tone | lower }}">
+        <div class="p2-stance-header">
+          <div class="p2-stance-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="8"/>
+              <circle cx="12" cy="12" r="4"/>
+              <line x1="12" y1="2" x2="12" y2="4"/>
+              <line x1="12" y1="20" x2="12" y2="22"/>
+              <line x1="2" y1="12" x2="4" y2="12"/>
+              <line x1="20" y1="12" x2="22" y2="12"/>
+            </svg>
+          </div>
+          <span class="p2-stance-title">EDITORIAL STANCE</span>
         </div>
-        <div class="p2-tone-badge tone-{{ art.analysis.tone | lower }}">
-          <span class="tone-dot"></span>
-          <span>{{ art.analysis.tone }}</span>
-        </div>
-        <div class="p2-tone-expl">
-          “{{ art.analysis.tone_simple_explanation }}”
-        </div>
+
+        <div class="p2-stance-tone">{{ art.analysis.tone }}</div>
+        <div class="p2-stance-expl">“{{ art.analysis.tone_simple_explanation }}”</div>
+        <div class="p2-stance-bar"></div>
+
+        <!-- Decorative Target Background SVG -->
+        <svg class="p2-stance-bg-target" viewBox="0 0 100 100">
+          <circle cx="85" cy="85" r="65" fill="none" stroke="currentColor" stroke-width="4.5"/>
+          <circle cx="85" cy="85" r="42" fill="none" stroke="currentColor" stroke-width="4.5"/>
+          <circle cx="85" cy="85" r="20" fill="none" stroke="currentColor" stroke-width="4.5"/>
+          <line x1="15" y1="85" x2="85" y2="85" stroke="currentColor" stroke-width="3.5"/>
+          <line x1="85" y1="15" x2="85" y2="85" stroke="currentColor" stroke-width="3.5"/>
+        </svg>
       </div>
 
-      <!-- Right Side: Expanded Executive Perspective -->
-      <div class="p2-analysis-summary-block">
-        <div class="p2-summary-header">
-          <span class="p2-summary-tag">EXECUTIVE PERSPECTIVE</span>
+      <!-- Right Executive Perspective Card -->
+      <div class="p2-perspective-card">
+        <div class="p2-perspective-header">
+          <div class="p2-persp-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+              <circle cx="12" cy="7" r="1.5" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="p2-perspective-title">EXECUTIVE PERSPECTIVE</span>
         </div>
-        <div class="p2-analysis-summary">
+        <div class="p2-perspective-body">
           {{ art.analysis.analysis_summary }}
         </div>
       </div>
@@ -1862,6 +2273,34 @@
         <span class="tip-body">Note the connotation and fixed prepositions when solving Cloze Tests, Error Detection, and Sentence Fillers.</span>
       </div>
     </div>
+
+    <!-- ========================================== -->
+    <!-- NEW: Subsection 4.6: Next Editorial Banner -->
+    <!-- ========================================== -->
+    {% if not loop.last %}
+    {% set next_art = data.articles[loop.index] %}
+    <a href="#{{ next_art.target_reader_id }}" class="next-editorial-nav">
+      <div class="nav-left-content">
+        <div class="nav-sup-title">
+          <span>Read Next Editorial</span>
+          <span style="color: #cbd5e1;">•</span>
+          <span style="color: #fef08a;">Page {{ '%02d' % next_art.page_p1 }}</span>
+        </div>
+        <div class="nav-main-title">{{ next_art.title }}</div>
+      </div>
+      <div class="nav-arrow-circle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="M12 5l7 7-7 7"></path>
+        </svg>
+      </div>
+    </a>
+    {% else %}
+    <!-- Displayed only on the very last article -->
+    <div class="next-editorial-nav nav-end-state">
+      <span class="nav-end-text">End of Today's Editorials • Proceed to Back Cover</span>
+    </div>
+    {% endif %}
   </div>
 
   <!-- Dark Navy Footer -->
@@ -1884,10 +2323,47 @@
 {% endfor %}
 
 <!-- =========================================================
-     LAST PAGE: BACK COVER
+     LAST PAGE: BACK COVER WITH ACCURATE CARD OVERLAYS
      ========================================================= -->
 {% if data.has_back_cover %}
-<div class="page cover-page" style="background-image: url('{{ data.back_cover_src }}');">
+<div class="page cover-page back-cover-container" style="background-image: url('{{ data.back_cover_src }}');">
+  <!-- Interactive Hitboxes Over the 4 'Stay Connected' Cards -->
+  <div class="back-connect-overlay">
+    <!-- 1. For Daily Editorials -->
+    <a href="https://t.me/ezeditorialgroup/3" target="_blank" class="back-card-link">
+      <span class="back-join-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        <span>JOIN</span>
+      </span>
+    </a>
+
+    <!-- 2. EzSSC Official -->
+    <a href="https://t.me/EzSSC" target="_blank" class="back-card-link">
+      <span class="back-join-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        <span>JOIN</span>
+      </span>
+    </a>
+
+    <!-- 3. Ez Banking -->
+    <a href="https://t.me/EzBanking" target="_blank" class="back-card-link">
+      <span class="back-join-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        <span>JOIN</span>
+      </span>
+    </a>
+
+    <!-- 4. Developer Contact -->
+    <a href="https://t.me/Prathuadhe" target="_blank" class="back-card-link">
+      <span class="back-join-badge badge-contact">
+        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+        <span>TALK</span>
+      </span>
+    </a>
+  </div>
+
+  <!-- Clickable Signature Link -->
+  <a href="https://t.me/Prathuadhe" target="_blank" class="back-signature-link" title="Curated by Prathu"></a>
 </div>
 {% endif %}
 

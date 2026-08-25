@@ -7,35 +7,19 @@ from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
 
 def clean_and_highlight_passage(passage_text, vocab_items):
-    raw_paras = [p.strip() for p in passage_text.split("\n\n") if p.strip()]
+    # Split on double or single newlines
+    raw_paras = [p.strip() for p in re.split(r'\n+', passage_text) if p.strip()]
     cleaned_paras = []
     
-    sorted_vocab = sorted(
-        vocab_items,
-        key=lambda x: len(x.get("word_or_phrase", "")),
-        reverse=True
-    )
-
     for p in raw_paras:
-        if p.startswith("Published") or p.startswith("Updated") or p.startswith("- August") or p.startswith("-August"):
+        # 1. Skip scraper date stamps
+        if re.match(r'^(Published|Updated|- ?August)', p, re.IGNORECASE):
             continue
-            
-        highlighted = p
-        for item in sorted_vocab:
-            term = item.get("word_or_phrase", "").strip()
-            idx = item.get("order_index", "")
-            if not term:
-                continue
-            
-            pattern = re.compile(rf'\b({re.escape(term)})\b', re.IGNORECASE)
-            highlighted = pattern.sub(
-                rf'<span class="vocab-hl">\1<sup class="v-idx">{idx}</sup></span>',
-                highlighted
-            )
-            
-        cleaned_paras.append(highlighted)
-        
-    return cleaned_paras
+        # 2. Skip topic/tag taxonomy lines containing multiple slashes
+        if len(re.findall(r'\s*/\s*', p)) >= 2:
+            continue
+        cleaned_paras.append(p)
+
 
 def categorize_vocabulary(vocab_items):
     categorized = {
@@ -47,11 +31,10 @@ def categorize_vocabulary(vocab_items):
         "foreign_words": []
     }
     
+    raw_core = []
     for item in vocab_items:
-        cat = item.get("category", "")
-        if cat == "Vocabulary":
-            categorized["core_vocab"].append(item)
-        elif cat == "Fixed Prepositions":
+        cat = item.get("category", "Vocabulary")
+        if cat == "Fixed Prepositions":
             categorized["fixed_prepositions"].append(item)
         elif cat == "Phrasal Verbs":
             categorized["phrasal_verbs"].append(item)
@@ -62,8 +45,18 @@ def categorize_vocabulary(vocab_items):
         elif cat == "Foreign Words":
             categorized["foreign_words"].append(item)
         else:
-            categorized["core_vocab"].append(item)
+            raw_core.append(item)
             
+    # Max 4 items in high-detail ribbons to strictly protect 297mm page height
+    categorized["core_vocab"] = raw_core[:4]
+    
+    # Evenly distribute overflow items across the grammar columns so no column overflows
+    overflow = raw_core[4:]
+    target_keys = ["one_word_subs", "phrasal_verbs", "fixed_prepositions"]
+    for i, item in enumerate(overflow):
+        target_key = target_keys[i % len(target_keys)]
+        categorized[target_key].append(item)
+        
     return categorized
 
 def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
@@ -152,10 +145,17 @@ def compile_magazine():
         title_clean = art.get("title", "")
         editorial_titles.append(title_clean)
 
+        # Unique HTML anchor targets for PDF page jumping
+        target_reader_id = f"article-p{page_counter}"
+        target_vocab_id = f"article-p{page_counter + 1}"
+
         toc_entries.append({
             "title": title_clean,
             "newspaper": art.get("newspaper", "Editorial"),
-            "page_num": f"Page {page_counter:02d}"
+            "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
+            "reading_time": art.get("reading_time", "2 min read"),
+            "page_num": f"Page {page_counter:02d}",
+            "target_id": target_reader_id  # <--- Anchor reference for TOC jump
         })
         
         processed_articles.append({
@@ -174,7 +174,9 @@ def compile_magazine():
             "all_vocab": vocab_list,
             "categorized_vocab": categorized_vocab,
             "page_p1": page_counter,
-            "page_p2": page_counter + 1
+            "page_p2": page_counter + 1,
+            "target_reader_id": target_reader_id,
+            "target_vocab_id": target_vocab_id
         })
         page_counter += 2
 

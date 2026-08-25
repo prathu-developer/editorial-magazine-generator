@@ -11,6 +11,12 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     raw_paras = [p.strip() for p in re.split(r'\n+', passage_text) if p.strip()]
     cleaned_paras = []
     
+    sorted_vocab = sorted(
+        vocab_items,
+        key=lambda x: len(x.get("word_or_phrase", "")),
+        reverse=True
+    )
+
     for p in raw_paras:
         # 1. Skip scraper date stamps
         if re.match(r'^(Published|Updated|- ?August)', p, re.IGNORECASE):
@@ -18,7 +24,23 @@ def clean_and_highlight_passage(passage_text, vocab_items):
         # 2. Skip topic/tag taxonomy lines containing multiple slashes
         if len(re.findall(r'\s*/\s*', p)) >= 2:
             continue
-        cleaned_paras.append(p)
+            
+        highlighted = p
+        for item in sorted_vocab:
+            term = item.get("word_or_phrase", "").strip()
+            idx = item.get("order_index", "")
+            if not term:
+                continue
+            
+            pattern = re.compile(rf'\b({re.escape(term)})\b', re.IGNORECASE)
+            highlighted = pattern.sub(
+                rf'<span class="vocab-hl">\1<sup class="v-idx">{idx}</sup></span>',
+                highlighted
+            )
+            
+        cleaned_paras.append(highlighted)
+        
+    return cleaned_paras
 
 
 def categorize_vocabulary(vocab_items):

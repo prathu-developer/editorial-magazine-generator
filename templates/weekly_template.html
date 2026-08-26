@@ -1,178 +1,1218 @@
-import os
-import json
-import glob
-import requests
-from datetime import datetime, timezone, timedelta
-from jinja2 import Environment, FileSystemLoader
-from playwright.sync_api import sync_playwright
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
 
-def categorize_vocabulary(vocab_items):
-    """Sorts vocabulary into universal categories across all articles."""
-    categorized = {
-        "core_vocab": [],
-        "one_word_subs": [],
-        "fixed_prepositions": [],
-        "phrasal_verbs": [],
-        "idioms": [],
-        "foreign_words": []
-    }
+  @page {
+    size: 210mm 297mm;
+    margin: 0;
+  }
 
-    for item in vocab_items:
-        cat = str(item.get("category", "")).strip().lower()
-        if "one-word" in cat or "one word" in cat:
-            categorized["one_word_subs"].append(item)
-        elif "preposition" in cat:
-            categorized["fixed_prepositions"].append(item)
-        elif "phrasal" in cat:
-            categorized["phrasal_verbs"].append(item)
-        elif "idiom" in cat:
-            categorized["idioms"].append(item)
-        elif "foreign" in cat:
-            categorized["foreign_words"].append(item)
-        else:
-            categorized["core_vocab"].append(item)
-            
-    return categorized
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0 !important;
+    word-spacing: normal !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 
-def send_to_telegram(pdf_path, date_range_formatted, editorial_titles):
-    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
-    chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #ffffff;
+    color: #1e293b;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .devanagari {
+    font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+  }
+
+  /* Page Setup */
+  .page {
+    width: 210mm;
+    background: #ffffff;
+    position: relative;
+  }
+
+  .cover-page {
+    height: 297mm;
+    max-height: 297mm;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden;
+    padding: 0;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* =========================================================
+     PAGE 1: FRONT COVER
+     ========================================================= */
+  .front-cover-custom {
+    background: linear-gradient(145deg, #06182c 0%, #0b1f36 50%, #1e3a8a 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16mm 14mm 12mm 14mm;
+    color: #ffffff;
+  }
+
+  .front-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .front-brand-tag {
+    font-size: 11px;
+    font-weight: 900;
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.12);
+    border: 1.2px solid rgba(245, 158, 11, 0.4);
+    padding: 4px 12px;
+    border-radius: 6px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+  }
+
+  .front-date-display {
+    font-size: 12px;
+    font-weight: 800;
+    color: #0f2b48;
+    background: #ffffff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    border-left: 4px solid #d97706;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .front-center-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: -10mm;
+  }
+
+  .front-logo-icon {
+    font-size: 54px;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+  }
+
+  .front-main-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 46px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+
+  .front-sub-banner {
+    background: linear-gradient(90deg, #d97706, #f59e0b);
+    color: #0b1f36;
+    font-size: 14px;
+    font-weight: 900;
+    padding: 6px 20px;
+    border-radius: 6px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4);
+    margin-bottom: 22px;
+  }
+
+  .front-metadata-card {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    padding: 12px 24px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .meta-stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .meta-stat-val {
+    font-size: 18px;
+    font-weight: 900;
+    color: #fef08a;
+  }
+
+  .meta-stat-lbl {
+    font-size: 8.5px;
+    font-weight: 800;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .meta-stat-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Front Footer Bar */
+  .front-footer-bar-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 8mm;
+  }
+
+  .front-tg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 9.5px;
+    font-weight: 800;
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(15, 43, 72, 0.95), rgba(30, 64, 175, 0.92));
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1.2px solid rgba(254, 240, 138, 0.6);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  }
+
+  .front-tg-icon {
+    width: 14px;
+    height: 14px;
+    fill: #38bdf8;
+    flex-shrink: 0;
+  }
+
+  /* =========================================================
+     PAGE 2: INSTRUCTIONS
+     ========================================================= */
+  .page-instructions {
+    height: 297mm;
+    padding: 14mm 16mm;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .inst-header {
+    border-bottom: 2px solid #0f2b48;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+  }
+
+  .inst-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0b1f36;
+  }
+
+  .inst-subtitle {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .inst-card {
+    background: #ffffff;
+    border: 1.2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(15, 43, 72, 0.03);
+  }
+
+  .inst-card h3 {
+    font-size: 13px;
+    font-weight: 800;
+    color: #0f2b48;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .inst-card p {
+    font-size: 10px;
+    line-height: 1.5;
+    color: #334155;
+  }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .cat-mini-box {
+    background: #f1f5f9;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border-left: 3px solid #0f2b48;
+    font-size: 9.5px;
+  }
+
+  .cat-mini-box strong {
+    color: #0f2b48;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* =========================================================
+     PAGE 3: INDEX (UP TO 25 ARTICLES)
+     ========================================================= */
+  .page-index {
+    height: 297mm;
+    padding: 12mm 14mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .index-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid #0f2b48;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+
+  .index-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 14px;
+    flex-grow: 1;
+  }
+
+  .index-row-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px dashed #cbd5e1;
+    padding-bottom: 3px;
+    height: 18mm;
+  }
+
+  .index-row-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #0f2b48;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .index-row-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3px;
+  }
+
+  .pill-newspaper {
+    font-size: 7.5px;
+    font-weight: 800;
+    padding: 1.5px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .pill-hindu { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+  .pill-express { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+  .index-date-text {
+    font-size: 8px;
+    color: #64748b;
+    font-weight: 600;
+  }
+
+  /* =========================================================
+     INNER PAGES (UNIVERSAL VOCAB CONTENT)
+     ========================================================= */
+  .inner-page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 8mm 12mm 0 12mm;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .inner-content-wrapper {
+    flex-grow: 1;
+    padding-bottom: 10mm;
+  }
+
+  /* Section Header */
+  .lex-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    margin-top: 10px;
+    padding: 4px 10px;
+    background: #f8fafc;
+    border: 1.1px solid #e2e8f0;
+    border-left: 4px solid #0b1e36;
+    border-radius: 5px;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .lex-header-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .lex-header-icon { font-size: 13px; line-height: 1; }
+  .lex-section-title { font-size: 9.5px; font-weight: 900; color: #0b1e36; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  .lex-header-tag {
+    font-size: 7.5px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .hdr-vocab { border-left-color: #0b1e36; }
+  .hdr-vocab .lex-header-tag { background: #e0f2fe; color: #0369a1; }
+  .hdr-ows { border-left-color: #d97706; }
+  .hdr-ows .lex-header-tag { background: #fef3c7; color: #b45309; }
+  .hdr-prep { border-left-color: #0f766e; }
+  .hdr-prep .lex-header-tag { background: #ccfbf1; color: #0f766e; }
+  .hdr-phr { border-left-color: #6d28d9; }
+  .hdr-phr .lex-header-tag { background: #ede9fe; color: #6d28d9; }
+  .hdr-idm { border-left-color: #e11d48; }
+  .hdr-idm .lex-header-tag { background: #ffe4e6; color: #e11d48; }
+  .hdr-foreign { border-left-color: #2563eb; }
+  .hdr-foreign .lex-header-tag { background: #dbeafe; color: #1e40af; }
+
+  /* =========================================================
+     5-COLUMN EXACT VOCABULARY RIBBONS (NO MEMORY HOOK)
+     ========================================================= */
+  .lex-ribbon-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5px;
+    margin-bottom: 6px;
+  }
+
+  .lex-ribbon-row {
+    display: grid;
+    grid-template-columns: 24px 36mm 66mm 30mm 30mm;
+    background: #ffffff;
+    border: 1.1px solid #e2e8f0;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(15, 43, 72, 0.04);
+    align-items: stretch;
+    min-height: 18mm;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .ribbon-col-num {
+    background: #0b1e36;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+  }
+
+  .ribbon-num {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+  }
+
+  /* Col 2: Word & Pos */
+  .ribbon-col-word {
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    border-right: 1px solid #f1f5f9;
+  }
+
+  .ribbon-term {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11.5px;
+    font-weight: 900;
+    color: #0b1e36;
+    line-height: 1.15;
+  }
+
+  .ribbon-pos {
+    font-size: 7px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #64748b;
+    letter-spacing: 0.3px;
+  }
+
+  .ribbon-connot {
+    font-size: 6.8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 1.5px 6px;
+    border-radius: 4px;
+    width: fit-content;
+    letter-spacing: 0.3px;
+    margin-top: 1px;
+  }
+  .connot-negative { background: #fee2e2; color: #dc2626; }
+  .connot-positive { background: #dcfce7; color: #16a34a; }
+  .connot-neutral  { background: #e0f2fe; color: #0284c7; }
+
+  /* Col 3: Definition & Hindi Meaning */
+  .ribbon-col-def {
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-right: 1px solid #f1f5f9;
+  }
+
+  .ribbon-def-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ribbon-def-icon svg { width: 12px; height: 12px; }
+  .icon-negative { background: #fff1f2; color: #e11d48; border: 1.2px solid #fecdd3; }
+  .icon-positive { background: #ecfdf5; color: #059669; border: 1.2px solid #a7f3d0; }
+  .icon-neutral  { background: #eff6ff; color: #2563eb; border: 1.2px solid #bfdbfe; }
+
+  .ribbon-def-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5px;
+    justify-content: center;
+  }
+
+  .ribbon-def-hindi {
+    color: #0284c7;
+    font-weight: 700;
+    font-size: 9.8px;
+    line-height: 1.35;
+  }
+
+  .ribbon-def-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8.8px;
+    font-weight: 600;
+    color: #0f172a;
+    line-height: 1.38;
+  }
+
+  /* Col 4 & 5: Synonyms & Antonyms */
+  .ribbon-col-syn, .ribbon-col-ant {
+    padding: 6px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #ffffff;
+    border-right: 1px solid #f1f5f9;
+  }
+  .ribbon-col-ant { border-right: none; }
+
+  .ribbon-pill-tag {
+    font-size: 6.8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 3px;
+    width: fit-content;
+    margin-bottom: 3.5px;
+    letter-spacing: 0.3px;
+  }
+  .tag-syn { background: #dcfce7; color: #15803d; }
+  .tag-ant { background: #fee2e2; color: #b91c1c; }
+
+  .ribbon-bullet-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8.3px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+
+  .bullet-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Footer */
+  .page-footer {
+    width: 210mm;
+    height: 9mm;
+    margin-left: -12mm;
+    background: #06182c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12mm;
+    box-sizing: border-box;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 8px;
+    font-weight: 600;
+    color: #cbd5e1;
+  }
+
+  .footer-brand svg { width: 12px; height: 12px; fill: #94a3b8; }
+
+  .footer-tg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 7.6px;
+    font-weight: 800;
+    color: #ffffff;
+    background: rgba(15, 43, 72, 0.7);
+    padding: 3px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(56, 189, 248, 0.5);
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  .footer-tg-icon { width: 11px; height: 11px; fill: #38bdf8; }
+
+  /* =========================================================
+     PAGE 5+: BACK COVER / END PAGE
+     ========================================================= */
+  .back-cover-page {
+    height: 297mm;
+    background: linear-gradient(145deg, #06182c 0%, #0b1f36 60%, #1e3a8a 100%);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16mm 14mm 12mm 14mm;
+    text-align: center;
+  }
+
+  .back-center-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1.2px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 24px;
+    backdrop-filter: blur(6px);
+  }
+
+  .back-end-title {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+
+  .back-end-subtitle {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 24px;
+  }
+
+  .back-links-grid {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .back-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(15, 43, 72, 0.85);
+    border: 1.2px solid rgba(254, 240, 138, 0.6);
+    color: #ffffff;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     PAGE 1: FRONT COVER
+     ========================================================= -->
+<div class="page cover-page front-cover-custom">
+  <div class="front-top-bar">
+    <div class="front-brand-tag">⚡ WEEKLY SPECIAL EDITION</div>
+    <div class="front-date-display">
+      <span>📅 {{ date_range_formatted }}</span>
+    </div>
+  </div>
+
+  <div class="front-center-hero">
+    <div class="front-logo-icon">📖</div>
+    <h1 class="front-main-title">Ez Editorialś</h1>
+    <div class="front-sub-banner">Weekly Vocab Lab Compilation</div>
     
-    if not bot_token or not chat_id:
-        print("⚠️ Telegram BOT_TOKEN or ADMIN_CHAT_ID missing. Skipping Telegram upload.")
-        return
+    <div class="front-metadata-card">
+      <div class="meta-stat-item">
+        <span class="meta-stat-val">{{ total_articles }}</span>
+        <span class="meta-stat-lbl">Editorials</span>
+      </div>
+      <div class="meta-stat-divider"></div>
+      <div class="meta-stat-item">
+        <span class="meta-stat-val">{{ total_words }}</span>
+        <span class="meta-stat-lbl">Total Lexicons</span>
+      </div>
+      <div class="meta-stat-divider"></div>
+      <div class="meta-stat-item">
+        <span class="meta-stat-val">{{ newspapers_covered }}</span>
+        <span class="meta-stat-lbl">Newspapers</span>
+      </div>
+    </div>
+  </div>
 
-    quote_lines = [f"{idx:02d} {title}" for idx, title in enumerate(editorial_titles, start=1)]
-    quote_content = "\n".join(quote_lines)
+  <div class="front-footer-bar-bottom">
+    <a href="https://t.me/Prathuadhe" target="_blank" class="front-tg-btn">
+      <svg class="front-tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+      <span>CURATED BY PRATHU</span>
+    </a>
+    <a href="https://t.me/Contact_ez" target="_blank" class="front-tg-btn">
+      <svg class="front-tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+      <span>PUBLISHED BY EZ</span>
+    </a>
+  </div>
+</div>
 
-    caption = (
-        f"📚 <b>Ez Editorialś Weekly Compilation ({date_range_formatted})</b>\n"
-        f"<blockquote expandable>{quote_content}</blockquote>"
-    )
+<!-- =========================================================
+     PAGE 2: INSTRUCTIONS
+     ========================================================= -->
+<div class="page cover-page page-instructions">
+  <div>
+    <div class="inst-header">
+      <h2 class="inst-title">Compilation Overview & Instructions</h2>
+      <div class="inst-subtitle">How to effectively use this Weekly Vocab Lab revision deck</div>
+    </div>
 
-    url = f"https://api.telegram.org/bot{bot_token}/sendDocument"
-    filename = os.path.basename(pdf_path)
+    <div class="inst-card">
+      <h3><span>📌</span> About The Weekly Compilation</h3>
+      <p>This edition aggregates every high-yield vocabulary word, phrase, idiom, and grammatical expression curated from Monday to Saturday editorials. Rather than reviewing individual articles, all terms are unified into <strong>Universal Categorical Sections</strong> for fast, systematic revision.</p>
+    </div>
 
-    print(f"📤 Uploading {filename} to Telegram...")
-    with open(pdf_path, "rb") as doc:
-        files = {"document": (filename, doc, "application/pdf")}
-        payload = {
-            "chat_id": chat_id,
-            "caption": caption,
-            "parse_mode": "HTML"
-        }
-        res = requests.post(url, data=payload, files=files)
-        
-    if res.status_code == 200:
-        print("🚀 Successfully sent Weekly Compilation to Telegram!")
-    else:
-        print(f"❌ Telegram API Error ({res.status_code}): {res.text}")
+    <div class="inst-card">
+      <h3><span>🗂️</span> Universal Categorical Structure</h3>
+      <div class="cat-grid">
+        <div class="cat-mini-box">
+          <strong>1. Editorial Vocabulary</strong>
+          Core contextual words with bilingual definitions and connotations.
+        </div>
+        <div class="cat-mini-box">
+          <strong>2. One-Word Substitutions</strong>
+          Single-term replacements for complex conceptual definitions.
+        </div>
+        <div class="cat-mini-box">
+          <strong>3. Fixed Prepositions</strong>
+          Crucial prepositional dependencies frequently tested in competitive exams.
+        </div>
+        <div class="cat-mini-box">
+          <strong>4. Phrasal Verbs & Idioms</strong>
+          Multi-word expressions, verbal phrases, and metaphorical sayings.
+        </div>
+      </div>
+    </div>
+  </div>
 
-def compile_weekly_magazine():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    backups_dir = os.path.join(base_dir, "backups")
-    templates_dir = os.path.join(base_dir, "templates")
-    build_dir = os.path.join(base_dir, "build")
-    output_dir = os.path.join(base_dir, "output")
+  <div class="page-footer">
+    <div class="footer-brand">
+      <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>
+      <span>Ez Editorialś Weekly Lab &nbsp;•&nbsp; {{ date_range_formatted }}</span>
+    </div>
+    <div style="font-size: 8px; font-weight: 800; color: #ffffff; background: #0f2b48; padding: 2px 8px; border-radius: 4px;">Page 02</div>
+  </div>
+</div>
 
-    os.makedirs(build_dir, exist_ok=True)
-    os.makedirs(output_dir, exist_ok=True)
+<!-- =========================================================
+     PAGE 3: INDEX (EDITORIALS COVERED)
+     ========================================================= -->
+<div class="page cover-page page-index">
+  <div>
+    <div class="index-header">
+      <div>
+        <h2 style="font-family: 'Lora', serif; font-size: 20px; font-weight: 700; color: #0b1e36;">Weekly Editorial Index</h2>
+        <div style="font-size: 10px; color: #64748b; font-weight: 600;">List of all {{ total_articles }} articles compiled in this edition</div>
+      </div>
+      <div style="font-size: 9px; font-weight: 800; color: #d97706; text-transform: uppercase;">{{ date_range_formatted }}</div>
+    </div>
 
-    json_files = sorted(glob.glob(os.path.join(backups_dir, "*.json")))
-    if not json_files:
-        print(f"⚠️ No backup JSON files found in: {backups_dir}")
-        return
+    <div class="index-grid-container">
+      {% for entry in index_entries %}
+      <div class="index-row-card">
+        <div class="index-row-title">{{ '%02d' % loop.index }}. {{ entry.title }}</div>
+        <div class="index-row-meta">
+          <span class="pill-newspaper {% if 'Hindu' in entry.newspaper %}pill-hindu{% else %}pill-express{% endif %}">
+            {{ entry.newspaper }}
+          </span>
+          <span class="index-date-text">{{ entry.timestamp }}</span>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 
-    aggregated_editorials = []
-    all_raw_dates = []
+  <div class="page-footer">
+    <div class="footer-brand">
+      <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>
+      <span>Ez Editorialś Weekly Lab &nbsp;•&nbsp; {{ date_range_formatted }}</span>
+    </div>
+    <div style="font-size: 8px; font-weight: 800; color: #ffffff; background: #0f2b48; padding: 2px 8px; border-radius: 4px;">Page 03</div>
+  </div>
+</div>
 
-    for file_path in json_files:
-        with open(file_path, "r", encoding="utf-8") as f:
-            try:
-                daily_data = json.load(f)
-                aggregated_editorials.extend(daily_data.get("editorials", []))
-                
-                # Extract date from json metadata or filename
-                scraped_date = daily_data.get("date_scraped")
-                if scraped_date:
-                    all_raw_dates.append(scraped_date)
-            except json.JSONDecodeError:
-                print(f"⚠️ Skipping corrupted JSON: {file_path}")
+<!-- =========================================================
+     PAGE 4+: UNIVERSAL CATEGORIES CONTENT
+     ========================================================= -->
+<div class="page inner-page">
+  <div class="inner-content-wrapper">
 
-    # Enforce maximum of 25 editorials
-    aggregated_editorials = aggregated_editorials[:25]
+    <!-- 1. CORE VOCABULARY -->
+    {% if universal_vocab.core_vocab %}
+    <div class="lex-section-header hdr-vocab">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">📖</span>
+        <span class="lex-section-title">EDITORIAL VOCABULARY</span>
+      </div>
+      <span class="lex-header-tag">{{ universal_vocab.core_vocab | length }} WORDS</span>
+    </div>
 
-    # Calculate date range from Monday to Saturday
-    all_raw_dates = sorted(list(set(all_raw_dates)))
-    if all_raw_dates:
-        start_dt = datetime.strptime(all_raw_dates[0], "%Y-%m-%d")
-        end_dt = datetime.strptime(all_raw_dates[-1], "%Y-%m-%d")
-        date_range_formatted = f"{start_dt.strftime('%d %b')} – {end_dt.strftime('%d %b %Y')}"
-    else:
-        now = datetime.now(timezone(timedelta(hours=5, minutes=30)))
-        date_range_formatted = now.strftime("%d %b %Y")
+    <div class="lex-ribbon-stack">
+      {% for item in universal_vocab.core_vocab %}
+      <div class="lex-ribbon-row">
+        <div class="ribbon-col-num" style="background: #0b1e36;">
+          <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
+        </div>
+        <div class="ribbon-col-word">
+          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        </div>
+        <div class="ribbon-col-def">
+          <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
+            {% if item.connotation == 'Negative' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            {% elif item.connotation == 'Positive' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+            {% endif %}
+          </div>
+          <div class="ribbon-def-text-wrap">
+            <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-syn">
+          <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for syn in item.british_synonyms[:3] %}
+            <span class="bullet-item">• {{ syn }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ribbon-col-ant">
+          <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for ant in item.british_antonyms[:3] %}
+            <span class="bullet-item">• {{ ant }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
 
-    # Collect unique newspapers and build TOC index entries
-    newspapers = set()
-    index_entries = []
-    editorial_titles = []
-    all_vocab_items = []
+    <!-- 2. ONE-WORD SUBSTITUTIONS -->
+    {% if universal_vocab.one_word_subs %}
+    <div class="lex-section-header hdr-ows">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">📝</span>
+        <span class="lex-section-title">ONE-WORD SUBSTITUTIONS</span>
+      </div>
+      <span class="lex-header-tag">{{ universal_vocab.one_word_subs | length }} TERMS</span>
+    </div>
 
-    for art in aggregated_editorials:
-        title = art.get("title", "Untitled Editorial")
-        np = art.get("newspaper", "Editorial")
-        editorial_titles.append(title)
-        newspapers.add(np)
+    <div class="lex-ribbon-stack">
+      {% for item in universal_vocab.one_word_subs %}
+      <div class="lex-ribbon-row">
+        <div class="ribbon-col-num" style="background: #b45309;">
+          <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
+        </div>
+        <div class="ribbon-col-word">
+          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        </div>
+        <div class="ribbon-col-def">
+          <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
+            {% if item.connotation == 'Negative' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            {% elif item.connotation == 'Positive' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+            {% endif %}
+          </div>
+          <div class="ribbon-def-text-wrap">
+            <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-syn">
+          <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for syn in item.british_synonyms[:3] %}
+            <span class="bullet-item">• {{ syn }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ribbon-col-ant">
+          <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for ant in item.british_antonyms[:3] %}
+            <span class="bullet-item">• {{ ant }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
 
-        index_entries.append({
-            "title": title,
-            "newspaper": np,
-            "timestamp": art.get("timestamp", "")
-        })
+    <!-- 3. FIXED PREPOSITIONS -->
+    {% if universal_vocab.fixed_prepositions %}
+    <div class="lex-section-header hdr-prep">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">🔗</span>
+        <span class="lex-section-title">FIXED PREPOSITIONS</span>
+      </div>
+      <span class="lex-header-tag">{{ universal_vocab.fixed_prepositions | length }} RULES</span>
+    </div>
 
-        # Accumulate vocab items for universal grouping
-        all_vocab_items.extend(art.get("editorial_vocabulary", []))
+    <div class="lex-ribbon-stack">
+      {% for item in universal_vocab.fixed_prepositions %}
+      <div class="lex-ribbon-row">
+        <div class="ribbon-col-num" style="background: #0f766e;">
+          <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
+        </div>
+        <div class="ribbon-col-word">
+          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        </div>
+        <div class="ribbon-col-def">
+          <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
+            {% if item.connotation == 'Negative' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            {% elif item.connotation == 'Positive' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+            {% endif %}
+          </div>
+          <div class="ribbon-def-text-wrap">
+            <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-syn">
+          <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for syn in item.british_synonyms[:3] %}
+            <span class="bullet-item">• {{ syn }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ribbon-col-ant">
+          <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for ant in item.british_antonyms[:3] %}
+            <span class="bullet-item">• {{ ant }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
 
-    # Universal Categorization across all 25 articles
-    universal_vocab = categorize_vocabulary(all_vocab_items)
-    newspapers_covered = " & ".join(sorted(newspapers)) if newspapers else "National Dailies"
+    <!-- 4. PHRASAL VERBS -->
+    {% if universal_vocab.phrasal_verbs %}
+    <div class="lex-section-header hdr-phr">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">⚡</span>
+        <span class="lex-section-title">PHRASAL VERBS</span>
+      </div>
+      <span class="lex-header-tag">{{ universal_vocab.phrasal_verbs | length }} PHRASES</span>
+    </div>
 
-    # Render Template
-    env = Environment(loader=FileSystemLoader(templates_dir))
-    template = env.get_template("weekly_template.html")
-    
-    rendered_html = template.render(
-        date_range_formatted=date_range_formatted,
-        total_articles=len(aggregated_editorials),
-        total_words=len(all_vocab_items),
-        newspapers_covered=newspapers_covered,
-        index_entries=index_entries,
-        universal_vocab=universal_vocab
-    )
+    <div class="lex-ribbon-stack">
+      {% for item in universal_vocab.phrasal_verbs %}
+      <div class="lex-ribbon-row">
+        <div class="ribbon-col-num" style="background: #6d28d9;">
+          <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
+        </div>
+        <div class="ribbon-col-word">
+          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        </div>
+        <div class="ribbon-col-def">
+          <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
+            {% if item.connotation == 'Negative' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            {% elif item.connotation == 'Positive' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+            {% endif %}
+          </div>
+          <div class="ribbon-def-text-wrap">
+            <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-syn">
+          <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for syn in item.british_synonyms[:3] %}
+            <span class="bullet-item">• {{ syn }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ribbon-col-ant">
+          <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for ant in item.british_antonyms[:3] %}
+            <span class="bullet-item">• {{ ant }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
 
-    rendered_html_path = os.path.join(build_dir, "weekly_magazine.html")
-    with open(rendered_html_path, "w", encoding="utf-8") as f:
-        f.write(rendered_html)
+    <!-- 5. IDIOMS & PHRASES -->
+    {% if universal_vocab.idioms %}
+    <div class="lex-section-header hdr-idm">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">💡</span>
+        <span class="lex-section-title">IDIOMS &amp; PHRASES</span>
+      </div>
+      <span class="lex-header-tag">{{ universal_vocab.idioms | length }} IDIOMS</span>
+    </div>
 
-    # Output PDF
-    ist_time = datetime.now(timezone(timedelta(hours=5, minutes=30)))
-    pdf_filename = f"Weekly_Compilation_{ist_time.strftime('%Y-%m-%d')}.pdf"
-    output_pdf_path = os.path.join(output_dir, pdf_filename)
+    <div class="lex-ribbon-stack">
+      {% for item in universal_vocab.idioms %}
+      <div class="lex-ribbon-row">
+        <div class="ribbon-col-num" style="background: #e11d48;">
+          <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
+        </div>
+        <div class="ribbon-col-word">
+          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        </div>
+        <div class="ribbon-col-def">
+          <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
+            {% if item.connotation == 'Negative' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            {% elif item.connotation == 'Positive' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+            {% endif %}
+          </div>
+          <div class="ribbon-def-text-wrap">
+            <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-syn">
+          <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for syn in item.british_synonyms[:3] %}
+            <span class="bullet-item">• {{ syn }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ribbon-col-ant">
+          <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for ant in item.british_antonyms[:3] %}
+            <span class="bullet-item">• {{ ant }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
-        page = browser.new_page()
-        page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
-        page.pdf(
-            path=output_pdf_path,
-            format="A4",
-            print_background=True,
-            margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"}
-        )
-        browser.close()
+    <!-- 6. FOREIGN WORDS -->
+    {% if universal_vocab.foreign_words %}
+    <div class="lex-section-header hdr-foreign">
+      <div class="lex-header-left">
+        <span class="lex-header-icon">🌐</span>
+        <span class="lex-section-title">FOREIGN WORDS &amp; PHRASES</span>
+      </div>
+      <span class="lex-header-tag">{{ universal_vocab.foreign_words | length }} TERMS</span>
+    </div>
 
-    print(f"✅ Generated Weekly Magazine: {output_pdf_path}")
-    send_to_telegram(output_pdf_path, date_range_formatted, editorial_titles)
+    <div class="lex-ribbon-stack">
+      {% for item in universal_vocab.foreign_words %}
+      <div class="lex-ribbon-row">
+        <div class="ribbon-col-num" style="background: #2563eb;">
+          <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
+        </div>
+        <div class="ribbon-col-word">
+          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        </div>
+        <div class="ribbon-col-def">
+          <div class="ribbon-def-icon icon-{{ item.connotation | lower }}">
+            {% if item.connotation == 'Negative' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="9"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            {% elif item.connotation == 'Positive' %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            {% else %}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 21h18M3 10h18M5 10v11M19 10v11M9 10v11M15 10v11M12 2L2 7h20L12 2z"/></svg>
+            {% endif %}
+          </div>
+          <div class="ribbon-def-text-wrap">
+            <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+            <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+          </div>
+        </div>
+        <div class="ribbon-col-syn">
+          <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for syn in item.british_synonyms[:3] %}
+            <span class="bullet-item">• {{ syn }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="ribbon-col-ant">
+          <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+          <div class="ribbon-bullet-list">
+            {% for ant in item.british_antonyms[:3] %}
+            <span class="bullet-item">• {{ ant }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
 
-if __name__ == "__main__":
-    compile_weekly_magazine()
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">
+      <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>
+      <span>Ez Editorialś Weekly Lab &nbsp;•&nbsp; {{ date_range_formatted }}</span>
+    </div>
+
+    <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-tg-btn">
+      <svg class="footer-tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+      <span>SUBSCRIBE TO EZ EDITORIALŚ</span>
+    </a>
+  </div>
+</div>
+
+<!-- =========================================================
+     FINAL PAGE: BACK COVER
+     ========================================================= -->
+<div class="page cover-page back-cover-page">
+  <div style="font-size: 11px; font-weight: 800; color: #f59e0b; letter-spacing: 0.8px; text-transform: uppercase;">
+    EZ EDITORIALŚ VOCAB LAB SERIES
+  </div>
+
+  <div class="back-center-card">
+    <div style="font-size: 38px; margin-bottom: 8px;">🎓</div>
+    <h2 class="back-end-title">End of Weekly Deck</h2>
+    <div class="back-end-subtitle">Revisit this deck every week to master editorial lexicons for competitive examinations.</div>
+
+    <div class="back-links-grid">
+      <a href="https://t.me/ezeditorialgroup" target="_blank" class="back-link-btn">
+        <svg class="front-tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        <span>Daily Editorials</span>
+      </a>
+      <a href="https://t.me/EzSSC" target="_blank" class="back-link-btn">
+        <svg class="front-tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        <span>EzSSC</span>
+      </a>
+      <a href="https://t.me/EzBanking" target="_blank" class="back-link-btn">
+        <svg class="front-tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        <span>Ez Banking</span>
+      </a>
+    </div>
+  </div>
+
+  <div style="font-size: 8.5px; color: #64748b; font-weight: 600;">
+    © Ez Editorialś • Curated with ❤️ by Prathu
+  </div>
+</div>
+
+</body>
+</html>

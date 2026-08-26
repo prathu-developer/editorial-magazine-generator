@@ -1,6 +1,7 @@
 import os
 import json
 import glob
+import requests
 from datetime import datetime, timezone, timedelta
 from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
@@ -33,8 +34,45 @@ def categorize_vocabulary(vocab_items):
             
     return categorized
 
+def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
+    
+    if not bot_token or not chat_id:
+        print("⚠️ Telegram BOT_TOKEN or ADMIN_CHAT_ID missing. Skipping Telegram delivery.")
+        return
+
+    # Build formatted numbered lines for the quote box
+    quote_lines = [f"{idx:02d} {title}" for idx, title in enumerate(editorial_titles, start=1)]
+    quote_content = "\n".join(quote_lines)
+
+    # Telegram HTML caption with expandable blockquote
+    caption = (
+        f"📚 <b>Weekly Vocab Lab Compilation ({ist_date_short})</b>\n"
+        f"<blockquote expandable>{quote_content}</blockquote>"
+    )
+
+    url = f"https://api.telegram.org/bot{bot_token}/sendDocument"
+    filename = os.path.basename(pdf_path)
+
+    print(f"📤 Uploading {filename} to Telegram...")
+    with open(pdf_path, "rb") as doc:
+        files = {
+            "document": (filename, doc, "application/pdf")
+        }
+        payload = {
+            "chat_id": chat_id,
+            "caption": caption,
+            "parse_mode": "HTML"
+        }
+        res = requests.post(url, data=payload, files=files)
+        
+    if res.status_code == 200:
+        print("🚀 Successfully delivered Weekly Magazine PDF to Telegram!")
+    else:
+        print(f"❌ Telegram API Error ({res.status_code}): {res.text}")
+
 def compile_weekly_magazine():
-    # Resolves root directory from inside src/
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     backups_dir = os.path.join(base_dir, "backups")
     templates_dir = os.path.join(base_dir, "templates")
@@ -66,20 +104,26 @@ def compile_weekly_magazine():
 
     # 4. Format vocabulary for template rendering
     processed_articles = []
+    editorial_titles = []
     for art in aggregated_editorials:
+        title_clean = art.get("title", "Untitled Editorial")
+        editorial_titles.append(title_clean)
+        
         vocab_list = art.get("editorial_vocabulary", [])
         categorized_vocab = categorize_vocabulary(vocab_list)
         
         processed_articles.append({
-            "title": art.get("title", "Untitled Editorial"),
+            "title": title_clean,
             "newspaper": art.get("newspaper", "Editorial"),
             "timestamp": art.get("timestamp", ""),
             "categorized_vocab": categorized_vocab
         })
 
-    # 5. Render Jinja2 template from templates/weekly_template.html
-    ist_time = datetime.now(timezone(timedelta(hours=5, minutes=30)))
+    # 5. Render Jinja2 template
+    ist_offset = timezone(timedelta(hours=5, minutes=30))
+    ist_time = datetime.now(ist_offset)
     edition_date = ist_time.strftime("%B %d, %Y")
+    ist_date_short = ist_time.strftime("%d %b %Y")
 
     env = Environment(loader=FileSystemLoader(templates_dir))
     template = env.get_template("weekly_template.html")
@@ -110,6 +154,9 @@ def compile_weekly_magazine():
         browser.close()
 
     print(f"✅ Generated Weekly Magazine: {output_pdf_path}")
+
+    # 7. Dispatch to Telegram Admin
+    send_to_telegram(output_pdf_path, ist_date_short, editorial_titles)
 
 if __name__ == "__main__":
     compile_weekly_magazine()

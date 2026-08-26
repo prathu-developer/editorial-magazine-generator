@@ -34,7 +34,8 @@ def categorize_vocabulary(vocab_items):
     return categorized
 
 def compile_weekly_magazine():
-    base_dir = os.path.dirname(os.path.abspath(__file__))
+    # Go one level up from 'src' to reach the root directory
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     backups_dir = os.path.join(base_dir, "backups")
     build_dir = os.path.join(base_dir, "build")
     output_dir = os.path.join(base_dir, "output")

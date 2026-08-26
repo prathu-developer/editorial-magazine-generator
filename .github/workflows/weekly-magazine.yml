@@ -1,11 +1,34 @@
 name: Weekly Magazine Generator
+
 on:
   schedule:
-    - cron: '30 7 * * 6' # 7:30 AM UTC = 1:00 PM IST on Saturdays
-  workflow_dispatch: # Allows manual triggering for testing
+    # Runs at 07:30 UTC every Saturday (1:00 PM IST)
+    - cron: '30 7 * * 6'
+  workflow_dispatch: # Allows you to run it manually from the Actions tab
+
 jobs:
-  build:
+  build-magazine:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v3
-      # Add steps to setup Python, install Playwright/Jinja2, and run the script
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install jinja2 playwright
+          playwright install chromium --with-deps
+
+      - name: Generate Weekly PDF
+        run: python build_magazine.py
+
+      - name: Upload PDF Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Weekly_Compilation_Magazine
+          path: output/*.pdf

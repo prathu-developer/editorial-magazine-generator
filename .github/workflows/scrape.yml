@@ -1,9 +1,6 @@
 name: Daily Editorial Scraper
 
 on:
-  schedule:
-    # Runs at 02:30 UTC every day (08:00 AM IST)
-    - cron: '30 2 * * *'
   workflow_dispatch:
 
 permissions:
@@ -40,3 +37,19 @@ jobs:
           git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update: Scraped today's 4 editorials"
           git pull origin main --rebase
           git push
+
+      # Step 1 Telegram Notification
+      - name: Send Telegram Success Notification
+        if: success()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "chat_id": "'"$ADMIN_CHAT_ID"'",
+            "text": "✅ **STEP 1/3 COMPLETED: EDITORIALS SCRAPED**\n\n📰 Successfully scraped today’s 4 editorials and committed `today_editorials.json`.\n\n⚡ Triggering Step 2 (Schema Pipeline) automatically...",
+            "parse_mode": "Markdown",
+            "disable_web_page_preview": true
+          }'

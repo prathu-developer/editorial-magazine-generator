@@ -1,10 +1,11 @@
 name: Generate Daily Editorial Magazine
 
 on:
-  schedule:
-    # Runs daily at 02:50 UTC (08:20 AM IST)
-    - cron: '50 2 * * *'
-  workflow_dispatch: # Allows manual trigger from GitHub UI
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Daily Editorial Schema Pipeline"]
+    types:
+      - completed
 
 permissions:
   contents: write
@@ -12,7 +13,8 @@ permissions:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-
+    # Only run if triggered manually OR if the previous workflow succeeded
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -54,3 +56,19 @@ jobs:
           git add output/
           git commit -m "Auto-generated daily edition: $(date +'%d-%b-%Y')" || echo "No changes to commit"
           git push origin main
+
+      # Step 3 Telegram Notification
+      - name: Send Telegram Success Notification
+        if: success()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "chat_id": "'"$ADMIN_CHAT_ID"'",
+            "text": "🎉 **STEP 3/3 COMPLETED: MAGAZINE PUBLISHED!**\n\n📚 Daily Editorial Magazine PDF generated, archived, and saved.\n\n🏁 Complete automated pipeline finished successfully.",
+            "parse_mode": "Markdown",
+            "disable_web_page_preview": true
+          }'

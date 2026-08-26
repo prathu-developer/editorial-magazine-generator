@@ -1,196 +1,178 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Inter:wght@400;600;800&display=swap');
+import os
+import json
+import glob
+import requests
+from datetime import datetime, timezone, timedelta
+from jinja2 import Environment, FileSystemLoader
+from playwright.sync_api import sync_playwright
 
-  @page {
-    size: 210mm 297mm;
-    margin: 0;
-  }
+def categorize_vocabulary(vocab_items):
+    """Sorts vocabulary into universal categories across all articles."""
+    categorized = {
+        "core_vocab": [],
+        "one_word_subs": [],
+        "fixed_prepositions": [],
+        "phrasal_verbs": [],
+        "idioms": [],
+        "foreign_words": []
+    }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+    for item in vocab_items:
+        cat = str(item.get("category", "")).strip().lower()
+        if "one-word" in cat or "one word" in cat:
+            categorized["one_word_subs"].append(item)
+        elif "preposition" in cat:
+            categorized["fixed_prepositions"].append(item)
+        elif "phrasal" in cat:
+            categorized["phrasal_verbs"].append(item)
+        elif "idiom" in cat:
+            categorized["idioms"].append(item)
+        elif "foreign" in cat:
+            categorized["foreign_words"].append(item)
+        else:
+            categorized["core_vocab"].append(item)
+            
+    return categorized
 
-  body {
-    font-family: 'Inter', sans-serif;
-    color: #1e293b;
-    background: #ffffff;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-  }
+def send_to_telegram(pdf_path, date_range_formatted, editorial_titles):
+    bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+    chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
+    
+    if not bot_token or not chat_id:
+        print("⚠️ Telegram BOT_TOKEN or ADMIN_CHAT_ID missing. Skipping Telegram upload.")
+        return
 
-  /* Universal Page Setup */
-  .page {
-    width: 210mm;
-    height: 297mm;
-    page-break-after: always;
-    break-after: page;
-    position: relative;
-    overflow: hidden;
-    padding: 20mm;
-  }
+    quote_lines = [f"{idx:02d} {title}" for idx, title in enumerate(editorial_titles, start=1)]
+    quote_content = "\n".join(quote_lines)
 
-  /* PAGE 1: Front Cover */
-  .page-cover {
-    background: linear-gradient(135deg, #0f2b48 0%, #1e40af 100%);
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  .cover-logo { font-size: 64px; margin-bottom: 20px; }
-  .cover-title { font-family: 'Lora', serif; font-size: 56px; font-weight: 700; margin-bottom: 15px; }
-  .cover-subtitle { background: #d97706; padding: 10px 24px; border-radius: 8px; font-size: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+    caption = (
+        f"📚 <b>Ez Editorialś Weekly Compilation ({date_range_formatted})</b>\n"
+        f"<blockquote expandable>{quote_content}</blockquote>"
+    )
 
-  /* PAGE 2: Instructions */
-  .page-instructions { background: #f8fafc; }
-  .section-title { font-family: 'Lora', serif; font-size: 28px; font-weight: 700; color: #0f2b48; border-bottom: 3px solid #d97706; padding-bottom: 10px; margin-bottom: 25px; }
-  .instruction-block { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-  .instruction-block h3 { color: #1e40af; margin-bottom: 10px; font-size: 18px; }
-  .instruction-block p { line-height: 1.6; color: #475569; margin-bottom: 10px; }
+    url = f"https://api.telegram.org/bot{bot_token}/sendDocument"
+    filename = os.path.basename(pdf_path)
 
-  /* PAGE 3: Index */
-  .index-list { display: flex; flex-direction: column; gap: 12px; }
-  .index-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #cbd5e1; padding-bottom: 8px; }
-  .index-title { font-weight: 600; font-size: 14px; max-width: 120mm; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .index-meta { display: flex; gap: 15px; font-size: 12px; color: #64748b; font-weight: 600; }
-  .index-newspaper { background: #e0f2fe; color: #0369a1; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; font-size: 10px;}
+    print(f"📤 Uploading {filename} to Telegram...")
+    with open(pdf_path, "rb") as doc:
+        files = {"document": (filename, doc, "application/pdf")}
+        payload = {
+            "chat_id": chat_id,
+            "caption": caption,
+            "parse_mode": "HTML"
+        }
+        res = requests.post(url, data=payload, files=files)
+        
+    if res.status_code == 200:
+        print("🚀 Successfully sent Weekly Compilation to Telegram!")
+    else:
+        print(f"❌ Telegram API Error ({res.status_code}): {res.text}")
 
-  /* PAGE 4+: Content & Vocab Ribbon */
-  .content-page { height: auto; min-height: 297mm; }
-  .article-header { margin-bottom: 20px; }
-  .article-title { font-family: 'Lora', serif; font-size: 22px; color: #0f2b48; margin-bottom: 5px; }
-  
-  .vocab-category-title { font-size: 14px; font-weight: 800; text-transform: uppercase; color: #ffffff; background: #0f2b48; padding: 6px 12px; border-radius: 4px; margin: 15px 0 10px 0; display: inline-block; }
-  
-  /* 5-Column Ribbon (NO Memory Hook) */
-  .vocab-ribbon { display: grid; grid-template-columns: 8% 22% 35% 17.5% 17.5%; border: 1px solid #cbd5e1; border-radius: 6px; margin-bottom: 8px; background: #ffffff; overflow: hidden; page-break-inside: avoid; break-inside: avoid; }
-  .col { padding: 8px; border-right: 1px solid #f1f5f9; display: flex; flex-direction: column; justify-content: center; }
-  .col:last-child { border-right: none; }
-  
-  .col-num { background: #f8fafc; font-weight: 800; color: #94a3b8; align-items: center; font-size: 14px; }
-  .col-word .term { font-weight: 800; font-size: 13px; color: #0f2b48; margin-bottom: 2px; }
-  .col-word .pos { font-size: 10px; color: #64748b; text-transform: uppercase; }
-  .col-meaning .hindi { font-weight: 700; color: #d97706; font-size: 12px; margin-bottom: 2px; }
-  .col-meaning .eng { font-size: 11px; color: #334155; line-height: 1.4; }
-  
-  .syn-ant-title { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; }
-  .syn-title { color: #16a34a; }
-  .ant-title { color: #dc2626; }
-  .syn-ant-list { font-size: 11px; color: #475569; }
+def compile_weekly_magazine():
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    backups_dir = os.path.join(base_dir, "backups")
+    templates_dir = os.path.join(base_dir, "templates")
+    build_dir = os.path.join(base_dir, "build")
+    output_dir = os.path.join(base_dir, "output")
 
-  /* LAST PAGE: End Cover */
-  .page-end { background: #0f2b48; color: #ffffff; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-  .end-text { font-family: 'Lora', serif; font-size: 32px; font-weight: 700; margin-bottom: 10px; }
-  .end-subtext { color: #94a3b8; font-size: 14px; }
+    os.makedirs(build_dir, exist_ok=True)
+    os.makedirs(output_dir, exist_ok=True)
 
-</style>
-</head>
-<body>
+    json_files = sorted(glob.glob(os.path.join(backups_dir, "*.json")))
+    if not json_files:
+        print(f"⚠️ No backup JSON files found in: {backups_dir}")
+        return
 
-  <!-- PAGE 1: Front Cover -->
-  <div class="page page-cover">
-    <div class="cover-logo">📖</div>
-    <h1 class="cover-title">Ez Editorialś</h1>
-    <div class="cover-subtitle">Weekly Vocab Lab Compilation</div>
-    <div style="margin-top: 40px; font-weight: 600; color: #cbd5e1;">Edition: {{ edition_date }}</div>
-  </div>
+    aggregated_editorials = []
+    all_raw_dates = []
 
-  <!-- PAGE 2: Instructions -->
-  <div class="page page-instructions">
-    <h2 class="section-title">About This Series</h2>
-    <div class="instruction-block">
-      <h3>Weekly Compilation Guide</h3>
-      <p>Welcome to the Ez Editorialś Weekly Vocab Lab. This magazine compiles the most critical editorials from Monday to Saturday into a single, high-yield revision document.</p>
-      <p>It is designed to help you quickly review context-based vocabulary, phrasal verbs, and idioms extracted directly from top newspapers.</p>
-    </div>
-    <div class="instruction-block">
-      <h3>Vocabulary Sections</h3>
-      <p>Inside each article breakdown, words are categorized for targeted learning:</p>
-      <ul style="margin-left: 20px; line-height: 1.6; color: #475569;">
-        <li><strong>Core Vocabulary:</strong> Essential words with context and bilingual meanings.</li>
-        <li><strong>Phrasal Verbs & Idioms:</strong> High-frequency phrases for reading comprehension.</li>
-        <li><strong>One-Word Substitutions:</strong> Direct replacements for lengthy phrases.</li>
-      </ul>
-    </div>
-  </div>
+    for file_path in json_files:
+        with open(file_path, "r", encoding="utf-8") as f:
+            try:
+                daily_data = json.load(f)
+                aggregated_editorials.extend(daily_data.get("editorials", []))
+                
+                # Extract date from json metadata or filename
+                scraped_date = daily_data.get("date_scraped")
+                if scraped_date:
+                    all_raw_dates.append(scraped_date)
+            except json.JSONDecodeError:
+                print(f"⚠️ Skipping corrupted JSON: {file_path}")
 
-  <!-- PAGE 3: Index (Max 25 Editorials) -->
-  <div class="page page-index">
-    <h2 class="section-title">Weekly Index</h2>
-    <div class="index-list">
-      {% for article in editorials %}
-      <div class="index-item">
-        <div class="index-title">{{ loop.index }}. {{ article.title }}</div>
-        <div class="index-meta">
-          <span>{{ article.timestamp }}</span>
-          <span class="index-newspaper">{{ article.newspaper }}</span>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
+    # Enforce maximum of 25 editorials
+    aggregated_editorials = aggregated_editorials[:25]
 
-  <!-- PAGE 4+: Article Content & Vocab Ribbons -->
-  {% for article in editorials %}
-  <div class="page content-page">
-    <div class="article-header">
-      <h3 class="article-title">{{ article.title }}</h3>
-      <div class="index-meta">
-        <span class="index-newspaper">{{ article.newspaper }}</span>
-        <span>{{ article.timestamp }}</span>
-      </div>
-    </div>
+    # Calculate date range from Monday to Saturday
+    all_raw_dates = sorted(list(set(all_raw_dates)))
+    if all_raw_dates:
+        start_dt = datetime.strptime(all_raw_dates[0], "%Y-%m-%d")
+        end_dt = datetime.strptime(all_raw_dates[-1], "%Y-%m-%d")
+        date_range_formatted = f"{start_dt.strftime('%d %b')} – {end_dt.strftime('%d %b %Y')}"
+    else:
+        now = datetime.now(timezone(timedelta(hours=5, minutes=30)))
+        date_range_formatted = now.strftime("%d %b %Y")
 
-    <!-- Loop through each vocabulary category dynamically -->
-    {% for category_name, vocab_list in article.categorized_vocab.items() %}
-      {% if vocab_list %}
-      <div class="vocab-category-title">{{ category_name | replace('_', ' ') | title }}</div>
-      
-      {% for item in vocab_list %}
-      <!-- 5-Column Ribbon without Memory Hook -->
-      <div class="vocab-ribbon">
-        <div class="col col-num">{{ loop.index }}</div>
-        <div class="col col-word">
-          <div class="term">{{ item.word_or_phrase }}</div>
-          <div class="pos">{{ item.part_of_speech }}</div>
-        </div>
-        <div class="col col-meaning">
-          <div class="hindi">{{ item.hindi_meaning }}</div>
-          <div class="eng">{{ item.concise_meaning }}</div>
-        </div>
-        <div class="col">
-          <div class="syn-ant-title syn-title">Synonyms</div>
-          <div class="syn-ant-list">
-            {% for syn in item.british_synonyms[:3] %}
-              • {{ syn }}<br>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="col">
-          <div class="syn-ant-title ant-title">Antonyms</div>
-          <div class="syn-ant-list">
-            {% for ant in item.british_antonyms[:3] %}
-              • {{ ant }}<br>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-      
-      {% endif %}
-    {% endfor %}
-  </div>
-  {% endfor %}
+    # Collect unique newspapers and build TOC index entries
+    newspapers = set()
+    index_entries = []
+    editorial_titles = []
+    all_vocab_items = []
 
-  <!-- FINAL PAGE: End Cover -->
-  <div class="page page-end">
-    <h2 class="end-text">End of Compilation</h2>
-    <div class="end-subtext">See you next week. Keep revising!</div>
-  </div>
+    for art in aggregated_editorials:
+        title = art.get("title", "Untitled Editorial")
+        np = art.get("newspaper", "Editorial")
+        editorial_titles.append(title)
+        newspapers.add(np)
 
-</body>
-</html>
+        index_entries.append({
+            "title": title,
+            "newspaper": np,
+            "timestamp": art.get("timestamp", "")
+        })
+
+        # Accumulate vocab items for universal grouping
+        all_vocab_items.extend(art.get("editorial_vocabulary", []))
+
+    # Universal Categorization across all 25 articles
+    universal_vocab = categorize_vocabulary(all_vocab_items)
+    newspapers_covered = " & ".join(sorted(newspapers)) if newspapers else "National Dailies"
+
+    # Render Template
+    env = Environment(loader=FileSystemLoader(templates_dir))
+    template = env.get_template("weekly_template.html")
+    
+    rendered_html = template.render(
+        date_range_formatted=date_range_formatted,
+        total_articles=len(aggregated_editorials),
+        total_words=len(all_vocab_items),
+        newspapers_covered=newspapers_covered,
+        index_entries=index_entries,
+        universal_vocab=universal_vocab
+    )
+
+    rendered_html_path = os.path.join(build_dir, "weekly_magazine.html")
+    with open(rendered_html_path, "w", encoding="utf-8") as f:
+        f.write(rendered_html)
+
+    # Output PDF
+    ist_time = datetime.now(timezone(timedelta(hours=5, minutes=30)))
+    pdf_filename = f"Weekly_Compilation_{ist_time.strftime('%Y-%m-%d')}.pdf"
+    output_pdf_path = os.path.join(output_dir, pdf_filename)
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
+        page = browser.new_page()
+        page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
+        page.pdf(
+            path=output_pdf_path,
+            format="A4",
+            print_background=True,
+            margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"}
+        )
+        browser.close()
+
+    print(f"✅ Generated Weekly Magazine: {output_pdf_path}")
+    send_to_telegram(output_pdf_path, date_range_formatted, editorial_titles)
+
+if __name__ == "__main__":
+    compile_weekly_magazine()

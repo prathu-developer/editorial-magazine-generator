@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs at 07:30 UTC every Saturday (1:00 PM IST)
     - cron: '30 7 * * 6'
-  workflow_dispatch: # Allows you to run it manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
   build-magazine:
@@ -12,10 +12,10 @@ jobs:
     
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
@@ -28,7 +28,7 @@ jobs:
         run: python src/build_weekly_magazine.py
 
       - name: Upload PDF Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Weekly_Compilation_Magazine
           path: output/*.pdf

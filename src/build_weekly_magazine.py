@@ -18,7 +18,7 @@ def categorize_vocabulary(vocab_items):
 
     for item in vocab_items:
         cat = str(item.get("category", "")).strip().lower()
-        if "one-word" in cat:
+        if "one-word" in cat or "one word" in cat:
             categorized["One_Word_Substitutions"].append(item)
         elif "preposition" in cat:
             categorized["Fixed_Prepositions"].append(item)
@@ -34,36 +34,37 @@ def categorize_vocabulary(vocab_items):
     return categorized
 
 def compile_weekly_magazine():
-    # Go one level up from 'src' to reach the root directory
+    # Resolves root directory from inside src/
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     backups_dir = os.path.join(base_dir, "backups")
+    templates_dir = os.path.join(base_dir, "templates")
     build_dir = os.path.join(base_dir, "build")
     output_dir = os.path.join(base_dir, "output")
 
     os.makedirs(build_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
 
-    # 1. Read all JSON files from the backups directory
+    # 1. Read all JSON backup files sorted chronologically
     json_files = sorted(glob.glob(os.path.join(backups_dir, "*.json")))
     if not json_files:
-        print("No backup files found in the 'backups' directory.")
+        print(f"⚠️ No backup JSON files found in: {backups_dir}")
         return
 
     aggregated_editorials = []
 
-    # 2. Extract editorials from Monday to Saturday
+    # 2. Extract editorials from Monday to Saturday files
     for file_path in json_files:
         with open(file_path, "r", encoding="utf-8") as f:
             try:
                 daily_data = json.load(f)
                 aggregated_editorials.extend(daily_data.get("editorials", []))
             except json.JSONDecodeError:
-                print(f"Skipping invalid JSON file: {file_path}")
+                print(f"⚠️ Skipping corrupted JSON: {file_path}")
 
-    # 3. Limit to maximum 25 editorials as requested
+    # 3. Limit to a maximum of 25 editorials
     aggregated_editorials = aggregated_editorials[:25]
 
-    # 4. Process the vocabulary for the template
+    # 4. Format vocabulary for template rendering
     processed_articles = []
     for art in aggregated_editorials:
         vocab_list = art.get("editorial_vocabulary", [])
@@ -76,12 +77,13 @@ def compile_weekly_magazine():
             "categorized_vocab": categorized_vocab
         })
 
-    # 5. Render HTML with Jinja2
+    # 5. Render Jinja2 template from templates/weekly_template.html
     ist_time = datetime.now(timezone(timedelta(hours=5, minutes=30)))
     edition_date = ist_time.strftime("%B %d, %Y")
 
-    env = Environment(loader=FileSystemLoader(base_dir))
-    template = env.get_template("template.html")
+    env = Environment(loader=FileSystemLoader(templates_dir))
+    template = env.get_template("weekly_template.html")
+    
     rendered_html = template.render(
         edition_date=edition_date,
         editorials=processed_articles
@@ -91,7 +93,7 @@ def compile_weekly_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # 6. Generate PDF using Playwright
+    # 6. Generate PDF via Playwright
     pdf_filename = f"Weekly_Compilation_{ist_time.strftime('%Y-%m-%d')}.pdf"
     output_pdf_path = os.path.join(output_dir, pdf_filename)
 

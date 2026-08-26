@@ -1,0 +1,11 @@
+name: Weekly Magazine Generator
+on:
+  schedule:
+    - cron: '30 7 * * 6' # 7:30 AM UTC = 1:00 PM IST on Saturdays
+  workflow_dispatch: # Allows manual triggering for testing
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # Add steps to setup Python, install Playwright/Jinja2, and run the script

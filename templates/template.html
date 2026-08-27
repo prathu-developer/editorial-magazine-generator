@@ -355,16 +355,17 @@
   /* Optimized Watermark Layer */
   .inner-page-watermark {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 175mm;
-    height: 120mm;
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0.12;
-    mix-blend-mode: multiply;
+    top: 0;
+    bottom: 0; /* Pins it to the bottom instead of using height: 100% */
+    left: 0;
+    right: 0;  /* Pins it to the right instead of using width: 100% */
+    
+    /* Using pixels is safer than mm for digital/mobile viewports */
+    background-size: 300px; 
+    
+    background-position: center top;
+    background-repeat: repeat-y;
+    opacity: 0.08; /* Rely on opacity alone, no mix-blend-mode */
     pointer-events: none;
     z-index: 0;
   }

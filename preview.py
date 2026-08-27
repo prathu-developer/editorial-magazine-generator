@@ -250,6 +250,16 @@ def generate_preview():
     if not os.path.exists(assets_dir):
         assets_dir = os.path.join(os.path.dirname(base_dir), "assets")
 
+    # Add flexible SVG/PNG checking to match build_magazine.py
+    watermark_png = os.path.join(assets_dir, "watermark.png")
+    watermark_svg = os.path.join(assets_dir, "watermark.svg")
+    watermark_src = None
+    
+    if os.path.exists(watermark_png):
+        watermark_src = "../assets/watermark.png"
+    elif os.path.exists(watermark_svg):
+        watermark_src = "../assets/watermark.svg"
+
     payload = {
         "date_formatted": formatted_date_ist,
         "date_scraped": raw_data.get("date_scraped", formatted_date_ist),
@@ -259,8 +269,8 @@ def generate_preview():
         "toc_bg_src": "../assets/toc_bg.jpg",
         "has_back_cover": os.path.exists(os.path.join(assets_dir, "back_cover_bg.jpg")),
         "back_cover_src": "../assets/back_cover_bg.jpg",
-        "has_watermark": os.path.exists(os.path.join(assets_dir, "watermark.png")),
-        "watermark_src": "../assets/watermark.png",
+        "has_watermark": watermark_src is not None,
+        "watermark_src": watermark_src,
         "toc_entries": toc,
         "total_articles": len(processed),
         "articles": processed

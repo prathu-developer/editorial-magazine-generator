@@ -324,9 +324,9 @@ def compile_magazine():
     watermark_svg = os.path.join(assets_dir, "watermark.svg")
     watermark_src = None
     if os.path.exists(watermark_png):
-        watermark_src = f"file://{watermark_png}"
+        watermark_src = f"file://{watermark_png}".replace("\\", "/")
     elif os.path.exists(watermark_svg):
-        watermark_src = f"file://{watermark_svg}"
+        watermark_src = f"file://{watermark_svg}".replace("\\", "/")
 
     render_payload = {
         "date_formatted": formatted_date_ist,

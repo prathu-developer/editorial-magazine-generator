@@ -628,13 +628,13 @@ def run():
         "editorials": all_articles,
     }
 
-    with open("today_editorials.json", "w", encoding="utf-8") as f:
+    with open("additional_editorials.json", "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
     print("\n📊 SOURCE SUMMARY")
     for item in source_stats:
         print(f"  {item['source']}: {item['articles']} ({item['status']})")
-    print(f"\n✅ Successfully compiled {len(all_articles)} article(s) into today_editorials.json")
+    print(f"\n✅ Successfully compiled {len(all_articles)} article(s) into additional_editorials.json")
 
 
 if __name__ == "__main__":

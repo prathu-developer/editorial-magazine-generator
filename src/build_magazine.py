@@ -107,6 +107,133 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
     else:
         print(f"❌ Telegram API Error ({res.status_code}): {res.text}")
 
+def match_vocab_to_paragraphs(paragraphs, vocab_items):
+    """Returns vocab items that appear in the given paragraphs."""
+    combined_text = " ".join(paragraphs)
+    matched_vocab = []
+    unmatched_vocab = []
+    
+    for item in vocab_items:
+        term = item.get("word_or_phrase", "").strip()
+        if not term:
+            continue
+        # Check presence using word boundary
+        if re.search(rf'\b{re.escape(term)}\b', combined_text, re.IGNORECASE):
+            matched_vocab.append(item)
+        else:
+            unmatched_vocab.append(item)
+            
+    return matched_vocab, unmatched_vocab
+
+def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
+    """Partitions an editorial and its vocab lab dynamically across pages."""
+    raw_paras = clean_and_highlight_passage(art_raw.get("passage", ""), all_vocab)
+    total_words = sum(len(p.split()) for p in raw_paras)
+    total_vocab = len(all_vocab)
+    title_len = len(art_raw.get("title", ""))
+    
+    # Page 1 Budget: Masthead + Subtitle leaves room for ~220 words & max 14 vocab items
+    p1_max_words = 190 if title_len > 60 else 230
+    p1_max_vocab = 14
+    
+    needs_split = (total_words > p1_max_words) or (total_vocab > p1_max_vocab)
+    
+    reader_pages = []
+    if not needs_split or len(raw_paras) <= 1:
+        # Single Reader Page
+        reader_pages.append({
+            "is_continuation": False,
+            "paragraphs": raw_paras,
+            "vocab": all_vocab,
+            "page_num": start_page,
+            "has_next_reader_page": False
+        })
+    else:
+        # Multi-page distribution
+        pages_paras = []
+        curr_page_paras = []
+        curr_words = 0
+        limit = p1_max_words
+
+        for para in raw_paras:
+            w_count = len(para.split())
+            if curr_page_paras and (curr_words + w_count > limit):
+                pages_paras.append(curr_page_paras)
+                curr_page_paras = [para]
+                curr_words = w_count
+                limit = 350  # Continuation pages have no masthead, accommodating more words
+            else:
+                curr_page_paras.append(para)
+                curr_words += w_count
+
+        if curr_page_paras:
+            pages_paras.append(curr_page_paras)
+
+        if len(pages_paras) == 1 and len(raw_paras) >= 2:
+            mid = len(raw_paras) // 2
+            pages_paras = [raw_paras[:mid], raw_paras[mid:]]
+
+        # Allocate matching vocabulary to each page
+        assigned_vocab_ids = set()
+        for idx, paras in enumerate(pages_paras):
+            is_first = (idx == 0)
+            is_last = (idx == len(pages_paras) - 1)
+            
+            page_vocab, _ = match_vocab_to_paragraphs(paras, all_vocab)
+            # Retain only unassigned terms
+            page_vocab = [v for v in page_vocab if id(v) not in assigned_vocab_ids]
+            for v in page_vocab:
+                assigned_vocab_ids.add(id(v))
+
+            # Push any leftovers to the last reader page
+            if is_last:
+                leftovers = [v for v in all_vocab if id(v) not in assigned_vocab_ids]
+                page_vocab.extend(leftovers)
+
+            current_page_num = start_page + idx
+            reader_pages.append({
+                "is_continuation": not is_first,
+                "paragraphs": paras,
+                "vocab": page_vocab,
+                "page_num": current_page_num,
+                "has_next_reader_page": not is_last,
+                "next_page_num": current_page_num + 1 if not is_last else None
+            })
+
+    # Vocab Lab Split Logic (Over 10 total ribbons spans 2 Lab pages)
+    total_ribbons = sum(len(items) for items in categorized_vocab.values())
+    lab_start_page = start_page + len(reader_pages)
+    lab_pages = []
+    
+    if total_ribbons <= 10:
+        lab_pages.append({
+            "is_continuation": False,
+            "page_num": lab_start_page,
+            "show_analysis": True,
+            "categorized_vocab": categorized_vocab,
+            "has_next_lab_page": False
+        })
+    else:
+        # Lab Page 1: Analysis + Core Vocab Ribbons
+        lab_pages.append({
+            "is_continuation": False,
+            "page_num": lab_start_page,
+            "show_analysis": True,
+            "categorized_vocab": {"core_vocab": categorized_vocab.get("core_vocab", [])},
+            "has_next_lab_page": True
+        })
+        # Lab Page 2: Remaining categories
+        other_cats = {k: v for k, v in categorized_vocab.items() if k != "core_vocab" and v}
+        lab_pages.append({
+            "is_continuation": True,
+            "page_num": lab_start_page + 1,
+            "show_analysis": False,
+            "categorized_vocab": other_cats,
+            "has_next_lab_page": False
+        })
+        
+    return reader_pages, lab_pages
+
 def compile_magazine():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     json_path = os.path.join(base_dir, "schema.json")
@@ -141,20 +268,19 @@ def compile_magazine():
     for art in raw_data.get("editorials", []):
         vocab_list = art.get("editorial_vocabulary", [])
         categorized_vocab = categorize_vocabulary(vocab_list)
-        paragraphs = clean_and_highlight_passage(art.get("passage", ""), vocab_list)
         
         tone_data = art.get("analysis", {})
-        raw_expl = tone_data.get("tone_simple_explanation", "")
-        clean_expl = raw_expl.strip("()")
+        clean_expl = tone_data.get("tone_simple_explanation", "").strip("()")
         
         meta_sub = art.get("editorial_metadata", {}).get("subtitle", "")
         subtitle = meta_sub if meta_sub and meta_sub != "N/A" else None
-
         title_clean = art.get("title", "")
         editorial_titles.append(title_clean)
 
+        reader_pages, lab_pages = partition_article(art, categorized_vocab, vocab_list, page_counter)
+        
         target_reader_id = f"article-p{page_counter}"
-        target_vocab_id = f"article-p{page_counter + 1}"
+        target_vocab_id = f"vocab-p{lab_pages[0]['page_num']}"
 
         toc_entries.append({
             "title": title_clean,
@@ -164,7 +290,9 @@ def compile_magazine():
             "page_num": f"Page {page_counter:02d}",
             "target_id": target_reader_id
         })
-        
+
+        total_art_pages = len(reader_pages) + len(lab_pages)
+
         processed_articles.append({
             "newspaper": art.get("newspaper", "Editorial"),
             "title": title_clean,
@@ -177,15 +305,14 @@ def compile_magazine():
                 "tone_simple_explanation": clean_expl,
                 "analysis_summary": tone_data.get("analysis_summary", "")
             },
-            "paragraphs": paragraphs,
-            "all_vocab": vocab_list,
-            "categorized_vocab": categorized_vocab,
-            "page_p1": page_counter,
-            "page_p2": page_counter + 1,
+            "reader_pages": reader_pages,
+            "lab_pages": lab_pages,
             "target_reader_id": target_reader_id,
-            "target_vocab_id": target_vocab_id
+            "target_vocab_id": target_vocab_id,
+            "last_lab_page": lab_pages[-1]["page_num"]
         })
-        page_counter += 2
+        
+        page_counter += total_art_pages
 
     # Check assets
     assets_dir = os.path.join(base_dir, "assets")
@@ -230,7 +357,13 @@ def compile_magazine():
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         page = browser.new_page()
         page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
+        
+        # 1. Wait for web fonts to load
         page.evaluate("() => document.fonts.ready")
+        
+        # 2. Wait for Paged.js to finish slicing & laying out pages
+        page.wait_for_function("() => window.PagedPolyfill && window.PagedPolyfill.ready")
+        
         page.pdf(
             path=output_pdf_path,
             format="A4",

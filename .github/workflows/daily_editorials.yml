@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: daily-editorials-${{ github.run_number }}
-          path: today_editorials.json
+          path: additional_editorials.json
           if-no-files-found: error
           retention-days: 14
 
@@ -47,6 +47,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add today_editorials.json
+          git add additional_editorials.json
           git diff --cached --quiet || git commit -m "Update daily editorials"
           git push

@@ -572,10 +572,11 @@
   }
 
   .p1-layout-grid {
-    display: flex;
-    flex-direction: column; /* Stacks text on top, vocab underneath */
-    gap: 8mm;
+    display: grid;
+    grid-template-columns: 1fr 58mm;
+    gap: 6mm;
     flex-grow: 1;
+    align-items: stretch;
   }
 
   .p1-left-col {

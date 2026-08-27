@@ -330,7 +330,6 @@
   /* =========================================================
      DYNAMIC MULTI-PAGE FLOW & PRINT GEOMETRY
      ========================================================= */
-  /* Expanding Multi-Page A4 Sheet */
   .canvas-sheet {
     width: 210mm;
     min-height: 297mm;
@@ -339,8 +338,6 @@
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    page-break-after: always;
-    break-after: page;
     box-sizing: border-box;
     z-index: 1;
   }
@@ -2014,6 +2011,142 @@
         {% for item in art.categorized_vocab.one_word_subs %}
         <div class="lex-ribbon-row">
           <div class="ribbon-col-num" style="background: #b45309;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
+          <div class="ribbon-col-word"><div class="ribbon-term">{{ item.word_or_phrase }}</div></div>
+          <div class="ribbon-col-def">
+            <div class="ribbon-def-text-wrap">
+              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-hook">
+            <div class="hook-content-wrap">
+              <div class="hook-header-title">MEMORY HOOK</div>
+              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-syn">
+            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
+          </div>
+          <div class="ribbon-col-ant">
+            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Fixed Prepositions -->
+      {% if art.categorized_vocab.fixed_prepositions %}
+      <div class="lex-section-header hdr-prep">
+        <div class="lex-header-left"><span class="lex-section-title">FIXED PREPOSITIONS</span></div>
+        <span class="lex-header-tag">{{ art.categorized_vocab.fixed_prepositions | length }} RULES</span>
+      </div>
+      <div class="lex-ribbon-stack">
+        {% for item in art.categorized_vocab.fixed_prepositions %}
+        <div class="lex-ribbon-row">
+          <div class="ribbon-col-num" style="background: #0f766e;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
+          <div class="ribbon-col-word"><div class="ribbon-term">{{ item.word_or_phrase }}</div></div>
+          <div class="ribbon-col-def">
+            <div class="ribbon-def-text-wrap">
+              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-hook">
+            <div class="hook-content-wrap">
+              <div class="hook-header-title">MEMORY HOOK</div>
+              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-syn">
+            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
+          </div>
+          <div class="ribbon-col-ant">
+            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Phrasal Verbs -->
+      {% if art.categorized_vocab.phrasal_verbs %}
+      <div class="lex-section-header hdr-phr">
+        <div class="lex-header-left"><span class="lex-section-title">PHRASAL VERBS</span></div>
+        <span class="lex-header-tag">{{ art.categorized_vocab.phrasal_verbs | length }} PHRASES</span>
+      </div>
+      <div class="lex-ribbon-stack">
+        {% for item in art.categorized_vocab.phrasal_verbs %}
+        <div class="lex-ribbon-row">
+          <div class="ribbon-col-num" style="background: #6d28d9;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
+          <div class="ribbon-col-word"><div class="ribbon-term">{{ item.word_or_phrase }}</div></div>
+          <div class="ribbon-col-def">
+            <div class="ribbon-def-text-wrap">
+              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-hook">
+            <div class="hook-content-wrap">
+              <div class="hook-header-title">MEMORY HOOK</div>
+              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-syn">
+            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
+          </div>
+          <div class="ribbon-col-ant">
+            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Idioms & Phrases -->
+      {% if art.categorized_vocab.idioms %}
+      <div class="lex-section-header hdr-idm">
+        <div class="lex-header-left"><span class="lex-section-title">IDIOMS &amp; PHRASES</span></div>
+        <span class="lex-header-tag">{{ art.categorized_vocab.idioms | length }} IDIOMS</span>
+      </div>
+      <div class="lex-ribbon-stack">
+        {% for item in art.categorized_vocab.idioms %}
+        <div class="lex-ribbon-row">
+          <div class="ribbon-col-num" style="background: #e11d48;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
+          <div class="ribbon-col-word"><div class="ribbon-term">{{ item.word_or_phrase }}</div></div>
+          <div class="ribbon-col-def">
+            <div class="ribbon-def-text-wrap">
+              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-hook">
+            <div class="hook-content-wrap">
+              <div class="hook-header-title">MEMORY HOOK</div>
+              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-syn">
+            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
+          </div>
+          <div class="ribbon-col-ant">
+            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- Foreign Words -->
+      {% if art.categorized_vocab.foreign_words %}
+      <div class="lex-section-header hdr-foreign">
+        <div class="lex-header-left"><span class="lex-section-title">FOREIGN WORDS &amp; PHRASES</span></div>
+        <span class="lex-header-tag">{{ art.categorized_vocab.foreign_words | length }} TERMS</span>
+      </div>
+      <div class="lex-ribbon-stack">
+        {% for item in art.categorized_vocab.foreign_words %}
+        <div class="lex-ribbon-row">
+          <div class="ribbon-col-num" style="background: #2563eb;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
           <div class="ribbon-col-word"><div class="ribbon-term">{{ item.word_or_phrase }}</div></div>
           <div class="ribbon-col-def">
             <div class="ribbon-def-text-wrap">

@@ -117,7 +117,7 @@ def compile_magazine():
             "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
             "reading_time": art.get("reading_time", "2 min read"),
             "page_num": f"Page {reader_page_num:02d}",
-            "target_id": f"article-{idx}"
+            "target_id": f"reader-{idx}"
         })
 
         meta_sub = art.get("editorial_metadata", {}).get("subtitle", "")
@@ -176,21 +176,63 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # Compile Continuous PDF
+    # Compile True Dynamic Continuous Canvas PDF
     print("🎨 Rendering Dynamic Continuous PDF...")
+    merger = PdfWriter()
+
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
-        page = browser.new_page()
+        page = browser.new_page(viewport={"width": 1200, "height": 2000})
         page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
         page.evaluate("() => document.fonts.ready")
 
-        page.pdf(
-            path=output_pdf_path,
-            print_background=True,
-            prefer_css_page_size=True,
-            margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"}
-        )
+        # 1. Collect all sheet IDs (Covers + TOC + Article Readers + Vocab Labs)
+        sheet_info = page.evaluate("""() => {
+            const sheets = Array.from(document.querySelectorAll('.canvas-sheet, .cover-page'));
+            return sheets.map((el, i) => {
+                if (!el.id) el.id = 'sheet-section-' + i;
+                return {
+                    id: el.id,
+                    isCover: el.classList.contains('cover-page')
+                };
+            });
+        }""")
+
+        # 2. Render each section at its exact natural content height
+        for idx, item in enumerate(sheet_info):
+            sid = item["id"]
+            is_cover = item["isCover"]
+
+            # Isolate this section and hide all others
+            page.evaluate(f"""(activeId) => {{
+                document.querySelectorAll('.canvas-sheet, .cover-page').forEach(el => {{
+                    el.style.display = (el.id === activeId) ? 'flex' : 'none';
+                }});
+            }}""", sid)
+
+            if is_cover:
+                height_mm = 297.0
+            else:
+                # Measure exact scroll height in pixels and convert to mm (1px = 0.264583 mm)
+                height_px = page.evaluate(f"() => document.getElementById('{sid}').scrollHeight")
+                height_mm = max(297.0, (height_px * 0.264583) + 2.0)
+
+            temp_sheet_pdf = os.path.join(build_dir, f"sheet_{idx}.pdf")
+            page.pdf(
+                path=temp_sheet_pdf,
+                width="210mm",
+                height=f"{height_mm:.2f}mm",
+                print_background=True,
+                margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"}
+            )
+            merger.append(temp_sheet_pdf)
+
         browser.close()
+
+    # 3. Write final unified PDF
+    with open(output_pdf_path, "wb") as f_out:
+        merger.write(f_out)
+    merger.close()
 
     print(f"✅ Generated Complete Magazine: {output_pdf_path}")
     send_to_telegram(output_pdf_path, ist_date_short, editorial_titles)

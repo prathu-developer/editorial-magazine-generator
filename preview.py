@@ -205,45 +205,46 @@ def generate_preview():
     toc = []
     page_counter = 3
 
-    for art in raw_data.get("editorials", []):
+    for idx, art in enumerate(raw_data.get("editorials", []), start=1):
         v_list = art.get("editorial_vocabulary", [])
         cats = categorize_vocabulary(v_list)
+        paragraphs = clean_and_highlight_passage(art.get("passage", ""), v_list)
+        title_clean = art.get("title", "")
         
-        reader_pages, lab_pages = partition_article(art, cats, v_list, page_counter)
-
-        target_reader_id = f"article-p{page_counter}"
-        target_vocab_id = f"vocab-p{lab_pages[0]['page_num']}"
+        reader_page_num = page_counter
+        lab_page_num = page_counter + 1
 
         toc.append({
-            "title": art.get("title", ""),
+            "title": title_clean,
             "newspaper": art.get("newspaper", "Editorial"),
             "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
             "reading_time": art.get("reading_time", "2 min read"),
-            "page_num": f"Page {page_counter:02d}",
-            "target_id": target_reader_id
+            "page_num": f"Page {reader_page_num:02d}",
+            "target_id": f"reader-{idx}"
         })
 
-        total_art_pages = len(reader_pages) + len(lab_pages)
+        meta_sub = art.get("editorial_metadata", {}).get("subtitle", "")
+        tone_data = art.get("analysis", {})
 
         processed.append({
+            "id": idx,
             "newspaper": art.get("newspaper", "Editorial"),
-            "title": art.get("title", ""),
-            "subtitle": art.get("editorial_metadata", {}).get("subtitle"),
+            "title": title_clean,
+            "subtitle": meta_sub if meta_sub and meta_sub != "N/A" else None,
             "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
             "reading_time": art.get("reading_time", "2 min read"),
             "analysis": {
-                "tone": art.get("analysis", {}).get("tone", "Analytical"),
-                "tone_simple_explanation": art.get("analysis", {}).get("tone_simple_explanation", "").strip("()"),
-                "analysis_summary": art.get("analysis", {}).get("analysis_summary", "")
+                "tone": tone_data.get("tone", "Analytical"),
+                "tone_simple_explanation": tone_data.get("tone_simple_explanation", "").strip("()"),
+                "analysis_summary": tone_data.get("analysis_summary", "")
             },
-            "reader_pages": reader_pages,
-            "lab_pages": lab_pages,
-            "target_reader_id": target_reader_id,
-            "target_vocab_id": target_vocab_id,
-            "last_lab_page": lab_pages[-1]["page_num"]
+            "paragraphs": paragraphs,
+            "vocab": v_list,
+            "categorized_vocab": cats,
+            "reader_page_num": reader_page_num,
+            "lab_page_num": lab_page_num
         })
-        
-        page_counter += total_art_pages
+        page_counter += 2
 
     # Check asset paths
     assets_dir = os.path.join(base_dir, "assets")

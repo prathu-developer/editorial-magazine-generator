@@ -128,19 +128,15 @@ def match_vocab_to_paragraphs(paragraphs, vocab_items):
 def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
     """Partitions an editorial and its vocab lab dynamically across pages."""
     raw_paras = clean_and_highlight_passage(art_raw.get("passage", ""), all_vocab)
-    total_words = sum(len(p.split()) for p in raw_paras)
+    word_count = sum(len(p.split()) for p in raw_paras)
     total_vocab = len(all_vocab)
     title_len = len(art_raw.get("title", ""))
     
-    # Page 1 Budget: Masthead + Subtitle leaves room for ~220 words & max 14 vocab items
-    p1_max_words = 190 if title_len > 60 else 230
-    p1_max_vocab = 14
-    
-    needs_split = (total_words > p1_max_words) or (total_vocab > p1_max_vocab)
+    # Trigger 2-page spread if vocab > 14 OR word count exceeds vertical budget
+    needs_reader_split = (word_count > 230) or (total_vocab > 14) or (title_len > 60 and word_count > 190)
     
     reader_pages = []
-    if not needs_split or len(raw_paras) <= 1:
-        # Single Reader Page
+    if not needs_reader_split or len(raw_paras) <= 1:
         reader_pages.append({
             "is_continuation": False,
             "paragraphs": raw_paras,
@@ -149,58 +145,31 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "has_next_reader_page": False
         })
     else:
-        # Multi-page distribution
-        pages_paras = []
-        curr_page_paras = []
-        curr_words = 0
-        limit = p1_max_words
+        mid = max(1, len(raw_paras) // 2)
+        p1_paras = raw_paras[:mid]
+        p2_paras = raw_paras[mid:]
+        
+        p1_vocab, remaining_vocab = match_vocab_to_paragraphs(p1_paras, all_vocab)
+        p2_vocab, leftovers = match_vocab_to_paragraphs(p2_paras, remaining_vocab)
+        p2_vocab.extend(leftovers)
+        
+        reader_pages.append({
+            "is_continuation": False,
+            "paragraphs": p1_paras,
+            "vocab": p1_vocab,
+            "page_num": start_page,
+            "has_next_reader_page": True,
+            "next_page_num": start_page + 1
+        })
+        reader_pages.append({
+            "is_continuation": True,
+            "paragraphs": p2_paras,
+            "vocab": p2_vocab,
+            "page_num": start_page + 1,
+            "has_next_reader_page": False
+        })
 
-        for para in raw_paras:
-            w_count = len(para.split())
-            if curr_page_paras and (curr_words + w_count > limit):
-                pages_paras.append(curr_page_paras)
-                curr_page_paras = [para]
-                curr_words = w_count
-                limit = 350  # Continuation pages have no masthead, accommodating more words
-            else:
-                curr_page_paras.append(para)
-                curr_words += w_count
-
-        if curr_page_paras:
-            pages_paras.append(curr_page_paras)
-
-        if len(pages_paras) == 1 and len(raw_paras) >= 2:
-            mid = len(raw_paras) // 2
-            pages_paras = [raw_paras[:mid], raw_paras[mid:]]
-
-        # Allocate matching vocabulary to each page
-        assigned_vocab_ids = set()
-        for idx, paras in enumerate(pages_paras):
-            is_first = (idx == 0)
-            is_last = (idx == len(pages_paras) - 1)
-            
-            page_vocab, _ = match_vocab_to_paragraphs(paras, all_vocab)
-            # Retain only unassigned terms
-            page_vocab = [v for v in page_vocab if id(v) not in assigned_vocab_ids]
-            for v in page_vocab:
-                assigned_vocab_ids.add(id(v))
-
-            # Push any leftovers to the last reader page
-            if is_last:
-                leftovers = [v for v in all_vocab if id(v) not in assigned_vocab_ids]
-                page_vocab.extend(leftovers)
-
-            current_page_num = start_page + idx
-            reader_pages.append({
-                "is_continuation": not is_first,
-                "paragraphs": paras,
-                "vocab": page_vocab,
-                "page_num": current_page_num,
-                "has_next_reader_page": not is_last,
-                "next_page_num": current_page_num + 1 if not is_last else None
-            })
-
-    # Vocab Lab Split Logic (Over 10 total ribbons spans 2 Lab pages)
+    # Vocab Lab Split
     total_ribbons = sum(len(items) for items in categorized_vocab.values())
     lab_start_page = start_page + len(reader_pages)
     lab_pages = []
@@ -214,7 +183,6 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "has_next_lab_page": False
         })
     else:
-        # Lab Page 1: Analysis + Core Vocab Ribbons
         lab_pages.append({
             "is_continuation": False,
             "page_num": lab_start_page,
@@ -222,7 +190,6 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "categorized_vocab": {"core_vocab": categorized_vocab.get("core_vocab", [])},
             "has_next_lab_page": True
         })
-        # Lab Page 2: Remaining categories
         other_cats = {k: v for k, v in categorized_vocab.items() if k != "core_vocab" and v}
         lab_pages.append({
             "is_continuation": True,
@@ -357,13 +324,7 @@ def compile_magazine():
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         page = browser.new_page()
         page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
-        
-        # 1. Wait for web fonts to load
         page.evaluate("() => document.fonts.ready")
-        
-        # 2. Wait for Paged.js to finish slicing & laying out pages
-        page.wait_for_function("() => window.PagedPolyfill && window.PagedPolyfill.ready")
-        
         page.pdf(
             path=output_pdf_path,
             format="A4",

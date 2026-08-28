@@ -43,7 +43,7 @@ def fetch_page(url):
         return ""
 
 def extract_article_datetime(html):
-    """Extracts exact publication datetime in IST to properly capture evening-before uploads."""
+    """Extracts exact publication datetime in IST to capture accurate publication timestamps."""
     soup = BeautifulSoup(html, 'html.parser')
     
     # 1. Check Meta tags
@@ -58,7 +58,7 @@ def extract_article_datetime(html):
                     match = re.search(r'(\d{4}-\d{2}-\d{2})', content)
                     if match:
                         d = datetime.strptime(match.group(1), "%Y-%m-%d").date()
-                        return datetime(d.year, d.month, d.day, 12, 0, tzinfo=IST)
+                        return datetime(d.year, d.month, d.day, 6, 0, tzinfo=IST)
 
     # 2. Check JSON-LD metadata
     for script in soup.find_all('script', type='application/ld+json'):
@@ -74,19 +74,24 @@ def extract_article_datetime(html):
                         match = re.search(r'(\d{4}-\d{2}-\d{2})', date_str)
                         if match:
                             d = datetime.strptime(match.group(1), "%Y-%m-%d").date()
-                            return datetime(d.year, d.month, d.day, 12, 0, tzinfo=IST)
+                            return datetime(d.year, d.month, d.day, 6, 0, tzinfo=IST)
         except Exception:
             continue
 
     return None
 
+def format_published_time(pub_dt):
+    """Formats datetime object to standard readable string (e.g., 'August 28, 2026 07:39 AM IST')."""
+    if pub_dt:
+        return pub_dt.strftime("%B %d, %Y %I:%M %p IST")
+    return f"{TODAY_DATE.strftime('%B %d, %Y')} IST"
+
 def is_todays_edition(pub_dt):
     """Checks if article belongs to today's morning edition (within 20h or published after 5 PM yesterday)."""
     if not pub_dt:
-        return True  # Default to true if unparseable to avoid false negatives
+        return True
     
     age_hours = (NOW_IST - pub_dt).total_seconds() / 3600.0
-    # Published within last 20 hours (e.g. previous night 6 PM onwards for 7 AM morning run)
     if 0 <= age_hours <= 20:
         return True
     if pub_dt.date() == TODAY_DATE:
@@ -220,6 +225,7 @@ def get_hindu_editorials():
                 "title": title,
                 "link": link,
                 "timestamp": str(TODAY_DATE),
+                "published_at": format_published_time(pub_dt),
                 "reading_time": r_time,
                 "passage": passage
             })
@@ -253,7 +259,6 @@ def get_indian_express_editorials():
     candidates = []
     consecutive_older = 0
 
-    # Dynamically scan candidates; stops when hitting consecutive articles older than 24h
     for link in links:
         if consecutive_older >= 2 and len(candidates) >= 1:
             break
@@ -274,12 +279,13 @@ def get_indian_express_editorials():
                 "title": title,
                 "link": link,
                 "timestamp": str(TODAY_DATE),
+                "published_at": format_published_time(pub_dt),
                 "reading_time": r_time,
                 "passage": passage,
                 "word_count": words
             })
 
-    # Sort today's candidates by word count (longest first) and keep top 2
+    # Sort today's candidates by length and select top 2
     candidates.sort(key=lambda item: item["word_count"], reverse=True)
     selected_articles = candidates[:2]
 

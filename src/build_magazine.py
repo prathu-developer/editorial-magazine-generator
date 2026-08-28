@@ -71,17 +71,20 @@ def categorize_vocabulary(vocab_items):
 
 def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
-    chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
+    admin_chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
     
-    if not bot_token or not chat_id:
-        print("⚠️ Telegram BOT_TOKEN or ADMIN_CHAT_ID missing. Skipping Telegram delivery.")
+    # --- Group Thread Publishing Config (Disabled by default) ---
+    enable_group_publish = os.getenv("ENABLE_GROUP_PUBLISH", "false").strip().lower() == "true"
+    group_chat_id = os.getenv("TELEGRAM_GROUP_CHAT_ID")
+    thread_id = os.getenv("TELEGRAM_THREAD_ID")
+
+    if not bot_token:
+        print("⚠️ Telegram BOT_TOKEN missing. Skipping Telegram delivery.")
         return
 
-    # Build formatted lines for the quote box
     quote_lines = [f"{idx:02d} {title}" for idx, title in enumerate(editorial_titles, start=1)]
     quote_content = "\n".join(quote_lines)
 
-    # Telegram HTML caption with expandable blockquote
     caption = (
         f"📝 <b>Today's Editorials ({ist_date_short})</b>\n"
         f"<blockquote expandable>{quote_content}</blockquote>"
@@ -90,22 +93,44 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
     url = f"https://api.telegram.org/bot{bot_token}/sendDocument"
     filename = os.path.basename(pdf_path)
 
-    print(f"📤 Uploading {filename} to Telegram...")
-    with open(pdf_path, "rb") as doc:
-        files = {
-            "document": (filename, doc, "application/pdf")
-        }
-        payload = {
-            "chat_id": chat_id,
-            "caption": caption,
-            "parse_mode": "HTML"
-        }
-        res = requests.post(url, data=payload, files=files)
-        
-    if res.status_code == 200:
-        print("🚀 Successfully delivered magazine PDF to Telegram!")
+    # 1. Standard Admin Delivery
+    if admin_chat_id:
+        print(f"📤 Uploading {filename} to Admin Telegram...")
+        with open(pdf_path, "rb") as doc:
+            payload = {
+                "chat_id": admin_chat_id,
+                "caption": caption,
+                "parse_mode": "HTML"
+            }
+            res = requests.post(url, data=payload, files={"document": (filename, doc, "application/pdf")})
+            
+        if res.status_code == 200:
+            print("🚀 Successfully delivered magazine PDF to Admin!")
+        else:
+            print(f"❌ Telegram Admin Error ({res.status_code}): {res.text}")
+
+    # 2. Group Topic / Thread Delivery (Controlled by ENABLE_GROUP_PUBLISH)
+    if enable_group_publish:
+        if not group_chat_id or not thread_id:
+            print("⚠️ Group publishing enabled, but TELEGRAM_GROUP_CHAT_ID or TELEGRAM_THREAD_ID is missing.")
+            return
+
+        print(f"📤 Uploading {filename} to Group Thread ({thread_id})...")
+        with open(pdf_path, "rb") as doc:
+            payload = {
+                "chat_id": group_chat_id,
+                "message_thread_id": int(thread_id),
+                "caption": caption,
+                "parse_mode": "HTML"
+            }
+            res = requests.post(url, data=payload, files={"document": (filename, doc, "application/pdf")})
+
+        if res.status_code == 200:
+            print("🚀 Successfully delivered magazine PDF to Group Topic Thread!")
+        else:
+            print(f"❌ Telegram Group Thread Error ({res.status_code}): {res.text}")
     else:
-        print(f"❌ Telegram API Error ({res.status_code}): {res.text}")
+        print("ℹ️ Group thread publishing is currently turned OFF (ENABLE_GROUP_PUBLISH=false).")
 
 def match_vocab_to_paragraphs(paragraphs, vocab_items):
     """Returns vocab items that appear in the given paragraphs."""

@@ -3,10 +3,13 @@ import sys
 import json
 import re
 import time
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 import requests
 from google import genai
 from google.genai import types
+
+# Timezone definition
+IST = timezone(timedelta(hours=5, minutes=30))
 
 # Load keys safely from GitHub Secrets or Environment[cite: 1, 2]
 API_KEYS = [
@@ -224,9 +227,24 @@ def run_schema_pipeline(
     with open(input_file, "r", encoding="utf-8") as f:
         input_data = json.load(f)
 
+    # 1. Verify that today_editorials.json was generated today (IST)
+    today_ist = datetime.now(IST).strftime("%Y-%m-%d")
+    date_scraped = input_data.get("date_scraped", "")
+    
+    if date_scraped != today_ist:
+        raise ValueError(
+            f"Stale data detected! 'today_editorials.json' is from '{date_scraped}', "
+            f"but today is '{today_ist}' (IST)."
+        )
+
+    # 2. Verify that articles actually exist
     editorials = input_data.get("editorials", [])
     total_editorials = len(editorials)
-    print(f"📰 Found {total_editorials} editorials in {input_file}.")
+    
+    if total_editorials == 0:
+        raise ValueError("today_editorials.json contains 0 editorials to process.")
+
+    print(f"📰 Found {total_editorials} fresh editorials for {today_ist}.")
 
     with open(audit_file, "w", encoding="utf-8") as log:
         log.write(f"# 🧠 Schema Generation Audit Log\n\nTotal Articles to Process: {total_editorials}\n\n---\n\n")
@@ -284,7 +302,7 @@ if __name__ == "__main__":
             try:
                 requests.post(f"https://api.telegram.org/bot{bot_token}/sendMessage", json={
                     "chat_id": admin_chat_id,
-                    "text": f"🚨 **CRITICAL ERROR (Schema Generator):**\nPipeline failed during execution!\n\n`{e}`",
+                    "text": f"🚨 **STEP 2 FAILED (Schema Generator):**\n\n**Error:**\n`{e}`",
                     "parse_mode": "Markdown"
                 })
             except Exception:

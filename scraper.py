@@ -294,12 +294,16 @@ def get_indian_express_editorials():
 
     return selected_articles
 
+# At the end of scraper.py:
 def run():
     print(f"🚀 Starting Speedreader pipeline for {TODAY_DATE} (IST)...")
 
     all_editorials = []
     all_editorials.extend(get_hindu_editorials())
     all_editorials.extend(get_indian_express_editorials())
+
+    if len(all_editorials) == 0:
+        raise RuntimeError(f"Scraper completed but found 0 valid editorials for {TODAY_DATE}.")
 
     output = {
         "date_scraped": str(TODAY_DATE),
@@ -313,4 +317,19 @@ def run():
     print(f"✅ Successfully compiled {len(all_editorials)} editorials into today_editorials.json")
 
 if __name__ == "__main__":
-    run()
+    try:
+        run()
+    except Exception as e:
+        bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+        admin_chat_id = os.getenv("ADMIN_CHAT_ID")
+        if bot_token and admin_chat_id:
+            try:
+                requests.post(f"https://api.telegram.org/bot{bot_token}/sendMessage", json={
+                    "chat_id": admin_chat_id,
+                    "text": f"🚨 **STEP 1 FAILED (Editorial Scraper):**\n\n**Error:**\n`{e}`",
+                    "parse_mode": "Markdown"
+                })
+            except Exception:
+                pass
+        print(f"Fatal scraper error: {e}")
+        sys.exit(1)

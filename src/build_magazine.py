@@ -250,6 +250,21 @@ def compile_magazine():
     with open(json_path, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
+    # Verify schema.json matches current IST date
+    ist_offset = timezone(timedelta(hours=5, minutes=30))
+    ist_time = datetime.now(ist_offset)
+    today_ist_str = ist_time.strftime("%Y-%m-%d")
+    schema_date = raw_data.get("date_scraped", "")
+
+    if schema_date != today_ist_str:
+        raise ValueError(
+            f"Stale schema detected! schema.json is dated '{schema_date}', "
+            f"expected '{today_ist_str}' (IST)."
+        )
+
+    if not raw_data.get("editorials"):
+        raise ValueError("schema.json contains 0 editorials.")
+
     # Real-time Indian Standard Time (IST)
     ist_offset = timezone(timedelta(hours=5, minutes=30))
     ist_time = datetime.now(ist_offset)
@@ -378,4 +393,19 @@ def compile_magazine():
     send_to_telegram(output_pdf_path, ist_date_short, editorial_titles)
 
 if __name__ == "__main__":
-    compile_magazine()
+    try:
+        compile_magazine()
+    except Exception as e:
+        bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
+        chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
+        if bot_token and chat_id:
+            try:
+                requests.post(f"https://api.telegram.org/bot{bot_token}/sendMessage", json={
+                    "chat_id": chat_id,
+                    "text": f"🚨 **STEP 3 FAILED (Magazine Generator):**\n\n**Error:**\n`{e}`",
+                    "parse_mode": "Markdown"
+                })
+            except Exception:
+                pass
+        print(f"Fatal magazine build error: {e}")
+        sys.exit(1)

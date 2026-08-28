@@ -27,6 +27,8 @@ jobs:
       - name: Run Editorial Scraper
         env:
           SCRAPINGANT_API_KEY: ${{ secrets.SCRAPINGANT_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
         run: python scraper.py
 
       - name: Save today_editorials.json to Repository

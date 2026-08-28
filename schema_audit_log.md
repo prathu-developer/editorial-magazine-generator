@@ -1,6 +1,6 @@
 # 🧠 Schema Generation Audit Log
 
-Total Articles to Process: 3
+Total Articles to Process: 4
 
 ---
 
@@ -9,14 +9,14 @@ Total Articles to Process: 3
 {
   "editorial_metadata": {
     "title": "Danger from above: On the Nepal flood",
-    "subtitle": "Himalayan disaster risks require robust infrastructure regulations, satellite tracking, and proactive governance.",
+    "subtitle": "Nepal's disastrous flash floods highlight the urgent need for enhanced Himalayan glacial monitoring.",
     "author": "Editorial Board",
     "topic": "Disaster Management & Climate Policy"
   },
   "analysis": {
-    "tone": "Cautionary",
-    "tone_simple_explanation": "warning of dangers",
-    "analysis_summary": "The author adopts a cautionary tone to highlight how severe climate events in the fragile Himalayan ecosystem pose escalating risks to life and infrastructure. By linking recent flash floods to systemic issues like passive neglect and unchecked development in vulnerable zones, the article urges governments to prioritize strict spatial planning and satellite-based monitoring over reactive relief efforts."
+    "tone": "Analytical",
+    "tone_simple_explanation": "carefully evaluating",
+    "analysis_summary": "The author adopts an analytical tone to evaluate the tragic flash floods in Nepal caused by Himalayan glacial collapses. The analysis highlights the severe limitations of satellite forecasting in hostile terrains and warns against public panic. Ultimately, the author emphasizes that human tragedy stems from passive neglect, calling for stricter building regulations and long-term disaster planning."
   },
   "editorial_vocabulary": [
     {
@@ -27,12 +27,12 @@ Total Articles to Process: 3
       "connotation": "Negative",
       "easy_synonym": "destroyed",
       "hindi_meaning": "तबाही मचाई",
-      "mnemonic_trick": "Sounds like 'rage' — when nature expresses rage, places get ravaged.",
-      "concise_meaning": "Severely damaged, devastated, or ruined by a violent force.",
+      "mnemonic_trick": "Sounds like 'rage' + 'damage' — wild rage causing total damage.",
+      "concise_meaning": "Severely damaged, devastated, or ruined.",
       "british_synonyms": [
         "devastated",
-        "desolated",
-        "wrecked"
+        "wrecked",
+        "desolated"
       ],
       "british_antonyms": [
         "restored",
@@ -42,77 +42,161 @@ Total Articles to Process: 3
     },
     {
       "order_index": 2,
-      "word_or_phrase": "borne it out",
-      "category": "Phrasal Verbs",
-      "part_of_speech": "Phrasal Verb",
-      "connotation": "Neutral",
-      "easy_synonym": "confirmed",
-      "hindi_meaning": "पुष्टि करना",
-      "mnemonic_trick": "Think of bearing/carrying evidence out into the light to confirm the truth.",
-      "concise_meaning": "Supported, confirmed, or substantiated a statement, theory, or suspicion.",
+      "word_or_phrase": "avalanche",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "landslide",
+      "hindi_meaning": "हिमस्खलन",
+      "mnemonic_trick": "Ava + launch — snow launches down a mountain all at once.",
+      "concise_meaning": "A mass of snow, ice, and rocks falling rapidly down a mountainside.",
       "british_synonyms": [
-        "substantiated",
-        "corroborated",
-        "validated"
+        "snowslide",
+        "landslide",
+        "blizzard-slide"
       ],
       "british_antonyms": [
-        "refuted",
-        "disproved",
-        "contradicted"
+        "stability",
+        "stagnation",
+        "accumulation"
       ]
     },
     {
       "order_index": 3,
-      "word_or_phrase": "secondary flooding",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun Phrase",
-      "connotation": "Negative",
-      "easy_synonym": "subsequent inundation",
-      "hindi_meaning": "द्वितीयक बाढ़",
-      "mnemonic_trick": "Secondary comes second — flood caused as a follow-up result of debris blockages.",
-      "concise_meaning": "A second, lingering surge of flooding triggered by primary disaster debris.",
+      "word_or_phrase": "borne it out",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "confirmed it",
+      "hindi_meaning": "पुष्टि की",
+      "mnemonic_trick": "Bear out = carry the burden of proof to show something is true.",
+      "concise_meaning": "Supported, verified, or confirmed a claim or hypothesis with evidence.",
       "british_synonyms": [
-        "subsequent inundation",
-        "follow-up flooding",
-        "residual surge"
+        "substantiated it",
+        "corroborated it",
+        "validated it"
       ],
       "british_antonyms": [
-        "receding waters",
-        "drainage",
-        "desiccation"
+        "refuted it",
+        "contradicted it",
+        "disproven it"
       ]
     },
     {
       "order_index": 4,
+      "word_or_phrase": "debris",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "rubble",
+      "hindi_meaning": "मलबा",
+      "mnemonic_trick": "Rhymes with 'free' — unwanted pieces scattered freely after a crash.",
+      "concise_meaning": "Scattered pieces of rubbish or remains from destruction.",
+      "british_synonyms": [
+        "detritus",
+        "rubble",
+        "fragmentation"
+      ],
+      "british_antonyms": [
+        "cleanliness",
+        "neatness",
+        "structure"
+      ]
+    },
+    {
+      "order_index": 5,
+      "word_or_phrase": "upstream",
+      "category": "Vocabulary",
+      "part_of_speech": "Adverb",
+      "connotation": "Neutral",
+      "easy_synonym": "higher up",
+      "hindi_meaning": "धारा के प्रतिकूल / ऊपर की ओर",
+      "mnemonic_trick": "Up + stream — moving up against the direction of water flow.",
+      "concise_meaning": "In the direction opposite to that in which a stream or river flows.",
+      "british_synonyms": [
+        "upriver",
+        "headward",
+        "higher"
+      ],
+      "british_antonyms": [
+        "downstream",
+        "downriver",
+        "seaward"
+      ]
+    },
+    {
+      "order_index": 6,
+      "word_or_phrase": "corridors",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "passages",
+      "hindi_meaning": "गलियारे / क्षेत्र",
+      "mnemonic_trick": "Like a hallway in a building, a narrow strip of land linking geographical areas.",
+      "concise_meaning": "Strips of land forming a passage or natural pathway through a region.",
+      "british_synonyms": [
+        "passageways",
+        "channels",
+        "tracts"
+      ],
+      "british_antonyms": [
+        "barriers",
+        "blockades",
+        "enclosures"
+      ]
+    },
+    {
+      "order_index": 7,
+      "word_or_phrase": "washed away",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "swept away",
+      "hindi_meaning": "बह गए",
+      "mnemonic_trick": "Water washes over something so hard that it carries it completely away.",
+      "concise_meaning": "Carried away or destroyed by a rapid movement of water.",
+      "british_synonyms": [
+        "swept away",
+        "carried off",
+        "eroded"
+      ],
+      "british_antonyms": [
+        "anchored",
+        "secured",
+        "deposited"
+      ]
+    },
+    {
+      "order_index": 8,
       "word_or_phrase": "under the influence of",
       "category": "Fixed Prepositions",
       "part_of_speech": "Prepositional Phrase",
       "connotation": "Neutral",
       "easy_synonym": "affected by",
       "hindi_meaning": "के प्रभाव में",
-      "mnemonic_trick": "Sitting under a tree puts you under its cover; sitting under an influence means being driven by it.",
-      "concise_meaning": "Directly affected, controlled, or driven by a specific external factor or weather pattern.",
+      "mnemonic_trick": "Being situated 'under' an umbrella of power or meteorological effect.",
+      "concise_meaning": "Directly affected, guided, or dominated by a force or phenomenon.",
       "british_synonyms": [
-        "subject to",
         "affected by",
-        "swayed by"
+        "subject to",
+        "dominated by"
       ],
       "british_antonyms": [
-        "unaffected by",
         "independent of",
-        "immune to"
+        "unaffected by",
+        "free from"
       ]
     },
     {
-      "order_index": 5,
+      "order_index": 9,
       "word_or_phrase": "extratropical",
-      "category": "One-Word Substitutions",
+      "category": "Vocabulary",
       "part_of_speech": "Adjective",
       "connotation": "Neutral",
       "easy_synonym": "non-tropical",
-      "hindi_meaning": "गैर-उष्णकटिबंधीय",
-      "mnemonic_trick": "Extra + tropical = outside of the tropical region.",
-      "concise_meaning": "Occurring or originating outside the tropical geographic zones.",
+      "hindi_meaning": "उष्णकटिबंध से बाहर का",
+      "mnemonic_trick": "Extra (outside) + tropical — storm systems originating outside the tropics.",
+      "concise_meaning": "Occurring or originating outside the tropical regions, typical of mid-latitudes.",
       "british_synonyms": [
         "non-tropical",
         "mid-latitude",
@@ -120,170 +204,171 @@ Total Articles to Process: 3
       ],
       "british_antonyms": [
         "tropical",
-        "equatorial"
+        "equatorial",
+        "subtropical"
       ]
     },
     {
-      "order_index": 6,
+      "order_index": 10,
+      "word_or_phrase": "collide with",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "crash into",
+      "hindi_meaning": "टकराना",
+      "mnemonic_trick": "Collide takes 'with' when two objects crash together.",
+      "concise_meaning": "Hit or crash into something with strong force while moving.",
+      "british_synonyms": [
+        "crash into",
+        "strike against",
+        "impact"
+      ],
+      "british_antonyms": [
+        "avoid",
+        "bypass",
+        "evade"
+      ]
+    },
+    {
+      "order_index": 11,
       "word_or_phrase": "ubiquity",
       "category": "Vocabulary",
       "part_of_speech": "Noun",
       "connotation": "Neutral",
       "easy_synonym": "omnipresence",
       "hindi_meaning": "सर्वव्यापकता",
-      "mnemonic_trick": "Sounds like 'USB key' — present in every computer everywhere.",
-      "concise_meaning": "The state of being very common, widespread, or present everywhere.",
+      "mnemonic_trick": "Ubiquitous sounds like 'u-be-everywhere' — present in all places.",
+      "concise_meaning": "The state of being very common or appearing everywhere simultaneously.",
       "british_synonyms": [
         "omnipresence",
         "pervasiveness",
-        "widespreadness"
+        "universality"
       ],
       "british_antonyms": [
         "rarity",
         "scarcity",
-        "unfrequency"
+        "infrequency"
       ]
     },
     {
-      "order_index": 7,
+      "order_index": 12,
       "word_or_phrase": "eponymous",
       "category": "One-Word Substitutions",
       "part_of_speech": "Adjective",
       "connotation": "Neutral",
-      "easy_synonym": "self-named",
-      "hindi_meaning": "नामस्रोत",
-      "mnemonic_trick": "Eponymous = Giving your name to a place or object.",
-      "concise_meaning": "Giving one's name to a place, feature, or entity.",
+      "easy_synonym": "same-named",
+      "hindi_meaning": "समनामी / जिसके नाम पर नाम रखा गया हो",
+      "mnemonic_trick": "Epo + synonym — sharing the exact name of the entity associated with it.",
+      "concise_meaning": "(of a person or feature) Giving its name to something, or named after its creator.",
       "british_synonyms": [
         "self-titled",
-        "name-giving",
-        "cognominal"
+        "named",
+        "homonymous"
       ],
       "british_antonyms": [
         "anonymous",
-        "nameless",
-        "unnamed"
+        "unnamed",
+        "pseudonymous"
       ]
     },
     {
-      "order_index": 8,
+      "order_index": 13,
       "word_or_phrase": "gave way",
       "category": "Phrasal Verbs",
-      "part_of_speech": "Phrasal Verb",
+      "part_of_speech": "Verb",
       "connotation": "Negative",
       "easy_synonym": "collapsed",
-      "hindi_meaning": "धंस जाना / टूट जाना",
-      "mnemonic_trick": "When ground gives away its space, it collapses downward.",
-      "concise_meaning": "Collapsed, broke down, or yielded under heavy physical pressure.",
+      "hindi_meaning": "डह गया / टूट गया",
+      "mnemonic_trick": "Giving way to weight or force means collapsing under pressure.",
+      "concise_meaning": "Collapsed or broke down under physical pressure or stress.",
       "british_synonyms": [
         "collapsed",
-        "buckled",
-        "yielded"
+        "yielded",
+        "caved in"
       ],
       "british_antonyms": [
-        "held fast",
-        "endured",
-        "withstood"
+        "held firm",
+        "withstood",
+        "resisted"
       ]
     },
     {
-      "order_index": 9,
+      "order_index": 14,
       "word_or_phrase": "pulverised",
       "category": "Vocabulary",
       "part_of_speech": "Verb",
       "connotation": "Negative",
       "easy_synonym": "crushed",
       "hindi_meaning": "चूर-चूर कर दिया",
-      "mnemonic_trick": "Sounds like 'powderise' — reducing solid rock or structures into fine powder.",
-      "concise_meaning": "Demolished completely or reduced to tiny pieces and rubble.",
+      "mnemonic_trick": "Sounds like 'powderise' — reducing solid objects into fine powder or rubble.",
+      "concise_meaning": "Defeated completely or reduced to fine particles/ruins.",
       "british_synonyms": [
-        "demolished",
         "crushed",
+        "demolished",
         "shattered"
       ],
       "british_antonyms": [
+        "built",
         "constructed",
-        "assembled",
-        "fortified"
+        "assembled"
       ]
     },
     {
-      "order_index": 10,
-      "word_or_phrase": "years in the making",
+      "order_index": 15,
+      "word_or_phrase": "in the making",
       "category": "Idioms & Phrases",
       "part_of_speech": "Idiom",
       "connotation": "Neutral",
-      "easy_synonym": "long-accumulating",
-      "hindi_meaning": "वर्षों से पनप रहा",
-      "mnemonic_trick": "Process taking years of silent preparation before final outcome.",
-      "concise_meaning": "Developing, building up, or taking shape gradually over a long period.",
+      "easy_synonym": "developing",
+      "hindi_meaning": "वर्षों से तैयार हो रहा था",
+      "mnemonic_trick": "Something slowly being 'made' behind the scenes before it culminates.",
+      "concise_meaning": "In the process of being formed or developed over a period of time.",
       "british_synonyms": [
-        "long-brewing",
-        "protracted",
-        "gradual"
+        "under development",
+        "brewing",
+        "evolving"
       ],
       "british_antonyms": [
-        "sudden",
+        "spontaneous",
         "instantaneous",
-        "unpremeditated"
+        "sudden"
       ]
     },
     {
-      "order_index": 11,
-      "word_or_phrase": "remote sensing",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Noun Phrase",
-      "connotation": "Neutral",
-      "easy_synonym": "satellite monitoring",
-      "hindi_meaning": "सुदूर संवेदन",
-      "mnemonic_trick": "Sensing something from a remote location (space/satellite).",
-      "concise_meaning": "Scanning of the Earth's surface by satellite or high-flying aircraft to gather data.",
-      "british_synonyms": [
-        "satellite tracking",
-        "earth observation",
-        "telemetry"
-      ],
-      "british_antonyms": [
-        "direct observation",
-        "on-site inspection",
-        "field study"
-      ]
-    },
-    {
-      "order_index": 12,
+      "order_index": 16,
       "word_or_phrase": "inhospitable",
       "category": "Vocabulary",
       "part_of_speech": "Adjective",
       "connotation": "Negative",
-      "easy_synonym": "unwelcoming",
-      "hindi_meaning": "दुर्गम / अमानवीय",
-      "mnemonic_trick": "In- (not) + hospitable (welcoming/comfortable) = extreme harsh conditions.",
-      "concise_meaning": "Harsh, difficult, and uncomfortable for human survival or travel.",
+      "easy_synonym": "harsh",
+      "hindi_meaning": "दुर्गम / प्रतिकूल",
+      "mnemonic_trick": "In (not) + hospitable (welcoming) — a place not friendly to life or human presence.",
+      "concise_meaning": "(of an environment) Harsh and difficult to live or exist in.",
       "british_synonyms": [
         "unforgiving",
         "hostile",
-        "bleak"
+        "unwelcoming"
       ],
       "british_antonyms": [
         "hospitable",
         "welcoming",
-        "habitable"
+        "inviting"
       ]
     },
     {
-      "order_index": 13,
+      "order_index": 17,
       "word_or_phrase": "feasible",
       "category": "Vocabulary",
       "part_of_speech": "Adjective",
       "connotation": "Positive",
       "easy_synonym": "possible",
       "hindi_meaning": "संभव / व्यावहारिक",
-      "mnemonic_trick": "Feasible sounds like 'feature-able' — capable of being executed.",
-      "concise_meaning": "Possible to do easily or conveniently; practical.",
+      "mnemonic_trick": "Feasible = do-able with ease (feels easy to execute).",
+      "concise_meaning": "Possible and practical to do easily or conveniently.",
       "british_synonyms": [
-        "viable",
         "practicable",
-        "workable"
+        "viable",
+        "achievable"
       ],
       "british_antonyms": [
         "unfeasible",
@@ -292,149 +377,129 @@ Total Articles to Process: 3
       ]
     },
     {
-      "order_index": 14,
+      "order_index": 18,
       "word_or_phrase": "exceedingly",
       "category": "Vocabulary",
       "part_of_speech": "Adverb",
       "connotation": "Neutral",
       "easy_synonym": "extremely",
       "hindi_meaning": "अत्यधिक",
-      "mnemonic_trick": "Exceed + ingly = going beyond ordinary limits.",
+      "mnemonic_trick": "Exceed + ingly — going beyond standard limits.",
       "concise_meaning": "To an unusual or exceptional degree; extremely.",
       "british_synonyms": [
         "exceptionally",
         "immensely",
-        "supremely"
+        "extraordinarily"
       ],
       "british_antonyms": [
         "slightly",
-        "mildly",
-        "barely"
-      ]
-    },
-    {
-      "order_index": 15,
-      "word_or_phrase": "counterproductive",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Adjective",
-      "connotation": "Negative",
-      "easy_synonym": "self-defeating",
-      "hindi_meaning": "उल्टा असर करने वाला",
-      "mnemonic_trick": "Counter (opposite) + productive = giving an opposite result than intended.",
-      "concise_meaning": "Having the opposite of the desired or intended effect.",
-      "british_synonyms": [
-        "self-defeating",
-        "disadvantageous",
-        "ineffectual"
-      ],
-      "british_antonyms": [
-        "productive",
-        "beneficial",
-        "advantageous"
-      ]
-    },
-    {
-      "order_index": 16,
-      "word_or_phrase": "harm's way",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Idiom",
-      "connotation": "Negative",
-      "easy_synonym": "danger zone",
-      "hindi_meaning": "खतरे का क्षेत्र",
-      "mnemonic_trick": "Walking along the path (way) of harm leads straight to danger.",
-      "concise_meaning": "A situation or location where one is vulnerable to danger, damage, or injury.",
-      "british_synonyms": [
-        "danger zone",
-        "vulnerable position",
-        "line of fire"
-      ],
-      "british_antonyms": [
-        "safe haven",
-        "safety zone",
-        "sanctuary"
-      ]
-    },
-    {
-      "order_index": 17,
-      "word_or_phrase": "casualties",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "victims",
-      "hindi_meaning": "हताहत / शिकार",
-      "mnemonic_trick": "Casualty events cause losses to life and infrastructure.",
-      "concise_meaning": "People or things severely injured, destroyed, or lost in a disaster.",
-      "british_synonyms": [
-        "victims",
-        "losses",
-        "fatalities"
-      ],
-      "british_antonyms": [
-        "survivors",
-        "beneficiaries"
-      ]
-    },
-    {
-      "order_index": 18,
-      "word_or_phrase": "vulnerable zones",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun Phrase",
-      "connotation": "Negative",
-      "easy_synonym": "high-risk areas",
-      "hindi_meaning": "संवेदनशील क्षेत्र",
-      "mnemonic_trick": "Zones that are open to wound (vulnera = wound in Latin).",
-      "concise_meaning": "Geographic regions susceptible to environmental or physical hazard.",
-      "british_synonyms": [
-        "high-risk areas",
-        "exposed regions",
-        "hazard zones"
-      ],
-      "british_antonyms": [
-        "safe zones",
-        "protected areas",
-        "secure regions"
+        "barely",
+        "moderately"
       ]
     },
     {
       "order_index": 19,
-      "word_or_phrase": "feed into",
-      "category": "Phrasal Verbs",
-      "part_of_speech": "Phrasal Verb",
-      "connotation": "Neutral",
-      "easy_synonym": "contribute to",
-      "hindi_meaning": "योगदान देना / समाविष्ट करना",
-      "mnemonic_trick": "Feeding food into a system to make it grow; feeding data into plans.",
-      "concise_meaning": "To supply information or resources to help develop a larger plan or process.",
+      "word_or_phrase": "counterproductive",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "harmful",
+      "hindi_meaning": "उल्टा असर करने वाला",
+      "mnemonic_trick": "Counter (against) + productive — producing the exact opposite of desired results.",
+      "concise_meaning": "Having the opposite of the desired or intended effect.",
       "british_synonyms": [
-        "contribute to",
-        "incorporate into",
-        "channel into"
+        "self-defeating",
+        "detrimental",
+        "disadvantageous"
       ],
       "british_antonyms": [
-        "detract from",
-        "withdraw from",
-        "isolate from"
+        "productive",
+        "beneficial",
+        "effective"
       ]
     },
     {
       "order_index": 20,
+      "word_or_phrase": "out of harm’s way",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Idiom",
+      "connotation": "Positive",
+      "easy_synonym": "in safety",
+      "hindi_meaning": "खतरे से बाहर",
+      "mnemonic_trick": "Stepping 'out' of the direction where 'harm' is coming.",
+      "concise_meaning": "In a safe place where one cannot be hurt or damaged.",
+      "british_synonyms": [
+        "safe and sound",
+        "in safety",
+        "out of danger"
+      ],
+      "british_antonyms": [
+        "in harm's way",
+        "at risk",
+        "in jeopardy"
+      ]
+    },
+    {
+      "order_index": 21,
+      "word_or_phrase": "casualties",
+      "category": "One-Word Substitutions",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "victims",
+      "hindi_meaning": "हताहत / शिकार",
+      "mnemonic_trick": "Casualty refers to those who suffer accidental loss or death in a crisis.",
+      "concise_meaning": "Persons or things harmed, killed, or destroyed as a result of an event.",
+      "british_synonyms": [
+        "victims",
+        "fatalities",
+        "sufferers"
+      ],
+      "british_antonyms": [
+        "survivors",
+        "victors",
+        "beneficiaries"
+      ]
+    },
+    {
+      "order_index": 22,
+      "word_or_phrase": "vulnerable",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "at risk",
+      "hindi_meaning": "संवेदनशील / अतिसंवेदनशील",
+      "mnemonic_trick": "Vulnerable sounds like 'wound-able' — open to being hurt easily.",
+      "concise_meaning": "Exposed to the possibility of being attacked or harmed physically or emotionally.",
+      "british_synonyms": [
+        "susceptible",
+        "at risk",
+        "exposed"
+      ],
+      "british_antonyms": [
+        "invulnerable",
+        "resilient",
+        "protected"
+      ]
+    },
+    {
+      "order_index": 23,
       "word_or_phrase": "passive neglect",
       "category": "Idioms & Phrases",
       "part_of_speech": "Noun Phrase",
       "connotation": "Negative",
-      "easy_synonym": "apathetic disregard",
+      "easy_synonym": "inattention",
       "hindi_meaning": "निष्क्रिय उपेक्षा",
-      "mnemonic_trick": "Passive (doing nothing) + neglect (ignoring) = failure to act out of apathy.",
-      "concise_meaning": "Harm or disaster resulting from inaction, apathy, or failure to take preventive measures.",
+      "mnemonic_trick": "Neglect that occurs not out of active malice, but by failing to take proactive action.",
+      "concise_meaning": "Failure to provide proper care or attention due to inaction rather than deliberate harm.",
       "british_synonyms": [
-        "apathetic disregard",
-        "inaction",
-        "dereliction of duty"
+        "apathy",
+        "complacency",
+        "dereliction"
       ],
       "british_antonyms": [
-        "active vigilance",
-        "proactive management",
-        "attentiveness"
+        "proactive care",
+        "diligence",
+        "vigilance"
       ]
     }
   ]
@@ -448,14 +513,14 @@ Total Articles to Process: 3
 {
   "editorial_metadata": {
     "title": "New-age fires: On India’s ICU fire accidents",
-    "subtitle": "Urgent healthcare infrastructure reforms are essential to prevent recurring fatal fire accidents in Indian ICUs.",
+    "subtitle": "India must treat hospital ICU fires as distinct hazards requiring specialized electrical and safety protocols.",
     "author": "Editorial Board",
-    "topic": "Healthcare Infrastructure & Public Safety"
+    "topic": "Public Health & Infrastructure Safety"
   },
   "analysis": {
-    "tone": "Critical and Analytical",
-    "tone_simple_explanation": "urgently examining flaws",
-    "analysis_summary": "The author adopts a critical and analytical tone to highlight persistent regulatory and technical failures behind hospital fire tragedies in India. By detailing modern hazards like oxygen-rich ICU environments and electrical harmonics, the piece explains why traditional fire safety checks are inadequate. The author urges immediate regulatory reform and specialized evacuation protocols to safeguard vulnerable patients."
+    "tone": "Critical",
+    "tone_simple_explanation": "expresses strong disapproval",
+    "analysis_summary": "The author adopts a critical tone to scrutinise India's repeated failure to prevent fatal hospital fire disasters, particularly in neonatal ICUs. By highlighting structural oversights such as unaddressed electrical harmonics and poor evacuation infrastructure, the writer argues for treating ICU fires as a unique safety category. The article strongly advocates for mandatory electrical audits, specialized guidelines, and strict safety enforcement to prevent further tragic loss of life."
   },
   "editorial_vocabulary": [
     {
@@ -465,18 +530,18 @@ Total Articles to Process: 3
       "part_of_speech": "Verb",
       "connotation": "Negative",
       "easy_synonym": "continue",
-      "hindi_meaning": "बने रहना",
-      "mnemonic_trick": "Per (through) + sist (stand) — standing firm and continuing over time despite obstacles.",
-      "concise_meaning": "Continue to exist or occur over a prolonged period, particularly an undesirable hazard.",
+      "hindi_meaning": "बने रहना / कायम रहना",
+      "mnemonic_trick": "Per (throughout) + sist (stand) = to stand firm and continue despite attempts to stop it.",
+      "concise_meaning": "To continue to exist or endure stubbornly over a period of time.",
       "british_synonyms": [
         "endure",
-        "remain",
-        "linger"
+        "persevere",
+        "remain"
       ],
       "british_antonyms": [
         "cease",
         "discontinue",
-        "subside"
+        "halt"
       ]
     },
     {
@@ -487,8 +552,8 @@ Total Articles to Process: 3
       "connotation": "Neutral",
       "easy_synonym": "main",
       "hindi_meaning": "मुख्य / प्रबल",
-      "mnemonic_trick": "Pre (before) + dominant — holding the primary position over all other factors.",
-      "concise_meaning": "Present as the strongest, main, or most frequent cause in a situation.",
+      "mnemonic_trick": "Pre (before) + dominant (ruling) = the ruling or most common factor present.",
+      "concise_meaning": "Present as the strongest or main element in a given situation.",
       "british_synonyms": [
         "prevalent",
         "dominant",
@@ -497,7 +562,7 @@ Total Articles to Process: 3
       "british_antonyms": [
         "minor",
         "subordinate",
-        "infrequent"
+        "secondary"
       ]
     },
     {
@@ -506,19 +571,19 @@ Total Articles to Process: 3
       "category": "Vocabulary",
       "part_of_speech": "Adjective",
       "connotation": "Negative",
-      "easy_synonym": "unprotected",
-      "hindi_meaning": "अतिसंवेदनशील",
-      "mnemonic_trick": "Vulner (wound) + able — easily wounded or susceptible to harm.",
+      "easy_synonym": "defenceless",
+      "hindi_meaning": "संवेदनशील / अतिसंवेदनशील",
+      "mnemonic_trick": "Vulner (wound) + able = able to be wounded easily.",
       "concise_meaning": "Exposed to the possibility of being attacked or harmed, physically or emotionally.",
       "british_synonyms": [
         "susceptible",
         "exposed",
-        "defenceless"
+        "at-risk"
       ],
       "british_antonyms": [
-        "secure",
-        "protected",
-        "invulnerable"
+        "invulnerable",
+        "resilient",
+        "secure"
       ]
     },
     {
@@ -526,11 +591,11 @@ Total Articles to Process: 3
       "word_or_phrase": "Back-to-back",
       "category": "Idioms & Phrases",
       "part_of_speech": "Adjective",
-      "connotation": "Negative",
+      "connotation": "Neutral",
       "easy_synonym": "consecutive",
-      "hindi_meaning": "एक के बाद एक",
-      "mnemonic_trick": "Two events touching back-to-back without any gap or interval between them.",
-      "concise_meaning": "Happening one after another in immediate succession.",
+      "hindi_meaning": "लगातार / एक के बाद एक",
+      "mnemonic_trick": "Two events touching backs without any space or time gap in between.",
+      "concise_meaning": "Happening one after another without interruption.",
       "british_synonyms": [
         "consecutive",
         "successive",
@@ -544,141 +609,207 @@ Total Articles to Process: 3
     },
     {
       "order_index": 5,
-      "word_or_phrase": "Admitted because of",
-      "category": "Fixed Prepositions",
-      "part_of_speech": "Prepositional Phrase",
+      "word_or_phrase": "Neonatal",
+      "category": "One-Word Substitutions",
+      "part_of_speech": "Adjective",
       "connotation": "Neutral",
-      "easy_synonym": "hospitalised due to",
-      "hindi_meaning": "के कारण भर्ती",
-      "mnemonic_trick": "Admitted + because of — accepted into a medical facility on account of a specific health issue.",
-      "concise_meaning": "Received into medical care as a direct consequence of a specific medical complication.",
+      "easy_synonym": "newborn-related",
+      "hindi_meaning": "नवजात शिशु से संबंधित",
+      "mnemonic_trick": "Neo (new) + natal (relating to birth) = relating to newly born infants.",
+      "concise_meaning": "Relating to newborn children, especially during the first four weeks after birth.",
       "british_synonyms": [
-        "hospitalised owing to",
-        "received on account of",
-        "checked in due to"
+        "newborn",
+        "infant",
+        "baby"
       ],
       "british_antonyms": [
-        "discharged despite",
-        "released without"
+        "adult",
+        "geriatric",
+        "matured"
       ]
     },
     {
       "order_index": 6,
+      "word_or_phrase": "Claimed",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "took",
+      "hindi_meaning": "जान ले ली",
+      "mnemonic_trick": "A disaster claiming lives as if asserting ownership over them.",
+      "concise_meaning": "Caused the loss of life.",
+      "british_synonyms": [
+        "took",
+        "consumed",
+        "snuffed out"
+      ],
+      "british_antonyms": [
+        "saved",
+        "spared",
+        "preserved"
+      ]
+    },
+    {
+      "order_index": 7,
+      "word_or_phrase": "Put out",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Verb",
+      "connotation": "Positive",
+      "easy_synonym": "extinguish",
+      "hindi_meaning": "बुझाना",
+      "mnemonic_trick": "To put the fire out of existence.",
+      "concise_meaning": "To stop something from burning or shining.",
+      "british_synonyms": [
+        "extinguish",
+        "quench",
+        "douse"
+      ],
+      "british_antonyms": [
+        "ignite",
+        "kindle",
+        "spark"
+      ]
+    },
+    {
+      "order_index": 8,
+      "word_or_phrase": "Triggered",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "sparked",
+      "hindi_meaning": "उत्पन्न किया / भड़काया",
+      "mnemonic_trick": "Pulling the trigger on a gun causes an immediate explosion.",
+      "concise_meaning": "Caused an event or situation to happen or exist.",
+      "british_synonyms": [
+        "instigated",
+        "provoked",
+        "sparked"
+      ],
+      "british_antonyms": [
+        "prevented",
+        "stifled",
+        "suppressed"
+      ]
+    },
+    {
+      "order_index": 9,
       "word_or_phrase": "Wake-up call",
       "category": "Idioms & Phrases",
       "part_of_speech": "Noun",
       "connotation": "Neutral",
       "easy_synonym": "warning",
-      "hindi_meaning": "चेतावनी का संकेत",
-      "mnemonic_trick": "An alarm call that forces someone to wake up and take immediate action.",
-      "concise_meaning": "An event that alerts people to an unsatisfactory situation and signals the need for action.",
+      "hindi_meaning": "चेतावनी / आँखें खोलने वाली घटना",
+      "mnemonic_trick": "An alarm clock ringing to wake someone up to reality.",
+      "concise_meaning": "An event that acts as a caution or warning, causing people to take action.",
       "british_synonyms": [
-        "warning sign",
-        "eye-opener",
-        "alarm signal"
+        "warning bell",
+        "alert",
+        "eye-opener"
       ],
       "british_antonyms": [
-        "false comfort",
         "reassurance",
+        "pacification",
         "lullaby"
       ]
     },
     {
-      "order_index": 7,
-      "word_or_phrase": "New-age",
-      "category": "Idioms & Phrases",
+      "order_index": 10,
+      "word_or_phrase": "Distinct",
+      "category": "Vocabulary",
       "part_of_speech": "Adjective",
       "connotation": "Neutral",
-      "easy_synonym": "modern",
-      "hindi_meaning": "आधुनिक प्रकार के",
-      "mnemonic_trick": "Belonging to a new age or era, bringing modern and novel characteristics.",
-      "concise_meaning": "Characteristic of modern, contemporary, or newly emerging situations and hazards.",
+      "easy_synonym": "separate",
+      "hindi_meaning": "अलग / विशिष्ट",
+      "mnemonic_trick": "Distance makes two items look distinctly separate.",
+      "concise_meaning": "Recognisably different in nature from something else of a similar type.",
       "british_synonyms": [
-        "contemporary",
-        "modern-day",
-        "present-day"
+        "discrete",
+        "separate",
+        "individual"
       ],
       "british_antonyms": [
-        "traditional",
-        "old-fashioned",
-        "archaic"
-      ]
-    },
-    {
-      "order_index": 8,
-      "word_or_phrase": "Distinct category",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Neutral",
-      "easy_synonym": "separate class",
-      "hindi_meaning": "अलग श्रेणी",
-      "mnemonic_trick": "Distinct (clearly separate) + category (group) — a group requiring separate handling.",
-      "concise_meaning": "A separate class or division requiring specific and unique rules or treatment.",
-      "british_synonyms": [
-        "separate classification",
-        "discrete group",
-        "individual class"
-      ],
-      "british_antonyms": [
-        "general group",
-        "unified set"
-      ]
-    },
-    {
-      "order_index": 9,
-      "word_or_phrase": "Self-evacuate",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Verb",
-      "connotation": "Neutral",
-      "easy_synonym": "escape unassisted",
-      "hindi_meaning": "स्वयं बाहर निकलना",
-      "mnemonic_trick": "Self (alone) + evacuate (vacate) — escaping a dangerous zone by oneself without help.",
-      "concise_meaning": "To vacate a dangerous place without external assistance or rescue.",
-      "british_synonyms": [
-        "exit independently",
-        "escape unaided",
-        "vacate unassisted"
-      ],
-      "british_antonyms": [
-        "require rescue",
-        "be trapped",
-        "be extracted"
-      ]
-    },
-    {
-      "order_index": 10,
-      "word_or_phrase": "Horizontal evacuation",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Noun",
-      "connotation": "Neutral",
-      "easy_synonym": "sideways escape",
-      "hindi_meaning": "समान तल पर सुरक्षित स्थान स्थानांतरण",
-      "mnemonic_trick": "Horizontal (flat level) + evacuation — moving sideways on the same floor level during an emergency.",
-      "concise_meaning": "Moving individuals away from danger to a safe compartment on the same floor level.",
-      "british_synonyms": [
-        "lateral displacement",
-        "same-level relocation",
-        "flat-plane rescue"
-      ],
-      "british_antonyms": [
-        "vertical evacuation",
-        "stairwell descent"
+        "identical",
+        "similar",
+        "indistinguishable"
       ]
     },
     {
       "order_index": 11,
+      "word_or_phrase": "Sealed compartments",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "airtight enclosures",
+      "hindi_meaning": "सीलबंद कक्ष",
+      "mnemonic_trick": "Sealed box with no vents or escape routes for smoke.",
+      "concise_meaning": "Enclosed spaces designed to prevent air or gas from escaping or entering.",
+      "british_synonyms": [
+        "airtight chambers",
+        "enclosed spaces",
+        "hermetic zones"
+      ],
+      "british_antonyms": [
+        "open spaces",
+        "ventilated areas",
+        "outdoors"
+      ]
+    },
+    {
+      "order_index": 12,
+      "word_or_phrase": "Self-evacuate",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "escape unassisted",
+      "hindi_meaning": "स्वयं बाहर निकलना",
+      "mnemonic_trick": "Self (alone) + evacuate (empty out) = escaping a dangerous area by oneself.",
+      "concise_meaning": "To move oneself out of a dangerous place or situation independently.",
+      "british_synonyms": [
+        "escape independently",
+        "self-exit",
+        "flee unassisted"
+      ],
+      "british_antonyms": [
+        "require rescue",
+        "remain trapped",
+        "await assistance"
+      ]
+    },
+    {
+      "order_index": 13,
+      "word_or_phrase": "Horizontal evacuation",
+      "category": "One-Word Substitutions",
+      "part_of_speech": "Noun",
+      "connotation": "Positive",
+      "easy_synonym": "lateral escape",
+      "hindi_meaning": "क्षैतिज निकासी (एक ही तल पर सुरक्षित स्थान पर जाना)",
+      "mnemonic_trick": "Moving horizontally across the same floor instead of down vertical stairs.",
+      "concise_meaning": "Moving victims sideways into a safe area on the same floor level.",
+      "british_synonyms": [
+        "lateral relocation",
+        "same-floor movement",
+        "sideways escape"
+      ],
+      "british_antonyms": [
+        "vertical evacuation",
+        "stairwell exit",
+        "descent"
+      ]
+    },
+    {
+      "order_index": 14,
       "word_or_phrase": "Away from",
       "category": "Fixed Prepositions",
-      "part_of_speech": "Prepositional Phrase",
+      "part_of_speech": "Preposition",
       "connotation": "Neutral",
-      "easy_synonym": "distant from",
+      "easy_synonym": "apart from",
       "hindi_meaning": "से दूर",
-      "mnemonic_trick": "Away (at a distance) + from — keeping physical separation from danger.",
-      "concise_meaning": "Positioned at a safe physical distance from a specified hazard or object.",
+      "mnemonic_trick": "Creating spatial distance away from a hazard.",
+      "concise_meaning": "At a distance from a particular place, object, or person.",
       "british_synonyms": [
         "distant from",
-        "clear of",
-        "removed from"
+        "apart from",
+        "separated from"
       ],
       "british_antonyms": [
         "adjacent to",
@@ -687,161 +818,187 @@ Total Articles to Process: 3
       ]
     },
     {
-      "order_index": 12,
-      "word_or_phrase": "Mandatory",
-      "category": "Vocabulary",
-      "part_of_speech": "Adjective",
-      "connotation": "Neutral",
-      "easy_synonym": "compulsory",
-      "hindi_meaning": "अनिवार्य",
-      "mnemonic_trick": "Mandate (an official order) — something enforced by law or regulation.",
-      "concise_meaning": "Required by law or official rules; compulsory.",
-      "british_synonyms": [
-        "compulsory",
-        "obligatory",
-        "statutory"
-      ],
-      "british_antonyms": [
-        "optional",
-        "voluntary",
-        "discretionary"
-      ]
-    },
-    {
-      "order_index": 13,
-      "word_or_phrase": "Protocol",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Neutral",
-      "easy_synonym": "procedure",
-      "hindi_meaning": "कार्यप्रणाली / नियम",
-      "mnemonic_trick": "Proto (first) + col (draft) — established rules governing official procedures.",
-      "concise_meaning": "The official system of rules and procedures governing safety or administrative actions.",
-      "british_synonyms": [
-        "procedure",
-        "guidelines",
-        "code of practice"
-      ],
-      "british_antonyms": [
-        "improvisation",
-        "informality",
-        "chaos"
-      ]
-    },
-    {
-      "order_index": 14,
-      "word_or_phrase": "RACE",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Noun",
-      "connotation": "Positive",
-      "easy_synonym": "fire safety steps",
-      "hindi_meaning": "अग्नि सुरक्षा अनुक्रम",
-      "mnemonic_trick": "Acronym for Rescue, Alarm, Confine, Extinguish/Evacuate — racing to stop fire hazards.",
-      "concise_meaning": "A standard acronym detailing emergency fire response steps: Rescue, Alarm, Confine, Extinguish/Evacuate.",
-      "british_synonyms": [
-        "fire response sequence",
-        "emergency safety drill",
-        "action code"
-      ],
-      "british_antonyms": [
-        "unstructured response"
-      ]
-    },
-    {
       "order_index": 15,
-      "word_or_phrase": "Starting point",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Noun",
-      "connotation": "Positive",
-      "easy_synonym": "foundation",
-      "hindi_meaning": "शुरुआती बिंदु / आधार",
-      "mnemonic_trick": "The location or step where a long process or journey begins.",
-      "concise_meaning": "A initial foundation or basis from which further action or progress can be made.",
+      "word_or_phrase": "Called for",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "demanded",
+      "hindi_meaning": "माँग की",
+      "mnemonic_trick": "To call out publicly for something that is urgently needed.",
+      "concise_meaning": "Publicly demanded or required a particular action.",
       "british_synonyms": [
-        "baseline",
-        "foundation",
-        "springboard"
+        "demanded",
+        "urged",
+        "advocated"
       ],
       "british_antonyms": [
-        "endpoint",
-        "conclusion",
-        "culmination"
+        "opposed",
+        "rejected",
+        "discouraged"
       ]
     },
     {
       "order_index": 16,
-      "word_or_phrase": "Electrical harmonics",
-      "category": "Vocabulary",
+      "word_or_phrase": "Evacuation protocol",
+      "category": "Idioms & Phrases",
       "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "power distortion",
-      "hindi_meaning": "विद्युत तरंगों का विकृति",
-      "mnemonic_trick": "Harmonics create unwanted extra waves in electrical current that silently cause thermal buildup.",
-      "concise_meaning": "Distortions in voltage or current caused by complex electronic loads, leading to silent overheating.",
+      "connotation": "Neutral",
+      "easy_synonym": "escape procedure",
+      "hindi_meaning": "निकासी नियम / कार्यविधि",
+      "mnemonic_trick": "Protocol (set rule) for evacuation (clearing people out).",
+      "concise_meaning": "A predefined step-by-step procedure for safely exiting a building during an emergency.",
       "british_synonyms": [
-        "current distortion",
-        "power wave disruption",
-        "line noise"
+        "emergency procedure",
+        "exit drill",
+        "safety plan"
       ],
       "british_antonyms": [
-        "pure sine wave",
-        "linear electrical load"
+        "disorganisation",
+        "chaos",
+        "improvisation"
       ]
     },
     {
       "order_index": 17,
-      "word_or_phrase": "Distorted current",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "unstable electrical flow",
-      "hindi_meaning": "विकृत विद्युत धारा",
-      "mnemonic_trick": "Distorted (twisted) + current — electrical power flow deviating from its natural smooth wave.",
-      "concise_meaning": "An irregular electrical current flow altered from its normal sinusoidal waveform.",
+      "word_or_phrase": "Beyond all this",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Prepositional Phrase",
+      "connotation": "Neutral",
+      "easy_synonym": "furthermore",
+      "hindi_meaning": "इन सब के अलावा",
+      "mnemonic_trick": "Looking beyond the surface factors to find a deeper root cause.",
+      "concise_meaning": "In addition to or past the factors already mentioned.",
       "british_synonyms": [
-        "irregular supply",
-        "corrupted current",
-        "non-linear current"
+        "over and above",
+        "furthermore",
+        "apart from this"
       ],
       "british_antonyms": [
-        "smooth current",
-        "regular current"
+        "underneath",
+        "excluding",
+        "within"
       ]
     },
     {
       "order_index": 18,
-      "word_or_phrase": "Tripping a breaker",
-      "category": "Phrasal Verbs",
-      "part_of_speech": "Verb",
-      "connotation": "Neutral",
-      "easy_synonym": "cutting off safety switch",
-      "hindi_meaning": "सर्किट ब्रेकर का बंद होना",
-      "mnemonic_trick": "To trip (trigger) a circuit breaker into cutting off dangerous power automatically.",
-      "concise_meaning": "Automatically interrupting an electrical circuit to stop an excessive power flow.",
+      "word_or_phrase": "Electrical harmonics",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "power distortions",
+      "hindi_meaning": "विद्युत हार्मोनिक्स (वोल्टेज/करंट की गड़बड़ी)",
+      "mnemonic_trick": "Harmonics in sound warp music; electrical harmonics warp current, creating heat.",
+      "concise_meaning": "Distortions in electric current caused by electronic devices, leading to silent wiring overheating.",
       "british_synonyms": [
-        "activating safety cut-off",
-        "disconnecting power",
-        "breaking the circuit"
+        "current distortion",
+        "waveform fluctuation",
+        "power pollution"
       ],
       "british_antonyms": [
-        "engaging power",
-        "closing circuit"
+        "pure waveform",
+        "stable frequency",
+        "clean current"
       ]
     },
     {
       "order_index": 19,
+      "word_or_phrase": "Packed with",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Preposition",
+      "connotation": "Neutral",
+      "easy_synonym": "filled with",
+      "hindi_meaning": "से भरा हुआ",
+      "mnemonic_trick": "Packed tight inside a small box with no extra room.",
+      "concise_meaning": "Containing a large amount or number of something in a dense manner.",
+      "british_synonyms": [
+        "crammed with",
+        "laden with",
+        "replete with"
+      ],
+      "british_antonyms": [
+        "devoid of",
+        "lacking in",
+        "empty of"
+      ]
+    },
+    {
+      "order_index": 20,
+      "word_or_phrase": "Distorted",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "warped",
+      "hindi_meaning": "विकृत / बिगड़ा हुआ",
+      "mnemonic_trick": "Dis (away from) + tort (twist) = twisted away from its normal shape.",
+      "concise_meaning": "Pulled out of normal shape, state, or regular electrical waveform.",
+      "british_synonyms": [
+        "warped",
+        "deformed",
+        "altered"
+      ],
+      "british_antonyms": [
+        "pristine",
+        "unaltered",
+        "uniform"
+      ]
+    },
+    {
+      "order_index": 21,
+      "word_or_phrase": "Tripping a breaker",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "cutting power",
+      "hindi_meaning": "सर्किट ब्रेकर का ट्रिप होना (बिजली कटना)",
+      "mnemonic_trick": "Tripping over a switch to automatically break the electricity circuit.",
+      "concise_meaning": "Activating an automatic safety switch to interrupt an electrical circuit during an overload.",
+      "british_synonyms": [
+        "blowing a fuse",
+        "activating a cut-off",
+        "breaking circuit"
+      ],
+      "british_antonyms": [
+        "conducting current",
+        "maintaining power",
+        "energising"
+      ]
+    },
+    {
+      "order_index": 22,
+      "word_or_phrase": "Citing",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "quoting",
+      "hindi_meaning": "हवाला देते हुए / उल्लेख करते हुए",
+      "mnemonic_trick": "Sight (see) -> Cite (pointing to something for proof).",
+      "concise_meaning": "Referring to or quoting a reason or cause as evidence.",
+      "british_synonyms": [
+        "quoting",
+        "referencing",
+        "mentioning"
+      ],
+      "british_antonyms": [
+        "ignoring",
+        "disregarding",
+        "omitting"
+      ]
+    },
+    {
+      "order_index": 23,
       "word_or_phrase": "Degradation",
       "category": "Vocabulary",
       "part_of_speech": "Noun",
       "connotation": "Negative",
       "easy_synonym": "deterioration",
-      "hindi_meaning": "क्षरण / गिरावट",
-      "mnemonic_trick": "De (down) + grade (step) — stepping down in quality, physical strength, or condition.",
-      "concise_meaning": "The process by which the condition or structural integrity of something worsens over time.",
+      "hindi_meaning": "गिरावट / ह्रास",
+      "mnemonic_trick": "De (down) + grade = falling down in grade or quality.",
+      "concise_meaning": "The process of something deteriorating or being damaged in quality or condition.",
       "british_synonyms": [
         "deterioration",
-        "decline",
-        "impairment"
+        "decay",
+        "decline"
       ],
       "british_antonyms": [
         "improvement",
@@ -850,19 +1007,19 @@ Total Articles to Process: 3
       ]
     },
     {
-      "order_index": 20,
+      "order_index": 24,
       "word_or_phrase": "Unaudited",
       "category": "Vocabulary",
       "part_of_speech": "Adjective",
       "connotation": "Negative",
       "easy_synonym": "unchecked",
-      "hindi_meaning": "जिसकी जाँच न की गई हो",
-      "mnemonic_trick": "Un (not) + audited (inspected) — lacking official safety examination.",
-      "concise_meaning": "Not having been officially inspected, reviewed, or verified against statutory safety rules.",
+      "hindi_meaning": "अलेखापरीक्षित / बिना जाँच किया हुआ",
+      "mnemonic_trick": "Un (not) + audited (inspected) = not officially inspected or checked.",
+      "concise_meaning": "Not having been officially inspected or reviewed for compliance or safety.",
       "british_synonyms": [
         "unchecked",
         "uninspected",
-        "unverified"
+        "unexamined"
       ],
       "british_antonyms": [
         "audited",
@@ -876,77 +1033,644 @@ Total Articles to Process: 3
 
 ---
 
-## 📰 Editorial 3: Economy is resilient, but risks remain
+## 📰 Editorial 3: Express View on Nepal floods: Himalaya needs shared early-warning system
 ```json
 {
   "editorial_metadata": {
-    "title": "Economy is resilient, but risks remain",
-    "subtitle": "India's domestic economic momentum stays resilient despite looming global uncertainties and persistent headwinds.",
+    "title": "Express View on Nepal floods: Himalaya needs shared early-warning system",
+    "subtitle": "Cross-border disaster management and shared early-warning networks are vital to protect Himalayan communities.",
     "author": "Editorial Board",
-    "topic": "Macroeconomics & Fiscal Policy"
+    "topic": "Disaster Management & Environment"
   },
   "analysis": {
-    "tone": "Cautiously Optimistic",
-    "tone_simple_explanation": "hopeful yet vigilant",
-    "analysis_summary": "The author adopts a cautiously optimistic tone to evaluate India's economic growth momentum against global financial instability. While key domestic indicators show strong resilience, the passage highlights significant external threats such as trade disruptions and energy price volatility. Consequently, the author emphasizes the need for calibrated policy choices to safeguard domestic growth."
+    "tone": "Exhortative",
+    "tone_simple_explanation": "strongly urging action",
+    "analysis_summary": "The author adopts an urgent, exhortative tone to highlight the extreme climate vulnerabilities across the Himalayan region following severe floods in Nepal. By comparing recent disasters in India and Nepal, the editorial argues that localized relief work is insufficient. The author firmly advocates that India and China must move beyond diplomatic differences to build shared early-warning systems."
   },
   "editorial_vocabulary": [
     {
       "order_index": 1,
-      "word_or_phrase": "Held up",
-      "category": "Phrasal Verbs",
+      "word_or_phrase": "unfolding",
+      "category": "Vocabulary",
       "part_of_speech": "Verb",
-      "connotation": "Positive",
-      "easy_synonym": "remained strong",
-      "hindi_meaning": "टिके रहना",
-      "mnemonic_trick": "Think of someone holding up a heavy roof — staying strong under pressure.",
-      "concise_meaning": "Maintained strength, stability, or position during a challenging period.",
+      "connotation": "Neutral",
+      "easy_synonym": "developing",
+      "hindi_meaning": "घटित होना",
+      "mnemonic_trick": "Think of un-folding a map to reveal what is developing step by step.",
+      "concise_meaning": "Developing or revealing itself gradually over time.",
       "british_synonyms": [
-        "endured",
-        "persisted",
-        "withstood"
+        "developing",
+        "transpiring",
+        "emerging"
       ],
       "british_antonyms": [
-        "faltered",
-        "collapsed",
-        "succumbed"
+        "ceasing",
+        "ending",
+        "concluding"
       ]
     },
     {
       "order_index": 2,
-      "word_or_phrase": "Reinforced",
+      "word_or_phrase": "fragility",
       "category": "Vocabulary",
-      "part_of_speech": "Verb",
-      "connotation": "Positive",
-      "easy_synonym": "strengthened",
-      "hindi_meaning": "सुदृढ़ किया",
-      "mnemonic_trick": "Re + Inforce -> Sending extra forces in to make a structure or claim stronger.",
-      "concise_meaning": "Strengthened or supported an argument, belief, structure, or position.",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "weakness",
+      "hindi_meaning": "नाज़ुकपन",
+      "mnemonic_trick": "Fragile glass breaks easily; fragility is the quality of being easily damaged.",
+      "concise_meaning": "The quality of being easily broken, damaged, or disrupted.",
       "british_synonyms": [
-        "fortified",
-        "bolstered",
-        "buttressed"
+        "vulnerability",
+        "delicacy",
+        "frailty"
       ],
       "british_antonyms": [
-        "undermined",
-        "weakened",
-        "diminished"
+        "robustness",
+        "resilience",
+        "sturdiness"
       ]
     },
     {
       "order_index": 3,
-      "word_or_phrase": "Emanating from",
-      "category": "Fixed Prepositions",
+      "word_or_phrase": "The jury is out on",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Idiom",
+      "connotation": "Neutral",
+      "easy_synonym": "undecided",
+      "hindi_meaning": "अभी फैसला नहीं हुआ है",
+      "mnemonic_trick": "When a court jury leaves to deliberate, a final decision has not yet been reached.",
+      "concise_meaning": "A definitive answer or conclusion has not yet been reached.",
+      "british_synonyms": [
+        "undecided",
+        "unresolved",
+        "in doubt"
+      ],
+      "british_antonyms": [
+        "settled",
+        "decided",
+        "conclusive"
+      ]
+    },
+    {
+      "order_index": 4,
+      "word_or_phrase": "obstructed",
+      "category": "Vocabulary",
       "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "blocked",
+      "hindi_meaning": "बाधित किया",
+      "mnemonic_trick": "An obstacle places a block in front of path; obstructed means blocked.",
+      "concise_meaning": "Blocked or hindered the movement or passage of something.",
+      "british_synonyms": [
+        "blocked",
+        "impeded",
+        "clogged"
+      ],
+      "british_antonyms": [
+        "cleared",
+        "unblocked",
+        "facilitated"
+      ]
+    },
+    {
+      "order_index": 5,
+      "word_or_phrase": "surge",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "rush",
+      "hindi_meaning": "तेज उछाल",
+      "mnemonic_trick": "Think of an electrical surge—a sudden, forceful flow of energy or water.",
+      "concise_meaning": "A sudden powerful forward or upward movement.",
+      "british_synonyms": [
+        "gush",
+        "outpouring",
+        "rush"
+      ],
+      "british_antonyms": [
+        "recession",
+        "ebbing",
+        "dwindling"
+      ]
+    },
+    {
+      "order_index": 6,
+      "word_or_phrase": "cascading",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "tumbling",
+      "hindi_meaning": "नीचे गिरता हुआ",
+      "mnemonic_trick": "A cascade is a waterfall; cascading debris tumbles downward continuously.",
+      "concise_meaning": "Pouring or tumbling downward rapidly in large quantities.",
+      "british_synonyms": [
+        "tumbling",
+        "plunging",
+        "pouring"
+      ],
+      "british_antonyms": [
+        "ascending",
+        "rising",
+        "stagnant"
+      ]
+    },
+    {
+      "order_index": 7,
+      "word_or_phrase": "out of harm’s way",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Idiom",
+      "connotation": "Positive",
+      "easy_synonym": "safe",
+      "hindi_meaning": "सुरक्षित स्थान पर",
+      "mnemonic_trick": "Stepping out of the path of harm means staying safe.",
+      "concise_meaning": "In a position or place where one cannot be injured or damaged.",
+      "british_synonyms": [
+        "safe",
+        "secure",
+        "out of danger"
+      ],
+      "british_antonyms": [
+        "in danger",
+        "exposed",
+        "vulnerable"
+      ]
+    },
+    {
+      "order_index": 8,
+      "word_or_phrase": "vulnerability to",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Prepositional Phrase",
+      "connotation": "Negative",
+      "easy_synonym": "susceptibility to",
+      "hindi_meaning": "के प्रति संवेदनशीलता",
+      "mnemonic_trick": "Vulnerable is always followed by 'to' when indicating exposure to danger.",
+      "concise_meaning": "State of being open to physical or emotional harm or damage from something.",
+      "british_synonyms": [
+        "susceptibility to",
+        "exposure to",
+        "defencelessness against"
+      ],
+      "british_antonyms": [
+        "immunity to",
+        "protection from",
+        "resistance to"
+      ]
+    },
+    {
+      "order_index": 9,
+      "word_or_phrase": "vagaries",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "unpredictable changes",
+      "hindi_meaning": "अनिश्चितता",
+      "mnemonic_trick": "Vague + vary = vagaries (unpredictable shifts that leave outcomes vague).",
+      "concise_meaning": "Unexpected and inexplicable changes in a situation or environment.",
+      "british_synonyms": [
+        "caprices",
+        "whims",
+        "fluctuations"
+      ],
+      "british_antonyms": [
+        "predictability",
+        "consistency",
+        "stability"
+      ]
+    },
+    {
+      "order_index": 10,
+      "word_or_phrase": "alien to",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Prepositional Phrase",
+      "connotation": "Neutral",
+      "easy_synonym": "unfamiliar to",
+      "hindi_meaning": "अपरिचित",
+      "mnemonic_trick": "An alien is unfamiliar; 'alien to' means strange or unknown to a place.",
+      "concise_meaning": "Unfamiliar, strange, or unknown to a specific place or domain.",
+      "british_synonyms": [
+        "unfamiliar to",
+        "foreign to",
+        "unusual in"
+      ],
+      "british_antonyms": [
+        "familiar to",
+        "common to",
+        "native to"
+      ]
+    },
+    {
+      "order_index": 11,
+      "word_or_phrase": "exceptionally",
+      "category": "Vocabulary",
+      "part_of_speech": "Adverb",
+      "connotation": "Neutral",
+      "easy_synonym": "unusually",
+      "hindi_meaning": "असाधारण रूप से",
+      "mnemonic_trick": "Exception + ally = acting as an exception to the normal rule.",
+      "concise_meaning": "To a much greater degree than normal; unusually or remarkably.",
+      "british_synonyms": [
+        "unusually",
+        "extraordinarily",
+        "remarkably"
+      ],
+      "british_antonyms": [
+        "normally",
+        "typically",
+        "ordinarily"
+      ]
+    },
+    {
+      "order_index": 12,
+      "word_or_phrase": "triggered",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "caused",
+      "hindi_meaning": "उत्प्रेरित किया",
+      "mnemonic_trick": "Pulling a trigger sets off a sudden cascade of events.",
+      "concise_meaning": "Caused an event or situation to happen or exist.",
+      "british_synonyms": [
+        "provoked",
+        "instigated",
+        "precipitated"
+      ],
+      "british_antonyms": [
+        "halted",
+        "suppressed",
+        "prevented"
+      ]
+    },
+    {
+      "order_index": 13,
+      "word_or_phrase": "debris",
+      "category": "One-Word Substitutions",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "rubble",
+      "hindi_meaning": "मलबा",
+      "mnemonic_trick": "De-bris sounds like fragments scattered after a destruction.",
+      "concise_meaning": "Scattered fragments of wreckage or loose geological material.",
+      "british_synonyms": [
+        "rubble",
+        "detritus",
+        "wreckage"
+      ],
+      "british_antonyms": [
+        "cleanliness",
+        "neatness",
+        "purity"
+      ]
+    },
+    {
+      "order_index": 14,
+      "word_or_phrase": "avalanche",
+      "category": "One-Word Substitutions",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "landslide",
+      "hindi_meaning": "हिमस्खलन",
+      "mnemonic_trick": "Ava-launch: ice and snow launching down a mountain slope.",
+      "concise_meaning": "A massive fall of snow, ice, and rock down a mountainside.",
+      "british_synonyms": [
+        "snowslide",
+        "landslide",
+        "rockfall"
+      ],
+      "british_antonyms": [
+        "accumulation",
+        "gathering",
+        "stability"
+      ]
+    },
+    {
+      "order_index": 15,
+      "word_or_phrase": "crucial",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Positive",
+      "easy_synonym": "vital",
+      "hindi_meaning": "महत्वपूर्ण",
+      "mnemonic_trick": "Crux means core point; crucial means essential to the main outcome.",
+      "concise_meaning": "Extremely important or decisive for the success or outcome of something.",
+      "british_synonyms": [
+        "critical",
+        "vital",
+        "pivotal"
+      ],
+      "british_antonyms": [
+        "trivial",
+        "unimportant",
+        "insignificant"
+      ]
+    },
+    {
+      "order_index": 16,
+      "word_or_phrase": "erode",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "wear away",
+      "hindi_meaning": "कटान करना",
+      "mnemonic_trick": "E-rode: a road gradually worn down by water over time.",
+      "concise_meaning": "Gradually wear away soil, rock, or land through natural forces.",
+      "british_synonyms": [
+        "corrode",
+        "wear away",
+        "abrade"
+      ],
+      "british_antonyms": [
+        "build up",
+        "construct",
+        "reinforce"
+      ]
+    },
+    {
+      "order_index": 17,
+      "word_or_phrase": "limited to",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Prepositional Phrase",
+      "connotation": "Neutral",
+      "easy_synonym": "restricted to",
+      "hindi_meaning": "तक सीमित",
+      "mnemonic_trick": "Limit + to: setting a strict boundary up to a certain point.",
+      "concise_meaning": "Restricted or kept within specific boundaries or scope.",
+      "british_synonyms": [
+        "restricted to",
+        "confined to",
+        "bounded by"
+      ],
+      "british_antonyms": [
+        "unrestricted by",
+        "boundless",
+        "infinite"
+      ]
+    },
+    {
+      "order_index": 18,
+      "word_or_phrase": "permafrost",
+      "category": "One-Word Substitutions",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "frozen ground",
+      "hindi_meaning": "स्थायी तुषार-भूमि",
+      "mnemonic_trick": "Permanent + frost = soil layer that stays frozen continuously.",
+      "concise_meaning": "A subsoil layer that remains frozen throughout the year.",
+      "british_synonyms": [
+        "frozen subsoil",
+        "frozen ground",
+        "ice-bound earth"
+      ],
+      "british_antonyms": [
+        "thawed ground",
+        "molten soil",
+        "warm earth"
+      ]
+    },
+    {
+      "order_index": 19,
+      "word_or_phrase": "brings together",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Phrasal Verb",
+      "connotation": "Positive",
+      "easy_synonym": "unites",
+      "hindi_meaning": "एक साथ लाना",
+      "mnemonic_trick": "Bring + together = gathering diverse groups into a joint effort.",
+      "concise_meaning": "Causes people, agencies, or nations to join or collaborate.",
+      "british_synonyms": [
+        "assembles",
+        "unites",
+        "convenes"
+      ],
+      "british_antonyms": [
+        "disperses",
+        "separates",
+        "divides"
+      ]
+    },
+    {
+      "order_index": 20,
+      "word_or_phrase": "scaled up",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Phrasal Verb",
+      "connotation": "Positive",
+      "easy_synonym": "expanded",
+      "hindi_meaning": "विस्तारित किया गया",
+      "mnemonic_trick": "Climbing up a scale means increasing the magnitude of operations.",
+      "concise_meaning": "Increased in size, extent, or capacity to handle greater demand.",
+      "british_synonyms": [
+        "expanded",
+        "enlarged",
+        "amplified"
+      ],
+      "british_antonyms": [
+        "scaled down",
+        "reduced",
+        "contracted"
+      ]
+    },
+    {
+      "order_index": 21,
+      "word_or_phrase": "geopolitical",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Neutral",
+      "easy_synonym": "regional political",
+      "hindi_meaning": "भू-राजनीतिक",
+      "mnemonic_trick": "Geo (geography) + political = politics shaped by geographic factors.",
+      "concise_meaning": "Relating to international politics as influenced by geographical factors.",
+      "british_synonyms": [
+        "territorial-political",
+        "strategic",
+        "geo-strategic"
+      ],
+      "british_antonyms": [
+        "apolitical",
+        "domestic",
+        "local"
+      ]
+    },
+    {
+      "order_index": 22,
+      "word_or_phrase": "on the same page",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Idiom",
+      "connotation": "Positive",
+      "easy_synonym": "in agreement",
+      "hindi_meaning": "एक ही विचार होना",
+      "mnemonic_trick": "Reading from the same page means sharing identical understanding.",
+      "concise_meaning": "Thinking in a similar way and sharing identical goals or views.",
+      "british_synonyms": [
+        "in agreement",
+        "of one mind",
+        "aligned"
+      ],
+      "british_antonyms": [
+        "at odds",
+        "in disagreement",
+        "conflicting"
+      ]
+    },
+    {
+      "order_index": 23,
+      "word_or_phrase": "imperatives",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "priorities",
+      "hindi_meaning": "प्राथमिकताएं",
+      "mnemonic_trick": "Imperative commands demand action; imperatives are essential priorities.",
+      "concise_meaning": "Vital duties, priorities, or needs that require immediate action.",
+      "british_synonyms": [
+        "priorities",
+        "necessities",
+        "requirements"
+      ],
+      "british_antonyms": [
+        "luxuries",
+        "optionals",
+        "trivialities"
+      ]
+    },
+    {
+      "order_index": 24,
+      "word_or_phrase": "translated into",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Phrasal Verb",
+      "connotation": "Positive",
+      "easy_synonym": "converted into",
+      "hindi_meaning": "में परिवर्तित करना",
+      "mnemonic_trick": "Translating words into actions means turning ideas into practical output.",
+      "concise_meaning": "Converted or transformed into a practical form or concrete result.",
+      "british_synonyms": [
+        "converted into",
+        "transformed into",
+        "turned into"
+      ],
+      "british_antonyms": [
+        "kept abstract",
+        "dissociated from",
+        "reverted from"
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## 📰 Editorial 4: Economy is resilient, but risks remain
+```json
+{
+  "editorial_metadata": {
+    "title": "Economy is resilient, but risks remain",
+    "subtitle": "Indian economic growth shows strong resilience despite persistent global headwinds and trade uncertainties.",
+    "author": "Editorial Board",
+    "topic": "Macroeconomics & Financial Policy"
+  },
+  "analysis": {
+    "tone": "Cautiously Optimistic",
+    "tone_simple_explanation": "hopeful yet careful",
+    "analysis_summary": "The author adopts a cautiously optimistic tone to acknowledge India's robust domestic economic indicators while highlighting external vulnerabilities. While domestic consumption and industrial activity show strong growth momentum, global trade headwinds and energy price volatility require continuous vigilance. The article concludes that prudent, calibrated economic management is essential for long-term stability."
+  },
+  "editorial_vocabulary": [
+    {
+      "order_index": 1,
+      "word_or_phrase": "underlying",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Neutral",
+      "easy_synonym": "fundamental",
+      "hindi_meaning": "अंतर्निहित",
+      "mnemonic_trick": "Under + lying = lying beneath the surface, forming the real base.",
+      "concise_meaning": "Forming the foundation or basic structure of something.",
+      "british_synonyms": [
+        "fundamental",
+        "intrinsic",
+        "basal"
+      ],
+      "british_antonyms": [
+        "superficial",
+        "overt",
+        "surface"
+      ]
+    },
+    {
+      "order_index": 2,
+      "word_or_phrase": "held up",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Phrasal Verb",
+      "connotation": "Positive",
+      "easy_synonym": "remained strong",
+      "hindi_meaning": "टिका रहना",
+      "mnemonic_trick": "Held + up = holding its position up high despite pressure.",
+      "concise_meaning": "Remained strong, stable, or sustained despite difficulties.",
+      "british_synonyms": [
+        "endured",
+        "persisted",
+        "sustained"
+      ],
+      "british_antonyms": [
+        "faltered",
+        "collapsed",
+        "declined"
+      ]
+    },
+    {
+      "order_index": 3,
+      "word_or_phrase": "reinforced",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Positive",
+      "easy_synonym": "strengthened",
+      "hindi_meaning": "सुदृढ़ करना",
+      "mnemonic_trick": "Re + force = adding force again to make a position stronger.",
+      "concise_meaning": "Strengthened or supported with additional information or evidence.",
+      "british_synonyms": [
+        "buttressed",
+        "fortified",
+        "bolstered"
+      ],
+      "british_antonyms": [
+        "undermined",
+        "weakened",
+        "impaired"
+      ]
+    },
+    {
+      "order_index": 4,
+      "word_or_phrase": "clouded with",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Fixed Preposition",
+      "connotation": "Negative",
+      "easy_synonym": "shadowed by",
+      "hindi_meaning": "अनिश्चितता से घिरा होना",
+      "mnemonic_trick": "Dark clouds covering the sky and hiding clarity.",
+      "concise_meaning": "Rendered uncertain, obscure, or troubled by specific negative factors.",
+      "british_synonyms": [
+        "obscured by",
+        "shadowed by",
+        "tarnished by"
+      ],
+      "british_antonyms": [
+        "cleared of",
+        "brightened by",
+        "illuminated by"
+      ]
+    },
+    {
+      "order_index": 5,
+      "word_or_phrase": "emanating from",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Fixed Preposition",
       "connotation": "Neutral",
       "easy_synonym": "originating from",
-      "hindi_meaning": "उत्पन्न होना",
-      "mnemonic_trick": "Emanate sounds like 'emission' — radiating outward from a central source.",
-      "concise_meaning": "Originating, issuing, or spreading out from a specific source.",
+      "hindi_meaning": "से उत्पन्न होना",
+      "mnemonic_trick": "Emission coming out from a single central source.",
+      "concise_meaning": "Originating, issuing, or proceeding from a specific source.",
       "british_synonyms": [
         "originating from",
-        "arising from",
-        "stemming from"
+        "stemming from",
+        "arising from"
       ],
       "british_antonyms": [
         "terminating in",
@@ -955,19 +1679,19 @@ Total Articles to Process: 3
       ]
     },
     {
-      "order_index": 4,
-      "word_or_phrase": "Volatile",
+      "order_index": 6,
+      "word_or_phrase": "volatile",
       "category": "Vocabulary",
       "part_of_speech": "Adjective",
       "connotation": "Negative",
       "easy_synonym": "unpredictable",
       "hindi_meaning": "अस्थिर",
-      "mnemonic_trick": "Think of a volcano (vol-atile) — liable to erupt suddenly and unpredictably.",
+      "mnemonic_trick": "Volatile liquids evaporate rapidly and react unexpectedly.",
       "concise_meaning": "Liable to change rapidly and unpredictably, especially for the worse.",
       "british_synonyms": [
         "erratic",
-        "unstable",
-        "turbulent"
+        "capricious",
+        "unstable"
       ],
       "british_antonyms": [
         "stable",
@@ -976,39 +1700,18 @@ Total Articles to Process: 3
       ]
     },
     {
-      "order_index": 5,
-      "word_or_phrase": "Firm",
-      "category": "Vocabulary",
-      "part_of_speech": "Adjective",
-      "connotation": "Positive",
-      "easy_synonym": "steady",
-      "hindi_meaning": "मजबूत",
-      "mnemonic_trick": "Think of a firm handshake — solid, steady, and showing strength.",
-      "concise_meaning": "Strong, steady, and showing no signs of weakness or decline.",
-      "british_synonyms": [
-        "robust",
-        "unwavering",
-        "solid"
-      ],
-      "british_antonyms": [
-        "weak",
-        "unsteady",
-        "faltering"
-      ]
-    },
-    {
-      "order_index": 6,
-      "word_or_phrase": "Aided by",
+      "order_index": 7,
+      "word_or_phrase": "aided by",
       "category": "Fixed Prepositions",
-      "part_of_speech": "Verb",
+      "part_of_speech": "Fixed Preposition",
       "connotation": "Positive",
       "easy_synonym": "helped by",
       "hindi_meaning": "द्वारा सहायता प्राप्त",
-      "mnemonic_trick": "First Aid kit — providing necessary help or assistance.",
-      "concise_meaning": "Supported, assisted, or facilitated by a specific factor or event.",
+      "mnemonic_trick": "First Aid kit = assistance; aided by = supported by a helper.",
+      "concise_meaning": "Assisted, supported, or facilitated by a particular factor.",
       "british_synonyms": [
         "assisted by",
-        "supported by",
+        "bolstered by",
         "facilitated by"
       ],
       "british_antonyms": [
@@ -1018,120 +1721,120 @@ Total Articles to Process: 3
       ]
     },
     {
-      "order_index": 7,
-      "word_or_phrase": "Brisk",
+      "order_index": 8,
+      "word_or_phrase": "brisk",
       "category": "Vocabulary",
       "part_of_speech": "Adjective",
       "connotation": "Positive",
-      "easy_synonym": "quick",
-      "hindi_meaning": "तेज",
-      "mnemonic_trick": "A brisk morning walk — energetic, fast-paced, and lively.",
-      "concise_meaning": "Active, fast, energetic, and showing rapid movement or progress.",
+      "easy_synonym": "rapid",
+      "hindi_meaning": "तेज़ / स्फूर्तिदायक",
+      "mnemonic_trick": "A brisk morning walk is fast, energetic, and active.",
+      "concise_meaning": "Active, fast, energetic, or moving at a quick pace.",
       "british_synonyms": [
         "rapid",
-        "vigorous",
-        "swift"
+        "swift",
+        "vigorous"
       ],
       "british_antonyms": [
         "sluggish",
         "slow",
-        "lethargic"
-      ]
-    },
-    {
-      "order_index": 8,
-      "word_or_phrase": "Bodes well for",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Verb Phrase",
-      "connotation": "Positive",
-      "easy_synonym": "promises well",
-      "hindi_meaning": "अच्छा संकेत होना",
-      "mnemonic_trick": "Bode relates to omen — a good omen for the future outcome.",
-      "concise_meaning": "Portends, indicates, or promises a good or favourable outcome for something.",
-      "british_synonyms": [
-        "augurs well for",
-        "presages success for",
-        "portends well for"
-      ],
-      "british_antonyms": [
-        "bodes ill for",
-        "augurs badly for",
-        "portends failure for"
+        "tardy"
       ]
     },
     {
       "order_index": 9,
-      "word_or_phrase": "Optimism",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
+      "word_or_phrase": "bodes well for",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Idiom",
       "connotation": "Positive",
-      "easy_synonym": "hopefulness",
-      "hindi_meaning": "आशावाद",
-      "mnemonic_trick": "Optimum means best — optimism is expecting the best possible outcome.",
-      "concise_meaning": "Hopefulness and confidence about the future or the successful outcome of something.",
+      "easy_synonym": "promises well",
+      "hindi_meaning": "अच्छे संकेत देना",
+      "mnemonic_trick": "Bodes = foretells; bodes well = portends good news ahead.",
+      "concise_meaning": "Portends or indicates a favourable outcome for something in the future.",
       "british_synonyms": [
-        "positivity",
-        "confidence",
-        "hopefulness"
+        "augurs well for",
+        "portends good for",
+        "presages success for"
       ],
       "british_antonyms": [
-        "pessimism",
-        "gloom",
-        "despair"
+        "bodes ill for",
+        "augurs badly for",
+        "portends trouble for"
       ]
     },
     {
       "order_index": 10,
-      "word_or_phrase": "Uptick",
-      "category": "Vocabulary",
+      "word_or_phrase": "optimism",
+      "category": "One-Word Substitutions",
       "part_of_speech": "Noun",
       "connotation": "Positive",
-      "easy_synonym": "increase",
-      "hindi_meaning": "इज़ाफ़ा",
-      "mnemonic_trick": "A tick mark going upward on a performance chart.",
-      "concise_meaning": "A small or modest rise, growth, or increase in amount or activity.",
+      "easy_synonym": "hopefulness",
+      "hindi_meaning": "आशावाद",
+      "mnemonic_trick": "Optimum means best — optimism is expecting the best result.",
+      "concise_meaning": "Hopefulness and confidence about the future or the success of something.",
       "british_synonyms": [
-        "upturn",
-        "surge",
-        "rise"
+        "hopefulness",
+        "buoyancy",
+        "positivity"
       ],
       "british_antonyms": [
-        "downturn",
-        "decline",
-        "drop"
+        "pessimism",
+        "gloom",
+        "cynicism"
       ]
     },
     {
       "order_index": 11,
-      "word_or_phrase": "Depreciation",
+      "word_or_phrase": "uptick",
       "category": "Vocabulary",
       "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "value loss",
-      "hindi_meaning": "मूल्यह्रास",
-      "mnemonic_trick": "De (down) + Precious (value) — reduction in preciousness or financial value.",
-      "concise_meaning": "A reduction in the financial value or exchange rate of a currency.",
+      "connotation": "Positive",
+      "easy_synonym": "increase",
+      "hindi_meaning": "इज़ाफ़ा / वृद्धि",
+      "mnemonic_trick": "An upward tick mark on a performance chart.",
+      "concise_meaning": "A small or modest increase, rise, or upward trend.",
       "british_synonyms": [
-        "devaluation",
-        "slump",
-        "decline"
+        "increase",
+        "surge",
+        "upswing"
       ],
       "british_antonyms": [
-        "appreciation",
-        "revaluation",
-        "rise"
+        "downturn",
+        "decline",
+        "decrease"
       ]
     },
     {
       "order_index": 12,
-      "word_or_phrase": "Capex",
+      "word_or_phrase": "depreciation",
+      "category": "One-Word Substitutions",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "devaluation",
+      "hindi_meaning": "मूल्यह्रास",
+      "mnemonic_trick": "De-price: a reduction or drop in monetary value.",
+      "concise_meaning": "A reduction or decrease in the monetary value or purchasing power of a currency.",
+      "british_synonyms": [
+        "devaluation",
+        "slump",
+        "cheapening"
+      ],
+      "british_antonyms": [
+        "appreciation",
+        "revaluation",
+        "enhancement"
+      ]
+    },
+    {
+      "order_index": 13,
+      "word_or_phrase": "capex",
       "category": "One-Word Substitutions",
       "part_of_speech": "Noun",
       "connotation": "Neutral",
-      "easy_synonym": "capital investment",
+      "easy_synonym": "capital outlay",
       "hindi_meaning": "पूंजीगत व्यय",
-      "mnemonic_trick": "Short for CAPital EXpenditure — money spent on assets like infrastructure.",
-      "concise_meaning": "Funds used by a government or business to acquire, upgrade, and maintain physical assets.",
+      "mnemonic_trick": "Short form for Capital Expenditure.",
+      "concise_meaning": "Funds used by a business or government to acquire or upgrade long-term physical assets.",
       "british_synonyms": [
         "capital expenditure",
         "capital outlay",
@@ -1144,171 +1847,171 @@ Total Articles to Process: 3
       ]
     },
     {
-      "order_index": 13,
-      "word_or_phrase": "Assessments",
+      "order_index": 14,
+      "word_or_phrase": "in line with",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Prepositional Phrase",
+      "connotation": "Neutral",
+      "easy_synonym": "matching",
+      "hindi_meaning": "के अनुरूप",
+      "mnemonic_trick": "Standing in a straight line with existing expectations.",
+      "concise_meaning": "In agreement, conformity, or alignment with something.",
+      "british_synonyms": [
+        "consistent with",
+        "accordance with",
+        "conforming to"
+      ],
+      "british_antonyms": [
+        "at odds with",
+        "contrary to",
+        "inconsistent with"
+      ]
+    },
+    {
+      "order_index": 15,
+      "word_or_phrase": "assessments",
       "category": "Vocabulary",
       "part_of_speech": "Noun",
       "connotation": "Neutral",
       "easy_synonym": "evaluations",
-      "hindi_meaning": "आकलन",
-      "mnemonic_trick": "Assess = judge; an assessment is a structured judgement or appraisal.",
-      "concise_meaning": "Evaluations or estimations of the nature, quality, growth, or value of something.",
+      "hindi_meaning": "मूल्यांकन",
+      "mnemonic_trick": "Assess = to test or judge the value of something.",
+      "concise_meaning": "Evaluations or judgements made about the nature, quality, or magnitude of something.",
       "british_synonyms": [
         "evaluations",
         "appraisals",
         "estimations"
       ],
       "british_antonyms": [
-        "guesses",
         "conjectures",
+        "guesses",
         "assumptions"
       ]
     },
     {
-      "order_index": 14,
-      "word_or_phrase": "Surprise on the upside",
+      "order_index": 16,
+      "word_or_phrase": "surprise on the upside",
       "category": "Idioms & Phrases",
-      "part_of_speech": "Verb Phrase",
+      "part_of_speech": "Idiom",
       "connotation": "Positive",
       "easy_synonym": "exceed expectations",
-      "hindi_meaning": "उम्मीद से बेहतर प्रदर्शन करना",
-      "mnemonic_trick": "Surprise + Upside — an unexpected movement towards a higher, positive direction.",
-      "concise_meaning": "To turn out noticeably better or produce higher results than originally expected.",
+      "hindi_meaning": "उम्मीद से बेहतर परिणाम देना",
+      "mnemonic_trick": "A unexpected leap pointing upward on a statistical chart.",
+      "concise_meaning": "To yield results or economic growth significantly better than expected.",
       "british_synonyms": [
-        "exceed forecasts",
-        "outperform expectations",
-        "beat predictions"
+        "exceed expectations",
+        "outperform",
+        "beat forecasts"
       ],
       "british_antonyms": [
-        "disappoint on the downside",
+        "disappoint",
         "underperform",
         "fall short"
       ]
     },
     {
-      "order_index": 15,
-      "word_or_phrase": "Weigh heavy",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Verb Phrase",
-      "connotation": "Negative",
-      "easy_synonym": "burden",
-      "hindi_meaning": "भारी दबाव डालना",
-      "mnemonic_trick": "Carrying a heavy weight on your back slows down your forward movement.",
-      "concise_meaning": "To exert a depressing, restrictive, or burdensome influence on something.",
-      "british_synonyms": [
-        "encumber",
-        "burden",
-        "drag down"
-      ],
-      "british_antonyms": [
-        "buoy up",
-        "lighten",
-        "encourage"
-      ]
-    },
-    {
-      "order_index": 16,
-      "word_or_phrase": "Calibrated",
-      "category": "Vocabulary",
-      "part_of_speech": "Adjective",
-      "connotation": "Neutral",
-      "easy_synonym": "carefully adjusted",
-      "hindi_meaning": "संतुलित / नपा-तुला",
-      "mnemonic_trick": "Calibrating a scale to ensure absolute accuracy and balance.",
-      "concise_meaning": "Carefully adjusted, planned, or tailored to suit specific conditions or goals.",
-      "british_synonyms": [
-        "measured",
-        "fine-tuned",
-        "regulated"
-      ],
-      "british_antonyms": [
-        "uncalibrated",
-        "haphazard",
-        "arbitrary"
-      ]
-    },
-    {
       "order_index": 17,
-      "word_or_phrase": "Hunkering down",
-      "category": "Phrasal Verbs",
-      "part_of_speech": "Verb",
-      "connotation": "Neutral",
-      "easy_synonym": "taking shelter",
-      "hindi_meaning": "सुरक्षित स्थान में डटे रहना",
-      "mnemonic_trick": "Hunker down sounds like crouching down low to hide from a severe storm.",
-      "concise_meaning": "Preparing to endure a prolonged period of difficulty or danger in a safe, defensive position.",
+      "word_or_phrase": "weigh heavy",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Idiom",
+      "connotation": "Negative",
+      "easy_synonym": "exert pressure",
+      "hindi_meaning": "भारी दबाव डालना",
+      "mnemonic_trick": "A heavy weight pulling down on progress.",
+      "concise_meaning": "To exert a depressing, burdensome, or restrictive influence.",
       "british_synonyms": [
-        "sheltering",
-        "digging in",
-        "holding fast"
+        "burden",
+        "oppress",
+        "encumber"
       ],
       "british_antonyms": [
-        "venturing out",
-        "exposing",
-        "surrendering"
+        "alleviate",
+        "buoy",
+        "lighten"
       ]
     },
     {
       "order_index": 18,
-      "word_or_phrase": "Battening down the hatches",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Verb Phrase",
-      "connotation": "Neutral",
-      "easy_synonym": "preparing for trouble",
-      "hindi_meaning": "मुसीबत का सामना करने की तैयारी करना",
-      "mnemonic_trick": "Nautical term — closing ship hatches securely before a severe ocean storm.",
-      "concise_meaning": "Preparing thoroughly for impending trouble, crisis, or economic hardship.",
+      "word_or_phrase": "calibrated",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Positive",
+      "easy_synonym": "carefully adjusted",
+      "hindi_meaning": "सुसमायोजित / नपा-तुला",
+      "mnemonic_trick": "Calipers measure with absolute precision.",
+      "concise_meaning": "Carefully adjusted, measured, or planned to achieve a precise effect.",
       "british_synonyms": [
-        "preparing for the worst",
-        "bracing oneself",
-        "fortifying positions"
+        "fine-tuned",
+        "tailored",
+        "regulated"
       ],
       "british_antonyms": [
-        "lowering guard",
-        "relaxing defenses",
-        "neglecting precautions"
+        "unregulated",
+        "arbitrary",
+        "haphazard"
       ]
     },
     {
       "order_index": 19,
-      "word_or_phrase": "Deftly",
+      "word_or_phrase": "hunkering down",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Phrasal Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "taking shelter",
+      "hindi_meaning": "सुरक्षित स्थान पर डट जाना",
+      "mnemonic_trick": "Hunkering down in a storm shelter until bad weather passes.",
+      "concise_meaning": "Preparing to withstand a difficult period by taking shelter or maintaining a defensive position.",
+      "british_synonyms": [
+        "sheltering",
+        "squatting",
+        "bracing oneself"
+      ],
+      "british_antonyms": [
+        "emerging",
+        "venturing out",
+        "exposing oneself"
+      ]
+    },
+    {
+      "order_index": 20,
+      "word_or_phrase": "battening down the hatches",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Idiom",
+      "connotation": "Neutral",
+      "easy_synonym": "preparing for trouble",
+      "hindi_meaning": "मुसीबत के लिए पहले से तैयार होना",
+      "mnemonic_trick": "Sailors fastening ship hatches securely before a storm hits.",
+      "concise_meaning": "Preparing for an impending crisis, difficulty, or period of hardship.",
+      "british_synonyms": [
+        "bracing for impact",
+        "preparing for trouble",
+        "girding oneself"
+      ],
+      "british_antonyms": [
+        "lowering guard",
+        "relaxing",
+        "neglecting precautions"
+      ]
+    },
+    {
+      "order_index": 21,
+      "word_or_phrase": "deftly",
       "category": "Vocabulary",
       "part_of_speech": "Adverb",
       "connotation": "Positive",
       "easy_synonym": "skilfully",
-      "hindi_meaning": "चतुराई से",
-      "mnemonic_trick": "Deft hands of a magician — moving quickly, clever, and with high skill.",
-      "concise_meaning": "Doing something in a skilful, clever, and quick manner.",
+      "hindi_meaning": "चतुरता से / कुशलतापूर्वक",
+      "mnemonic_trick": "Deft fingers playing a musical instrument with grace.",
+      "concise_meaning": "In a neat, clever, or skilfully competent manner.",
       "british_synonyms": [
         "skilfully",
-        "adeptly",
-        "adroitly"
+        "adroitly",
+        "dexterously"
       ],
       "british_antonyms": [
         "clumsily",
         "ineptly",
         "awkwardly"
-      ]
-    },
-    {
-      "order_index": 20,
-      "word_or_phrase": "Navigate",
-      "category": "Vocabulary",
-      "part_of_speech": "Verb",
-      "connotation": "Neutral",
-      "easy_synonym": "steer through",
-      "hindi_meaning": "मार्गदर्शन करना / पार पाना",
-      "mnemonic_trick": "Navigation system — guiding a vessel safely through rough waters or complex routes.",
-      "concise_meaning": "Plan and direct a course through a difficult or complex situation.",
-      "british_synonyms": [
-        "manoeuvring",
-        "steering",
-        "negotiating"
-      ],
-      "british_antonyms": [
-        "drifting",
-        "misguiding",
-        "straying"
       ]
     }
   ]

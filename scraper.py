@@ -8,7 +8,8 @@ from readability import Document
 from curl_cffi import requests
 
 IST = timezone(timedelta(hours=5, minutes=30))
-TODAY_DATE = datetime.now(IST).date()
+NOW_IST = datetime.now(IST)
+TODAY_DATE = NOW_IST.date()
 
 # ScrapingAnt API Key from GitHub Actions Secrets
 SCRAPINGANT_KEY = os.getenv("SCRAPINGANT_API_KEY")
@@ -41,8 +42,8 @@ def fetch_page(url):
         print(f"⚠️ Fetch error for {url}: {e}")
         return ""
 
-def extract_article_date(html):
-    """Extracts the article publication date in IST to prevent fetching yesterday's articles."""
+def extract_article_datetime(html):
+    """Extracts exact publication datetime in IST to capture accurate publication timestamps."""
     soup = BeautifulSoup(html, 'html.parser')
     
     # 1. Check Meta tags
@@ -52,12 +53,12 @@ def extract_article_date(html):
             content = meta.get('content', '')
             if content:
                 try:
-                    dt = datetime.fromisoformat(content.replace('Z', '+00:00')).astimezone(IST)
-                    return dt.date()
+                    return datetime.fromisoformat(content.replace('Z', '+00:00')).astimezone(IST)
                 except Exception:
                     match = re.search(r'(\d{4}-\d{2}-\d{2})', content)
                     if match:
-                        return datetime.strptime(match.group(1), "%Y-%m-%d").date()
+                        d = datetime.strptime(match.group(1), "%Y-%m-%d").date()
+                        return datetime(d.year, d.month, d.day, 6, 0, tzinfo=IST)
 
     # 2. Check JSON-LD metadata
     for script in soup.find_all('script', type='application/ld+json'):
@@ -68,16 +69,34 @@ def extract_article_date(html):
                 if 'datePublished' in item:
                     date_str = str(item['datePublished'])
                     try:
-                        dt = datetime.fromisoformat(date_str.replace('Z', '+00:00')).astimezone(IST)
-                        return dt.date()
+                        return datetime.fromisoformat(date_str.replace('Z', '+00:00')).astimezone(IST)
                     except Exception:
                         match = re.search(r'(\d{4}-\d{2}-\d{2})', date_str)
                         if match:
-                            return datetime.strptime(match.group(1), "%Y-%m-%d").date()
+                            d = datetime.strptime(match.group(1), "%Y-%m-%d").date()
+                            return datetime(d.year, d.month, d.day, 6, 0, tzinfo=IST)
         except Exception:
             continue
 
     return None
+
+def format_published_time(pub_dt):
+    """Formats datetime object to standard readable string (e.g., 'August 28, 2026 07:39 AM IST')."""
+    if pub_dt:
+        return pub_dt.strftime("%B %d, %Y %I:%M %p IST")
+    return f"{TODAY_DATE.strftime('%B %d, %Y')} IST"
+
+def is_todays_edition(pub_dt):
+    """Checks if article belongs to today's morning edition (within 20h or published after 5 PM yesterday)."""
+    if not pub_dt:
+        return True
+    
+    age_hours = (NOW_IST - pub_dt).total_seconds() / 3600.0
+    if 0 <= age_hours <= 20:
+        return True
+    if pub_dt.date() == TODAY_DATE:
+        return True
+    return False
 
 def extract_clean_paragraphs(container):
     """Extracts text from <p> tags while keeping inline links smoothly inside sentences."""
@@ -143,13 +162,13 @@ def extract_hindu_content(html):
     return extract_clean_paragraphs(summary_soup)
 
 def apply_speedreader(url, newspaper="The Indian Express"):
-    """Extracts clean title, proper paragraphs, estimated reading time, and publish date."""
+    """Extracts clean title, proper paragraphs, estimated reading time, and publish datetime."""
     html = fetch_page(url)
     if not html:
         return "", "", "", None
 
     try:
-        pub_date = extract_article_date(html)
+        pub_dt = extract_article_datetime(html)
         soup = BeautifulSoup(html, 'html.parser')
         
         # 1. Clean Title
@@ -173,7 +192,7 @@ def apply_speedreader(url, newspaper="The Indian Express"):
 
         words = len(passage.split())
         r_time = f"{max(1, round(words / 200))} min read"
-        return clean_title, passage, r_time, pub_date
+        return clean_title, passage, r_time, pub_dt
     except Exception as e:
         print(f"⚠️ Parsing error for {url}: {e}")
         return "", "", "", None
@@ -192,12 +211,11 @@ def get_hindu_editorials():
             links.append(href)
 
     articles = []
-    for link in links[:4]:
-        title, passage, r_time, pub_date = apply_speedreader(link, "The Hindu")
+    for link in links[:6]:
+        title, passage, r_time, pub_dt = apply_speedreader(link, "The Hindu")
         
-        # Discard articles not published today in IST
-        if pub_date and pub_date != TODAY_DATE:
-            print(f"  ⏭️ Skipping older Hindu editorial ({pub_date}): {title[:40]}...")
+        if pub_dt and not is_todays_edition(pub_dt):
+            print(f"  ⏭️ Skipping older Hindu editorial ({pub_dt.strftime('%Y-%m-%d %H:%M')}): {title[:40]}...")
             continue
 
         if passage and len(passage) > 300:
@@ -206,7 +224,8 @@ def get_hindu_editorials():
                 "newspaper": "The Hindu",
                 "title": title,
                 "link": link,
-                "timestamp": str(pub_date or TODAY_DATE),
+                "timestamp": str(TODAY_DATE),
+                "published_at": format_published_time(pub_dt),
                 "reading_time": r_time,
                 "passage": passage
             })
@@ -238,28 +257,35 @@ def get_indian_express_editorials():
     print(f"  ℹ️ Found {len(links)} Indian Express editorial candidate links.")
 
     candidates = []
-    for link in links[:5]:
-        title, passage, r_time, pub_date = apply_speedreader(link, "The Indian Express")
+    consecutive_older = 0
+
+    for link in links:
+        if consecutive_older >= 2 and len(candidates) >= 1:
+            break
+
+        title, passage, r_time, pub_dt = apply_speedreader(link, "The Indian Express")
         
-        # Discard articles not published today in IST
-        if pub_date and pub_date != TODAY_DATE:
-            print(f"  ⏭️ Skipping older Express editorial ({pub_date}): {title[:40]}...")
+        if pub_dt and not is_todays_edition(pub_dt):
+            consecutive_older += 1
+            print(f"  ⏭️ Skipping older Express editorial ({pub_dt.strftime('%Y-%m-%d %H:%M')}): {title[:40]}...")
             continue
 
         if passage and len(passage) > 300:
+            consecutive_older = 0
             words = len(passage.split())
             print(f"  ✓ Fetched: {title[:45]}... ({words} words)")
             candidates.append({
                 "newspaper": "The Indian Express",
                 "title": title,
                 "link": link,
-                "timestamp": str(pub_date or TODAY_DATE),
+                "timestamp": str(TODAY_DATE),
+                "published_at": format_published_time(pub_dt),
                 "reading_time": r_time,
                 "passage": passage,
                 "word_count": words
             })
 
-    # Sort today's candidates by word count (descending) and take at most 2
+    # Sort today's candidates by length and select top 2
     candidates.sort(key=lambda item: item["word_count"], reverse=True)
     selected_articles = candidates[:2]
 

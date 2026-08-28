@@ -107,21 +107,21 @@
      ========================================================= */
   .front-header-card {
     position: absolute;
-    top: 8mm;
-    right: 12mm;
+    top: 6mm;    /* Reduced to pull it UP towards the top edge */
+    right: 8mm;  /* Reduced to pull it RIGHT towards the side edge */
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 6px;
+    gap: 5px;
     z-index: 20;
   }
 
   .front-date-display {
-    font-size: 16px;
+    font-size: 13.5px; /* Scaled down */
     font-weight: 900;
     color: #0f2b48;
     background: #ffffff;
-    padding: 8px 18px;
+    padding: 6px 14px; /* Reduced padding */
     border-radius: 6px;
     border-left: 5px solid #d97706;
     border-bottom: 2px solid #e2e8f0;
@@ -133,16 +133,16 @@
     gap: 8px;
   }
   .front-calendar-icon {
-    font-size: 15px;
+    font-size: 13px; /* Scaled down */
     line-height: 1;
   }
 
   .front-edition-tag {
-    font-size: 10px;
+    font-size: 8.5px; /* Scaled down */
     font-weight: 800;
     color: #854d0e;
     background: #fef08a;
-    padding: 4px 14px;
+    padding: 3.5px 12px; /* Reduced padding */
     border-radius: 12px;
     border: 1px solid #fde047;
     letter-spacing: 0.6px;
@@ -1096,42 +1096,70 @@
     z-index: 1;
   }
 
-  /* Dynamic Stance Themes */
-  .stance-critical {
-    background: linear-gradient(135deg, #ffffff 0%, #fff1f2 100%);
-    border: 1.2px solid #fecdd3;
-  }
-  .stance-critical .p2-stance-icon-circle svg { color: #e11d48; }
-  .stance-critical .p2-stance-tone { color: #e11d48; }
-  .stance-critical .p2-stance-bar { background: linear-gradient(90deg, #e11d48 45%, #fecdd3 45%); }
-  .stance-critical .p2-stance-bg-target { color: #e11d48; }
+  /* =========================================================
+     DYNAMIC STANCE THEMES (COLOR BUCKETS)
+     ========================================================= */
 
-  .stance-cautious {
-    background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
-    border: 1.2px solid #fde68a;
-  }
-  .stance-cautious .p2-stance-icon-circle svg { color: #d97706; }
-  .stance-cautious .p2-stance-tone { color: #b45309; }
-  .stance-cautious .p2-stance-bar { background: linear-gradient(90deg, #d97706 45%, #fde68a 45%); }
-  .stance-cautious .p2-stance-bg-target { color: #d97706; }
-
-  .stance-pragmatic {
-    background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
-    border: 1.2px solid #bae6fd;
-  }
-  .stance-pragmatic .p2-stance-icon-circle svg { color: #0284c7; }
-  .stance-pragmatic .p2-stance-tone { color: #0369a1; }
-  .stance-pragmatic .p2-stance-bar { background: linear-gradient(90deg, #0284c7 45%, #bae6fd 45%); }
-  .stance-pragmatic .p2-stance-bg-target { color: #0284c7; }
-
-  .stance-analytical {
+  /* 1. DEFAULT GRAY (Neutral, Analytical, Balanced, Indifferent, Unknown Fallback) */
+  .p2-stance-card {
+    /* (Keeps your original border-radius, padding, shadows, etc.) */
+    border-radius: 8px;
+    padding: 8px 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    
+    /* Default Gray Coloring */
     background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
     border: 1.2px solid #cbd5e1;
   }
-  .stance-analytical .p2-stance-icon-circle svg { color: #475569; }
-  .stance-analytical .p2-stance-tone { color: #1e293b; }
-  .stance-analytical .p2-stance-bar { background: linear-gradient(90deg, #475569 45%, #cbd5e1 45%); }
-  .stance-analytical .p2-stance-bg-target { color: #475569; }
+  .p2-stance-icon-circle svg { color: #475569; }
+  .p2-stance-tone { color: #1e293b; }
+  .p2-stance-bar { background: linear-gradient(90deg, #475569 45%, #cbd5e1 45%); }
+  .p2-stance-bg-target { color: #475569; }
+
+  /* 2. RED THEME (Negative / Hostile) */
+  :is(.stance-critical, .stance-pessimistic, .stance-disapproving, .stance-sarcastic, .stance-cynical, .stance-hostile, .stance-admonitory) {
+    background: linear-gradient(135deg, #ffffff 0%, #fff1f2 100%);
+    border-color: #fecdd3;
+  }
+  :is(.stance-critical, .stance-pessimistic, .stance-disapproving, .stance-sarcastic, .stance-cynical, .stance-hostile, .stance-admonitory) .p2-stance-icon-circle svg,
+  :is(.stance-critical, .stance-pessimistic, .stance-disapproving, .stance-sarcastic, .stance-cynical, .stance-hostile, .stance-admonitory) .p2-stance-bg-target { color: #e11d48; }
+  :is(.stance-critical, .stance-pessimistic, .stance-disapproving, .stance-sarcastic, .stance-cynical, .stance-hostile, .stance-admonitory) .p2-stance-tone { color: #be123c; }
+  :is(.stance-critical, .stance-pessimistic, .stance-disapproving, .stance-sarcastic, .stance-cynical, .stance-hostile, .stance-admonitory) .p2-stance-bar { background: linear-gradient(90deg, #e11d48 45%, #fecdd3 45%); }
+
+  /* 3. AMBER THEME (Warning / Cautious) */
+  :is(.stance-cautious, .stance-concerned, .stance-cautionary, .stance-sceptical) {
+    background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
+    border-color: #fde68a;
+  }
+  :is(.stance-cautious, .stance-concerned, .stance-cautionary, .stance-sceptical) .p2-stance-icon-circle svg,
+  :is(.stance-cautious, .stance-concerned, .stance-cautionary, .stance-sceptical) .p2-stance-bg-target { color: #d97706; }
+  :is(.stance-cautious, .stance-concerned, .stance-cautionary, .stance-sceptical) .p2-stance-tone { color: #b45309; }
+  :is(.stance-cautious, .stance-concerned, .stance-cautionary, .stance-sceptical) .p2-stance-bar { background: linear-gradient(90deg, #d97706 45%, #fde68a 45%); }
+
+  /* 4. GREEN THEME (Positive / Appreciative) */
+  :is(.stance-appreciative, .stance-optimistic, .stance-empathetic, .stance-conciliatory) {
+    background: linear-gradient(135deg, #ffffff 0%, #ecfdf5 100%);
+    border-color: #a7f3d0;
+  }
+  :is(.stance-appreciative, .stance-optimistic, .stance-empathetic, .stance-conciliatory) .p2-stance-icon-circle svg,
+  :is(.stance-appreciative, .stance-optimistic, .stance-empathetic, .stance-conciliatory) .p2-stance-bg-target { color: #059669; }
+  :is(.stance-appreciative, .stance-optimistic, .stance-empathetic, .stance-conciliatory) .p2-stance-tone { color: #047857; }
+  :is(.stance-appreciative, .stance-optimistic, .stance-empathetic, .stance-conciliatory) .p2-stance-bar { background: linear-gradient(90deg, #059669 45%, #a7f3d0 45%); }
+
+  /* 5. BLUE THEME (Informative / Persuasive) */
+  :is(.stance-persuasive-advocative, .stance-informative-explanatory) {
+    background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+    border-color: #bae6fd;
+  }
+  :is(.stance-persuasive-advocative, .stance-informative-explanatory) .p2-stance-icon-circle svg,
+  :is(.stance-persuasive-advocative, .stance-informative-explanatory) .p2-stance-bg-target { color: #0284c7; }
+  :is(.stance-persuasive-advocative, .stance-informative-explanatory) .p2-stance-tone { color: #0369a1; }
+  :is(.stance-persuasive-advocative, .stance-informative-explanatory) .p2-stance-bar { background: linear-gradient(90deg, #0284c7 45%, #bae6fd 45%); }
 
   /* Right Executive Perspective Card */
   .p2-perspective-card {
@@ -1741,18 +1769,18 @@
 
   <!-- Bottom Digital Magazine Interactive Telegram Badges -->
   <div class="front-footer-bar-bottom">
-    <a href="https://t.me/Prathuadhe" target="_blank" class="front-tg-btn">
+    <a href="https://t.me/Prathuadhe" target="_blank" class="front-tg-btn">.front-header-card {
       <svg class="front-tg-icon" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
       </svg>
-      <span>CURATED BY PRATHU</span>
+      <span>Made by Lixie 🤖 · Built by Prathu</span>
     </a>
 
     <a href="https://t.me/Contact_ez" target="_blank" class="front-tg-btn">
       <svg class="front-tg-icon" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
       </svg>
-      <span>PUBLISHED BY EZ</span>
+      <span>Community Head · Ez</span>
     </a>
   </div>
 </div>
@@ -1869,7 +1897,7 @@
           {% if loop.last %}
           <div class="p1-article-footer-note">
             <span>Source: <strong>{{ art.newspaper }}</strong></span>
-            <span>Date: <strong>{{ data.date_scraped }}</strong></span>
+            <span>Published: <strong>{{ art.published_at }}</strong></span>
           </div>
           {% endif %}
         </div>
@@ -1998,7 +2026,7 @@
       <!-- Stance & Perspective Cards -->
       {% if l_page.show_analysis %}
       <div class="p2-analysis-container">
-        <div class="p2-stance-card stance-{{ art.analysis.tone | lower }}">
+        <div class="p2-stance-card stance-{{ art.analysis.tone | lower | replace(' / ', '-') | replace(' ', '-') }}">
           <div class="p2-stance-header">
             <div class="p2-stance-icon-circle">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -2021,7 +2049,7 @@
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><circle cx="12" cy="7" r="1.5" fill="currentColor"/>
               </svg>
             </div>
-            <span class="p2-perspective-title">EXECUTIVE PERSPECTIVE</span>
+            <span class="p2-perspective-title">EDITORIAL PERSPECTIVE</span>
           </div>
           <div class="p2-perspective-body">{{ art.analysis.analysis_summary }}</div>
         </div>
@@ -2122,6 +2150,162 @@
       </div>
       {% endif %}
 
+      <!-- ================= FIXED PREPOSITIONS ================= -->
+      {% if l_page.categorized_vocab.fixed_prepositions %}
+      <div class="lex-section-header hdr-prep">
+        <div class="lex-header-left"><span class="lex-header-icon">🔗</span><span class="lex-section-title">FIXED PREPOSITIONS</span></div>
+        <span class="lex-header-tag">{{ l_page.categorized_vocab.fixed_prepositions | length }} TERMS</span>
+      </div>
+      <div class="lex-ribbon-stack">
+        {% for item in l_page.categorized_vocab.fixed_prepositions %}
+        <div class="lex-ribbon-row">
+          <div class="ribbon-col-num" style="background: #0f766e;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
+          <div class="ribbon-col-word">
+            <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+            <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          </div>
+          <div class="ribbon-col-def">
+            <div class="ribbon-def-text-wrap">
+              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-hook">
+            <div class="hook-content-wrap">
+              <div class="hook-header-title">MEMORY HOOK</div>
+              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-syn">
+            <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
+          </div>
+          <div class="ribbon-col-ant">
+            <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- ================= PHRASAL VERBS ================= -->
+      {% if l_page.categorized_vocab.phrasal_verbs %}
+      <div class="lex-section-header hdr-phr">
+        <div class="lex-header-left"><span class="lex-header-icon">⚡</span><span class="lex-section-title">PHRASAL VERBS</span></div>
+        <span class="lex-header-tag">{{ l_page.categorized_vocab.phrasal_verbs | length }} TERMS</span>
+      </div>
+      <div class="lex-ribbon-stack">
+        {% for item in l_page.categorized_vocab.phrasal_verbs %}
+        <div class="lex-ribbon-row">
+          <div class="ribbon-col-num" style="background: #6d28d9;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
+          <div class="ribbon-col-word">
+            <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+            <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          </div>
+          <div class="ribbon-col-def">
+            <div class="ribbon-def-text-wrap">
+              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-hook">
+            <div class="hook-content-wrap">
+              <div class="hook-header-title">MEMORY HOOK</div>
+              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-syn">
+            <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
+          </div>
+          <div class="ribbon-col-ant">
+            <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- ================= IDIOMS & PHRASES ================= -->
+      {% if l_page.categorized_vocab.idioms %}
+      <div class="lex-section-header hdr-idm">
+        <div class="lex-header-left"><span class="lex-header-icon">🎭</span><span class="lex-section-title">IDIOMS & PHRASES</span></div>
+        <span class="lex-header-tag">{{ l_page.categorized_vocab.idioms | length }} TERMS</span>
+      </div>
+      <div class="lex-ribbon-stack">
+        {% for item in l_page.categorized_vocab.idioms %}
+        <div class="lex-ribbon-row">
+          <div class="ribbon-col-num" style="background: #e11d48;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
+          <div class="ribbon-col-word">
+            <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+            <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          </div>
+          <div class="ribbon-col-def">
+            <div class="ribbon-def-text-wrap">
+              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-hook">
+            <div class="hook-content-wrap">
+              <div class="hook-header-title">MEMORY HOOK</div>
+              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-syn">
+            <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
+          </div>
+          <div class="ribbon-col-ant">
+            <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- ================= FOREIGN WORDS ================= -->
+      {% if l_page.categorized_vocab.foreign_words %}
+      <div class="lex-section-header hdr-foreign">
+        <div class="lex-header-left"><span class="lex-header-icon">🌍</span><span class="lex-section-title">FOREIGN WORDS</span></div>
+        <span class="lex-header-tag">{{ l_page.categorized_vocab.foreign_words | length }} TERMS</span>
+      </div>
+      <div class="lex-ribbon-stack">
+        {% for item in l_page.categorized_vocab.foreign_words %}
+        <div class="lex-ribbon-row">
+          <div class="ribbon-col-num" style="background: #2563eb;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
+          <div class="ribbon-col-word">
+            <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+            <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+          </div>
+          <div class="ribbon-col-def">
+            <div class="ribbon-def-text-wrap">
+              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
+              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-hook">
+            <div class="hook-content-wrap">
+              <div class="hook-header-title">MEMORY HOOK</div>
+              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
+            </div>
+          </div>
+          <div class="ribbon-col-syn">
+            <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
+            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
+          </div>
+          <div class="ribbon-col-ant">
+            <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
+            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
       <!-- Next Editorial / End of Magazine Banner -->
       {% if loop.last %}
         {% if not is_last_art %}
@@ -2169,6 +2353,13 @@
      ========================================================= -->
 {% if data.has_back_cover %}
 <div class="page cover-page back-cover-container" style="background-image: url('{{ data.back_cover_src }}');">
+
+  <!-- Exact copy of the TOC Date Stamp for the Back Cover -->
+  <div class="toc-header-date">
+    <span class="toc-date-icon">📅</span>
+    <span>{{ data.date_formatted }}</span>
+  </div>
+  
   <!-- Interactive Hitboxes Over the 4 'Stay Connected' Cards -->
   <div class="back-connect-overlay">
     <!-- 1. For Daily Editorials -->

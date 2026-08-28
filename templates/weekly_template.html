@@ -354,15 +354,29 @@
   /* =========================================================
      INNER PAGES (UNIVERSAL VOCAB CONTENT)
      ========================================================= */
-  .inner-page {
+  /* Replace .inner-page with this new table class */
+  .inner-page-table {
     width: 210mm;
-    min-height: 297mm;
-    padding: 8mm 12mm 0 12mm;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+    border-collapse: collapse;
     page-break-after: always;
     break-after: page;
+  }
+
+  .inner-page-table td {
+    padding: 0;
+    vertical-align: top;
+  }
+
+  /* Move the padding here so the content doesn't hit the edges */
+  .inner-page-table .inner-content-wrapper {
+    padding: 8mm 12mm 0 12mm; 
+    padding-bottom: 10mm; 
+  }
+
+  /* Override the negative margin on the footer so it aligns perfectly */
+  .inner-page-table .page-footer {
+    margin-left: 0; 
+    width: 100%;
   }
 
   .inner-content-wrapper {
@@ -421,9 +435,7 @@
      5-COLUMN EXACT VOCABULARY RIBBONS (NO MEMORY HOOK)
      ========================================================= */
   .lex-ribbon-stack {
-    display: flex;
-    flex-direction: column;
-    gap: 3.5px;
+    display: block; /* Changed from flex */
     margin-bottom: 6px;
   }
 
@@ -437,6 +449,7 @@
     box-shadow: 0 1px 3px rgba(15, 43, 72, 0.04);
     align-items: stretch;
     min-height: 18mm;
+    margin-bottom: 3.5px; /* Added to replace the gap */
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -820,8 +833,11 @@
 <!-- =========================================================
      PAGE 4+: UNIVERSAL CATEGORIES CONTENT
      ========================================================= -->
-<div class="page inner-page">
-  <div class="inner-content-wrapper">
+<table class="inner-page-table">
+  <tbody>
+    <tr>
+      <td>
+        <div class="inner-content-wrapper">
 
     <!-- 1. CORE VOCABULARY -->
     {% if universal_vocab.core_vocab %}
@@ -1166,19 +1182,28 @@
     {% endif %}
 
   </div>
+      </td>
+    </tr>
+  </tbody>
 
-  <div class="page-footer">
-    <div class="footer-brand">
-      <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>
-      <span>Ez Editorialś Weekly Lab &nbsp;•&nbsp; {{ date_range_formatted }}</span>
-    </div>
+  <tfoot>
+    <tr>
+      <td>
+        <div class="page-footer">
+          <div class="footer-brand">
+            <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>
+            <span>Ez Editorialś Weekly Lab &nbsp;•&nbsp; {{ date_range_formatted }}</span>
+          </div>
 
-    <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-tg-btn">
-      <svg class="footer-tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-      <span>SUBSCRIBE TO EZ EDITORIALŚ</span>
-    </a>
-  </div>
-</div>
+          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-tg-btn">
+            <svg class="footer-tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+            <span>SUBSCRIBE TO EZ EDITORIALŚ</span>
+          </a>
+        </div>
+      </td>
+    </tr>
+  </tfoot>
+</table>
 
 <!-- =========================================================
      FINAL PAGE: BACK COVER

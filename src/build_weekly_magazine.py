@@ -50,6 +50,13 @@ def send_to_telegram(pdf_path, date_range_formatted, editorial_titles):
         f"<blockquote expandable>{quote_content}</blockquote>"
     )
 
+    # FIX: Check if the caption exceeds Telegram's 1024 character limit
+    if len(caption) > 1024:
+        caption = (
+            f"📚 <b>Ez Editorialś Weekly Compilation ({date_range_formatted})</b>\n"
+            f"<i>Includes {len(editorial_titles)} Editorials. See Page 03 for the full index.</i>"
+        )
+
     url = f"https://api.telegram.org/bot{bot_token}/sendDocument"
     filename = os.path.basename(pdf_path)
 

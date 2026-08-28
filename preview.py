@@ -231,6 +231,7 @@ def generate_preview():
             "subtitle": art.get("editorial_metadata", {}).get("subtitle"),
             "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
             "reading_time": art.get("reading_time", "2 min read"),
+            "published_at": art.get("published_at") or art.get("editorial_metadata", {}).get("published_at") or raw_data.get("date_scraped", formatted_date_ist),
             "analysis": {
                 "tone": art.get("analysis", {}).get("tone", "Analytical"),
                 "tone_simple_explanation": art.get("analysis", {}).get("tone_simple_explanation", "").strip("()"),

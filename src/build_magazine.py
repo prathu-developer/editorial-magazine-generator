@@ -396,17 +396,30 @@ def compile_magazine():
     # PDF generation
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
-        page = browser.new_page()
+        
+        # Lock viewport width to 794px (210mm @ 96 DPI) so Chromium renders at true document width
+        page = browser.new_page(viewport={"width": 794, "height": 1080})
         page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
         page.evaluate("() => document.fonts.ready")
         
-        # Calculate the total height of the continuous document
-        body_height = page.evaluate("document.documentElement.scrollHeight")
+        # Calculate exact bounding height dynamically without phantom margin overflow
+        total_height = page.evaluate("""() => {
+            const body = document.body;
+            const html = document.documentElement;
+            return Math.max(
+                body.scrollHeight,
+                body.offsetHeight,
+                html.clientHeight,
+                html.scrollHeight,
+                html.offsetHeight,
+                Math.ceil(body.getBoundingClientRect().height)
+            );
+        }""")
         
         page.pdf(
             path=output_pdf_path,
-            width="210mm",             # Keep width so ribbons and cover images scale perfectly
-            height=f"{body_height}px", # Stretch height continuously 
+            width="210mm",
+            height=f"{total_height}px",
             print_background=True,
             margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
         )

@@ -1,4 +1,5 @@
 import os
+import sys
 import json
 import re
 from datetime import datetime, timezone, timedelta
@@ -16,8 +17,8 @@ SCRAPINGANT_KEY = os.getenv("SCRAPINGANT_API_KEY")
 
 session = requests.Session(impersonate="chrome124")
 
-def fetch_page(url):
-    """Fetches full page content; routes Indian Express via ScrapingAnt to bypass Cloudflare 403."""
+def fetch_page(url, max_retries=3, timeout=60):
+    """Fetches full page content with retry logic and extended timeout for ScrapingAnt."""
     if "indianexpress.com" in url and SCRAPINGANT_KEY:
         target_url = f"https://api.scrapingant.com/v2/general?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
     else:
@@ -32,15 +33,20 @@ def fetch_page(url):
         "Sec-Fetch-User": "?1",
         "Upgrade-Insecure-Requests": "1",
     }
-    try:
-        response = session.get(target_url, headers=headers, timeout=30)
-        if response.status_code == 200:
-            return response.text
-        print(f"⚠️ Failed to fetch {url} (Status: {response.status_code})")
-        return ""
-    except Exception as e:
-        print(f"⚠️ Fetch error for {url}: {e}")
-        return ""
+
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = session.get(target_url, headers=headers, timeout=timeout)
+            if response.status_code == 200 and len(response.text) > 500:
+                return response.text
+            print(f"⚠️ [Attempt {attempt}/{max_retries}] Status {response.status_code} for {url}")
+        except Exception as e:
+            print(f"⚠️ [Attempt {attempt}/{max_retries}] Fetch error for {url}: {e}")
+        
+        if attempt < max_retries:
+            time.sleep(3)
+
+    return ""
 
 def extract_article_datetime(html):
     """Extracts exact publication datetime in IST to capture accurate publication timestamps."""
@@ -265,6 +271,10 @@ def get_indian_express_editorials():
 
         title, passage, r_time, pub_dt = apply_speedreader(link, "The Indian Express")
         
+        # INSERT THIS CHECK: Ignore empty fetches before date evaluation
+        if not title or not passage:
+            continue
+
         if pub_dt and not is_todays_edition(pub_dt):
             consecutive_older += 1
             print(f"  ⏭️ Skipping older Express editorial ({pub_dt.strftime('%Y-%m-%d %H:%M')}): {title[:40]}...")

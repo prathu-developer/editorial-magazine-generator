@@ -167,9 +167,15 @@ def compile_weekly_magazine():
     output_pdf_path = os.path.join(output_dir, pdf_filename)
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
+        browser = p.chromium.launch(args=[
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+            "--single-process"
+        ])
         page = browser.new_page()
-        page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
+        page.goto(f"file://{rendered_html_path}", wait_until="load")
         page.pdf(
             path=output_pdf_path,
             format="A4",

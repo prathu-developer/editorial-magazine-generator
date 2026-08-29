@@ -7,6 +7,7 @@ from datetime import datetime, timezone, timedelta
 import requests
 from google import genai
 from google.genai import types
+from concurrent.futures import ThreadPoolExecutor
 
 # Timezone definition
 IST = timezone(timedelta(hours=5, minutes=30))
@@ -215,7 +216,30 @@ def save_backup(final_output, input_date_str=None, backup_dir="backups", max_day
             os.remove(stale_path)
             print(f"🗑️ Removed stale backup (older than 7 days): '{stale_path}'")
 
-# --- 4. MAIN PIPELINE ---
+# --- 4. MAIN PIPELINE (PARALLELIZED) ---
+def _process_single_editorial(args):
+    index, editorial, total_editorials = args
+    title = editorial.get("title", f"Editorial {index}")
+    print(f"🚀 Processing Editorial [{index}/{total_editorials}]: {title}...")
+
+    prompt = build_editorial_prompt(editorial)
+    raw_response = call_gemini_with_rotation(prompt)
+
+    try:
+        generated_content = parse_llm_json(raw_response)
+    except json.JSONDecodeError as json_err:
+        print(f"⚠️ JSON parse error on editorial {index}: {json_err}. Fallback raw string stored.")
+        generated_content = {"error": "Invalid JSON produced", "raw": raw_response}
+
+    merged_editorial = {**editorial}
+    merged_editorial.update({
+        "editorial_metadata": generated_content.get("editorial_metadata", {}),
+        "analysis": generated_content.get("analysis", {}),
+        "editorial_vocabulary": generated_content.get("editorial_vocabulary", [])
+    })
+
+    return index, merged_editorial, raw_response
+
 def run_schema_pipeline(
     input_file="today_editorials.json",
     output_file="schema.json",
@@ -227,7 +251,6 @@ def run_schema_pipeline(
     with open(input_file, "r", encoding="utf-8") as f:
         input_data = json.load(f)
 
-    # 1. Verify that today_editorials.json was generated today (IST)
     today_ist = datetime.now(IST).strftime("%Y-%m-%d")
     date_scraped = input_data.get("date_scraped", "")
     
@@ -237,46 +260,28 @@ def run_schema_pipeline(
             f"but today is '{today_ist}' (IST)."
         )
 
-    # 2. Verify that articles actually exist
     editorials = input_data.get("editorials", [])
     total_editorials = len(editorials)
     
     if total_editorials == 0:
         raise ValueError("today_editorials.json contains 0 editorials to process.")
 
-    print(f"📰 Found {total_editorials} fresh editorials for {today_ist}.")
+    print(f"📰 Found {total_editorials} fresh editorials for {today_ist}. Processing concurrently...")
 
+    # Run all articles in parallel using worker threads
+    tasks = [(i, ed, total_editorials) for i, ed in enumerate(editorials, start=1)]
+    with ThreadPoolExecutor(max_workers=min(4, total_editorials)) as executor:
+        results = list(executor.map(_process_single_editorial, tasks))
+
+    # Maintain original chronological article order
+    results.sort(key=lambda x: x[0])
+    processed_editorials = [r[1] for r in results]
+
+    # Write the complete audit log
     with open(audit_file, "w", encoding="utf-8") as log:
-        log.write(f"# 🧠 Schema Generation Audit Log\n\nTotal Articles to Process: {total_editorials}\n\n---\n\n")
-
-    processed_editorials = []
-
-    for index, editorial in enumerate(editorials, start=1):
-        title = editorial.get("title", f"Editorial {index}")
-        print(f"\n🚀 Processing Editorial [{index}/{total_editorials}]: {title}...")
-
-        prompt = build_editorial_prompt(editorial)
-        raw_response = call_gemini_with_rotation(prompt)
-
-        with open(audit_file, "a", encoding="utf-8") as log:
-            log.write(f"## 📰 Editorial {index}: {title}\n```json\n{raw_response}\n```\n\n---\n\n")
-
-        try:
-            generated_content = parse_llm_json(raw_response)
-        except json.JSONDecodeError as json_err:
-            print(f"⚠️ JSON parse error on editorial {index}: {json_err}. Fallback raw string stored.")
-            generated_content = {"error": "Invalid JSON produced", "raw": raw_response}
-
-        # Carries forward all original fields (including published_at) dynamically[cite: 8, 9]
-        merged_editorial = {**editorial}
-        merged_editorial.update({
-            "editorial_metadata": generated_content.get("editorial_metadata", {}),
-            "analysis": generated_content.get("analysis", {}),
-            "editorial_vocabulary": generated_content.get("editorial_vocabulary", [])
-        })
-
-        processed_editorials.append(merged_editorial)
-        time.sleep(3)
+        log.write(f"# 🧠 Schema Generation Audit Log\n\nTotal Articles: {total_editorials}\n\n---\n\n")
+        for idx, ed, raw_resp in results:
+            log.write(f"## 📰 Editorial {idx}: {ed.get('title')}\n```json\n{raw_resp}\n```\n\n---\n\n")
 
     final_output = {
         "date_scraped": input_data.get("date_scraped", ""),
@@ -288,7 +293,6 @@ def run_schema_pipeline(
         json.dump(final_output, f, indent=4, ensure_ascii=False)
 
     save_backup(final_output, input_date_str=input_data.get("date_scraped"))
-
     print(f"\n✅ All {total_editorials} editorials processed and saved to '{output_file}'!")
 
 # --- 5. RUNNER & TELEGRAM ALERTS ---

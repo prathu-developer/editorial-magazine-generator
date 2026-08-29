@@ -73,10 +73,12 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
     admin_chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
     
-    # --- Group Thread Publishing Config (Disabled by default) ---
+    # --- Group Thread Publishing Config ---
     enable_group_publish = os.getenv("ENABLE_GROUP_PUBLISH", "false").strip().lower() == "true"
-    group_chat_id = os.getenv("TELEGRAM_GROUP_CHAT_ID")
-    thread_id = os.getenv("TELEGRAM_THREAD_ID")
+    source_chat_id = os.getenv("TELEGRAM_GROUP_CHAT_ID")   
+    source_thread_id = os.getenv("TELEGRAM_THREAD_ID")     
+    target_chat_id = os.getenv("TARGET_CHAT_ID", "-1003875580290")  
+    target_thread_id = 3                                   
 
     if not bot_token:
         print("⚠️ Telegram BOT_TOKEN missing. Skipping Telegram delivery.")
@@ -90,10 +92,9 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
         f"<blockquote expandable>{quote_content}</blockquote>"
     )
 
-    url = f"https://api.telegram.org/bot{bot_token}/sendDocument"
     filename = os.path.basename(pdf_path)
 
-    # 1. Standard Admin Delivery
+    # 1. Standard Admin DM Delivery
     if admin_chat_id:
         print(f"📤 Uploading {filename} to Admin Telegram...")
         with open(pdf_path, "rb") as doc:
@@ -102,31 +103,82 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
                 "caption": caption,
                 "parse_mode": "HTML"
             }
-            res = requests.post(url, data=payload, files={"document": (filename, doc, "application/pdf")})
+            res = requests.post(
+                f"https://api.telegram.org/bot{bot_token}/sendDocument",
+                data=payload,
+                files={"document": (filename, doc, "application/pdf")}
+            )
             
         if res.status_code == 200:
             print("🚀 Successfully delivered magazine PDF to Admin!")
         else:
             print(f"❌ Telegram Admin Error ({res.status_code}): {res.text}")
 
-    # 2. Group Topic / Thread Delivery (Controlled by ENABLE_GROUP_PUBLISH)
+    # 2. Upload to Thread 2 & Relay to Thread 3 with Buttons
     if enable_group_publish:
-        if not group_chat_id or not thread_id:
+        if not source_chat_id or not source_thread_id:
             print("⚠️ Group publishing enabled, but TELEGRAM_GROUP_CHAT_ID or TELEGRAM_THREAD_ID is missing.")
             return
 
-        print(f"📤 Uploading {filename} to Group Thread ({thread_id})...")
+        print(f"📤 Uploading {filename} to Source Thread ({source_thread_id})...")
         with open(pdf_path, "rb") as doc:
             payload = {
-                "chat_id": group_chat_id,
-                "message_thread_id": int(thread_id),
+                "chat_id": source_chat_id,
+                "message_thread_id": int(source_thread_id),
                 "caption": caption,
                 "parse_mode": "HTML"
             }
-            res = requests.post(url, data=payload, files={"document": (filename, doc, "application/pdf")})
+            res = requests.post(
+                f"https://api.telegram.org/bot{bot_token}/sendDocument",
+                data=payload,
+                files={"document": (filename, doc, "application/pdf")}
+            )
 
         if res.status_code == 200:
-            print("🚀 Successfully delivered magazine PDF to Group Topic Thread!")
+            source_msg_id = res.json()["result"]["message_id"]
+            print(f"🚀 Delivered to Source Thread 2 (Msg ID: {source_msg_id})")
+
+            # --- ✨ FEATURE RELAY: Copy from Thread 2 to Thread 3 ---
+            print(f"🔄 Relaying to Thread {target_thread_id} in Main Group...")
+            copy_payload = {
+                "chat_id": target_chat_id,
+                "from_chat_id": source_chat_id,
+                "message_id": source_msg_id,
+                "message_thread_id": target_thread_id
+            }
+            copy_res = requests.post(
+                f"https://api.telegram.org/bot{bot_token}/copyMessage",
+                json=copy_payload,
+                timeout=10
+            )
+
+            if copy_res.status_code == 200:
+                new_msg_id = copy_res.json()["result"]["message_id"]
+                print(f"✅ Relayed successfully (Target Msg ID: {new_msg_id})")
+
+                # --- ✨ INJECT DUAL INTERACTIVE BUTTONS ---
+                markup = {
+                    "inline_keyboard": [
+                        [{"text": "📖 Mark as Read • 0", "callback_data": f"read_{new_msg_id}"}],
+                        [{"text": "🎯 Topic Quiz (4:30 PM)", "url": "https://t.me/Ez_vocab_bot/leaderboard"}]
+                    ]
+                }
+                btn_res = requests.post(
+                    f"https://api.telegram.org/bot{bot_token}/editMessageReplyMarkup",
+                    json={
+                        "chat_id": target_chat_id,
+                        "message_id": new_msg_id,
+                        "reply_markup": markup
+                    },
+                    timeout=5
+                )
+
+                if btn_res.status_code == 200:
+                    print("🪄 Interactive attendance & quiz buttons attached!")
+                else:
+                    print(f"⚠️ Failed to attach buttons: {btn_res.text}")
+            else:
+                print(f"❌ Failed to relay message to Thread 3: {copy_res.text}")
         else:
             print(f"❌ Telegram Group Thread Error ({res.status_code}): {res.text}")
     else:

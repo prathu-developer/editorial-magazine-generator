@@ -12,14 +12,54 @@ from curl_cffi import requests
 IST = timezone(timedelta(hours=5, minutes=30))
 NOW_IST = datetime.now(IST)
 TODAY_DATE = NOW_IST.date()
+HISTORY_FILE = "editorial_history.json"
+OUTPUT_FILE = "daily_editorials.json"
+TARGET_ADMIN_CHAT_ID = "5103843488"
 
-# Optional proxy key for Cloudflare/protected sites
 SCRAPINGANT_KEY = os.getenv("SCRAPINGANT_API_KEY")
+BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
 session = requests.Session(impersonate="chrome124")
 
+def load_history():
+    """Loads scraping history and prunes entries older than 7 days."""
+    cutoff_date = TODAY_DATE - timedelta(days=7)
+    if not os.path.exists(HISTORY_FILE):
+        return {"history": []}
+
+    try:
+        with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            history = data.get("history", [])
+            # Keep entries within 7 days
+            filtered_history = [
+                entry for entry in history
+                if datetime.strptime(entry.get("scraped_date", str(TODAY_DATE)), "%Y-%m-%d").date() >= cutoff_date
+            ]
+            return {"history": filtered_history}
+    except Exception as e:
+        print(f"⚠️ Error reading {HISTORY_FILE}: {e}. Initializing fresh history.")
+        return {"history": []}
+
+def save_history(history_data):
+    """Saves updated history ledger."""
+    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
+        json.dump(history_data, f, ensure_ascii=False, indent=4)
+
+def is_already_scraped(title, url, history_entries):
+    """Checks whether an article was already picked in the past 7 days."""
+    norm_title = re.sub(r'\W+', '', title.lower())
+    norm_url = url.split("?")[0].rstrip("/")
+
+    for entry in history_entries:
+        entry_title = re.sub(r'\W+', '', entry.get("title", "").lower())
+        entry_url = entry.get("link", "").split("?")[0].rstrip("/")
+        if norm_title == entry_title or norm_url == entry_url:
+            return True
+    return False
+
 def fetch_page(url, max_retries=3, timeout=60, use_proxy=False):
-    """Fetches full page content using curl_cffi with optional ScrapingAnt fallback."""
+    """Fetches web page content with retry logic."""
     if use_proxy and SCRAPINGANT_KEY:
         target_url = f"https://api.scrapingant.com/v2/general?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
     else:
@@ -50,10 +90,9 @@ def fetch_page(url, max_retries=3, timeout=60, use_proxy=False):
     return ""
 
 def extract_article_datetime(html):
-    """Extracts exact publication datetime in IST from OpenGraph or JSON-LD."""
+    """Extracts publication datetime in IST from metadata or JSON-LD."""
     soup = BeautifulSoup(html, 'html.parser')
     
-    # 1. Meta tags
     for meta in soup.find_all('meta'):
         prop = meta.get('property', '') or meta.get('name', '') or meta.get('itemprop', '')
         if prop in ['article:published_time', 'publish-date', 'datePublished', 'og:published_time', 'pubdate']:
@@ -67,7 +106,6 @@ def extract_article_datetime(html):
                         d = datetime.strptime(match.group(1), "%Y-%m-%d").date()
                         return datetime(d.year, d.month, d.day, 6, 0, tzinfo=IST)
 
-    # 2. JSON-LD metadata
     for script in soup.find_all('script', type='application/ld+json'):
         try:
             data = json.loads(script.string or '')
@@ -88,20 +126,13 @@ def extract_article_datetime(html):
     return None
 
 def format_published_time(pub_dt):
-    """Formats datetime object into readable string."""
+    """Formats datetime to standard readable format."""
     if pub_dt:
         return pub_dt.strftime("%B %d, %Y %I:%M %p IST")
     return f"{TODAY_DATE.strftime('%B %d, %Y')} IST"
 
-def is_recent_edition(pub_dt, max_hours=36):
-    """Checks if the article was published recently (within 36 hours)."""
-    if not pub_dt:
-        return True
-    age_hours = (NOW_IST - pub_dt).total_seconds() / 3600.0
-    return 0 <= age_hours <= max_hours
-
 def extract_clean_paragraphs(container):
-    """Sanitizes text and preserves clean paragraph structures."""
+    """Sanitizes text and preserves editorial paragraphs."""
     if not container:
         return ""
     
@@ -124,7 +155,7 @@ def extract_clean_paragraphs(container):
     return "\n\n".join(paragraphs)
 
 def extract_content(html, newspaper):
-    """Extracts article body based on source-specific selectors with readability fallback."""
+    """Extracts article body based on source selectors with Readability fallback."""
     soup = BeautifulSoup(html, 'html.parser')
 
     selectors_by_source = {
@@ -152,7 +183,6 @@ def extract_content(html, newspaper):
             if len(text) > 250:
                 return text
 
-    # JSON-LD fallback
     for script in soup.find_all('script', type='application/ld+json'):
         try:
             data = json.loads(script.string or '')
@@ -165,13 +195,12 @@ def extract_content(html, newspaper):
         except Exception:
             continue
 
-    # Readability fallback
     doc = Document(html)
     summary_soup = BeautifulSoup(doc.summary(), 'html.parser')
     return extract_clean_paragraphs(summary_soup)
 
 def parse_article(url, newspaper, use_proxy=False):
-    """Downloads and extracts full metadata and passage for a single editorial."""
+    """Extracts article content, clean title, and publication timestamp."""
     html = fetch_page(url, use_proxy=use_proxy)
     if not html:
         return None
@@ -180,7 +209,6 @@ def parse_article(url, newspaper, use_proxy=False):
         pub_dt = extract_article_datetime(html)
         soup = BeautifulSoup(html, 'html.parser')
         
-        # Extract title
         h1 = soup.find('h1')
         if h1:
             for badge in h1.find_all(['span', 'div', 'a']):
@@ -192,7 +220,6 @@ def parse_article(url, newspaper, use_proxy=False):
         clean_title = raw_title.split(' - ')[0].split(' | ')[0].split(' : ')[0].strip()
         clean_title = re.sub(r'^(Opinion|Editorial|The Guardian view on)\s*:?\s*', '', clean_title, flags=re.IGNORECASE).strip()
 
-        # Extract passage
         passage = extract_content(html, newspaper)
         if not passage or len(passage) < 250:
             return None
@@ -208,14 +235,14 @@ def parse_article(url, newspaper, use_proxy=False):
             "reading_time": reading_time,
             "passage": passage,
             "word_count": words,
-            "pub_dt": pub_dt
+            "pub_dt": pub_dt or datetime(NOW_IST.year, NOW_IST.month, NOW_IST.day, tzinfo=IST)
         }
     except Exception as e:
         print(f"  ⚠️ Error parsing {url}: {e}")
         return None
 
-def extract_links(section_url, filter_pattern, max_links=8, use_proxy=False):
-    """Fetches section index page and finds matching editorial links."""
+def extract_links(section_url, filter_pattern, max_links=10, use_proxy=False):
+    """Collects candidate editorial links from the index page."""
     html = fetch_page(section_url, use_proxy=use_proxy)
     if not html:
         return []
@@ -359,43 +386,85 @@ SOURCES_CONFIG = [
 
 def collect_editorials():
     print(f"🚀 Starting Multi-Source Editorial Collector for {TODAY_DATE} (IST)...")
+    history_data = load_history()
+    history_entries = history_data.get("history", [])
+    
     all_articles = []
+    new_history_records = []
 
     for cfg in SOURCES_CONFIG:
         print(f"\n📰 Scanning: [{cfg['category']}] -> {cfg['newspaper']}...")
-        links = extract_links(cfg['section_url'], cfg['pattern'], max_links=6, use_proxy=cfg.get('use_proxy', False))
+        links = extract_links(cfg['section_url'], cfg['pattern'], max_links=8, use_proxy=cfg.get('use_proxy', False))
         
-        candidates = []
+        parsed_candidates = []
         for link in links:
             article = parse_article(link, cfg['newspaper'], use_proxy=cfg.get('use_proxy', False))
             if not article:
                 continue
 
-            if article["pub_dt"] and not is_recent_edition(article["pub_dt"]):
-                print(f"  ⏭️ Skipping older piece: {article['title'][:35]}...")
+            # Check if this article was already collected in the last 7 days
+            if is_already_scraped(article["title"], article["link"], history_entries):
+                print(f"  ⏭️ Already collected within past week: {article['title'][:35]}...")
                 continue
 
-            print(f"  ✓ Fetched: {article['title'][:45]}... ({article['word_count']} words)")
-            candidates.append({
+            parsed_candidates.append(article)
+
+        if not parsed_candidates:
+            print(f"  ⚠️ No new uncollected pieces found for {cfg['newspaper']}.")
+            continue
+
+        # Sort available new candidates by publication date descending (latest first)
+        parsed_candidates.sort(key=lambda item: item["pub_dt"], reverse=True)
+        selected_candidates = parsed_candidates[:cfg["limit"]]
+
+        for item in selected_candidates:
+            print(f"  ✓ Picked Latest: {item['title'][:45]}... ({item['published_at']})")
+            
+            all_articles.append({
                 "category": cfg["category"],
                 "newspaper": cfg["newspaper"],
-                "title": article["title"],
-                "link": article["link"],
-                "timestamp": article["timestamp"],
-                "published_at": article["published_at"],
-                "reading_time": article["reading_time"],
-                "passage": article["passage"],
-                "word_count": article["word_count"]
+                "title": item["title"],
+                "link": item["link"],
+                "timestamp": item["timestamp"],
+                "published_at": item["published_at"],
+                "reading_time": item["reading_time"],
+                "passage": item["passage"]
             })
 
-            if len(candidates) >= cfg["limit"]:
-                break
+            # Record in history ledger
+            new_history_records.append({
+                "newspaper": cfg["newspaper"],
+                "title": item["title"],
+                "link": item["link"],
+                "scraped_date": str(TODAY_DATE)
+            })
 
-        for item in candidates:
-            item.pop("word_count", None)
-            all_articles.append(item)
+    # Update and persist rolling history
+    history_data["history"].extend(new_history_records)
+    save_history(history_data)
 
     return all_articles
+
+def send_telegram_document(file_path, chat_id):
+    """Sends output file directly to the specified Telegram admin ID."""
+    if not BOT_TOKEN or not chat_id:
+        return
+
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendDocument"
+    try:
+        with open(file_path, 'rb') as doc_file:
+            files = {'document': doc_file}
+            data = {
+                'chat_id': chat_id,
+                'caption': f"📰 **Daily Editorials Collected**\n📅 Date: {TODAY_DATE}\n⚡ Total Articles: {len(json.load(open(file_path))['editorials'])}"
+            }
+            res = requests.post(url, data=data, files=files, timeout=30)
+            if res.status_code == 200:
+                print(f"📤 Sent `{file_path}` to Telegram Admin ({chat_id}).")
+            else:
+                print(f"⚠️ Failed to send Telegram document: {res.text}")
+    except Exception as e:
+        print(f"⚠️ Telegram send error: {e}")
 
 def run():
     editorials = collect_editorials()
@@ -410,23 +479,23 @@ def run():
         "editorials": editorials
     }
 
-    # Only save to daily_editorials.json
-    with open('daily_editorials.json', 'w', encoding='utf-8') as f:
+    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
         json.dump(output, f, ensure_ascii=False, indent=4)
 
-    print(f"\n✅ Successfully compiled {len(editorials)} articles into daily_editorials.json")
+    print(f"\n✅ Successfully compiled {len(editorials)} articles into {OUTPUT_FILE}")
+    
+    # Send document directly to target admin ID
+    send_telegram_document(OUTPUT_FILE, TARGET_ADMIN_CHAT_ID)
 
 if __name__ == "__main__":
     try:
         run()
     except Exception as e:
-        bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
-        admin_chat_id = os.getenv("ADMIN_CHAT_ID")
-        if bot_token and admin_chat_id:
+        if BOT_TOKEN:
             try:
-                requests.post(f"https://api.telegram.org/bot{bot_token}/sendMessage", json={
-                    "chat_id": admin_chat_id,
-                    "text": f"🚨 **EDITORIAL COLLECTOR FAILED:**\n\n**Error:**\n`{e}`",
+                requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json={
+                    "chat_id": TARGET_ADMIN_CHAT_ID,
+                    "text": f"🚨 **DAILY EDITORIAL COLLECTOR FAILED:**\n\n**Error:**\n`{e}`",
                     "parse_mode": "Markdown"
                 })
             except Exception:

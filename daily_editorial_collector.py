@@ -7,8 +7,8 @@ from datetime import datetime, timezone, timedelta
 from urllib.parse import urljoin, quote_plus
 from bs4 import BeautifulSoup
 from readability import Document
-from curl_cffi import requests
-from curl_cffi.requests import CurlMime
+from curl_cffi import requests as cffi_requests
+import requests as std_requests
 
 IST = timezone(timedelta(hours=5, minutes=30))
 NOW_IST = datetime.now(IST)
@@ -24,7 +24,7 @@ HARDCODED_ADMIN_ID = "5103843488"
 # Deduplicate recipient Telegram IDs
 RECIPIENT_CHAT_IDS = list({cid for cid in [ENV_ADMIN_CHAT_ID, HARDCODED_ADMIN_ID] if cid})
 
-session = requests.Session(impersonate="chrome124")
+session = cffi_requests.Session(impersonate="chrome124")
 
 def load_history():
     """Loads scraping history and prunes entries older than 7 days."""
@@ -74,7 +74,6 @@ def fetch_page(url, max_retries=2, timeout=25, use_proxy=False):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
     }
 
-    # If proxy explicitly requested
     if use_proxy and SCRAPINGANT_KEY:
         target_url = f"https://api.scrapingant.com/v2/general?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
         try:
@@ -85,14 +84,12 @@ def fetch_page(url, max_retries=2, timeout=25, use_proxy=False):
             print(f"  ⚠️ Proxy fetch error for {url}: {e}")
         return ""
 
-    # Direct fetch with retry and 403/timeout fallback
     for attempt in range(1, max_retries + 1):
         try:
             res = session.get(url, headers=headers, timeout=timeout)
             if res.status_code == 200 and len(res.text) > 500:
                 return res.text
             
-            # If blocked (403/429) and proxy key exists, attempt proxy immediately
             if res.status_code in [403, 429] and SCRAPINGANT_KEY:
                 print(f"  🛡️ HTTP {res.status_code} on {url}. Retrying with ScrapingAnt proxy...")
                 proxy_url = f"https://api.scrapingant.com/v2/general?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
@@ -471,7 +468,7 @@ def collect_editorials():
     return all_articles
 
 def send_telegram_document_to_recipients(file_path):
-    """Sends JSON file copy to all configured Telegram recipient chat IDs via CurlMime multipart upload."""
+    """Sends JSON file copy to all configured Telegram recipient chat IDs."""
     if not BOT_TOKEN or not RECIPIENT_CHAT_IDS:
         return
 
@@ -486,13 +483,13 @@ def send_telegram_document_to_recipients(file_path):
 
     for chat_id in RECIPIENT_CHAT_IDS:
         try:
-            mp = CurlMime()
-            mp.addform("chat_id", str(chat_id))
-            mp.addform("caption", caption)
-            mp.addform("parse_mode", "Markdown")
-            mp.addform("document", file_path=file_path)
-
-            res = session.post(url, multipart=mp, timeout=45)
+            with open(file_path, "rb") as f:
+                res = std_requests.post(
+                    url,
+                    data={"chat_id": str(chat_id), "caption": caption, "parse_mode": "Markdown"},
+                    files={"document": (os.path.basename(file_path), f, "application/json")},
+                    timeout=45
+                )
             if res.status_code == 200:
                 print(f"📤 Sent `{file_path}` to Telegram Admin ({chat_id}).")
             else:
@@ -527,11 +524,11 @@ if __name__ == "__main__":
         if BOT_TOKEN and RECIPIENT_CHAT_IDS:
             for chat_id in RECIPIENT_CHAT_IDS:
                 try:
-                    session.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json={
+                    std_requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json={
                         "chat_id": str(chat_id),
                         "text": f"🚨 **DAILY EDITORIAL COLLECTOR FAILED:**\n\n**Error:**\n`{e}`",
                         "parse_mode": "Markdown"
-                    })
+                    }, timeout=20)
                 except Exception:
                     pass
         print(f"Fatal error: {e}")

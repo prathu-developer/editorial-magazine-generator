@@ -38,8 +38,8 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add daily_editorials.json today_editorials.json
-          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update: Multi-source daily editorials for $(date -u +'%Y-%m-%d')"
+          git add daily_editorials.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-update: Daily editorials for $(date -u +'%Y-%m-%d')"
           git pull origin main --rebase
           git push
 
@@ -55,7 +55,7 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{
               "chat_id": "'"$ADMIN_CHAT_ID"'",
-              "text": "✅ **DAILY EDITORIAL COLLECTOR COMPLETED**\n\n📰 Successfully extracted '"$TOTAL_COUNT"' curated pieces across all four thematic categories.\n💾 Updated `daily_editorials.json` & `today_editorials.json`.",
+              "text": "✅ **DAILY EDITORIAL COLLECTOR COMPLETED**\n\n📰 Successfully extracted '"$TOTAL_COUNT"' curated pieces.\n💾 Updated `daily_editorials.json`.",
               "parse_mode": "Markdown",
               "disable_web_page_preview": true
             }'

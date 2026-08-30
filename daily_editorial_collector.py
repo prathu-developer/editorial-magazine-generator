@@ -8,12 +8,16 @@ from urllib.parse import urljoin, quote_plus, urlparse
 from bs4 import BeautifulSoup
 from readability import Document
 from curl_cffi import requests
+import requests as std_requests
 
 IST = timezone(timedelta(hours=5, minutes=30))
 NOW_IST = datetime.now(IST)
 TODAY_DATE = NOW_IST.date()
 
 SCRAPINGANT_KEY = os.getenv("SCRAPINGANT_API_KEY", "").strip()
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
+ADMIN_CHAT_ID = os.getenv("ADMIN_CHAT_ID", "").strip()
+
 HISTORY_FILE = "editorial_history.json"
 OUTPUT_FILE = "additional_editorials.json"
 
@@ -61,7 +65,7 @@ SOURCES = [
         "content_selectors": ["div[itemprop='articleBody']", ".td-post-content", ".article-content", ".single-post-content"],
         "max_candidates": 25,
         "max_articles": 8,
-        "use_scrapingant": False,
+        "use_scrapingant": True,
         "enabled": True,
     },
     {
@@ -82,7 +86,7 @@ SOURCES = [
         "category": "Editorial/Opinion",
         "listing_urls": ["https://www.deccanherald.com/opinion/editorial"],
         "link_patterns": [r"/opinion/", r"/editorial"],
-        "content_selectors": ["div[itemprop='articleBody']", ".content-body", ".story-content", ".article-body"],
+        "content_selectors": ["div[itemprop='articleBody']", ".content-body", ".story-content", ".article-body", ".story-element-text"],
         "max_candidates": 25,
         "max_articles": 8,
         "use_scrapingant": False,
@@ -109,7 +113,7 @@ SOURCES = [
         "content_selectors": ["div[itemprop='articleBody']", ".article-content", ".content-area", ".story-content"],
         "max_candidates": 25,
         "max_articles": 8,
-        "use_scrapingant": False,
+        "use_scrapingant": True,
         "enabled": True,
     },
     {
@@ -128,8 +132,8 @@ SOURCES = [
         "key": "aljazeera",
         "name": "Al Jazeera",
         "category": "Opinion/Analysis",
-        "listing_urls": ["https://www.aljazeera.com/opinions/"],
-        "link_patterns": [r"/opinions/"],
+        "listing_urls": ["https://www.aljazeera.com/opinion/"],
+        "link_patterns": [r"/opinions?/", r"/opinion/"],
         "content_selectors": ["div.wysiwyg", "div.article-body", "div[itemprop='articleBody']", ".article__content"],
         "max_candidates": 25,
         "max_articles": 8,
@@ -564,6 +568,38 @@ def scrape_source(source, history_ids):
     return final_articles
 
 
+def send_to_telegram(file_path, total_articles, source_stats):
+    if not TELEGRAM_BOT_TOKEN or not ADMIN_CHAT_ID:
+        print("ℹ️ Telegram credentials not configured. Skipping Telegram notification.")
+        return
+
+    print(f"✈️ Sending {file_path} copy to Telegram...")
+    url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendDocument"
+
+    summary_lines = [f"📰 <b>Daily Editorial Digest Compiled</b>", f"Total Articles: <b>{total_articles}</b>", ""]
+    for s in source_stats:
+        if s["articles"] > 0:
+            summary_lines.append(f"• <b>{s['source']}</b>: {s['articles']} ({s['latest_date']})")
+    
+    caption = "\n".join(summary_lines)
+
+    try:
+        with open(file_path, "rb") as f:
+            files = {"document": (os.path.basename(file_path), f, "application/json")}
+            data = {
+                "chat_id": ADMIN_CHAT_ID,
+                "caption": caption[:1024],
+                "parse_mode": "HTML",
+            }
+            resp = std_requests.post(url, data=data, files=files, timeout=30)
+            if resp.status_code == 200:
+                print("✅ Telegram document delivery successful.")
+            else:
+                print(f"⚠️ Telegram API delivery failed ({resp.status_code}): {resp.text}")
+    except Exception as exc:
+        print(f"⚠️ Telegram delivery error: {exc}")
+
+
 def run():
     print(f"🚀 Starting Editorial Collector at {NOW_IST.isoformat()}")
 
@@ -616,6 +652,9 @@ def run():
         json.dump(output, f, ensure_ascii=False, indent=2)
 
     save_history(new_seen_ids)
+
+    # Deliver copy directly to Telegram
+    send_to_telegram(OUTPUT_FILE, len(all_articles), source_stats)
 
     print("\n📊 RUN SUMMARY")
     for item in source_stats:

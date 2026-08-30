@@ -14,10 +14,14 @@ NOW_IST = datetime.now(IST)
 TODAY_DATE = NOW_IST.date()
 HISTORY_FILE = "editorial_history.json"
 OUTPUT_FILE = "daily_editorials.json"
-TARGET_ADMIN_CHAT_ID = "5103843488"
 
 SCRAPINGANT_KEY = os.getenv("SCRAPINGANT_API_KEY")
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+ENV_ADMIN_CHAT_ID = os.getenv("ADMIN_CHAT_ID")
+HARDCODED_ADMIN_ID = "5103843488"
+
+# Deduplicate target admin IDs
+RECIPIENT_CHAT_IDS = list({cid for cid in [ENV_ADMIN_CHAT_ID, HARDCODED_ADMIN_ID] if cid})
 
 session = requests.Session(impersonate="chrome124")
 
@@ -31,7 +35,6 @@ def load_history():
         with open(HISTORY_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
             history = data.get("history", [])
-            # Keep entries within 7 days
             filtered_history = [
                 entry for entry in history
                 if datetime.strptime(entry.get("scraped_date", str(TODAY_DATE)), "%Y-%m-%d").date() >= cutoff_date
@@ -402,7 +405,6 @@ def collect_editorials():
             if not article:
                 continue
 
-            # Check if this article was already collected in the last 7 days
             if is_already_scraped(article["title"], article["link"], history_entries):
                 print(f"  ⏭️ Already collected within past week: {article['title'][:35]}...")
                 continue
@@ -413,7 +415,6 @@ def collect_editorials():
             print(f"  ⚠️ No new uncollected pieces found for {cfg['newspaper']}.")
             continue
 
-        # Sort available new candidates by publication date descending (latest first)
         parsed_candidates.sort(key=lambda item: item["pub_dt"], reverse=True)
         selected_candidates = parsed_candidates[:cfg["limit"]]
 
@@ -431,7 +432,6 @@ def collect_editorials():
                 "passage": item["passage"]
             })
 
-            # Record in history ledger
             new_history_records.append({
                 "newspaper": cfg["newspaper"],
                 "title": item["title"],
@@ -439,32 +439,36 @@ def collect_editorials():
                 "scraped_date": str(TODAY_DATE)
             })
 
-    # Update and persist rolling history
     history_data["history"].extend(new_history_records)
     save_history(history_data)
 
     return all_articles
 
-def send_telegram_document(file_path, chat_id):
-    """Sends output file directly to the specified Telegram admin ID."""
-    if not BOT_TOKEN or not chat_id:
+def send_telegram_document_to_recipients(file_path):
+    """Sends JSON file copy to all configured Telegram recipient chat IDs."""
+    if not BOT_TOKEN or not RECIPIENT_CHAT_IDS:
         return
 
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendDocument"
-    try:
-        with open(file_path, 'rb') as doc_file:
-            files = {'document': doc_file}
-            data = {
-                'chat_id': chat_id,
-                'caption': f"📰 **Daily Editorials Collected**\n📅 Date: {TODAY_DATE}\n⚡ Total Articles: {len(json.load(open(file_path))['editorials'])}"
-            }
-            res = requests.post(url, data=data, files=files, timeout=30)
-            if res.status_code == 200:
-                print(f"📤 Sent `{file_path}` to Telegram Admin ({chat_id}).")
-            else:
-                print(f"⚠️ Failed to send Telegram document: {res.text}")
-    except Exception as e:
-        print(f"⚠️ Telegram send error: {e}")
+    total_articles = len(json.load(open(file_path))['editorials'])
+    caption = f"📰 **Daily Editorials Collected**\n📅 Date: {TODAY_DATE}\n⚡ Total Articles: {total_articles}"
+
+    for chat_id in RECIPIENT_CHAT_IDS:
+        try:
+            with open(file_path, 'rb') as doc_file:
+                files = {'document': doc_file}
+                data = {
+                    'chat_id': chat_id,
+                    'caption': caption,
+                    'parse_mode': 'Markdown'
+                }
+                res = requests.post(url, data=data, files=files, timeout=30)
+                if res.status_code == 200:
+                    print(f"📤 Sent `{file_path}` to Telegram Admin ({chat_id}).")
+                else:
+                    print(f"⚠️ Failed sending document to {chat_id}: {res.text}")
+        except Exception as e:
+            print(f"⚠️ Telegram send error for {chat_id}: {e}")
 
 def run():
     editorials = collect_editorials()
@@ -484,21 +488,21 @@ def run():
 
     print(f"\n✅ Successfully compiled {len(editorials)} articles into {OUTPUT_FILE}")
     
-    # Send document directly to target admin ID
-    send_telegram_document(OUTPUT_FILE, TARGET_ADMIN_CHAT_ID)
+    send_telegram_document_to_recipients(OUTPUT_FILE)
 
 if __name__ == "__main__":
     try:
         run()
     except Exception as e:
-        if BOT_TOKEN:
-            try:
-                requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json={
-                    "chat_id": TARGET_ADMIN_CHAT_ID,
-                    "text": f"🚨 **DAILY EDITORIAL COLLECTOR FAILED:**\n\n**Error:**\n`{e}`",
-                    "parse_mode": "Markdown"
-                })
-            except Exception:
-                pass
+        if BOT_TOKEN and RECIPIENT_CHAT_IDS:
+            for chat_id in RECIPIENT_CHAT_IDS:
+                try:
+                    requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json={
+                        "chat_id": chat_id,
+                        "text": f"🚨 **DAILY EDITORIAL COLLECTOR FAILED:**\n\n**Error:**\n`{e}`",
+                        "parse_mode": "Markdown"
+                    })
+                except Exception:
+                    pass
         print(f"Fatal error: {e}")
         sys.exit(1)

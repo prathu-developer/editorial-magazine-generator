@@ -29,7 +29,6 @@ def fetch_page(url, max_retries=3, timeout=60, use_proxy=False):
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.9",
         "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Mode": "navigate",
         "Sec-Fetch-Site": "none",
         "Sec-Fetch-User": "?1",
         "Upgrade-Insecure-Requests": "1",
@@ -153,7 +152,7 @@ def extract_content(html, newspaper):
             if len(text) > 250:
                 return text
 
-    # JSON-LD fallback for articleBody
+    # JSON-LD fallback
     for script in soup.find_all('script', type='application/ld+json'):
         try:
             data = json.loads(script.string or '')
@@ -181,7 +180,7 @@ def parse_article(url, newspaper, use_proxy=False):
         pub_dt = extract_article_datetime(html)
         soup = BeautifulSoup(html, 'html.parser')
         
-        # 1. Clean Title Extraction
+        # Extract title
         h1 = soup.find('h1')
         if h1:
             for badge in h1.find_all(['span', 'div', 'a']):
@@ -193,7 +192,7 @@ def parse_article(url, newspaper, use_proxy=False):
         clean_title = raw_title.split(' - ')[0].split(' | ')[0].split(' : ')[0].strip()
         clean_title = re.sub(r'^(Opinion|Editorial|The Guardian view on)\s*:?\s*', '', clean_title, flags=re.IGNORECASE).strip()
 
-        # 2. Extract Body
+        # Extract passage
         passage = extract_content(html, newspaper)
         if not passage or len(passage) < 250:
             return None
@@ -239,7 +238,6 @@ def extract_links(section_url, filter_pattern, max_links=8, use_proxy=False):
 
     return links
 
-# Source Configuration Mappings
 SOURCES_CONFIG = [
     # 1. Economy, Banking & Regulatory Policy
     {
@@ -373,7 +371,6 @@ def collect_editorials():
             if not article:
                 continue
 
-            # Validate date freshness
             if article["pub_dt"] and not is_recent_edition(article["pub_dt"]):
                 print(f"  ⏭️ Skipping older piece: {article['title'][:35]}...")
                 continue
@@ -413,12 +410,11 @@ def run():
         "editorials": editorials
     }
 
-    # Write output datasets
-    for file_name in ['daily_editorials.json', 'today_editorials.json']:
-        with open(file_name, 'w', encoding='utf-8') as f:
-            json.dump(output, f, ensure_ascii=False, indent=4)
+    # Only save to daily_editorials.json
+    with open('daily_editorials.json', 'w', encoding='utf-8') as f:
+        json.dump(output, f, ensure_ascii=False, indent=4)
 
-    print(f"\n✅ Successfully compiled {len(editorials)} articles across {len(output['categories_covered'])} categories into daily_editorials.json")
+    print(f"\n✅ Successfully compiled {len(editorials)} articles into daily_editorials.json")
 
 if __name__ == "__main__":
     try:

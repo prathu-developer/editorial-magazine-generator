@@ -8,6 +8,7 @@ from urllib.parse import urljoin, quote_plus
 from bs4 import BeautifulSoup
 from readability import Document
 from curl_cffi import requests
+from curl_cffi.requests import CurlMime
 
 IST = timezone(timedelta(hours=5, minutes=30))
 NOW_IST = datetime.now(IST)
@@ -20,7 +21,7 @@ BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 ENV_ADMIN_CHAT_ID = os.getenv("ADMIN_CHAT_ID")
 HARDCODED_ADMIN_ID = "5103843488"
 
-# Deduplicate target admin IDs
+# Deduplicate recipient Telegram IDs
 RECIPIENT_CHAT_IDS = list({cid for cid in [ENV_ADMIN_CHAT_ID, HARDCODED_ADMIN_ID] if cid})
 
 session = requests.Session(impersonate="chrome124")
@@ -50,7 +51,7 @@ def save_history(history_data):
         json.dump(history_data, f, ensure_ascii=False, indent=4)
 
 def is_already_scraped(title, url, history_entries):
-    """Checks whether an article was already picked in the past 7 days."""
+    """Checks whether an article was already collected in the past 7 days."""
     norm_title = re.sub(r'\W+', '', title.lower())
     norm_url = url.split("?")[0].rstrip("/")
 
@@ -61,13 +62,8 @@ def is_already_scraped(title, url, history_entries):
             return True
     return False
 
-def fetch_page(url, max_retries=3, timeout=60, use_proxy=False):
-    """Fetches web page content with retry logic."""
-    if use_proxy and SCRAPINGANT_KEY:
-        target_url = f"https://api.scrapingant.com/v2/general?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
-    else:
-        target_url = url
-
+def fetch_page(url, max_retries=2, timeout=25, use_proxy=False):
+    """Fetches web page content with automatic proxy fallback on 403 or timeout."""
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.9",
@@ -78,14 +74,44 @@ def fetch_page(url, max_retries=3, timeout=60, use_proxy=False):
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
     }
 
+    # If proxy explicitly requested
+    if use_proxy and SCRAPINGANT_KEY:
+        target_url = f"https://api.scrapingant.com/v2/general?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
+        try:
+            res = session.get(target_url, headers=headers, timeout=60)
+            if res.status_code == 200 and len(res.text) > 500:
+                return res.text
+        except Exception as e:
+            print(f"  ⚠️ Proxy fetch error for {url}: {e}")
+        return ""
+
+    # Direct fetch with retry and 403/timeout fallback
     for attempt in range(1, max_retries + 1):
         try:
-            response = session.get(target_url, headers=headers, timeout=timeout)
-            if response.status_code == 200 and len(response.text) > 500:
-                return response.text
-            print(f"  ⚠️ [Attempt {attempt}/{max_retries}] Status {response.status_code} for {url}")
+            res = session.get(url, headers=headers, timeout=timeout)
+            if res.status_code == 200 and len(res.text) > 500:
+                return res.text
+            
+            # If blocked (403/429) and proxy key exists, attempt proxy immediately
+            if res.status_code in [403, 429] and SCRAPINGANT_KEY:
+                print(f"  🛡️ HTTP {res.status_code} on {url}. Retrying with ScrapingAnt proxy...")
+                proxy_url = f"https://api.scrapingant.com/v2/general?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
+                p_res = session.get(proxy_url, headers=headers, timeout=60)
+                if p_res.status_code == 200 and len(p_res.text) > 500:
+                    return p_res.text
+
+            print(f"  ⚠️ [Attempt {attempt}/{max_retries}] Status {res.status_code} for {url}")
         except Exception as e:
             print(f"  ⚠️ [Attempt {attempt}/{max_retries}] Fetch error for {url}: {e}")
+            if SCRAPINGANT_KEY:
+                print(f"  🛡️ Timeout/Error. Retrying with ScrapingAnt proxy...")
+                try:
+                    proxy_url = f"https://api.scrapingant.com/v2/general?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
+                    p_res = session.get(proxy_url, headers=headers, timeout=60)
+                    if p_res.status_code == 200 and len(p_res.text) > 500:
+                        return p_res.text
+                except Exception:
+                    pass
         
         if attempt < max_retries:
             time.sleep(2)
@@ -315,15 +341,15 @@ SOURCES_CONFIG = [
         "category": "General Governance, National Issues & Vocabulary",
         "newspaper": "Hindustan Times",
         "section_url": "https://www.hindustantimes.com/opinion",
-        "pattern": r"/opinion/[a-zA-Z0-9\-_]+-\d+\.html",
+        "pattern": r"/opinion/[a-zA-Z0-9\-_]+",
         "limit": 1,
         "use_proxy": False
     },
     {
         "category": "General Governance, National Issues & Vocabulary",
         "newspaper": "Deccan Herald",
-        "section_url": "https://www.deccanherald.com/opinion-editorial",
-        "pattern": r"/opinion/[a-zA-Z0-9\-_]+",
+        "section_url": "https://www.deccanherald.com/opinion/editorial",
+        "pattern": r"/opinion/(editorial/)?[a-zA-Z0-9\-_]+",
         "limit": 1,
         "use_proxy": False
     },
@@ -331,7 +357,7 @@ SOURCES_CONFIG = [
         "category": "General Governance, National Issues & Vocabulary",
         "newspaper": "The Daily Pioneer",
         "section_url": "https://www.dailypioneer.com/category/opinion",
-        "pattern": r"/category/opinion/[a-zA-Z0-9\-_]+|/opinion/[a-zA-Z0-9\-_]+",
+        "pattern": r"/(category/)?opinion/[a-zA-Z0-9\-_]+",
         "limit": 1,
         "use_proxy": False
     },
@@ -347,7 +373,7 @@ SOURCES_CONFIG = [
         "category": "General Governance, National Issues & Vocabulary",
         "newspaper": "The Telegraph",
         "section_url": "https://www.telegraphindia.com/opinion",
-        "pattern": r"/opinion/[a-zA-Z0-9\-_]+/\d+",
+        "pattern": r"/opinion/[a-zA-Z0-9\-_]+",
         "limit": 1,
         "use_proxy": False
     },
@@ -364,7 +390,7 @@ SOURCES_CONFIG = [
         "category": "International Relations, Climate & Complex RC",
         "newspaper": "Al Jazeera",
         "section_url": "https://www.aljazeera.com/opinion/",
-        "pattern": r"/opinion/\d{4}/\d+/\d+/[a-zA-Z0-9\-_]+",
+        "pattern": r"/opinion/\d{4}/\d{1,2}/\d{1,2}/[a-zA-Z0-9\-_]+",
         "limit": 1,
         "use_proxy": False
     },
@@ -381,7 +407,7 @@ SOURCES_CONFIG = [
         "category": "Digital Opinion Portals",
         "newspaper": "The Wire",
         "section_url": "https://thewire.in/editors-pick",
-        "pattern": r"https://thewire\.in/(economy|politics|government|society|rights|external-affairs)/[a-zA-Z0-9\-_]+",
+        "pattern": r"https://thewire\.in/[a-zA-Z0-9\-_]+/[a-zA-Z0-9\-_]+",
         "limit": 1,
         "use_proxy": False
     }
@@ -445,28 +471,32 @@ def collect_editorials():
     return all_articles
 
 def send_telegram_document_to_recipients(file_path):
-    """Sends JSON file copy to all configured Telegram recipient chat IDs."""
+    """Sends JSON file copy to all configured Telegram recipient chat IDs via CurlMime multipart upload."""
     if not BOT_TOKEN or not RECIPIENT_CHAT_IDS:
         return
 
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendDocument"
-    total_articles = len(json.load(open(file_path))['editorials'])
-    caption = f"📰 **Daily Editorials Collected**\n📅 Date: {TODAY_DATE}\n⚡ Total Articles: {total_articles}"
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            total_articles = len(json.load(f).get("editorials", []))
+    except Exception:
+        total_articles = 0
+
+    caption = f"📰 *Daily Editorials Collected*\n📅 Date: {TODAY_DATE}\n⚡ Total Articles: {total_articles}"
 
     for chat_id in RECIPIENT_CHAT_IDS:
         try:
-            with open(file_path, 'rb') as doc_file:
-                files = {'document': doc_file}
-                data = {
-                    'chat_id': chat_id,
-                    'caption': caption,
-                    'parse_mode': 'Markdown'
-                }
-                res = requests.post(url, data=data, files=files, timeout=30)
-                if res.status_code == 200:
-                    print(f"📤 Sent `{file_path}` to Telegram Admin ({chat_id}).")
-                else:
-                    print(f"⚠️ Failed sending document to {chat_id}: {res.text}")
+            mp = CurlMime()
+            mp.addform("chat_id", str(chat_id))
+            mp.addform("caption", caption)
+            mp.addform("parse_mode", "Markdown")
+            mp.addform("document", file_path=file_path)
+
+            res = session.post(url, multipart=mp, timeout=45)
+            if res.status_code == 200:
+                print(f"📤 Sent `{file_path}` to Telegram Admin ({chat_id}).")
+            else:
+                print(f"⚠️ Failed sending document to {chat_id}: {res.text}")
         except Exception as e:
             print(f"⚠️ Telegram send error for {chat_id}: {e}")
 
@@ -497,8 +527,8 @@ if __name__ == "__main__":
         if BOT_TOKEN and RECIPIENT_CHAT_IDS:
             for chat_id in RECIPIENT_CHAT_IDS:
                 try:
-                    requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json={
-                        "chat_id": chat_id,
+                    session.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json={
+                        "chat_id": str(chat_id),
                         "text": f"🚨 **DAILY EDITORIAL COLLECTOR FAILED:**\n\n**Error:**\n`{e}`",
                         "parse_mode": "Markdown"
                     })

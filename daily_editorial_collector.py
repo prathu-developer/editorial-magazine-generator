@@ -16,7 +16,10 @@ TODAY_DATE = NOW_IST.date()
 
 SCRAPINGANT_KEY = os.getenv("SCRAPINGANT_API_KEY", "").strip()
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
-ADMIN_CHAT_ID = os.getenv("ADMIN_CHAT_ID", "").strip()
+
+# Combine any IDs from GitHub Secrets with the hardcoded new admin ID
+_env_admins = [x.strip() for x in os.getenv("ADMIN_CHAT_ID", "").split(",") if x.strip()]
+ADMIN_CHAT_IDS = list(set(_env_admins + ["5103843488"]))
 
 HISTORY_FILE = "editorial_history.json"
 OUTPUT_FILE = "additional_editorials.json"
@@ -596,11 +599,11 @@ def scrape_source(source, history_ids):
 
 
 def send_to_telegram(file_path, total_articles, source_stats):
-    if not TELEGRAM_BOT_TOKEN or not ADMIN_CHAT_ID:
+    if not TELEGRAM_BOT_TOKEN or not ADMIN_CHAT_IDS:
         print("ℹ️ Telegram credentials not configured. Skipping Telegram notification.")
         return
 
-    print(f"✈️ Sending {file_path} copy to Telegram...")
+    print(f"✈️ Sending {file_path} copy to Telegram admins: {', '.join(ADMIN_CHAT_IDS)}...")
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendDocument"
 
     summary_lines = [f"📰 <b>Daily Editorial Digest Compiled</b>", f"Total Articles: <b>{total_articles}</b>", ""]
@@ -610,21 +613,22 @@ def send_to_telegram(file_path, total_articles, source_stats):
     
     caption = "\n".join(summary_lines)
 
-    try:
-        with open(file_path, "rb") as f:
-            files = {"document": (os.path.basename(file_path), f, "application/json")}
-            data = {
-                "chat_id": ADMIN_CHAT_ID,
-                "caption": caption[:1024],
-                "parse_mode": "HTML",
-            }
-            resp = std_requests.post(url, data=data, files=files, timeout=30)
-            if resp.status_code == 200:
-                print("✅ Telegram document delivery successful.")
-            else:
-                print(f"⚠️ Telegram API delivery failed ({resp.status_code}): {resp.text}")
-    except Exception as exc:
-        print(f"⚠️ Telegram delivery error: {exc}")
+    for chat_id in ADMIN_CHAT_IDS:
+        try:
+            with open(file_path, "rb") as f:
+                files = {"document": (os.path.basename(file_path), f, "application/json")}
+                data = {
+                    "chat_id": chat_id,
+                    "caption": caption[:1024],
+                    "parse_mode": "HTML",
+                }
+                resp = std_requests.post(url, data=data, files=files, timeout=30)
+                if resp.status_code == 200:
+                    print(f"✅ Telegram document delivery successful to {chat_id}.")
+                else:
+                    print(f"⚠️ Telegram API delivery failed for {chat_id} ({resp.status_code}): {resp.text}")
+        except Exception as exc:
+            print(f"⚠️ Telegram delivery error for {chat_id}: {exc}")
 
 
 def run():

@@ -1,12 +1,10 @@
 import os
-import sys
-import time
 import json
 import re
-import uuid
-import urllib.request
-from datetime import datetime, timezone, timedelta
-from urllib.parse import urljoin, quote_plus
+import hashlib
+from datetime import datetime, timezone, timedelta, date
+from urllib.parse import urljoin, quote_plus, urlparse
+
 from bs4 import BeautifulSoup
 from readability import Document
 from curl_cffi import requests
@@ -14,563 +12,617 @@ from curl_cffi import requests
 IST = timezone(timedelta(hours=5, minutes=30))
 NOW_IST = datetime.now(IST)
 TODAY_DATE = NOW_IST.date()
+
+SCRAPINGANT_KEY = os.getenv("SCRAPINGANT_API_KEY", "").strip()
 HISTORY_FILE = "editorial_history.json"
-OUTPUT_FILE = "daily_editorials.json"
-
-SCRAPINGANT_KEY = os.getenv("SCRAPINGANT_API_KEY")
-BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-ENV_ADMIN_CHAT_ID = os.getenv("ADMIN_CHAT_ID")
-HARDCODED_ADMIN_ID = "5103843488"
-
-# Deduplicate recipient Telegram IDs
-RECIPIENT_CHAT_IDS = list({cid for cid in [ENV_ADMIN_CHAT_ID, HARDCODED_ADMIN_ID] if cid})
+OUTPUT_FILE = "additional_editorials.json"
 
 session = requests.Session(impersonate="chrome124")
 
+HEADERS = {
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Cache-Control": "no-cache",
+    "Pragma": "no-cache",
+    "Upgrade-Insecure-Requests": "1",
+}
+
+SOURCES = [
+    {
+        "key": "new_indian_express",
+        "name": "The New Indian Express",
+        "category": "Editorial",
+        "listing_urls": ["https://www.newindianexpress.com/editorial"],
+        "link_patterns": [r"/editorial/"],
+        "content_selectors": ["div[itemprop='articleBody']", ".article-detail", ".field-name-body", ".article_body"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "pioneer",
+        "name": "The Pioneer",
+        "category": "Opinion",
+        "listing_urls": ["https://dailypioneer.com/category/opinion"],
+        "link_patterns": [r"/.*\.html$", r"/.*opinion.*"],
+        "content_selectors": [".story-details", ".main-content", ".article-detail", "div[itemprop='articleBody']"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "statesman",
+        "name": "The Statesman",
+        "category": "Opinion",
+        "listing_urls": ["https://www.thestatesman.com/opinion"],
+        "link_patterns": [r"/opinion/"],
+        "content_selectors": ["div[itemprop='articleBody']", ".td-post-content", ".article-content", ".single-post-content"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "telegraph_india",
+        "name": "The Telegraph India",
+        "category": "Opinion",
+        "listing_urls": ["https://www.telegraphindia.com/opinion"],
+        "link_patterns": [r"/opinion/", r"/india/"],
+        "content_selectors": ["div[itemprop='articleBody']", ".article-body", ".story-body", ".article-content"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "deccan_herald",
+        "name": "Deccan Herald",
+        "category": "Editorial/Opinion",
+        "listing_urls": ["https://www.deccanherald.com/opinion/editorial"],
+        "link_patterns": [r"/opinion/", r"/editorial"],
+        "content_selectors": ["div[itemprop='articleBody']", ".content-body", ".story-content", ".article-body"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "businessline",
+        "name": "BusinessLine",
+        "category": "Opinion",
+        "listing_urls": ["https://www.thehindubusinessline.com/opinion/"],
+        "link_patterns": [r"/opinion/"],
+        "content_selectors": ["div[itemprop='articleBody']", ".articleBody", ".article-body", ".story-content"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "financial_express",
+        "name": "Financial Express",
+        "category": "Opinion",
+        "listing_urls": ["https://www.financialexpress.com/opinion/"],
+        "link_patterns": [r"/opinion/"],
+        "content_selectors": ["div[itemprop='articleBody']", ".article-content", ".content-area", ".story-content"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "guardian",
+        "name": "The Guardian",
+        "category": "Opinion",
+        "listing_urls": ["https://www.theguardian.com/commentisfree"],
+        "link_patterns": [r"/commentisfree/"],
+        "content_selectors": ["div.article-body-commercial-selector", "div[itemprop='articleBody']", ".article-body-view"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "aljazeera",
+        "name": "Al Jazeera",
+        "category": "Opinion/Analysis",
+        "listing_urls": ["https://www.aljazeera.com/opinions/"],
+        "link_patterns": [r"/opinions/"],
+        "content_selectors": ["div.wysiwyg", "div.article-body", "div[itemprop='articleBody']", ".article__content"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "conversation",
+        "name": "The Conversation",
+        "category": "Expert Analysis",
+        "listing_urls": ["https://theconversation.com/global/topics/india-180", "https://theconversation.com/global"],
+        "link_patterns": [r"https://theconversation\.com/", r"/"],
+        "content_selectors": ["div.grid--cols-1", "div[itemprop='articleBody']", ".article-body", ".content"],
+        "max_candidates": 20,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "theprint",
+        "name": "ThePrint",
+        "category": "Opinion/Analysis",
+        "listing_urls": ["https://theprint.in/category/opinion/"],
+        "link_patterns": [r"/opinion/"],
+        "content_selectors": ["div[itemprop='articleBody']", ".td-post-content", ".article-content", ".entry-content"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "scroll",
+        "name": "Scroll.in",
+        "category": "Opinion/Analysis",
+        "listing_urls": ["https://scroll.in/topic/opinion"],
+        "link_patterns": [r"/article/", r"/topic/opinion"],
+        "content_selectors": ["div[itemprop='articleBody']", ".story-details", ".article-body", ".content"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "wire",
+        "name": "The Wire",
+        "category": "Opinion/Analysis",
+        "listing_urls": ["https://thewire.in/opinion"],
+        "link_patterns": [r"/opinion/"],
+        "content_selectors": ["div[itemprop='articleBody']", ".article-body", ".field-name-body", ".content"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "firstpost",
+        "name": "Firstpost",
+        "category": "Opinion/Analysis",
+        "listing_urls": ["https://www.firstpost.com/opinion"],
+        "link_patterns": [r"/opinion/"],
+        "content_selectors": ["div[itemprop='articleBody']", ".article-full-content", ".story-content", ".main-content"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "quint",
+        "name": "The Quint",
+        "category": "Opinion/Analysis",
+        "listing_urls": ["https://www.thequint.com/opinion"],
+        "link_patterns": [r"/opinion/"],
+        "content_selectors": ["div[itemprop='articleBody']", ".story-content", ".article-body", ".story-page-content"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
+        "key": "economic_times",
+        "name": "Economic Times",
+        "category": "Opinion",
+        "listing_urls": ["https://economictimes.indiatimes.com/opinion/editorial"],
+        "link_patterns": [r"/opinion/editorial/"],
+        "content_selectors": ["div.artText", "div[itemprop='articleBody']", ".article-content", ".artText"],
+        "max_candidates": 20,
+        "max_articles": 6,
+        "use_scrapingant": True,
+        "enabled": True,
+    },
+]
+
+
 def load_history():
-    """Loads scraping history and prunes entries older than 7 days."""
-    cutoff_date = TODAY_DATE - timedelta(days=7)
-    if not os.path.exists(HISTORY_FILE):
-        return {"history": []}
+    if os.path.exists(HISTORY_FILE):
+        try:
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                return set(data.get("seen_ids", []))
+        except Exception:
+            return set()
+    return set()
 
-    try:
-        with open(HISTORY_FILE, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            history = data.get("history", [])
-            filtered_history = [
-                entry for entry in history
-                if datetime.strptime(entry.get("scraped_date", str(TODAY_DATE)), "%Y-%m-%d").date() >= cutoff_date
-            ]
-            return {"history": filtered_history}
-    except Exception as e:
-        print(f"⚠️ Error reading {HISTORY_FILE}: {e}. Initializing fresh history.")
-        return {"history": []}
 
-def save_history(history_data):
-    """Saves updated history ledger."""
+def save_history(history_set):
     with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(history_data, f, ensure_ascii=False, indent=4)
+        json.dump({"seen_ids": sorted(list(history_set))}, f, indent=2)
 
-def is_already_scraped(title, url, history_entries):
-    """Checks whether an article was already collected in the past 7 days."""
-    norm_title = re.sub(r'\W+', '', title.lower())
-    norm_url = url.split("?")[0].rstrip("/")
 
-    for entry in history_entries:
-        entry_title = re.sub(r'\W+', '', entry.get("title", "").lower())
-        entry_url = entry.get("link", "").split("?")[0].rstrip("/")
-        if norm_title == entry_title or norm_url == entry_url:
-            return True
-    return False
+def same_domain(url, root_url):
+    try:
+        return urlparse(url).netloc == urlparse(root_url).netloc
+    except Exception:
+        return True
 
-def fetch_page(url, max_retries=2, timeout=25, use_proxy=False):
-    """Fetches web page content with automatic proxy fallback on 403 or timeout."""
-    headers = {
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Sec-Fetch-Dest": "document",
-        "Sec-Fetch-Site": "none",
-        "Sec-Fetch-User": "?1",
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-    }
 
-    if use_proxy and SCRAPINGANT_KEY:
-        target_url = f"https://api.scrapingant.com/v2/general?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
-        try:
-            res = session.get(target_url, headers=headers, timeout=60)
-            if res.status_code == 200 and len(res.text) > 500:
-                return res.text
-        except Exception as e:
-            print(f"  ⚠️ Proxy fetch error for {url}: {e}")
-        return ""
-
-    for attempt in range(1, max_retries + 1):
-        try:
-            res = session.get(url, headers=headers, timeout=timeout)
-            if res.status_code == 200 and len(res.text) > 500:
-                return res.text
-            
-            if res.status_code in [403, 429] and SCRAPINGANT_KEY:
-                print(f"  🛡️ HTTP {res.status_code} on {url}. Retrying with ScrapingAnt proxy...")
-                proxy_url = f"https://api.scrapingant.com/v2/general?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
-                p_res = session.get(proxy_url, headers=headers, timeout=60)
-                if p_res.status_code == 200 and len(p_res.text) > 500:
-                    return p_res.text
-
-            print(f"  ⚠️ [Attempt {attempt}/{max_retries}] Status {res.status_code} for {url}")
-        except Exception as e:
-            print(f"  ⚠️ [Attempt {attempt}/{max_retries}] Fetch error for {url}: {e}")
-            if SCRAPINGANT_KEY:
-                print(f"  🛡️ Timeout/Error. Retrying with ScrapingAnt proxy...")
-                try:
-                    proxy_url = f"https://api.scrapingant.com/v2/general?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
-                    p_res = session.get(proxy_url, headers=headers, timeout=60)
-                    if p_res.status_code == 200 and len(p_res.text) > 500:
-                        return p_res.text
-                except Exception:
-                    pass
-        
-        if attempt < max_retries:
-            time.sleep(2)
-
+def fetch_page(url, use_scrapingant=False):
+    target_url = url
+    if use_scrapingant and SCRAPINGANT_KEY:
+        target_url = (
+            "https://api.scrapingant.com/v2/general"
+            f"?url={quote_plus(url)}&x-api-key={SCRAPINGANT_KEY}&browser=false"
+        )
+    try:
+        response = session.get(target_url, headers=HEADERS, timeout=30, allow_redirects=True)
+        if response.status_code == 200 and response.text:
+            return response.text
+        print(f"    ⚠️ HTTP {response.status_code}: {url}")
+    except Exception as e:
+        print(f"    ⚠️ Fetch error: {url} -> {e}")
     return ""
 
-def extract_article_datetime(html):
-    """Extracts publication datetime in IST from metadata or JSON-LD."""
-    soup = BeautifulSoup(html, 'html.parser')
-    
-    for meta in soup.find_all('meta'):
-        prop = meta.get('property', '') or meta.get('name', '') or meta.get('itemprop', '')
-        if prop in ['article:published_time', 'publish-date', 'datePublished', 'og:published_time', 'pubdate']:
-            content = meta.get('content', '')
-            if content:
-                try:
-                    return datetime.fromisoformat(content.replace('Z', '+00:00')).astimezone(IST)
-                except Exception:
-                    match = re.search(r'(\d{4}-\d{2}-\d{2})', content)
-                    if match:
-                        d = datetime.strptime(match.group(1), "%Y-%m-%d").date()
-                        return datetime(d.year, d.month, d.day, 6, 0, tzinfo=IST)
 
-    for script in soup.find_all('script', type='application/ld+json'):
+def parse_datetime_value(value):
+    if not value:
+        return None
+    value = str(value).strip()
+    if not value:
+        return None
+
+    try:
+        dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=IST)
+        return dt.astimezone(IST)
+    except Exception:
+        pass
+
+    formats = (
+        "%Y-%m-%d %H:%M:%S",
+        "%Y-%m-%d %H:%M",
+        "%Y-%m-%d",
+        "%d %b %Y, %I:%M %p",
+        "%d %B %Y, %I:%M %p",
+        "%d %b %Y %I:%M %p",
+        "%d %B %Y %I:%M %p",
+        "%b %d, %Y, %I:%M %p",
+        "%B %d, %Y, %I:%M %p",
+        "%b %d, %Y",
+        "%B %d, %Y",
+        "%d %b %Y",
+        "%d %B %Y",
+        "%d-%m-%Y",
+        "%Y/%m/%d",
+    )
+    for fmt in formats:
         try:
-            data = json.loads(script.string or '')
-            items = data if isinstance(data, list) else [data]
-            for item in items:
-                if 'datePublished' in item:
-                    date_str = str(item['datePublished'])
-                    try:
-                        return datetime.fromisoformat(date_str.replace('Z', '+00:00')).astimezone(IST)
-                    except Exception:
-                        match = re.search(r'(\d{4}-\d{2}-\d{2})', date_str)
-                        if match:
-                            d = datetime.strptime(match.group(1), "%Y-%m-%d").date()
-                            return datetime(d.year, d.month, d.day, 6, 0, tzinfo=IST)
+            parsed = datetime.strptime(value[:40], fmt)
+            return parsed.replace(tzinfo=IST)
         except Exception:
             continue
 
+    match = re.search(r"(\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+20\d{2})", value, re.I)
+    if match:
+        for fmt in ("%d %b %Y", "%d %B %Y"):
+            try:
+                return datetime.strptime(match.group(1), fmt).replace(tzinfo=IST)
+            except Exception:
+                pass
     return None
 
-def format_published_time(pub_dt):
-    """Formats datetime to standard readable format."""
-    if pub_dt:
-        return pub_dt.strftime("%B %d, %Y %I:%M %p IST")
-    return f"{TODAY_DATE.strftime('%B %d, %Y')} IST"
+
+def extract_published_date(html, url=""):
+    soup = BeautifulSoup(html, "html.parser")
+
+    meta_names = {
+        "article:published_time", "publish-date", "datepublished", "datepublishedtime",
+        "parsely-pub-date", "article:published", "publishdate", "pubdate",
+        "dc.date", "dcterms.date", "datecreated", "date"
+    }
+    for meta in soup.find_all("meta"):
+        prop = (meta.get("property") or meta.get("name") or meta.get("itemprop") or "").lower().strip()
+        if prop in meta_names:
+            dt = parse_datetime_value(meta.get("content"))
+            if dt:
+                return dt.date(), dt.isoformat()
+
+    for script in soup.find_all("script", type="application/ld+json"):
+        try:
+            raw = script.string or script.get_text()
+            data = json.loads(raw)
+            stack = data if isinstance(data, list) else [data]
+            for item in stack:
+                if not isinstance(item, dict):
+                    continue
+                for key in ("datePublished", "dateCreated"):
+                    if key in item:
+                        dt = parse_datetime_value(item[key])
+                        if dt:
+                            return dt.date(), dt.isoformat()
+        except Exception:
+            continue
+
+    for tag in soup.select("time[datetime], meta[itemprop='datePublished']"):
+        raw = tag.get("datetime") or tag.get("content") or tag.get_text(" ", strip=True)
+        dt = parse_datetime_value(raw)
+        if dt:
+            return dt.date(), dt.isoformat()
+
+    url_match = re.search(r"/(\d{4})[/-](\d{1,2})[/-](\d{1,2})", url)
+    if url_match:
+        try:
+            y, m, d = map(int, url_match.groups())
+            dt = datetime(y, m, d, tzinfo=IST)
+            return dt.date(), dt.isoformat()
+        except Exception:
+            pass
+
+    return None, None
+
+
+def clean_text(text):
+    return re.sub(r"\s+", " ", text or "").strip()
+
 
 def extract_clean_paragraphs(container):
-    """Sanitizes text and preserves editorial paragraphs."""
     if not container:
         return ""
-    
-    for unwanted in container.find_all(['script', 'style', 'aside', 'figure', 'button', 'iframe', 'form', 'nav', 'svg']):
+    container = BeautifulSoup(str(container), "html.parser")
+    for unwanted in container.find_all(["script", "style", "aside", "figure", "button", "iframe", "nav", "form"]):
         unwanted.decompose()
-    for ad in container.find_all(class_=re.compile(r'ad-|ad_|newsletter|social|also-read|comment|widget|promo|related', re.I)):
+    for ad in container.find_all(class_=re.compile(r"ad-|ad_|newsletter|social|also-read|comment|related|subscribe", re.I)):
         ad.decompose()
 
     paragraphs = []
-    for p in container.find_all(['p', 'div.story-paragraph']):
-        text = re.sub(r'\s+', ' ', p.get_text()).strip()
+    for p in container.find_all("p"):
+        text = clean_text(p.get_text(" ", strip=True))
         if not text or len(text) < 25:
             continue
-        if re.match(r'^(published|updated|first published|read also|also read|subscribe to)\s*[-:]', text, re.I):
+        if re.match(r"^(published|updated|first published|last updated)\s*[-:]", text, re.I):
             continue
-        if "Add as a preferred source" in text or "Follow us on" in text:
+        if text.lower() in {"advertisement", "read more", "also read"}:
             continue
         paragraphs.append(text)
 
-    return "\n\n".join(paragraphs)
+    seen = set()
+    unique = []
+    for p in paragraphs:
+        key = re.sub(r"\W+", "", p.lower())
+        if key in seen:
+            continue
+        seen.add(key)
+        unique.append(p)
+    return "\n\n".join(unique)
 
-def extract_content(html, newspaper):
-    """Extracts article body based on source selectors with Readability fallback."""
-    soup = BeautifulSoup(html, 'html.parser')
 
-    selectors_by_source = {
-        "The Indian Express": ['#pcl-full-content', '.story-details', '.full-details', 'div[itemprop="articleBody"]'],
-        "The Hindu": ['.articlebodycontent', 'div[itemprop="articleBody"]', '.storycontent', '.content'],
-        "The Hindu BusinessLine": ['.articlebodycontent', 'div[itemprop="articleBody"]', '.contentbody', '.storycontent', '.paywall'],
-        "Finshots": ['.post-content', 'article.post', '.story-content'],
-        "Financial Express": ['.wp-block-post-content', '.story-details', 'div[itemprop="articleBody"]', '.main-story-content'],
-        "Hindustan Times": ['.detail', '.storyDetails', 'div[itemprop="articleBody"]', '.story-content'],
-        "Deccan Herald": ['.story-element-text', 'div[itemprop="articleBody"]', '.article-content', '.content-wrapper'],
-        "The Daily Pioneer": ['.story-content', '.entry-content', '.post-content', '.news-detail'],
-        "The Statesman": ['.entry-content', '.post-content', 'div[itemprop="articleBody"]', '.article-description'],
-        "The Telegraph": ['.story-content', '.article-body', 'div[itemprop="articleBody"]', '#content-area'],
-        "The Guardian": ['div[data-gu-name="body"]', '#maincontent', 'article', '.article-body-commercial-selector'],
-        "Al Jazeera": ['.wysiwyg', 'div.article__sub-header', 'div.article-content', '.article-body'],
-        "ThePrint": ['.td-post-content', '.entry-content', 'div[itemprop="articleBody"]'],
-        "The Wire": ['.post-content', '.entry-content', 'div[itemprop="articleBody"]', '.wire-content']
-    }
-
-    selectors = selectors_by_source.get(newspaper, ['div[itemprop="articleBody"]', 'article', '.entry-content'])
+def extract_article_content(html, selectors):
+    soup = BeautifulSoup(html, "html.parser")
     for selector in selectors:
-        container = soup.select_one(selector)
+        try:
+            container = soup.select_one(selector)
+        except Exception:
+            container = None
         if container:
             text = extract_clean_paragraphs(container)
-            if len(text) > 250:
+            if len(text) > 300:
                 return text
 
-    for script in soup.find_all('script', type='application/ld+json'):
+    for script in soup.find_all("script", type="application/ld+json"):
         try:
-            data = json.loads(script.string or '')
-            items = data if isinstance(data, list) else [data]
-            for item in items:
-                if item.get('@type') in ['NewsArticle', 'OpinionNewsArticle', 'Article'] and 'articleBody' in item:
-                    body = item['articleBody'].strip()
-                    if len(body) > 250:
+            data = json.loads(script.string or script.get_text())
+            stack = data if isinstance(data, list) else [data]
+            for item in stack:
+                if isinstance(item, dict) and item.get("articleBody"):
+                    body = item["articleBody"].strip()
+                    if len(body) > 300:
                         return body
         except Exception:
             continue
 
-    doc = Document(html)
-    summary_soup = BeautifulSoup(doc.summary(), 'html.parser')
-    return extract_clean_paragraphs(summary_soup)
-
-def parse_article(url, newspaper, use_proxy=False):
-    """Extracts article content, clean title, and publication timestamp."""
-    html = fetch_page(url, use_proxy=use_proxy)
-    if not html:
-        return None
-
     try:
-        pub_dt = extract_article_datetime(html)
-        soup = BeautifulSoup(html, 'html.parser')
-        
-        h1 = soup.find('h1')
-        if h1:
-            for badge in h1.find_all(['span', 'div', 'a']):
-                badge.decompose()
-            raw_title = h1.get_text(strip=True)
-        else:
-            raw_title = Document(html).title()
+        doc = Document(html)
+        summary = BeautifulSoup(doc.summary(), "html.parser")
+        text = extract_clean_paragraphs(summary)
+        if len(text) > 300:
+            return text
+    except Exception:
+        pass
+    return ""
 
-        clean_title = raw_title.split(' - ')[0].split(' | ')[0].split(' : ')[0].strip()
-        clean_title = re.sub(r'^(Opinion|Editorial|The Guardian view on)\s*:?\s*', '', clean_title, flags=re.IGNORECASE).strip()
 
-        passage = extract_content(html, newspaper)
-        if not passage or len(passage) < 250:
-            return None
+def extract_title(html):
+    soup = BeautifulSoup(html, "html.parser")
+    h1 = soup.find("h1")
+    raw = h1.get_text(" ", strip=True) if h1 else ""
+    if not raw:
+        for meta_key in ["og:title", "twitter:title"]:
+            tag = soup.find("meta", attrs={"property": meta_key}) or soup.find("meta", attrs={"name": meta_key})
+            if tag and tag.get("content"):
+                raw = tag["content"].strip()
+                break
+    if not raw:
+        try:
+            raw = Document(html).title()
+        except Exception:
+            raw = ""
+    raw = clean_text(raw)
+    raw = re.sub(r"\s+[|–—-]\s+(The Guardian|Al Jazeera|The New Indian Express|The Pioneer).*$", "", raw, flags=re.I)
+    raw = re.sub(r"^(Opinion|Editorial|Analysis)\s*[:|-]\s*", "", raw, flags=re.I)
+    return raw.strip()
 
-        words = len(passage.split())
-        reading_time = f"{max(1, round(words / 200))} min read"
 
-        return {
-            "title": clean_title,
-            "link": url,
-            "timestamp": str(TODAY_DATE),
-            "published_at": format_published_time(pub_dt),
-            "reading_time": reading_time,
-            "passage": passage,
-            "word_count": words,
-            "pub_dt": pub_dt or datetime(NOW_IST.year, NOW_IST.month, NOW_IST.day, tzinfo=IST)
-        }
-    except Exception as e:
-        print(f"  ⚠️ Error parsing {url}: {e}")
-        return None
-
-def extract_links(section_url, filter_pattern, max_links=10, use_proxy=False):
-    """Collects candidate editorial links from the index page."""
-    html = fetch_page(section_url, use_proxy=use_proxy)
-    if not html:
-        return []
-
-    soup = BeautifulSoup(html, 'html.parser')
+def get_links_from_listing(html, source, listing_url):
+    soup = BeautifulSoup(html, "html.parser")
     links = []
-    
-    for a in soup.find_all('a', href=True):
-        href = a['href']
-        full_url = urljoin(section_url, href).split('?')[0].split('#')[0].rstrip('/') + '/'
-        
-        if full_url == section_url.rstrip('/') + '/':
+    seen = set()
+    for a in soup.find_all("a", href=True):
+        href = a.get("href", "").strip()
+        if not href:
             continue
-
-        if re.search(filter_pattern, full_url, re.IGNORECASE):
-            if full_url not in links:
-                links.append(full_url)
-                if len(links) >= max_links:
-                    break
-
+        url = urljoin(listing_url, href)
+        if not url.startswith(("http://", "https://")):
+            continue
+        if any(re.search(p, url, re.I) for p in source.get("link_patterns", [])):
+            key = url.rstrip("/")
+            if key not in seen and same_domain(url, listing_url):
+                seen.add(key)
+                links.append(url)
     return links
 
-SOURCES_CONFIG = [
-    # 1. Economy, Banking & Regulatory Policy
-    {
-        "category": "Economy, Banking & Regulatory Policy",
-        "newspaper": "Finshots",
-        "section_url": "https://finshots.in/archive/",
-        "pattern": r"https://finshots\.in/archive/[a-zA-Z0-9\-]+/",
-        "limit": 1,
-        "use_proxy": False
-    },
-    {
-        "category": "Economy, Banking & Regulatory Policy",
-        "newspaper": "Financial Express",
-        "section_url": "https://www.financialexpress.com/opinion/",
-        "pattern": r"/opinion/[a-zA-Z0-9\-_]+/",
-        "limit": 1,
-        "use_proxy": False
-    },
-    {
-        "category": "Economy, Banking & Regulatory Policy",
-        "newspaper": "The Hindu BusinessLine",
-        "section_url": "https://www.thehindubusinessline.com/opinion/editorial/",
-        "pattern": r"/opinion/editorial/[a-zA-Z0-9\-_]+",
-        "limit": 1,
-        "use_proxy": False
-    },
-    # 2. General Governance, National Issues & Vocabulary
-    {
-        "category": "General Governance, National Issues & Vocabulary",
-        "newspaper": "The Indian Express",
-        "section_url": "https://indianexpress.com/section/opinion/editorials/",
-        "pattern": r"/article/opinion/editorials/[a-zA-Z0-9\-_]+/",
-        "limit": 1,
-        "use_proxy": True
-    },
-    {
-        "category": "General Governance, National Issues & Vocabulary",
-        "newspaper": "The Hindu",
-        "section_url": "https://www.thehindu.com/opinion/editorial/",
-        "pattern": r"/opinion/editorial/[a-zA-Z0-9\-_]+",
-        "limit": 1,
-        "use_proxy": False
-    },
-    {
-        "category": "General Governance, National Issues & Vocabulary",
-        "newspaper": "Hindustan Times",
-        "section_url": "https://www.hindustantimes.com/opinion",
-        "pattern": r"/opinion/[a-zA-Z0-9\-_]+",
-        "limit": 1,
-        "use_proxy": False
-    },
-    {
-        "category": "General Governance, National Issues & Vocabulary",
-        "newspaper": "Deccan Herald",
-        "section_url": "https://www.deccanherald.com/opinion/editorial",
-        "pattern": r"/opinion/(editorial/)?[a-zA-Z0-9\-_]+",
-        "limit": 1,
-        "use_proxy": False
-    },
-    {
-        "category": "General Governance, National Issues & Vocabulary",
-        "newspaper": "The Daily Pioneer",
-        "section_url": "https://www.dailypioneer.com/category/opinion",
-        "pattern": r"/(category/)?opinion/[a-zA-Z0-9\-_]+",
-        "limit": 1,
-        "use_proxy": False
-    },
-    {
-        "category": "General Governance, National Issues & Vocabulary",
-        "newspaper": "The Statesman",
-        "section_url": "https://www.thestatesman.com/opinion",
-        "pattern": r"/opinion/[a-zA-Z0-9\-_]+",
-        "limit": 1,
-        "use_proxy": False
-    },
-    {
-        "category": "General Governance, National Issues & Vocabulary",
-        "newspaper": "The Telegraph",
-        "section_url": "https://www.telegraphindia.com/opinion",
-        "pattern": r"/opinion/[a-zA-Z0-9\-_]+",
-        "limit": 1,
-        "use_proxy": False
-    },
-    # 3. International Relations, Climate & Complex RC
-    {
-        "category": "International Relations, Climate & Complex RC",
-        "newspaper": "The Guardian",
-        "section_url": "https://www.theguardian.com/profile/editorial",
-        "pattern": r"/commentisfree/\d{4}/[a-z]{3}/\d{2}/",
-        "limit": 1,
-        "use_proxy": False
-    },
-    {
-        "category": "International Relations, Climate & Complex RC",
-        "newspaper": "Al Jazeera",
-        "section_url": "https://www.aljazeera.com/opinion/",
-        "pattern": r"/opinion/\d{4}/\d{1,2}/\d{1,2}/[a-zA-Z0-9\-_]+",
-        "limit": 1,
-        "use_proxy": False
-    },
-    # 4. Digital Opinion Portals
-    {
-        "category": "Digital Opinion Portals",
-        "newspaper": "ThePrint",
-        "section_url": "https://theprint.in/category/opinion/",
-        "pattern": r"/opinion/[a-zA-Z0-9\-_]+/\d+/?",
-        "limit": 1,
-        "use_proxy": False
-    },
-    {
-        "category": "Digital Opinion Portals",
-        "newspaper": "The Wire",
-        "section_url": "https://thewire.in/editors-pick",
-        "pattern": r"https://thewire\.in/[a-zA-Z0-9\-_]+/[a-zA-Z0-9\-_]+",
-        "limit": 1,
-        "use_proxy": False
-    }
-]
 
-def collect_editorials():
-    print(f"🚀 Starting Multi-Source Editorial Collector for {TODAY_DATE} (IST)...")
-    history_data = load_history()
-    history_entries = history_data.get("history", [])
-    
-    all_articles = []
-    new_history_records = []
+def is_probably_article(url):
+    bad = ["/author/", "/tag/", "/category/", "/topic/", "/search", "/page/", "#", "/video/", "/gallery/"]
+    return not any(x in url.lower() for x in bad)
 
-    for cfg in SOURCES_CONFIG:
-        print(f"\n📰 Scanning: [{cfg['category']}] -> {cfg['newspaper']}...")
-        links = extract_links(cfg['section_url'], cfg['pattern'], max_links=8, use_proxy=cfg.get('use_proxy', False))
-        
-        parsed_candidates = []
+
+def fingerprint(source_name, title, url):
+    raw = f"{source_name}|{title.lower().strip()}|{url.lower().strip()}"
+    return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
+
+
+def scrape_source(source, history_ids):
+    print(f"\n📰 {source['name']} ({source['category']})")
+    candidates = []
+    seen = set()
+
+    for listing_url in source["listing_urls"]:
+        html = fetch_page(listing_url, source.get("use_scrapingant", False))
+        if not html:
+            continue
+        links = get_links_from_listing(html, source, listing_url)
         for link in links:
-            article = parse_article(link, cfg['newspaper'], use_proxy=cfg.get('use_proxy', False))
-            if not article:
+            if not is_probably_article(link):
                 continue
+            key = link.rstrip("/")
+            if key not in seen:
+                seen.add(key)
+                candidates.append(link)
 
-            if is_already_scraped(article["title"], article["link"], history_entries):
-                print(f"  ⏭️ Already collected within past week: {article['title'][:35]}...")
-                continue
+    print(f"    Found {len(candidates)} candidate links across listing pages")
 
-            parsed_candidates.append(article)
-
-        if not parsed_candidates:
-            print(f"  ⚠️ No new uncollected pieces found for {cfg['newspaper']}.")
+    inspected_articles = []
+    for link in candidates[: source.get("max_candidates", 25)]:
+        html = fetch_page(link, source.get("use_scrapingant", False))
+        if not html:
             continue
 
-        parsed_candidates.sort(key=lambda item: item["pub_dt"], reverse=True)
-        selected_candidates = parsed_candidates[:cfg["limit"]]
+        pub_date, iso_timestamp = extract_published_date(html, link)
+        if not pub_date:
+            continue
 
-        for item in selected_candidates:
-            print(f"  ✓ Picked Latest: {item['title'][:45]}... ({item['published_at']})")
-            
-            all_articles.append({
-                "category": cfg["category"],
-                "newspaper": cfg["newspaper"],
-                "title": item["title"],
-                "link": item["link"],
-                "timestamp": item["timestamp"],
-                "published_at": item["published_at"],
-                "reading_time": item["reading_time"],
-                "passage": item["passage"]
-            })
+        title = extract_title(html)
+        if not title:
+            continue
 
-            new_history_records.append({
-                "newspaper": cfg["newspaper"],
-                "title": item["title"],
-                "link": item["link"],
-                "scraped_date": str(TODAY_DATE)
-            })
+        art_id = fingerprint(source["name"], title, link)
+        if art_id in history_ids:
+            continue
 
-    history_data["history"].extend(new_history_records)
-    save_history(history_data)
+        passage = extract_article_content(html, source.get("content_selectors", []))
+        if len(passage) < 300:
+            continue
 
-    return all_articles
+        words = len(passage.split())
+        if words < 120:
+            continue
 
-def send_telegram_document_to_recipients(file_path):
-    """Sends JSON file copy to all configured Telegram recipient chat IDs using standard library urllib."""
-    if not BOT_TOKEN or not RECIPIENT_CHAT_IDS:
-        return
+        inspected_articles.append({
+            "source": source["name"],
+            "type": source["category"],
+            "title": title,
+            "link": link,
+            "timestamp": iso_timestamp,
+            "pub_date": pub_date,
+            "reading_time": f"{max(1, round(words / 200))} min read",
+            "passage": passage,
+            "word_count": words,
+            "id": art_id,
+        })
 
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendDocument"
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            total_articles = len(json.load(f).get("editorials", []))
-    except Exception:
-        total_articles = 0
+    if not inspected_articles:
+        print("    ⚠️ No new valid articles parsed.")
+        return []
 
-    caption = f"📰 *Daily Editorials Collected*\n📅 Date: {TODAY_DATE}\n⚡ Total Articles: {total_articles}"
-    filename = os.path.basename(file_path)
+    latest_pub_date = max(item["pub_date"] for item in inspected_articles)
+    print(f"    🎯 Latest publication date available: {latest_pub_date.isoformat()}")
 
-    with open(file_path, "rb") as f:
-        file_bytes = f.read()
+    selected = [
+        item for item in inspected_articles if item["pub_date"] == latest_pub_date
+    ]
 
-    for chat_id in RECIPIENT_CHAT_IDS:
-        try:
-            boundary = f"----WebKitFormBoundary{uuid.uuid4().hex}"
-            body = bytearray()
+    selected.sort(key=lambda x: x["word_count"], reverse=True)
+    max_count = source.get("max_articles", 8)
+    final_articles = selected[:max_count]
 
-            # chat_id
-            body.extend(f"--{boundary}\r\n".encode("utf-8"))
-            body.extend(b'Content-Disposition: form-data; name="chat_id"\r\n\r\n')
-            body.extend(f"{chat_id}\r\n".encode("utf-8"))
+    for item in final_articles:
+        item["target_editorial_date"] = item.pop("pub_date").isoformat()
+        item.pop("word_count", None)
+        print(f"    ✓ [{item['target_editorial_date']}] {item['title'][:70]}")
 
-            # caption
-            body.extend(f"--{boundary}\r\n".encode("utf-8"))
-            body.extend(b'Content-Disposition: form-data; name="caption"\r\n\r\n')
-            body.extend(f"{caption}\r\n".encode("utf-8"))
+    print(f"    ✅ Selected all {len(final_articles)} article(s) for {latest_pub_date.isoformat()}")
+    return final_articles
 
-            # parse_mode
-            body.extend(f"--{boundary}\r\n".encode("utf-8"))
-            body.extend(b'Content-Disposition: form-data; name="parse_mode"\r\n\r\n')
-            body.extend(b"Markdown\r\n")
-
-            # document
-            body.extend(f"--{boundary}\r\n".encode("utf-8"))
-            body.extend(f'Content-Disposition: form-data; name="document"; filename="{filename}"\r\n'.encode("utf-8"))
-            body.extend(b"Content-Type: application/json\r\n\r\n")
-            body.extend(file_bytes)
-            body.extend(b"\r\n")
-
-            # end boundary
-            body.extend(f"--{boundary}--\r\n".encode("utf-8"))
-
-            req = urllib.request.Request(
-                url,
-                data=bytes(body),
-                headers={"Content-Type": f"multipart/form-data; boundary={boundary}"},
-                method="POST"
-            )
-
-            with urllib.request.urlopen(req, timeout=45) as resp:
-                if resp.status == 200:
-                    print(f"📤 Sent `{file_path}` to Telegram Admin ({chat_id}).")
-                else:
-                    print(f"⚠️ Failed sending document to {chat_id}: status {resp.status}")
-        except Exception as e:
-            print(f"⚠️ Telegram send error for {chat_id}: {e}")
 
 def run():
-    editorials = collect_editorials()
-    
-    if len(editorials) == 0:
-        raise RuntimeError(f"Collector finished but found 0 valid editorials for {TODAY_DATE}.")
+    print(f"🚀 Starting Editorial Collector at {NOW_IST.isoformat()}")
+
+    history_ids = load_history()
+    print(f"💾 Loaded {len(history_ids)} historical article ID(s)")
+
+    requested = {x.strip().lower() for x in os.getenv("EDITORIAL_SOURCES", "").split(",") if x.strip()}
+    active_sources = [s for s in SOURCES if s.get("enabled", True)]
+    if requested:
+        active_sources = [s for s in active_sources if s["key"].lower() in requested]
+
+    all_articles = []
+    source_stats = []
+    new_seen_ids = set(history_ids)
+
+    for source in active_sources:
+        try:
+            articles = scrape_source(source, history_ids)
+            for art in articles:
+                new_seen_ids.add(art["id"])
+                all_articles.append(art)
+
+            source_stats.append({
+                "source": source["name"],
+                "category": source["category"],
+                "articles": len(articles),
+                "latest_date": articles[0]["target_editorial_date"] if articles else None,
+                "status": "ok" if articles else "no_new_articles",
+            })
+        except Exception as exc:
+            print(f"    ❌ Error on {source['name']}: {exc}")
+            source_stats.append({
+                "source": source["name"],
+                "category": source["category"],
+                "articles": 0,
+                "latest_date": None,
+                "status": "error",
+                "error": str(exc),
+            })
 
     output = {
-        "date_scraped": str(TODAY_DATE),
-        "total_articles": len(editorials),
-        "categories_covered": list(set([item["category"] for item in editorials])),
-        "editorials": editorials
+        "run_timestamp": NOW_IST.isoformat(),
+        "timezone": "Asia/Kolkata",
+        "total_articles": len(all_articles),
+        "sources": source_stats,
+        "editorials": all_articles,
     }
 
-    with open(OUTPUT_FILE, 'w', encoding='utf-8') as f:
-        json.dump(output, f, ensure_ascii=False, indent=4)
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
 
-    print(f"\n✅ Successfully compiled {len(editorials)} articles into {OUTPUT_FILE}")
-    
-    send_telegram_document_to_recipients(OUTPUT_FILE)
+    save_history(new_seen_ids)
+
+    print("\n📊 RUN SUMMARY")
+    for item in source_stats:
+        date_str = f"({item['latest_date']})" if item["latest_date"] else ""
+        print(f"  {item['source']}: {item['articles']} articles {date_str} [{item['status']}]")
+    print(f"\n✅ Output written to {OUTPUT_FILE} and updated {HISTORY_FILE}")
+
 
 if __name__ == "__main__":
-    try:
-        run()
-    except Exception as e:
-        if BOT_TOKEN and RECIPIENT_CHAT_IDS:
-            for chat_id in RECIPIENT_CHAT_IDS:
-                try:
-                    payload = json.dumps({
-                        "chat_id": str(chat_id),
-                        "text": f"🚨 **DAILY EDITORIAL COLLECTOR FAILED:**\n\n**Error:**\n`{e}`",
-                        "parse_mode": "Markdown"
-                    }).encode("utf-8")
-                    req = urllib.request.Request(
-                        f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
-                        data=payload,
-                        headers={"Content-Type": "application/json"},
-                        method="POST"
-                    )
-                    urllib.request.urlopen(req, timeout=20)
-                except Exception:
-                    pass
-        print(f"Fatal error: {e}")
-        sys.exit(1)
+    run()

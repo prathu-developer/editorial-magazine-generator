@@ -33,6 +33,33 @@ HEADERS = {
 
 SOURCES = [
     {
+        "key": "the_hindu",
+        "name": "The Hindu",
+        "category": "Editorial",
+        "listing_urls": [
+            "https://www.thehindu.com/opinion/editorial/",
+            "https://www.thehindu.com/opinion/lead/"
+        ],
+        "link_patterns": [r"/opinion/editorial/", r"/opinion/lead/"],
+        "content_selectors": ["div[itemprop='articleBody']", ".articlebodycontent", ".story-body", ".article-body"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": True, 
+        "enabled": True,
+    },
+    {
+        "key": "indian_express",
+        "name": "The Indian Express",
+        "category": "Editorial",
+        "listing_urls": ["https://indianexpress.com/section/opinion/editorials/"],
+        "link_patterns": [r"/article/opinion/editorials/", r"/article/opinion/"],
+        "content_selectors": ["#pcl-full-content", "div[itemprop='articleBody']", ".story_details", ".full-details"],
+        "max_candidates": 25,
+        "max_articles": 8,
+        "use_scrapingant": False,
+        "enabled": True,
+    },
+    {
         "key": "new_indian_express",
         "name": "The New Indian Express",
         "category": "Editorial",

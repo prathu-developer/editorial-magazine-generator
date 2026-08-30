@@ -29,13 +29,15 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install beautifulsoup4 readability-lxml curl-cffi requests lxml
 
-      - name: Collect editorials from the last 24 hours
+      - name: Collect editorials and send Telegram digest
         env:
           SCRAPINGANT_API_KEY: ${{ secrets.SCRAPINGANT_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
         run: |
           python daily_editorial_collector.py
 
-      - name: Upload daily JSON
+      - name: Upload daily JSON artifact
         uses: actions/upload-artifact@v4
         with:
           name: daily-editorials-${{ github.run_number }}

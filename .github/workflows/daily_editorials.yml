@@ -2,7 +2,7 @@ name: Daily Editorial Collector
 
 on:
   schedule:
-    - cron: '30 2 * * 1-6' # Runs Monday to Saturday at 08:00 AM IST (02:30 UTC)
+    - cron: '30 2 * * 1-6' # Monday to Saturday at 08:00 AM IST (02:30 UTC)
   workflow_dispatch:
 
 permissions:
@@ -31,6 +31,7 @@ jobs:
         env:
           SCRAPINGANT_API_KEY: ${{ secrets.SCRAPINGANT_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
         run: python daily_editorial_collector.py
 
       - name: Commit and Push Datasets & History Ledger

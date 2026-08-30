@@ -3,12 +3,13 @@ import sys
 import time
 import json
 import re
+import uuid
+import urllib.request
 from datetime import datetime, timezone, timedelta
 from urllib.parse import urljoin, quote_plus
 from bs4 import BeautifulSoup
 from readability import Document
-from curl_cffi import requests as cffi_requests
-import requests as std_requests
+from curl_cffi import requests
 
 IST = timezone(timedelta(hours=5, minutes=30))
 NOW_IST = datetime.now(IST)
@@ -24,7 +25,7 @@ HARDCODED_ADMIN_ID = "5103843488"
 # Deduplicate recipient Telegram IDs
 RECIPIENT_CHAT_IDS = list({cid for cid in [ENV_ADMIN_CHAT_ID, HARDCODED_ADMIN_ID] if cid})
 
-session = cffi_requests.Session(impersonate="chrome124")
+session = requests.Session(impersonate="chrome124")
 
 def load_history():
     """Loads scraping history and prunes entries older than 7 days."""
@@ -468,7 +469,7 @@ def collect_editorials():
     return all_articles
 
 def send_telegram_document_to_recipients(file_path):
-    """Sends JSON file copy to all configured Telegram recipient chat IDs."""
+    """Sends JSON file copy to all configured Telegram recipient chat IDs using standard library urllib."""
     if not BOT_TOKEN or not RECIPIENT_CHAT_IDS:
         return
 
@@ -480,20 +481,53 @@ def send_telegram_document_to_recipients(file_path):
         total_articles = 0
 
     caption = f"📰 *Daily Editorials Collected*\n📅 Date: {TODAY_DATE}\n⚡ Total Articles: {total_articles}"
+    filename = os.path.basename(file_path)
+
+    with open(file_path, "rb") as f:
+        file_bytes = f.read()
 
     for chat_id in RECIPIENT_CHAT_IDS:
         try:
-            with open(file_path, "rb") as f:
-                res = std_requests.post(
-                    url,
-                    data={"chat_id": str(chat_id), "caption": caption, "parse_mode": "Markdown"},
-                    files={"document": (os.path.basename(file_path), f, "application/json")},
-                    timeout=45
-                )
-            if res.status_code == 200:
-                print(f"📤 Sent `{file_path}` to Telegram Admin ({chat_id}).")
-            else:
-                print(f"⚠️ Failed sending document to {chat_id}: {res.text}")
+            boundary = f"----WebKitFormBoundary{uuid.uuid4().hex}"
+            body = bytearray()
+
+            # chat_id
+            body.extend(f"--{boundary}\r\n".encode("utf-8"))
+            body.extend(b'Content-Disposition: form-data; name="chat_id"\r\n\r\n')
+            body.extend(f"{chat_id}\r\n".encode("utf-8"))
+
+            # caption
+            body.extend(f"--{boundary}\r\n".encode("utf-8"))
+            body.extend(b'Content-Disposition: form-data; name="caption"\r\n\r\n')
+            body.extend(f"{caption}\r\n".encode("utf-8"))
+
+            # parse_mode
+            body.extend(f"--{boundary}\r\n".encode("utf-8"))
+            body.extend(b'Content-Disposition: form-data; name="parse_mode"\r\n\r\n')
+            body.extend(b"Markdown\r\n")
+
+            # document
+            body.extend(f"--{boundary}\r\n".encode("utf-8"))
+            body.extend(f'Content-Disposition: form-data; name="document"; filename="{filename}"\r\n'.encode("utf-8"))
+            body.extend(b"Content-Type: application/json\r\n\r\n")
+            body.extend(file_bytes)
+            body.extend(b"\r\n")
+
+            # end boundary
+            body.extend(f"--{boundary}--\r\n".encode("utf-8"))
+
+            req = urllib.request.Request(
+                url,
+                data=bytes(body),
+                headers={"Content-Type": f"multipart/form-data; boundary={boundary}"},
+                method="POST"
+            )
+
+            with urllib.request.urlopen(req, timeout=45) as resp:
+                if resp.status == 200:
+                    print(f"📤 Sent `{file_path}` to Telegram Admin ({chat_id}).")
+                else:
+                    print(f"⚠️ Failed sending document to {chat_id}: status {resp.status}")
         except Exception as e:
             print(f"⚠️ Telegram send error for {chat_id}: {e}")
 
@@ -524,11 +558,18 @@ if __name__ == "__main__":
         if BOT_TOKEN and RECIPIENT_CHAT_IDS:
             for chat_id in RECIPIENT_CHAT_IDS:
                 try:
-                    std_requests.post(f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage", json={
+                    payload = json.dumps({
                         "chat_id": str(chat_id),
                         "text": f"🚨 **DAILY EDITORIAL COLLECTOR FAILED:**\n\n**Error:**\n`{e}`",
                         "parse_mode": "Markdown"
-                    }, timeout=20)
+                    }).encode("utf-8")
+                    req = urllib.request.Request(
+                        f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage",
+                        data=payload,
+                        headers={"Content-Type": "application/json"},
+                        method="POST"
+                    )
+                    urllib.request.urlopen(req, timeout=20)
                 except Exception:
                     pass
         print(f"Fatal error: {e}")

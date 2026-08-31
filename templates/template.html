@@ -1330,7 +1330,7 @@
     letter-spacing: -0.3px;
   }
 
-  /* Col 2: Word & Badges */
+  /* Update .ribbon-col-word to ensure it respects grid bounds */
   .ribbon-col-word {
     padding: 6px 8px;
     display: flex;
@@ -1338,15 +1338,20 @@
     justify-content: center;
     gap: 2px;
     border-right: 1px solid #f1f5f9;
+    min-width: 0; /* Prevents column blowout */
   }
 
+  /* Update .ribbon-term to wrap and hyphenate long words */
   .ribbon-term {
     font-family: 'Montserrat', sans-serif;
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 900;
     color: #0b1e36;
-    line-height: 1.15;
+    line-height: 1.2;
     letter-spacing: -0.2px !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 
   .ribbon-pos {
@@ -1500,15 +1505,28 @@
   .tag-syn { background: #dcfce7; color: #15803d; }
   .tag-ant { background: #fee2e2; color: #b91c1c; }
 
+  /* Update .ribbon-bullet-list */
   .ribbon-bullet-list {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5px;
+    gap: 2px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 8.3px; /* Scaled up from 7.4px */
+    font-size: 7.8px;
     font-weight: 600;
     color: #0f172a;
+    width: 100%;
+  }
+
+  /* Replace .bullet-item with this to allow multi-line wrapping */
+  .bullet-item {
+    white-space: normal;           /* Remove nowrap */
+    overflow: visible;             /* Remove hidden */
+    text-overflow: clip;           /* Remove ellipsis */
+    text-align: center;
+    line-height: 1.2;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .bullet-item {

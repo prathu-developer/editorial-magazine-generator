@@ -4,6 +4,7 @@ import re
 import json
 import requests
 from datetime import datetime, timezone, timedelta
+from evidence_lens import extract_evidence_spans
 from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
 
@@ -21,30 +22,50 @@ def clean_and_highlight_passage(passage_text, vocab_items):
         # 1. Skip scraper timestamps & metadata
         if re.match(r'^(Published|Updated|- ?[A-Za-z]+|\d{1,2}\s+[A-Za-z]+)', p, re.IGNORECASE):
             continue
-            
         # 2. Skip tag & taxonomy blocks containing multiple slashes
         if p.count('/') >= 2 or len(re.findall(r'\s*/\s*', p)) >= 2:
             continue
-            
         # 3. Strip trailing inline tags attached directly to the last sentence
         p = re.sub(r'(\s*[\w\s]+(\s*/\s*[\w\s]+){2,}\s*)$', '', p)
         if not p.strip():
             continue
 
-        highlighted = p
+        # Extract boundaries for Evidence
+        evidence_spans = extract_evidence_spans(p)
+
+        # Extract boundaries for Vocabulary
+        vocab_spans = []
         for item in sorted_vocab:
             term = item.get("word_or_phrase", "").strip()
             idx = item.get("order_index", "")
             if not term:
                 continue
-            
-            pattern = re.compile(rf'\b({re.escape(term)})\b', re.IGNORECASE)
-            highlighted = pattern.sub(
-                rf'<span class="vocab-hl">\1<sup class="v-idx">{idx}</sup></span>',
-                highlighted
-            )
-            
-        cleaned_paras.append(highlighted)
+            for match in re.finditer(rf'\b({re.escape(term)})\b', p, re.IGNORECASE):
+                vocab_spans.append({
+                    "start": match.start(),
+                    "end": match.end(),
+                    "idx": idx
+                })
+
+        # Build combined injection cuts
+        cuts = []
+        for e in evidence_spans:
+            cuts.append((e["start"], '<span class="evidence-hl">', False))
+            cuts.append((e["end"], '</span>', True))
+
+        for v in vocab_spans:
+            cuts.append((v["start"], '<span class="vocab-hl">', False))
+            cuts.append((v["end"], f'<sup class="v-idx">{v["idx"]}</sup></span>', True))
+
+        # Sort tags descending: Highest position first. 
+        # If position is tied, closing tags (True) are inserted before opening tags (False) to preserve nesting.
+        cuts.sort(key=lambda x: (x[0], 0 if x[2] else 1), reverse=True)
+
+        annotated_para = p
+        for pos, tag_str, _ in cuts:
+            annotated_para = annotated_para[:pos] + tag_str + annotated_para[pos:]
+
+        cleaned_paras.append(annotated_para)
         
     return cleaned_paras
 

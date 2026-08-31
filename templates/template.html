@@ -649,6 +649,24 @@
     margin-top: 4px;
   }
 
+  /* --- NEW: Static Data / Evidence Lens --- */
+  :root {
+    --evidence-text-color: #0f766e; /* Muted Scholarly Teal */
+  }
+
+  .evidence-hl {
+    color: var(--evidence-text-color, #0f766e);
+    font-weight: inherit;        /* Strictly no bold */
+    text-decoration: none;       /* Strictly no underline */
+    background: transparent;     /* Strictly no background fill */
+    border: none;
+  }
+
+  /* Ensure bold vocabulary terms inside an evidence phrase retain vocabulary contrast */
+  .evidence-hl .vocab-hl {
+    color: #0f2b48;
+  }
+
   /* =========================================================
      VOCABULARY 101: EXACT MATCH SIDEBAR CARD
      ========================================================= */

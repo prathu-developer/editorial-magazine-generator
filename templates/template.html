@@ -2142,6 +2142,9 @@
           <div class="ribbon-col-word">
             <div class="ribbon-term">{{ item.word_or_phrase }}</div>
             <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+            {% if item.connotation %}
+            <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+            {% endif %}
           </div>
           <div class="ribbon-col-def">
             <div class="ribbon-def-text-wrap">
@@ -2181,6 +2184,9 @@
           <div class="ribbon-col-word">
             <div class="ribbon-term">{{ item.word_or_phrase }}</div>
             <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+            {% if item.connotation %}
+            <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+            {% endif %}
           </div>
           <div class="ribbon-col-def">
             <div class="ribbon-def-text-wrap">
@@ -2220,6 +2226,9 @@
           <div class="ribbon-col-word">
             <div class="ribbon-term">{{ item.word_or_phrase }}</div>
             <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+            {% if item.connotation %}
+            <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+            {% endif %}
           </div>
           <div class="ribbon-col-def">
             <div class="ribbon-def-text-wrap">
@@ -2259,6 +2268,9 @@
           <div class="ribbon-col-word">
             <div class="ribbon-term">{{ item.word_or_phrase }}</div>
             <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+            {% if item.connotation %}
+            <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+            {% endif %}
           </div>
           <div class="ribbon-col-def">
             <div class="ribbon-def-text-wrap">
@@ -2298,6 +2310,9 @@
           <div class="ribbon-col-word">
             <div class="ribbon-term">{{ item.word_or_phrase }}</div>
             <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+            {% if item.connotation %}
+            <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+            {% endif %}
           </div>
           <div class="ribbon-col-def">
             <div class="ribbon-def-text-wrap">

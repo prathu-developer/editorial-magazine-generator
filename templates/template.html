@@ -662,9 +662,10 @@
     border: none;
   }
 
-  /* Ensure bold vocabulary terms inside an evidence phrase retain vocabulary contrast */
+  /* Ensures bold vocabulary words inside evidence phrases inherit the teal color */
   .evidence-hl .vocab-hl {
-    color: #0f2b48;
+    color: inherit;       /* Inherits the teal text color from .evidence-hl */
+    font-weight: 700;     /* Keeps the distinct bold emphasis */
   }
 
   /* =========================================================

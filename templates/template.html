@@ -1496,16 +1496,18 @@
     line-height: 1.36;
   }
 
-  /* Col 5 & 6: Synonyms & Antonyms */
+  /* Ensure the synonym and antonym columns strictly constrain width */
   .ribbon-col-syn, .ribbon-col-ant {
-    padding: 6px 4px;
+    padding: 5px 3px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: #ffffff; /* Replaced #fafbfc with pure white */
+    background: #ffffff;
     border-right: 1px solid #f1f5f9;
+    min-width: 0; /* Prevents flexbox column blowout */
+    width: 100%;
   }
   .ribbon-col-ant {
     border-right: none;
@@ -1524,27 +1526,31 @@
   .tag-syn { background: #dcfce7; color: #15803d; }
   .tag-ant { background: #fee2e2; color: #b91c1c; }
 
-  /* Update .ribbon-bullet-list */
+  /* Ensure bullet list container fills column width */
   .ribbon-bullet-list {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
+    gap: 3px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 7.8px;
+    font-size: 7.4px; /* Scaled down slightly for clean phrase wrapping */
     font-weight: 600;
     color: #0f172a;
     width: 100%;
+    min-width: 0;
   }
 
-  /* Replace .bullet-item with this to allow multi-line wrapping */
+  /* Allow phrases to wrap naturally into 2 lines within the border */
   .bullet-item {
-    white-space: normal;           /* Remove nowrap */
-    overflow: visible;             /* Remove hidden */
-    text-overflow: clip;           /* Remove ellipsis */
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    white-space: normal !important; /* Removes single-line restriction */
+    overflow: visible !important;
+    text-overflow: clip !important;
     text-align: center;
-    line-height: 1.2;
-    word-break: break-word;
+    line-height: 1.25;
+    word-break: normal;
     overflow-wrap: break-word;
   }
 

@@ -1,153 +1,137 @@
+import os
 import re
+import json
 from typing import List, Dict, Any
-import spacy
-from spacy.matcher import Matcher
-
-# Load lightweight model once at module level
-nlp = spacy.load("en_core_web_sm")
-
-# Initialize linguistic pattern matcher
-matcher = Matcher(nlp.vocab)
 
 # ==============================================================================
-# STRUCTURAL GRAMMAR RULES (ZERO-MAINTENANCE PATTERNS)
+# SAFE OFFLINE FALLBACK (Zero proper nouns, zero acronym clutter)
 # ==============================================================================
+SAFE_FALLBACK_PATTERNS = [
+    # Constitutional Articles & Statutory Laws
+    re.compile(r'\b(?:Article|Art\.)\s+\d+[A-Z]?(?:\(\d+\))?\b', re.IGNORECASE),
+    re.compile(r'\bSection\s+\d+[A-Z]?(?:\s+of\s+the\s+[A-Za-z\s]+)?\b', re.IGNORECASE),
+    re.compile(r'\b\d+(?:st|nd|rd|th)\s+Constitutional\s+Amendment(?:\s+Act)?\b', re.IGNORECASE),
+    re.compile(r'\b(?:two|three|five|seven|nine)-judge\s+bench\b', re.IGNORECASE),
+    
+    # Exact Macroeconomic Data Points
+    re.compile(r'\b[\d\.,]+\s*(?:%|per\s+cent)\b(?:\s+(?:growth|inflation|deficit|increase|drop|surge|contracted))?', re.IGNORECASE),
+    re.compile(r'\b[\d\.,]+\s*(?:basis\s+points|bps)\b', re.IGNORECASE),
+    re.compile(r'\b(?:Rs\.?|₹|\$)\s*[\d\.,]+\s*(?:lakh\s+crore|crore|lakh|thousand|million|billion)\b', re.IGNORECASE),
+]
 
-# 1. Constitutional Articles & Statutory Sections (e.g., "Article 21A", "Section 144")
-matcher.add("LEGAL_PROVISIONS", [
-    [
-        {"LOWER": {"IN": ["article", "art."]}},
-        {"TEXT": {"REGEX": r"^\d+[A-Za-z]?(?:\(\d+\))?$"}}
-    ],
-    [
-        {"LOWER": {"IN": ["section", "sec."]}},
-        {"TEXT": {"REGEX": r"^\d+[A-Za-z]?$"}},
-        {"LOWER": "of", "OP": "?"},
-        {"LOWER": "the", "OP": "?"},
-        {"IS_TITLE": True, "OP": "*"}
-    ],
-    [
-        {"TEXT": {"REGEX": r"^\d+(?:st|nd|rd|th)$"}},
-        {"LOWER": "constitutional", "OP": "?"},
-        {"LOWER": "amendment"},
-        {"LOWER": "act", "OP": "?"}
-    ],
-    [
-        {"TEXT": {"REGEX": r"^(?:two|three|five|seven|nine|\d+)-judge$"}},
-        {"LOWER": "bench"}
-    ],
-    [
-        {"LOWER": "constitution"},
-        {"LOWER": "bench"}
-    ]
-])
+def fallback_regex_spans(text: str) -> List[Dict[str, int]]:
+    """Clean fallback used only if Gemini is unreachable or returns an error."""
+    spans = []
+    for pattern in SAFE_FALLBACK_PATTERNS:
+        for match in pattern.finditer(text):
+            spans.append({"start": match.start(), "end": match.end()})
+    return spans
 
-# 2. Institutional Entities (e.g., "[Any Title Words] + Commission / Committee / Panel")
-matcher.add("INSTITUTIONS", [
-    [
-        {"IS_TITLE": True, "OP": "+"},
-        {"LOWER": {"IN": ["committee", "commission", "panel", "tribunal", "board", "council", "authority"]}}
-    ]
-])
-
-# 3. Statutory Enactments (e.g., "[Any Title Words] + Act / Bill / Code, [Optional Year]")
-matcher.add("STATUTES", [
-    [
-        {"IS_TITLE": True, "OP": "+"},
-        {"LOWER": {"IN": ["act", "bill", "code", "ordinance"]}},
-        {"TEXT": ",", "OP": "?"},
-        {"IS_DIGIT": True, "LENGTH": 4, "OP": "?"}
-    ]
-])
-
-# 4. Welfare Schemes & National Missions (e.g., "[Any Title Words] + Scheme / Mission / Yojana")
-matcher.add("POLICIES_AND_SCHEMES", [
-    [
-        {"IS_TITLE": True, "OP": "+"},
-        {"LOWER": {"IN": ["scheme", "mission", "yojana", "initiative", "programme", "program", "pact", "accord"]}}
-    ]
-])
-
-# 5. Indices, Surveys & Global Reports (e.g., "[Any Title Words] + Index / Report / Survey")
-matcher.add("REPORTS_AND_INDICES", [
-    [
-        {"IS_TITLE": True, "OP": "+"},
-        {"LOWER": {"IN": ["index", "report", "survey", "ranking"]}}
-    ]
-])
-
-# 6. Global Summits & Multilateral Acronyms (e.g., "COP29", "G20", "BRICS", "UNCLOS")
-matcher.add("GLOBAL_FORUMS", [
-    [
-        {"TEXT": {"REGEX": r"^(?:COP\d+|G\d+|BRICS|ASEAN|BIMSTEC|UNCLOS|NATO|OPEC|SAARC|QUAD|I2U2)$"}}
-    ]
-])
-
-# Fast regex for basis points and fiscal metrics where spaCy labels them CARDINAL
-MACRO_UNITS_REGEX = re.compile(
-    r'\b[\d\.,]+\s*(?:basis\s+points|bps|GW|MW|megawatts|gigawatts|sq\s+km|hectares|tonnes|mt)\b',
-    re.IGNORECASE
-)
-
-# Narrative exclusions to avoid highlighting standalone years or months
-EXCLUSION_REGEX = re.compile(
-    r'^(?:january|february|march|april|may|june|july|august|september|october|november|december|\d{1,2}|19\d\d|20\d\d)$',
-    re.IGNORECASE
-)
 
 # ==============================================================================
-# SPAN MERGER & BOUNDARY RESOLVER
+# GEMINI 3.5 FLASH LITE EVIDENCE EXTRACTION
 # ==============================================================================
+def extract_article_evidence(full_passage: str) -> List[str]:
+    """
+    Calls Gemini 3.5 Flash Lite ONCE per article to identify 2-4 critical
+    verbatim factual/quantitative points for competitive exam aspirants.
+    """
+    if not full_passage or not full_passage.strip():
+        return []
 
-def merge_overlapping_spans(spans: List[Dict[str, int]]) -> List[Dict[str, int]]:
-    """Sorts and merges overlapping/nested boundary spans cleanly."""
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        print("⚠️ GEMINI_API_KEY missing. Falling back to offline evidence extraction.")
+        return []
+
+    try:
+        from google import genai
+        from google.genai import types
+
+        # 5-second hard ceiling to prevent pipeline hang
+        client = genai.Client(api_key=api_key, http_options={"timeout": 5.0})
+
+        prompt = (
+            "You are an expert exam analyst for UPSC and Banking competitive exams.\n"
+            "Analyze this editorial and extract 2 to 4 high-yield factual or quantitative phrases "
+            "that an aspirant must memorize for Mains answers.\n\n"
+            "STRICT RULES:\n"
+            "1. ONLY select: Constitutional Articles/Amendments, statutory sections, "
+            "macroeconomic metrics with units (inflation rates, GDP shifts, basis points, outlays), "
+            "or specific government committee/policy recommendations.\n"
+            "2. NEVER extract standalone words, countries, or acronyms (NO 'NATO', 'RBI', 'G20', 'Court').\n"
+            "3. MUST BE EXACT, VERBATIM SUBSTRINGS copied directly from the passage text. "
+            "Do NOT paraphrase, alter, or edit even a single word.\n\n"
+            f"Editorial Passage:\n\"\"\"\n{full_passage}\n\"\"\""
+        )
+
+        response = client.models.generate_content(
+            model="gemini-3.5-flash-lite",
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema={
+                    "type": "object",
+                    "properties": {
+                        "quotes": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                            "description": "Exact verbatim phrases copied from the article text."
+                        }
+                    },
+                    "required": ["quotes"]
+                }
+            )
+        )
+
+        data = json.loads(response.text)
+        raw_quotes = data.get("quotes", [])
+        
+        # Filter out invalid quotes or standalone single-word returns
+        valid_quotes = [q.strip() for q in raw_quotes if q and len(q.strip().split()) >= 2]
+        return valid_quotes
+
+    except Exception as e:
+        print(f"⚠️ Evidence Lens AI offline/busy ({e}). Using offline safe fallback.")
+        return []
+
+
+def extract_evidence_spans(paragraph_text: str, evidence_quotes: List[str] = None) -> List[Dict[str, int]]:
+    """
+    Maps extracted evidence quotes to exact start/end character offsets in each paragraph.
+    Falls back gracefully to safe numeric regex if quotes are unavailable.
+    """
+    if not paragraph_text or not paragraph_text.strip():
+        return []
+
+    spans = []
+
+    # 1. Match AI-extracted verbatim quotes if available
+    if evidence_quotes:
+        for quote in evidence_quotes:
+            start_idx = paragraph_text.find(quote)
+            if start_idx != -1:
+                spans.append({
+                    "start": start_idx,
+                    "end": start_idx + len(quote)
+                })
+
+    # 2. If AI returned no valid quotes for this paragraph, run safe numeric fallback
+    if not spans:
+        spans = fallback_regex_spans(paragraph_text)
+
+    # Sort and deduplicate overlapping spans
     if not spans:
         return []
 
-    # Sort primarily by start position asc, secondarily by span length desc
     spans.sort(key=lambda s: (s["start"], -(s["end"] - s["start"])))
     merged = [spans[0]]
-
     for current in spans[1:]:
         last = merged[-1]
         if current["start"] <= last["end"]:
-            # Overlapping or adjacent: expand boundary to max end position
             if current["end"] > last["end"]:
                 last["end"] = current["end"]
         else:
             merged.append(current)
 
     return merged
-
-
-def extract_evidence_spans(paragraph_text: str) -> List[Dict[str, Any]]:
-    """
-    Extracts high-yield quantitative, legal, and institutional spans from 
-    editorial paragraphs using spaCy NER and linguistic token patterns.
-    """
-    if not paragraph_text or not paragraph_text.strip():
-        return []
-
-    doc = nlp(paragraph_text)
-    raw_spans = []
-
-    # 1. Statistical NER: Percentages, Currencies, and Standard Physical Quantities
-    for ent in doc.ents:
-        if ent.label_ in ("PERCENT", "MONEY", "QUANTITY"):
-            text = ent.text.strip()
-            if not EXCLUSION_REGEX.match(text):
-                raw_spans.append({"start": ent.start_char, "end": ent.end_char})
-
-    # 2. Structural Linguistic Matcher: Law, Polity, Schemes, Committees, Treaties
-    matches = matcher(doc)
-    for _, start_token, end_token in matches:
-        span = doc[start_token:end_token]
-        text = span.text.strip()
-        if not EXCLUSION_REGEX.match(text):
-            raw_spans.append({"start": span.start_char, "end": span.end_char})
-
-    # 3. Macro Units Fallback: Catch basis points, energy, and metric tonnage
-    for match in MACRO_UNITS_REGEX.finditer(paragraph_text):
-        raw_spans.append({"start": match.start(), "end": match.end()})
-
-    return merge_overlapping_spans(raw_spans)

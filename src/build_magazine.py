@@ -4,7 +4,7 @@ import re
 import json
 import requests
 from datetime import datetime, timezone, timedelta
-from evidence_lens import extract_article_evidence, extract_evidence_spans
+from evidence_lens import extract_evidence_spans
 from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
 
@@ -12,9 +12,6 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     raw_paras = [p.strip() for p in re.split(r'[\r\n]+', passage_text) if p.strip()]
     cleaned_paras = []
     
-    # Extract high-yield evidence quotes ONCE for the entire article passage
-    article_evidence_quotes = extract_article_evidence(passage_text)
-
     sorted_vocab = sorted(
         vocab_items,
         key=lambda x: len(x.get("word_or_phrase", "")),
@@ -33,8 +30,8 @@ def clean_and_highlight_passage(passage_text, vocab_items):
         if not p.strip():
             continue
 
-        # Extract boundaries for Evidence using the article's quotes
-        evidence_spans = extract_evidence_spans(p, article_evidence_quotes)
+        # Extract boundaries for Evidence
+        evidence_spans = extract_evidence_spans(p)
 
         # Extract boundaries for Vocabulary
         vocab_spans = []
@@ -60,7 +57,8 @@ def clean_and_highlight_passage(passage_text, vocab_items):
             cuts.append((v["start"], '<span class="vocab-hl">', False))
             cuts.append((v["end"], f'<sup class="v-idx">{v["idx"]}</sup></span>', True))
 
-        # Sort tags descending to preserve character offsets
+        # Sort tags descending: Highest position first. 
+        # If position is tied, closing tags (True) are inserted before opening tags (False) to preserve nesting.
         cuts.sort(key=lambda x: (x[0], 0 if x[2] else 1), reverse=True)
 
         annotated_para = p

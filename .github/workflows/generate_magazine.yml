@@ -24,19 +24,17 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      # Install dependencies, spaCy model, and browser
+      # ✨ SIMPLIFIED: Install dependencies and browser unconditionally
       - name: Install Python dependencies & Playwright
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          python -m spacy download en_core_web_sm
           playwright install chromium
           playwright install-deps chromium
 
       - name: Run Magazine Generator & Telegram Bot
         env:
-          GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}   # e.g. "key1,key2,key3"
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}     # backward compatibility fallback
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
           ENABLE_GROUP_PUBLISH: "true"

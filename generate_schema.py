@@ -180,10 +180,10 @@ def parse_llm_json(raw_text):
     return json.loads(cleaned.strip())
 
 # --- BACKUP & RETENTION ENGINE ---
-def save_backup(final_output, input_date_str=None, backup_dir="backups", max_days=7):
+def save_backup(final_output, input_date_str=None, backup_dir="backups", max_days=31):
     """
     Saves a copy of schema.json named '{YYYY-MM-DD}_{Day}.json' and
-    purges backups older than 7 days (rolling 1-week retention).
+    purges backups older than 31 days (rolling 31-day retention).
     """
     os.makedirs(backup_dir, exist_ok=True)
     
@@ -214,7 +214,7 @@ def save_backup(final_output, input_date_str=None, backup_dir="backups", max_day
         for stale in stale_backups:
             stale_path = os.path.join(backup_dir, stale)
             os.remove(stale_path)
-            print(f"🗑️ Removed stale backup (older than 7 days): '{stale_path}'")
+            print(f"🗑️ Removed stale backup (older than 31 days): '{stale_path}'")
 
 # --- 4. MAIN PIPELINE (PARALLELIZED) ---
 def _process_single_editorial(args):

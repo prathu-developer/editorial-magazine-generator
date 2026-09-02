@@ -35,7 +35,8 @@ jobs:
 
       - name: Run Magazine Generator & Telegram Bot
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}   # e.g. "key1,key2,key3"
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}     # backward compatibility fallback
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           ADMIN_CHAT_ID: ${{ secrets.ADMIN_CHAT_ID }}
           ENABLE_GROUP_PUBLISH: "true"

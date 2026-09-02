@@ -31,69 +31,89 @@ def fallback_regex_spans(text: str) -> List[Dict[str, int]]:
 # ==============================================================================
 # GEMINI 3.5 FLASH LITE EVIDENCE EXTRACTION
 # ==============================================================================
+def get_api_keys() -> List[str]:
+    """Collects all configured Gemini API keys into a prioritized pool."""
+    keys = []
+    # 1. Check comma-separated multi-key secret
+    multi_keys = os.getenv("GEMINI_API_KEYS", "")
+    if multi_keys:
+        keys.extend([k.strip() for k in multi_keys.split(",") if k.strip()])
+    
+    # 2. Check legacy single-key secret
+    single_key = os.getenv("GEMINI_API_KEY", "").strip()
+    if single_key and single_key not in keys:
+        keys.append(single_key)
+        
+    return keys
+
+
 def extract_article_evidence(full_passage: str) -> List[str]:
     """
-    Calls Gemini 3.5 Flash Lite ONCE per article to identify 2-4 critical
-    verbatim factual/quantitative points for competitive exam aspirants.
+    Calls Gemini 3.5 Flash Lite with automatic multi-key failover.
+    If Key 1 hits a 429 or network glitch, it immediately rotates to Key 2 and 3.
     """
     if not full_passage or not full_passage.strip():
         return []
 
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        print("⚠️ GEMINI_API_KEY missing. Falling back to offline evidence extraction.")
+    api_keys = get_api_keys()
+    if not api_keys:
+        print("⚠️ No GEMINI_API_KEYS found. Using offline safe fallback.")
         return []
 
-    try:
-        from google import genai
-        from google.genai import types
+    from google import genai
+    from google.genai import types
 
-        # 5-second hard ceiling to prevent pipeline hang
-        client = genai.Client(api_key=api_key, http_options={"timeout": 5.0})
+    prompt = (
+        "You are an expert exam analyst for UPSC and Banking competitive exams.\n"
+        "Analyze this editorial and extract 2 to 4 high-yield factual or quantitative phrases "
+        "that an aspirant must memorize for Mains answers.\n\n"
+        "STRICT RULES:\n"
+        "1. ONLY select: Constitutional Articles/Amendments, statutory sections, "
+        "macroeconomic metrics with units (inflation rates, GDP shifts, basis points, outlays), "
+        "or specific government committee/policy recommendations.\n"
+        "2. NEVER extract standalone words, countries, or acronyms (NO 'NATO', 'RBI', 'G20', 'Court').\n"
+        "3. MUST BE EXACT, VERBATIM SUBSTRINGS copied directly from the passage text. "
+        "Do NOT paraphrase, alter, or edit even a single word.\n\n"
+        f"Editorial Passage:\n\"\"\"\n{full_passage}\n\"\"\""
+    )
 
-        prompt = (
-            "You are an expert exam analyst for UPSC and Banking competitive exams.\n"
-            "Analyze this editorial and extract 2 to 4 high-yield factual or quantitative phrases "
-            "that an aspirant must memorize for Mains answers.\n\n"
-            "STRICT RULES:\n"
-            "1. ONLY select: Constitutional Articles/Amendments, statutory sections, "
-            "macroeconomic metrics with units (inflation rates, GDP shifts, basis points, outlays), "
-            "or specific government committee/policy recommendations.\n"
-            "2. NEVER extract standalone words, countries, or acronyms (NO 'NATO', 'RBI', 'G20', 'Court').\n"
-            "3. MUST BE EXACT, VERBATIM SUBSTRINGS copied directly from the passage text. "
-            "Do NOT paraphrase, alter, or edit even a single word.\n\n"
-            f"Editorial Passage:\n\"\"\"\n{full_passage}\n\"\"\""
-        )
+    # Rotate through the key pool on failure
+    for idx, key in enumerate(api_keys, start=1):
+        try:
+            client = genai.Client(api_key=key, http_options={"timeout": 5.0})
 
-        response = client.models.generate_content(
-            model="gemini-3.5-flash-lite",
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema={
-                    "type": "object",
-                    "properties": {
-                        "quotes": {
-                            "type": "array",
-                            "items": {"type": "string"},
-                            "description": "Exact verbatim phrases copied from the article text."
-                        }
-                    },
-                    "required": ["quotes"]
-                }
+            response = client.models.generate_content(
+                model="gemini-3.5-flash-lite",
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_mime_type="application/json",
+                    response_schema={
+                        "type": "object",
+                        "properties": {
+                            "quotes": {
+                                "type": "array",
+                                "items": {"type": "string"},
+                                "description": "Exact verbatim phrases copied from the article text."
+                            }
+                        },
+                        "required": ["quotes"]
+                    }
+                )
             )
-        )
 
-        data = json.loads(response.text)
-        raw_quotes = data.get("quotes", [])
-        
-        # Filter out invalid quotes or standalone single-word returns
-        valid_quotes = [q.strip() for q in raw_quotes if q and len(q.strip().split()) >= 2]
-        return valid_quotes
+            data = json.loads(response.text)
+            raw_quotes = data.get("quotes", [])
+            valid_quotes = [q.strip() for q in raw_quotes if q and len(q.strip().split()) >= 2]
+            
+            if valid_quotes:
+                return valid_quotes
 
-    except Exception as e:
-        print(f"⚠️ Evidence Lens AI offline/busy ({e}). Using offline safe fallback.")
-        return []
+        except Exception as e:
+            print(f"⚠️ API Key #{idx} failed ({e}). Rotating to next key...")
+            continue
+
+    print("⚠️ All Gemini API keys failed or exhausted. Using offline safe fallback.")
+    return []
 
 
 def extract_evidence_spans(paragraph_text: str, evidence_quotes: List[str] = None) -> List[Dict[str, int]]:

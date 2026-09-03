@@ -19,14 +19,17 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     )
 
     for p in raw_paras:
-        # 1. Skip scraper timestamps & metadata
-        if re.match(r'^(Published|Updated|- ?[A-Za-z]+|\d{1,2}\s+[A-Za-z]+)', p, re.IGNORECASE):
+        # 1. Skip scraper timestamps & metadata (match only month names, not numbers like "20 lakh")
+        if re.match(r'^(Published|Updated|- ?[A-Za-z]+|\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\b)', p, re.IGNORECASE):
             continue
-        # 2. Skip tag & taxonomy blocks containing multiple slashes
-        if p.count('/') >= 2 or len(re.findall(r'\s*/\s*', p)) >= 2:
+
+        # 2. Skip dedicated tag/taxonomy lines only (spaced slashes ' / ' delimiting categories)
+        is_tag_block = bool(re.match(r'^[\w\s\(\)-]+(\s+/\s+[\w\s\(\)-]+){2,}$', p.strip())) or p.count(' / ') >= 3
+        if is_tag_block:
             continue
-        # 3. Strip trailing inline tags attached directly to the last sentence
-        p = re.sub(r'(\s*[\w\s]+(\s*/\s*[\w\s]+){2,}\s*)$', '', p)
+
+        # 3. Strip trailing category tags only if they are formatted with spaced slashes
+        p = re.sub(r'(\s+/\s+[\w\s\(\)-]+){2,}$', '', p)
         if not p.strip():
             continue
 

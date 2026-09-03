@@ -7,6 +7,7 @@ from datetime import datetime, timezone, timedelta
 from evidence_lens import extract_evidence_spans
 from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
+from pypdf import PdfWriter, PdfReader
 
 def clean_and_highlight_passage(passage_text, vocab_items):
     raw_paras = [p.strip() for p in re.split(r'[\r\n]+', passage_text) if p.strip()]
@@ -302,12 +303,13 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
                 "next_page_num": current_page_num + 1 if not is_last else None
             })
 
-    # Vocab Lab Split Logic (Over 10 total ribbons spans 2 Lab pages)
-    total_ribbons = sum(len(items) for items in categorized_vocab.values())
+    # Vocab Lab Split Logic
+    other_cats = {k: v for k, v in categorized_vocab.items() if k != "core_vocab" and v}
     lab_start_page = start_page + len(reader_pages)
     lab_pages = []
-    
-    if total_ribbons <= 10:
+
+    if not other_cats:
+        # If an article only has core vocabulary, keep it on a single natural-height lab page
         lab_pages.append({
             "is_continuation": False,
             "page_num": lab_start_page,
@@ -316,7 +318,7 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "has_next_lab_page": False
         })
     else:
-        # Lab Page 1: Analysis + Core Vocab Ribbons
+        # Lab Page 1: Analysis + Core Vocab Ribbons (Natural Height)
         lab_pages.append({
             "is_continuation": False,
             "page_num": lab_start_page,
@@ -324,8 +326,7 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "categorized_vocab": {"core_vocab": categorized_vocab.get("core_vocab", [])},
             "has_next_lab_page": True
         })
-        # Lab Page 2: Remaining categories
-        other_cats = {k: v for k, v in categorized_vocab.items() if k != "core_vocab" and v}
+        # Lab Page 2: Continuation with all secondary categories (Natural Height)
         lab_pages.append({
             "is_continuation": True,
             "page_num": lab_start_page + 1,
@@ -474,32 +475,68 @@ def compile_magazine():
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         
-        # Lock viewport width to 794px (210mm @ 96 DPI) so Chromium renders at true document width
-        page = browser.new_page(viewport={"width": 794, "height": 1080})
+        # Lock viewport width to 794px (210mm @ 96 DPI)
+        page = browser.new_page(viewport={"width": 794, "height": 1123})
         page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
         page.evaluate("() => document.fonts.ready")
         
-        # Calculate exact bounding height dynamically without phantom margin overflow
-        total_height = page.evaluate("""() => {
-            const body = document.body;
-            const html = document.documentElement;
-            return Math.max(
-                body.scrollHeight,
-                body.offsetHeight,
-                html.clientHeight,
-                html.scrollHeight,
-                html.offsetHeight,
-                Math.ceil(body.getBoundingClientRect().height)
-            );
-        }""")
+        # Count all discrete page blocks in the magazine
+        page_count = page.evaluate("() => document.querySelectorAll('.page').length")
         
-        page.pdf(
-            path=output_pdf_path,
-            width="210mm",
-            height=f"{total_height}px",
-            print_background=True,
-            margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
-        )
+        writer = PdfWriter()
+        temp_pdf_files = []
+
+        for i in range(page_count):
+            # Isolate current page, hide all others, and measure its natural DOM height
+            page_meta = page.evaluate("""(targetIndex) => {
+                const pages = document.querySelectorAll('.page');
+                pages.forEach((p, idx) => {
+                    p.style.display = (idx === targetIndex) ? '' : 'none';
+                });
+                const current = pages[targetIndex];
+                const isCover = current.classList.contains('cover-page');
+                const heightPx = Math.ceil(current.getBoundingClientRect().height);
+                return { isCover, heightPx };
+            }""", i)
+            
+            temp_page_pdf = os.path.join(build_dir, f"temp_page_{i}.pdf")
+            temp_pdf_files.append(temp_page_pdf)
+            
+            if page_meta["isCover"]:
+                # Front Cover, TOC, and Back Cover stay locked to standard A4 (297mm)
+                page.pdf(
+                    path=temp_page_pdf,
+                    width="210mm",
+                    height="297mm",
+                    print_background=True,
+                    margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
+                )
+            else:
+                # Article Reader & Vocab Lab pages take their exact required natural height
+                page.pdf(
+                    path=temp_page_pdf,
+                    width="210mm",
+                    height=f"{page_meta['heightPx']}px",
+                    print_background=True,
+                    margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
+                )
+            
+            # Append this discrete page to the final document
+            reader = PdfReader(temp_page_pdf)
+            if len(reader.pages) > 0:
+                writer.add_page(reader.pages[0])
+
+        # Write out unified multi-page PDF
+        with open(output_pdf_path, "wb") as f_out:
+            writer.write(f_out)
+
+        # Clean up temporary page artifacts
+        for f_path in temp_pdf_files:
+            try:
+                os.remove(f_path)
+            except Exception:
+                pass
+
         browser.close()
 
     print(f"✅ Generated Complete Magazine: {output_pdf_path}")

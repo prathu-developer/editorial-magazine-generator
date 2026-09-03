@@ -3,6 +3,7 @@ import sys
 import re
 import json
 import requests
+import io
 from datetime import datetime, timezone, timedelta
 from evidence_lens import extract_evidence_spans
 from jinja2 import Environment, FileSystemLoader
@@ -122,7 +123,7 @@ def categorize_vocabulary(vocab_items):
 
     return categorized
 
-def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
+def send_to_telegram(pdf_path, ist_date_short, editorial_items, thumb_path=None):
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
     admin_chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
     
@@ -137,7 +138,10 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
         print("⚠️ Telegram BOT_TOKEN missing. Skipping Telegram delivery.")
         return
 
-    quote_lines = [f"{idx:02d} {title}" for idx, title in enumerate(editorial_titles, start=1)]
+    quote_lines = [
+        f"{idx:02d} {item['title']} ({item['newspaper']})"
+        for idx, item in enumerate(editorial_items, start=1)
+    ]
     quote_content = "\n".join(quote_lines)
 
     caption = (
@@ -156,12 +160,21 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
                 "caption": caption,
                 "parse_mode": "HTML"
             }
-            res = requests.post(
-                f"https://api.telegram.org/bot{bot_token}/sendDocument",
-                data=payload,
-                files={"document": (filename, doc, "application/pdf")},
-                timeout=120
-            )
+            files = {"document": (filename, doc, "application/pdf")}
+            thumb_f = open(thumb_path, "rb") if thumb_path and os.path.exists(thumb_path) else None
+            if thumb_f:
+                files["thumbnail"] = ("thumb.jpg", thumb_f, "image/jpeg")
+
+            try:
+                res = requests.post(
+                    f"https://api.telegram.org/bot{bot_token}/sendDocument",
+                    data=payload,
+                    files=files,
+                    timeout=120
+                )
+            finally:
+                if thumb_f:
+                    thumb_f.close()
             
         if res.status_code == 200:
             print("🚀 Successfully delivered magazine PDF to Admin!")
@@ -182,12 +195,21 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
                 "caption": caption,
                 "parse_mode": "HTML"
             }
-            res = requests.post(
-                f"https://api.telegram.org/bot{bot_token}/sendDocument",
-                data=payload,
-                files={"document": (filename, doc, "application/pdf")},
-                timeout=120
-            )
+            files = {"document": (filename, doc, "application/pdf")}
+            thumb_f = open(thumb_path, "rb") if thumb_path and os.path.exists(thumb_path) else None
+            if thumb_f:
+                files["thumbnail"] = ("thumb.jpg", thumb_f, "image/jpeg")
+
+            try:
+                res = requests.post(
+                    f"https://api.telegram.org/bot{bot_token}/sendDocument",
+                    data=payload,
+                    files=files,
+                    timeout=120
+                )
+            finally:
+                if thumb_f:
+                    thumb_f.close()
 
         if res.status_code == 200:
             source_msg_id = res.json()["result"]["message_id"]
@@ -372,6 +394,7 @@ def compile_magazine():
     templates_dir = os.path.join(base_dir, "templates")
     build_dir = os.path.join(base_dir, "build")
     output_dir = os.path.join(base_dir, "output")
+    thumb_path = os.path.join(build_dir, "cover_thumb.jpg")
 
     os.makedirs(build_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
@@ -407,7 +430,7 @@ def compile_magazine():
 
     processed_articles = []
     toc_entries = []
-    editorial_titles = []
+    editorial_items = []
     page_counter = 3
 
     for art in raw_data.get("editorials", []):
@@ -420,7 +443,10 @@ def compile_magazine():
         meta_sub = art.get("editorial_metadata", {}).get("subtitle", "")
         subtitle = meta_sub if meta_sub and meta_sub != "N/A" else None
         title_clean = art.get("title", "")
-        editorial_titles.append(title_clean)
+        editorial_items.append({
+            "title": title_clean,
+            "newspaper": art.get("newspaper", "Editorial")
+        })
 
         reader_pages, lab_pages = partition_article(art, categorized_vocab, vocab_list, page_counter)
         
@@ -498,16 +524,14 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # PDF generation & interactive navigation assembly
+    # PDF generation & in-memory assembly
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         
-        # Viewport width locked to 794px (210mm @ 96 DPI)
         page = browser.new_page(viewport={"width": 794, "height": 1123})
         page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
         page.evaluate("() => document.fonts.ready")
         
-        # 1. Map all HTML target anchors (#article-p3, #vocab-p4, etc.) to their 0-based page index
         id_to_page = page.evaluate("""() => {
             const map = {};
             document.querySelectorAll('.page').forEach((pageElem, pageIdx) => {
@@ -521,11 +545,9 @@ def compile_magazine():
         page_count = page.evaluate("() => document.querySelectorAll('.page').length")
         
         writer = PdfWriter()
-        temp_pdf_files = []
         pending_links = []
 
         for i in range(page_count):
-            # Isolate the active page, measure bounds, and extract internal link coordinates
             page_meta = page.evaluate("""(targetIndex) => {
                 const pages = document.querySelectorAll('.page');
                 pages.forEach((p, idx) => {
@@ -556,25 +578,26 @@ def compile_magazine():
                     links: links
                 };
             }""", i)
+
             
-            temp_page_pdf = os.path.join(build_dir, f"temp_page_{i}.pdf")
-            temp_pdf_files.append(temp_page_pdf)
-            
+            if i == 0:
+                page.screenshot(path=thumb_path, type="jpeg", quality=85)
+
             page_height = "297mm" if page_meta["isCover"] else f"{page_meta['heightPx']}px"
-            page.pdf(
-                path=temp_page_pdf,
+            
+            # Render directly to RAM (no disk I/O)
+            pdf_bytes = page.pdf(
                 width="210mm",
                 height=page_height,
                 print_background=True,
                 margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
             )
             
-            reader = PdfReader(temp_page_pdf)
+            reader = PdfReader(io.BytesIO(pdf_bytes))
             if len(reader.pages) > 0:
                 p_obj = reader.pages[0]
                 writer.add_page(p_obj)
                 
-                # Convert DOM coordinates (top-left) to PDF points (bottom-left)
                 mb = p_obj.mediabox
                 media_w, media_h = float(mb.width), float(mb.height)
                 scale_x = media_w / page_meta["widthPx"]
@@ -583,7 +606,6 @@ def compile_magazine():
                 for lk in page_meta["links"]:
                     target_idx = id_to_page.get(lk["targetId"])
                     if target_idx is None:
-                        # Fallback parsing for targets like 'article-p5' or 'vocab-p6'
                         m = re.search(r'-p(\d+)', lk["targetId"])
                         if m:
                             target_idx = int(m.group(1)) - 1
@@ -595,7 +617,7 @@ def compile_magazine():
                         y2 = media_h - lk["y"] * scale_y
                         pending_links.append((i, target_idx, (x1, y1, x2, y2)))
 
-        # 2. Inject native internal link annotations across the stitched PDF
+        # Native click jumps
         for src_page, target_page, rect in pending_links:
             if target_page < len(writer.pages):
                 writer.add_annotation(
@@ -607,23 +629,29 @@ def compile_magazine():
                     )
                 )
 
-        # Write unified interactive PDF
+        # Native PDF Outline/Bookmarks for side drawer navigation
+        writer.add_outline_item("Front Cover", 0)
+        writer.add_outline_item("Table of Contents", 1)
+        for art in processed_articles:
+            r_idx = id_to_page.get(art["target_reader_id"])
+            if r_idx is not None and r_idx < len(writer.pages):
+                parent_outline = writer.add_outline_item(f"{art['title']} ({art['newspaper']})", r_idx)
+                l_idx = id_to_page.get(art["target_vocab_id"])
+                if l_idx is not None and l_idx < len(writer.pages):
+                    writer.add_outline_item("Vocabulary Lab", l_idx, parent=parent_outline)
+
+        # Deduplicate identical font streams & assets to reduce file size
+        writer.compress_identical_objects()
+
         with open(output_pdf_path, "wb") as f_out:
             writer.write(f_out)
-
-        # Cleanup temporary page files
-        for f_path in temp_pdf_files:
-            try:
-                os.remove(f_path)
-            except Exception:
-                pass
 
         browser.close()
 
     print(f"✅ Generated Complete Magazine: {output_pdf_path}")
 
     # Dispatch to Telegram DM
-    send_to_telegram(output_pdf_path, ist_date_short, editorial_titles)
+    send_to_telegram(output_pdf_path, ist_date_short, editorial_items)
 
 if __name__ == "__main__":
     try:

@@ -827,7 +827,8 @@
     font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
     font-weight: 700;
     font-size: 7.8px;
-    line-height: 1.45;
+    line-height: 1.55; /* Expanded vertical headroom */
+    padding: 1.5px 0;  /* Prevents upper and lower matra clipping */
     white-space: normal;
     word-break: break-word;
     min-width: 0;
@@ -1431,8 +1432,9 @@
   .ribbon-def-hindi {
     color: #0284c7;
     font-weight: 700;
-    font-size: 9.6px; /* Scaled up from 9px */
-    line-height: 1.35; /* Headroom buffer for Hindi matras */
+    font-size: 9.6px;
+    line-height: 1.55; /* Expanded vertical headroom */
+    padding: 2px 0;    /* Prevents top vowel signs from clipping */
   }
 
   .ribbon-def-text {

@@ -13,7 +13,26 @@ from pypdf import PdfWriter, PdfReader
 from pypdf.annotations import Link
 from pypdf.generic import Fit
 
+# --- INSERT THIS FUNCTION ABOVE clean_and_highlight_passage ---
+def sanitize_vocab_text(text: str) -> str:
+    if not text:
+        return ""
+    fixes = {
+        r'\breve\s+al\b': 'reveal',
+        r'\bide\s+a\b': 'idea',
+        r'\bsome\s+one\b': 'someone',
+        r'\bint\s+o\b': 'into',
+        r'\bwith\s+in\b': 'within'
+    }
+    for pattern, repl in fixes.items():
+        text = re.sub(pattern, repl, text, flags=re.IGNORECASE)
+    return text
+
 def clean_and_highlight_passage(passage_text, vocab_items):
+    # Clean broken LaTeX / math currency strings before processing paragraphs
+    passage_text = passage_text.replace(r'$\overline{7}', '₹').replace(r'$\approx', '₹~')
+    passage_text = re.sub(r'\$(\\overline\{7\}|\\approx)?', '₹', passage_text)
+    
     raw_paras = [p.strip() for p in re.split(r'[\r\n]+', passage_text) if p.strip()]
     cleaned_paras = []
     
@@ -430,6 +449,12 @@ def compile_magazine():
 
     for art in raw_data.get("editorials", []):
         vocab_list = art.get("editorial_vocabulary", [])
+        
+        # Sanitize word-splits in vocab definitions and memory hooks
+        for item in vocab_list:
+            item["concise_meaning"] = sanitize_vocab_text(item.get("concise_meaning", ""))
+            item["mnemonic_trick"] = sanitize_vocab_text(item.get("mnemonic_trick", ""))
+
         categorized_vocab = categorize_vocabulary(vocab_list)
         
         tone_data = art.get("analysis", {})

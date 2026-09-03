@@ -586,30 +586,34 @@
     justify-content: space-between;
   }
 
-  /* Scaled Editorial Body Text */
+  /* Update .p1-article-body */
   .p1-article-body {
     font-family: 'Montserrat', sans-serif;
-    font-size: 11.8px; /* Scaled up from 11px */
+    font-size: 11.8px;
     font-weight: 500;
-    line-height: 1.58; /* Balanced line-height to maintain vertical budget */
+    line-height: 1.55;
     color: #1e293b;
     text-align: justify;
-    letter-spacing: -0.12px !important;
+    text-justify: inter-word;
+    hyphens: auto;              /* Enables natural word breaking */
+    -webkit-hyphens: auto;
+    word-break: break-word;
   }
 
   .p1-article-body p {
     margin-bottom: 9.5px; /* Slightly tightened from 11px to fit larger text */
   }
 
-  /* Re-calibrated Drop-Cap */
+  /* Replace the existing .p1-article-body p:first-of-type::first-letter block with: */
   .p1-article-body p:first-of-type::first-letter {
     font-family: 'Montserrat', sans-serif;
-    font-size: 36px; /* Scaled up from 34px to span 2.5–3 lines cleanly */
-    line-height: 0.82;
+    font-size: 32px;
+    line-height: 0.78;
     float: left;
-    margin-right: 7px;
     margin-top: 2px;
-    padding: 3px 7px;
+    margin-right: 5px;   /* Pulls 'eteran' closer to 'V' */
+    margin-bottom: -3px; /* Prevents push-down on line 3 */
+    padding: 3px 5px;
     background: #0f2b48;
     color: #fef08a;
     border-radius: 4px;
@@ -626,17 +630,16 @@
     display: inline;
   }
 
+  /* Update .v-idx */
   .v-idx {
     font-family: 'Inter', sans-serif;
-    font-size: 6px !important;
+    font-size: 6.5px !important;
     font-weight: 800;
     color: #b45309;
-    background: transparent;
-    padding: 0;
-    border-radius: 0;
     vertical-align: super;
     line-height: 0;
-    margin-left: 1px;
+    margin-left: 1.5px;
+    margin-right: 1.5px; /* Adds breathing room before the next word */
   }
 
   .p1-article-footer-note {
@@ -1096,12 +1099,7 @@
   }
 
   .p2-stance-bar {
-    width: 22px;
-    height: 3.5px;
-    border-radius: 2px;
-    margin-top: 6px;
-    position: relative;
-    z-index: 2;
+    display: none !important;
   }
 
   /* Faint Decorative Target Background */
@@ -1226,14 +1224,15 @@
     text-transform: uppercase;
   }
 
+  /* Update .p2-perspective-body */
   .p2-perspective-body {
     font-family: 'Montserrat', sans-serif;
-    font-size: 9.8px; /* Scaled up from 8.8px */
+    font-size: 9.8px;
     font-weight: 500;
     color: #1e293b;
-    line-height: 1.45; /* Balanced line-height to keep the card compact */
-    text-align: justify;
-    letter-spacing: -0.1px !important;
+    line-height: 1.5;
+    text-align: left; /* Switch from justify to left */
+    letter-spacing: normal !important;
   }
 
   /* =========================================================
@@ -1315,7 +1314,7 @@
 
   .lex-ribbon-row {
     display: grid;
-    grid-template-columns: 24px 32mm 46mm 48mm 25mm 25mm;
+    grid-template-columns: 24px 30mm 44mm 46mm 28mm 28mm;
     background: #ffffff;
     border: 1.1px solid #e2e8f0;
     border-radius: 6px;
@@ -1327,10 +1326,13 @@
     page-break-inside: avoid;
   }
 
+  /* Standardize column borders to crisp Slate-200 (#e2e8f0) */
   .ribbon-col-word,
   .ribbon-col-def,
   .ribbon-col-hook,
-  .ribbon-col-syn,
+  .ribbon-col-syn {
+    border-right: 1px solid #e2e8f0 !important;
+  }
   .ribbon-col-ant {
     padding: 3.5px 6px;
   }
@@ -2160,7 +2162,7 @@
       {% if l_page.categorized_vocab.one_word_subs %}
       <div class="lex-section-header hdr-ows">
         <div class="lex-header-left"><span class="lex-header-icon">📝</span><span class="lex-section-title">ONE-WORD SUBSTITUTIONS</span></div>
-        <span class="lex-header-tag">{{ l_page.categorized_vocab.one_word_subs | length }} TERMS</span>
+        <span class="lex-header-tag">{{ l_page.categorized_vocab.one_word_subs | length }} {{ 'TERM' if (l_page.categorized_vocab.one_word_subs | length) == 1 else 'TERMS' }}</span>
       </div>
       <div class="lex-ribbon-stack">
         {% for item in l_page.categorized_vocab.one_word_subs %}
@@ -2202,7 +2204,7 @@
       {% if l_page.categorized_vocab.fixed_prepositions %}
       <div class="lex-section-header hdr-prep">
         <div class="lex-header-left"><span class="lex-header-icon">🔗</span><span class="lex-section-title">FIXED PREPOSITIONS</span></div>
-        <span class="lex-header-tag">{{ l_page.categorized_vocab.fixed_prepositions | length }} TERMS</span>
+        <span class="lex-header-tag">{{ l_page.categorized_vocab.fixed_prepositions | length }} {{ 'TERM' if (l_page.categorized_vocab.fixed_prepositions | length) == 1 else 'TERMS' }}</span>
       </div>
       <div class="lex-ribbon-stack">
         {% for item in l_page.categorized_vocab.fixed_prepositions %}
@@ -2244,7 +2246,7 @@
       {% if l_page.categorized_vocab.phrasal_verbs %}
       <div class="lex-section-header hdr-phr">
         <div class="lex-header-left"><span class="lex-header-icon">⚡</span><span class="lex-section-title">PHRASAL VERBS</span></div>
-        <span class="lex-header-tag">{{ l_page.categorized_vocab.phrasal_verbs | length }} TERMS</span>
+        <span class="lex-header-tag">{{ l_page.categorized_vocab.phrasal_verbs | length }} {{ 'TERM' if (l_page.categorized_vocab.phrasal_verbs | length) == 1 else 'TERMS' }}</span>
       </div>
       <div class="lex-ribbon-stack">
         {% for item in l_page.categorized_vocab.phrasal_verbs %}
@@ -2286,7 +2288,7 @@
       {% if l_page.categorized_vocab.idioms %}
       <div class="lex-section-header hdr-idm">
         <div class="lex-header-left"><span class="lex-header-icon">🎭</span><span class="lex-section-title">IDIOMS & PHRASES</span></div>
-        <span class="lex-header-tag">{{ l_page.categorized_vocab.idioms | length }} TERMS</span>
+        <span class="lex-header-tag">{{ l_page.categorized_vocab.idioms | length }} {{ 'TERM' if (l_page.categorized_vocab.idioms | length) == 1 else 'TERMS' }}</span>
       </div>
       <div class="lex-ribbon-stack">
         {% for item in l_page.categorized_vocab.idioms %}
@@ -2328,7 +2330,7 @@
       {% if l_page.categorized_vocab.foreign_words %}
       <div class="lex-section-header hdr-foreign">
         <div class="lex-header-left"><span class="lex-header-icon">🌍</span><span class="lex-section-title">FOREIGN WORDS</span></div>
-        <span class="lex-header-tag">{{ l_page.categorized_vocab.foreign_words | length }} TERMS</span>
+        <span class="lex-header-tag">{{ l_page.categorized_vocab.foreign_words | length }} {{ 'TERM' if (l_page.categorized_vocab.foreign_words | length) == 1 else 'TERMS' }}</span>
       </div>
       <div class="lex-ribbon-stack">
         {% for item in l_page.categorized_vocab.foreign_words %}

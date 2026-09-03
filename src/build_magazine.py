@@ -640,9 +640,6 @@ def compile_magazine():
                 if l_idx is not None and l_idx < len(writer.pages):
                     writer.add_outline_item("Vocabulary Lab", l_idx, parent=parent_outline)
 
-        # Deduplicate identical font streams & assets to reduce file size
-        writer.compress_identical_objects()
-
         with open(output_pdf_path, "wb") as f_out:
             writer.write(f_out)
 

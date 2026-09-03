@@ -8,11 +8,14 @@ from evidence_lens import extract_evidence_spans
 from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
 from pypdf import PdfWriter, PdfReader
+from pypdf.annotations import Link
+from pypdf.generic import Fit
 
 def clean_and_highlight_passage(passage_text, vocab_items):
     raw_paras = [p.strip() for p in re.split(r'[\r\n]+', passage_text) if p.strip()]
     cleaned_paras = []
     
+    # Sort vocab by length descending so multi-word phrases match before single words
     sorted_vocab = sorted(
         vocab_items,
         key=lambda x: len(x.get("word_or_phrase", "")),
@@ -20,56 +23,80 @@ def clean_and_highlight_passage(passage_text, vocab_items):
     )
 
     for p in raw_paras:
-        # 1. Skip scraper timestamps & metadata (match only month names, not numbers like "20 lakh")
+        # 1. Skip scraper timestamps & metadata
         if re.match(r'^(Published|Updated|- ?[A-Za-z]+|\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\b)', p, re.IGNORECASE):
             continue
 
-        # 2. Skip dedicated tag/taxonomy lines only (spaced slashes ' / ' delimiting categories)
+        # 2. Skip dedicated tag/taxonomy lines
         is_tag_block = bool(re.match(r'^[\w\s\(\)-]+(\s+/\s+[\w\s\(\)-]+){2,}$', p.strip())) or p.count(' / ') >= 3
         if is_tag_block:
             continue
 
-        # 3. Strip trailing category tags only if they are formatted with spaced slashes
+        # 3. Strip trailing category tags
         p = re.sub(r'(\s+/\s+[\w\s\(\)-]+){2,}$', '', p)
         if not p.strip():
             continue
 
-        # Extract boundaries for Evidence
-        evidence_spans = extract_evidence_spans(p)
-
-        # Extract boundaries for Vocabulary
+        # --- FIX ISSUE 3: Reserve claimed characters to prevent duplicate matching ---
         vocab_spans = []
+        claimed = [False] * len(p)
         for item in sorted_vocab:
             term = item.get("word_or_phrase", "").strip()
             idx = item.get("order_index", "")
             if not term:
                 continue
-            for match in re.finditer(rf'\b({re.escape(term)})\b', p, re.IGNORECASE):
+            # Use lookaround boundaries to support hyphens and apostrophes reliably
+            pattern = rf'(?<![A-Za-z0-9])({re.escape(term)})(?![A-Za-z0-9])'
+            for match in re.finditer(pattern, p, re.IGNORECASE):
+                start, end = match.start(), match.end()
+                # Skip sub-words if a longer phrase already claimed this character segment
+                if any(claimed[i] for i in range(start, end)):
+                    continue
+                for i in range(start, end):
+                    claimed[i] = True
                 vocab_spans.append({
-                    "start": match.start(),
-                    "end": match.end(),
+                    "start": start,
+                    "end": end,
                     "idx": idx
                 })
 
-        # Build combined injection cuts
-        cuts = []
-        for e in evidence_spans:
-            cuts.append((e["start"], '<span class="evidence-hl">', False))
-            cuts.append((e["end"], '</span>', True))
+        # --- FIX ISSUE 2: Clip boundary-crossing spans and build strictly nested HTML ---
+        raw_evidence = extract_evidence_spans(p)
+        clean_evidence = []
+        for e in raw_evidence:
+            e_start, e_end = e["start"], e["end"]
+            for v in vocab_spans:
+                v_start, v_end = v["start"], v["end"]
+                # If spans cross boundaries partially, trim evidence to prevent illegal HTML overlap
+                if e_start < v_start < e_end < v_end:
+                    e_end = v_start
+                elif v_start < e_start < v_end < e_end:
+                    e_start = v_end
+            if e_start < e_end:
+                clean_evidence.append({"start": e_start, "end": e_end})
 
+        # Assign strict nesting priorities:
+        # 1: Vocab Close (inner), 2: Evidence Close (outer), 3: Evidence Open (outer), 4: Vocab Open (inner)
+        tags_by_pos = {}
         for v in vocab_spans:
-            cuts.append((v["start"], '<span class="vocab-hl">', False))
-            cuts.append((v["end"], f'<sup class="v-idx">{v["idx"]}</sup></span>', True))
+            tags_by_pos.setdefault(v["end"], []).append((1, f'<sup class="v-idx">{v["idx"]}</sup></span>'))
+            tags_by_pos.setdefault(v["start"], []).append((4, '<span class="vocab-hl">'))
 
-        # Sort tags descending: Highest position first. 
-        # If position is tied, closing tags (True) are inserted before opening tags (False) to preserve nesting.
-        cuts.sort(key=lambda x: (x[0], 0 if x[2] else 1), reverse=True)
+        for e in clean_evidence:
+            tags_by_pos.setdefault(e["end"], []).append((2, '</span>'))
+            tags_by_pos.setdefault(e["start"], []).append((3, '<span class="evidence-hl">'))
 
-        annotated_para = p
-        for pos, tag_str, _ in cuts:
-            annotated_para = annotated_para[:pos] + tag_str + annotated_para[pos:]
+        # Construct annotated paragraph from left to right
+        annotated_para = []
+        last_idx = 0
+        for pos in sorted(tags_by_pos.keys()):
+            annotated_para.append(p[last_idx:pos])
+            for _, tag_str in sorted(tags_by_pos[pos], key=lambda x: x[0]):
+                annotated_para.append(tag_str)
+            last_idx = pos
+        annotated_para.append(p[last_idx:])
 
-        cleaned_paras.append(annotated_para)
+        cleaned_paras.append("".join(annotated_para))
         
     return cleaned_paras
 
@@ -104,7 +131,7 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
     source_chat_id = os.getenv("TELEGRAM_GROUP_CHAT_ID")   
     source_thread_id = os.getenv("TELEGRAM_THREAD_ID")     
     target_chat_id = os.getenv("TARGET_CHAT_ID", "-1003875580290")  
-    target_thread_id = 3                                   
+    target_thread_id = int(os.getenv("TARGET_THREAD_ID", "3"))                                   
 
     if not bot_token:
         print("⚠️ Telegram BOT_TOKEN missing. Skipping Telegram delivery.")
@@ -132,7 +159,8 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
             res = requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendDocument",
                 data=payload,
-                files={"document": (filename, doc, "application/pdf")}
+                files={"document": (filename, doc, "application/pdf")},
+                timeout=120
             )
             
         if res.status_code == 200:
@@ -157,7 +185,8 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_titles):
             res = requests.post(
                 f"https://api.telegram.org/bot{bot_token}/sendDocument",
                 data=payload,
-                files={"document": (filename, doc, "application/pdf")}
+                files={"document": (filename, doc, "application/pdf")},
+                timeout=120
             )
 
         if res.status_code == 200:
@@ -353,17 +382,15 @@ def compile_magazine():
     with open(json_path, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
-    # Verify schema.json matches current IST date
+    # IST Time configuration
     ist_offset = timezone(timedelta(hours=5, minutes=30))
     ist_time = datetime.now(ist_offset)
     today_ist_str = ist_time.strftime("%Y-%m-%d")
-    schema_date = raw_data.get("date_scraped", "")
+    schema_date = raw_data.get("date_scraped", today_ist_str)
 
+    # Log warning on date divergence instead of crashing manual re-runs or runs near midnight
     if schema_date != today_ist_str:
-        raise ValueError(
-            f"Stale schema detected! schema.json is dated '{schema_date}', "
-            f"expected '{today_ist_str}' (IST)."
-        )
+        print(f"⚠️ Notice: schema.json date is '{schema_date}', current IST date is '{today_ist_str}'. Proceeding with build.")
 
     if not raw_data.get("editorials"):
         raise ValueError("schema.json contains 0 editorials.")
@@ -471,66 +498,120 @@ def compile_magazine():
     with open(rendered_html_path, "w", encoding="utf-8") as f:
         f.write(rendered_html)
 
-    # PDF generation
+    # PDF generation & interactive navigation assembly
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
         
-        # Lock viewport width to 794px (210mm @ 96 DPI)
+        # Viewport width locked to 794px (210mm @ 96 DPI)
         page = browser.new_page(viewport={"width": 794, "height": 1123})
         page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
         page.evaluate("() => document.fonts.ready")
         
-        # Count all discrete page blocks in the magazine
+        # 1. Map all HTML target anchors (#article-p3, #vocab-p4, etc.) to their 0-based page index
+        id_to_page = page.evaluate("""() => {
+            const map = {};
+            document.querySelectorAll('.page').forEach((pageElem, pageIdx) => {
+                pageElem.querySelectorAll('[id]').forEach(el => {
+                    if (el.id) map[el.id] = pageIdx;
+                });
+            });
+            return map;
+        }""")
+        
         page_count = page.evaluate("() => document.querySelectorAll('.page').length")
         
         writer = PdfWriter()
         temp_pdf_files = []
+        pending_links = []
 
         for i in range(page_count):
-            # Isolate current page, hide all others, and measure its natural DOM height
+            # Isolate the active page, measure bounds, and extract internal link coordinates
             page_meta = page.evaluate("""(targetIndex) => {
                 const pages = document.querySelectorAll('.page');
                 pages.forEach((p, idx) => {
                     p.style.display = (idx === targetIndex) ? '' : 'none';
                 });
                 const current = pages[targetIndex];
-                const isCover = current.classList.contains('cover-page');
-                const heightPx = Math.ceil(current.getBoundingClientRect().height);
-                return { isCover, heightPx };
+                const pageRect = current.getBoundingClientRect();
+                
+                const links = [];
+                current.querySelectorAll('a[href^="#"]').forEach(a => {
+                    const rect = a.getBoundingClientRect();
+                    const targetId = (a.getAttribute('href') || '').replace('#', '').trim();
+                    if (targetId && rect.width > 0 && rect.height > 0) {
+                        links.push({
+                            targetId: targetId,
+                            x: rect.left - pageRect.left,
+                            y: rect.top - pageRect.top,
+                            w: rect.width,
+                            h: rect.height
+                        });
+                    }
+                });
+
+                return {
+                    isCover: current.classList.contains('cover-page'),
+                    widthPx: Math.ceil(pageRect.width) || 794,
+                    heightPx: Math.ceil(pageRect.height),
+                    links: links
+                };
             }""", i)
             
             temp_page_pdf = os.path.join(build_dir, f"temp_page_{i}.pdf")
             temp_pdf_files.append(temp_page_pdf)
             
-            if page_meta["isCover"]:
-                # Front Cover, TOC, and Back Cover stay locked to standard A4 (297mm)
-                page.pdf(
-                    path=temp_page_pdf,
-                    width="210mm",
-                    height="297mm",
-                    print_background=True,
-                    margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
-                )
-            else:
-                # Article Reader & Vocab Lab pages take their exact required natural height
-                page.pdf(
-                    path=temp_page_pdf,
-                    width="210mm",
-                    height=f"{page_meta['heightPx']}px",
-                    print_background=True,
-                    margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
-                )
+            page_height = "297mm" if page_meta["isCover"] else f"{page_meta['heightPx']}px"
+            page.pdf(
+                path=temp_page_pdf,
+                width="210mm",
+                height=page_height,
+                print_background=True,
+                margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
+            )
             
-            # Append this discrete page to the final document
             reader = PdfReader(temp_page_pdf)
             if len(reader.pages) > 0:
-                writer.add_page(reader.pages[0])
+                p_obj = reader.pages[0]
+                writer.add_page(p_obj)
+                
+                # Convert DOM coordinates (top-left) to PDF points (bottom-left)
+                mb = p_obj.mediabox
+                media_w, media_h = float(mb.width), float(mb.height)
+                scale_x = media_w / page_meta["widthPx"]
+                scale_y = media_h / page_meta["heightPx"]
+                
+                for lk in page_meta["links"]:
+                    target_idx = id_to_page.get(lk["targetId"])
+                    if target_idx is None:
+                        # Fallback parsing for targets like 'article-p5' or 'vocab-p6'
+                        m = re.search(r'-p(\d+)', lk["targetId"])
+                        if m:
+                            target_idx = int(m.group(1)) - 1
+                            
+                    if target_idx is not None and target_idx != i:
+                        x1 = lk["x"] * scale_x
+                        x2 = (lk["x"] + lk["w"]) * scale_x
+                        y1 = media_h - (lk["y"] + lk["h"]) * scale_y
+                        y2 = media_h - lk["y"] * scale_y
+                        pending_links.append((i, target_idx, (x1, y1, x2, y2)))
 
-        # Write out unified multi-page PDF
+        # 2. Inject native internal link annotations across the stitched PDF
+        for src_page, target_page, rect in pending_links:
+            if target_page < len(writer.pages):
+                writer.add_annotation(
+                    page_number=src_page,
+                    annotation=Link(
+                        rect=rect,
+                        target_page_index=target_page,
+                        fit=Fit(fit_type="/Fit")
+                    )
+                )
+
+        # Write unified interactive PDF
         with open(output_pdf_path, "wb") as f_out:
             writer.write(f_out)
 
-        # Clean up temporary page artifacts
+        # Cleanup temporary page files
         for f_path in temp_pdf_files:
             try:
                 os.remove(f_path)

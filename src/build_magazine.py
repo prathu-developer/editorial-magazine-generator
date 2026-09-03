@@ -4,6 +4,7 @@ import re
 import json
 import requests
 import io
+import time
 from datetime import datetime, timezone, timedelta
 from evidence_lens import extract_evidence_spans
 from jinja2 import Environment, FileSystemLoader
@@ -151,35 +152,49 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_items, thumb_path=None)
 
     filename = os.path.basename(pdf_path)
 
-    # 1. Standard Admin DM Delivery
-    if admin_chat_id:
-        print(f"📤 Uploading {filename} to Admin Telegram...")
-        with open(pdf_path, "rb") as doc:
-            payload = {
-                "chat_id": admin_chat_id,
-                "caption": caption,
-                "parse_mode": "HTML"
-            }
-            files = {"document": (filename, doc, "application/pdf")}
-            thumb_f = open(thumb_path, "rb") if thumb_path and os.path.exists(thumb_path) else None
-            if thumb_f:
-                files["thumbnail"] = ("thumb.jpg", thumb_f, "image/jpeg")
-
+    # Reusable upload helper with 3 retries and a 300s timeout window
+    def upload_pdf(target_chat, thread_id=None):
+        for attempt in range(1, 4):
+            thumb_f = None
             try:
-                res = requests.post(
-                    f"https://api.telegram.org/bot{bot_token}/sendDocument",
-                    data=payload,
-                    files=files,
-                    timeout=120
-                )
+                with open(pdf_path, "rb") as doc:
+                    payload = {
+                        "chat_id": target_chat,
+                        "caption": caption,
+                        "parse_mode": "HTML"
+                    }
+                    if thread_id:
+                        payload["message_thread_id"] = int(thread_id)
+
+                    files = {"document": (filename, doc, "application/pdf")}
+                    if thumb_path and os.path.exists(thumb_path):
+                        thumb_f = open(thumb_path, "rb")
+                        files["thumbnail"] = ("thumb.jpg", thumb_f, "image/jpeg")
+
+                    res = requests.post(
+                        f"https://api.telegram.org/bot{bot_token}/sendDocument",
+                        data=payload,
+                        files=files,
+                        timeout=(15, 300)
+                    )
+                    return res
+            except (requests.exceptions.RequestException, TimeoutError) as err:
+                print(f"⚠️ Upload attempt {attempt}/3 failed ({err}). Retrying in 5s...")
+                time.sleep(5)
             finally:
                 if thumb_f:
                     thumb_f.close()
-            
-        if res.status_code == 200:
+        return None
+
+    # 1. Standard Admin DM Delivery
+    if admin_chat_id:
+        print(f"📤 Uploading {filename} to Admin Telegram...")
+        res = upload_pdf(admin_chat_id)
+        if res and res.status_code == 200:
             print("🚀 Successfully delivered magazine PDF to Admin!")
         else:
-            print(f"❌ Telegram Admin Error ({res.status_code}): {res.text}")
+            err_msg = res.text if res else "Connection timed out after 3 attempts"
+            print(f"❌ Telegram Admin Error: {err_msg}")
 
     # 2. Upload to Thread 2 & Relay to Thread 3 with Buttons
     if enable_group_publish:
@@ -188,30 +203,9 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_items, thumb_path=None)
             return
 
         print(f"📤 Uploading {filename} to Source Thread ({source_thread_id})...")
-        with open(pdf_path, "rb") as doc:
-            payload = {
-                "chat_id": source_chat_id,
-                "message_thread_id": int(source_thread_id),
-                "caption": caption,
-                "parse_mode": "HTML"
-            }
-            files = {"document": (filename, doc, "application/pdf")}
-            thumb_f = open(thumb_path, "rb") if thumb_path and os.path.exists(thumb_path) else None
-            if thumb_f:
-                files["thumbnail"] = ("thumb.jpg", thumb_f, "image/jpeg")
+        res = upload_pdf(source_chat_id, source_thread_id)
 
-            try:
-                res = requests.post(
-                    f"https://api.telegram.org/bot{bot_token}/sendDocument",
-                    data=payload,
-                    files=files,
-                    timeout=120
-                )
-            finally:
-                if thumb_f:
-                    thumb_f.close()
-
-        if res.status_code == 200:
+        if res and res.status_code == 200:
             source_msg_id = res.json()["result"]["message_id"]
             print(f"🚀 Delivered to Source Thread 2 (Msg ID: {source_msg_id})")
 
@@ -226,7 +220,7 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_items, thumb_path=None)
             copy_res = requests.post(
                 f"https://api.telegram.org/bot{bot_token}/copyMessage",
                 json=copy_payload,
-                timeout=10
+                timeout=15
             )
 
             if copy_res.status_code == 200:
@@ -247,7 +241,7 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_items, thumb_path=None)
                         "message_id": new_msg_id,
                         "reply_markup": markup
                     },
-                    timeout=5
+                    timeout=10
                 )
 
                 if btn_res.status_code == 200:
@@ -257,7 +251,8 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_items, thumb_path=None)
             else:
                 print(f"❌ Failed to relay message to Thread 3: {copy_res.text}")
         else:
-            print(f"❌ Telegram Group Thread Error ({res.status_code}): {res.text}")
+            err_msg = res.text if res else "Connection timed out after 3 attempts"
+            print(f"❌ Telegram Group Thread Error: {err_msg}")
     else:
         print("ℹ️ Group thread publishing is currently turned OFF (ENABLE_GROUP_PUBLISH=false).")
 
@@ -648,7 +643,7 @@ def compile_magazine():
     print(f"✅ Generated Complete Magazine: {output_pdf_path}")
 
     # Dispatch to Telegram DM
-    send_to_telegram(output_pdf_path, ist_date_short, editorial_items)
+    send_to_telegram(output_pdf_path, ist_date_short, editorial_items, thumb_path)
 
 if __name__ == "__main__":
     try:

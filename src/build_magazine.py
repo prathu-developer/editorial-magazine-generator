@@ -6,6 +6,7 @@ import requests
 import io
 import time
 from datetime import datetime, timezone, timedelta
+from PIL import Image
 from evidence_lens import extract_evidence_spans
 from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
@@ -13,7 +14,34 @@ from pypdf import PdfWriter, PdfReader
 from pypdf.annotations import Link
 from pypdf.generic import Fit
 
-# --- INSERT THIS FUNCTION ABOVE clean_and_highlight_passage ---
+def optimize_asset_image(src_path: str, cache_dir: str, max_width: int = 1654, quality: int = 85) -> str:
+    """Downsamples raster covers/watermarks to 200 DPI A4 and compresses JPEGs."""
+    if not os.path.exists(src_path):
+        return src_path
+
+    filename = os.path.basename(src_path)
+    opt_path = os.path.join(cache_dir, f"opt_{filename}")
+
+    if os.path.exists(opt_path) and os.path.getmtime(opt_path) >= os.path.getmtime(src_path):
+        return opt_path
+
+    try:
+        with Image.open(src_path) as img:
+            if img.width > max_width:
+                height = int((max_width / img.width) * img.height)
+                img = img.resize((max_width, height), Image.Resampling.LANCZOS)
+
+            if img.format == "PNG":
+                img.save(opt_path, "PNG", optimize=True)
+            else:
+                if img.mode in ("RGBA", "P"):
+                    img = img.convert("RGB")
+                img.save(opt_path, "JPEG", quality=quality, optimize=True, progressive=True)
+        return opt_path
+    except Exception as err:
+        print(f"⚠️ Could not optimize {src_path}: {err}. Retaining original.")
+        return src_path
+
 def sanitize_vocab_text(text: str) -> str:
     if not text:
         return ""
@@ -506,19 +534,24 @@ def compile_magazine():
         
         page_counter += total_art_pages
 
-    # Check assets
+    # Check assets and optimize raster images to 200 DPI
     assets_dir = os.path.join(base_dir, "assets")
-    front_cover_path = os.path.join(assets_dir, "front_cover_bg.jpg")
-    toc_bg_path = os.path.join(assets_dir, "toc_bg.jpg")
-    back_cover_path = os.path.join(assets_dir, "back_cover_bg.jpg")
-    
+    raw_front_cover = os.path.join(assets_dir, "front_cover_bg.jpg")
+    raw_toc_bg = os.path.join(assets_dir, "toc_bg.jpg")
+    raw_back_cover = os.path.join(assets_dir, "back_cover_bg.jpg")
+
+    front_cover_path = optimize_asset_image(raw_front_cover, build_dir)
+    toc_bg_path = optimize_asset_image(raw_toc_bg, build_dir)
+    back_cover_path = optimize_asset_image(raw_back_cover, build_dir)
+
     watermark_png = os.path.join(assets_dir, "watermark.png")
     watermark_svg = os.path.join(assets_dir, "watermark.svg")
     watermark_src = None
-    if os.path.exists(watermark_png):
-        watermark_src = f"file://{watermark_png}".replace("\\", "/")
-    elif os.path.exists(watermark_svg):
+    if os.path.exists(watermark_svg):
         watermark_src = f"file://{watermark_svg}".replace("\\", "/")
+    elif os.path.exists(watermark_png):
+        opt_wm = optimize_asset_image(watermark_png, build_dir, max_width=800)
+        watermark_src = f"file://{opt_wm}".replace("\\", "/")
 
     render_payload = {
         "date_formatted": formatted_date_ist,
@@ -659,6 +692,11 @@ def compile_magazine():
                 l_idx = id_to_page.get(art["target_vocab_id"])
                 if l_idx is not None and l_idx < len(writer.pages):
                     writer.add_outline_item("Vocabulary Lab", l_idx, parent=parent_outline)
+
+        # Compress text streams and deduplicate identical embedded fonts/images
+        for p in writer.pages:
+            p.compress_content_streams()
+        writer.compress_identical_objects(remove_identicals=True, remove_orphans=True)
 
         with open(output_pdf_path, "wb") as f_out:
             writer.write(f_out)

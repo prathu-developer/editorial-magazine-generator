@@ -204,33 +204,39 @@ def compile_weekly_magazine():
     # UPDATE THIS LINE: count deduplicated unique words
     total_unique_words = sum(len(items) for items in universal_vocab.values())
 
+    import io
+    from pypdf import PdfReader, PdfWriter
+
     # Prepare Template Engine
     env = Environment(loader=FileSystemLoader(templates_dir))
     template = env.get_template("weekly_template.html")
     total_unique_words = sum(len(items) for items in universal_vocab.values())
 
     rendered_html_path = os.path.join(build_dir, "weekly_magazine.html")
-    temp_pdf_path = os.path.join(build_dir, "temp_render.pdf")
-    overlay_pdf_path = os.path.join(build_dir, "overlay_numbers.pdf")
+    pass1_pdf_path = os.path.join(build_dir, "temp_pass1.pdf")
+    base_pdf_path = os.path.join(build_dir, "temp_base.pdf")
+    overlay_pdf_path = os.path.join(build_dir, "temp_overlay.pdf")
 
     ist_time = datetime.now(timezone(timedelta(hours=5, minutes=30)))
     pdf_filename = f"Weekly_Compilation_{ist_time.strftime('%Y-%m-%d')}.pdf"
     output_pdf_path = os.path.join(output_dir, pdf_filename)
 
-    # Initial dummy TOC pages
+    # Initial fallback TOC page numbers (inner pages start at 4)
     toc_pages = {k: 4 for k in universal_vocab.keys()}
 
+    # CRITICAL: Removed '--single-process' which causes Chromium to crash on Linux runners
     with sync_playwright() as p:
         browser = p.chromium.launch(args=[
             "--no-sandbox",
             "--disable-setuid-sandbox",
             "--disable-dev-shm-usage",
-            "--disable-gpu",
-            "--single-process"
+            "--disable-gpu"
         ])
         page = browser.new_page()
 
-        # PASS 1: Detect exact page numbers for each category
+        # -------------------------------------------------------------
+        # PASS 1: Render draft HTML & detect start page for each section
+        # -------------------------------------------------------------
         with open(rendered_html_path, "w", encoding="utf-8") as f:
             f.write(template.render(
                 date_range_formatted=date_range_formatted,
@@ -243,30 +249,38 @@ def compile_weekly_magazine():
             ))
 
         page.goto(f"file://{rendered_html_path}", wait_until="load")
-        page.pdf(path=temp_pdf_path, format="A4", print_background=True, margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"})
+        page.pdf(
+            path=pass1_pdf_path,
+            format="A4",
+            print_background=True,
+            margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"}
+        )
 
-        # Scan PDF for Category Headers
-        reader = PdfReader(temp_pdf_path)
+        # Scan PDF for Category Headers (Search ONLY page 4 onwards to avoid Page 2 TOC false matches)
+        reader1 = PdfReader(pass1_pdf_path)
         category_markers = [
             ("core_vocab", "EDITORIAL VOCABULARY"),
             ("one_word_subs", "ONE-WORD SUBSTITUTIONS"),
             ("fixed_prepositions", "FIXED PREPOSITIONS"),
             ("phrasal_verbs", "PHRASAL VERBS"),
-            ("idioms", "IDIOMS & PHRASES"),
+            ("idioms", "IDIOMS"),
             ("foreign_words", "FOREIGN WORDS")
         ]
-        
+
         detected_pages = {}
-        for page_idx, p_obj in enumerate(reader.pages, start=1):
-            text = p_obj.extract_text() or ""
+        for page_idx, p_obj in enumerate(reader1.pages, start=1):
+            if page_idx < 4:
+                continue
+            text = (p_obj.extract_text() or "").upper()
             for cat_key, marker in category_markers:
                 if cat_key not in detected_pages and marker in text:
                     detected_pages[cat_key] = page_idx
 
-        # Update TOC with exact detected pages
         toc_pages.update(detected_pages)
 
+        # -------------------------------------------------------------
         # PASS 2: Render final HTML with exact TOC numbers
+        # -------------------------------------------------------------
         with open(rendered_html_path, "w", encoding="utf-8") as f:
             f.write(template.render(
                 date_range_formatted=date_range_formatted,
@@ -279,13 +293,22 @@ def compile_weekly_magazine():
             ))
 
         page.goto(f"file://{rendered_html_path}", wait_until="load")
-        page.pdf(path=temp_pdf_path, format="A4", print_background=True, margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"})
+        page.pdf(
+            path=base_pdf_path,
+            format="A4",
+            print_background=True,
+            margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"}
+        )
 
-        # PASS 3: Generate Dynamic Footer Page Numbers for inner pages (Pages 4 to N-1)
-        total_pages = len(reader.pages)
+        # -------------------------------------------------------------
+        # PASS 3: Generate Dynamic Footer Page Numbers for inner pages
+        # -------------------------------------------------------------
+        final_reader = PdfReader(base_pdf_path)
+        total_pages = len(final_reader.pages)
+
         overlay_pages_html = []
         for i in range(1, total_pages + 1):
-            # Inner pages are from Page 4 up to second-to-last page (last page is Back Cover)
+            # Page 4 up to second-to-last page get page numbers
             if 4 <= i < total_pages:
                 overlay_pages_html.append(f'<div class="overlay-page"><div class="footer-page-badge">Page {i:02d}</div></div>')
             else:
@@ -300,7 +323,8 @@ def compile_weekly_magazine():
           @page {{ size: 210mm 297mm; margin: 0; }}
           * {{ box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact !important; }}
           body {{ font-family: 'Montserrat', sans-serif; }}
-          .overlay-page {{ width: 210mm; height: 297mm; position: relative; page-break-after: always; break-after: page; }}
+          .overlay-page {{ width: 210mm; height: 297mm; position: relative; }}
+          .overlay-page:not(:last-child) {{ page-break-after: always; break-after: page; }}
           .footer-page-badge {{
             position: absolute;
             bottom: 1.8mm;
@@ -321,30 +345,35 @@ def compile_weekly_magazine():
         </html>
         """
 
-        overlay_page = browser.new_page()
-        overlay_page.set_content(overlay_html, wait_until="load")
-        overlay_page.pdf(path=overlay_pdf_path, format="A4", print_background=True, margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"})
-        overlay_page.close()
+        # Reuse the existing page instead of spawning a new one
+        page.set_content(overlay_html, wait_until="load")
+        page.pdf(
+            path=overlay_pdf_path,
+            format="A4",
+            print_background=True,
+            margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"}
+        )
         browser.close()
 
-    # Merge footer numbers onto inner pages using pypdf
-    final_reader = PdfReader(temp_pdf_path)
+    # -------------------------------------------------------------
+    # MERGE: Stamp overlay page badges onto inner pages
+    # -------------------------------------------------------------
     overlay_reader = PdfReader(overlay_pdf_path)
     writer = PdfWriter()
 
     for idx, pdf_page in enumerate(final_reader.pages):
         if 3 <= idx < len(final_reader.pages) - 1:
-            pdf_page.merge_page(overlay_reader.pages[idx])
+            if idx < len(overlay_reader.pages):
+                pdf_page.merge_page(overlay_reader.pages[idx])
         writer.add_page(pdf_page)
 
     with open(output_pdf_path, "wb") as f:
         writer.write(f)
 
-    # Clean up temporary build artifacts
-    if os.path.exists(temp_pdf_path):
-        os.remove(temp_pdf_path)
-    if os.path.exists(overlay_pdf_path):
-        os.remove(overlay_pdf_path)
+    # Cleanup temporary PDFs
+    for tmp in [pass1_pdf_path, base_pdf_path, overlay_pdf_path]:
+        if os.path.exists(tmp):
+            os.remove(tmp)
 
     print(f"✅ Generated Weekly Magazine with TOC & Page Numbers: {output_pdf_path}")
     send_to_telegram(output_pdf_path, date_range_formatted, editorial_titles)

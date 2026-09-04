@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Montserrat:wght@400;600;700;800;900&family=Noto+Sans+Devanagari:wght@700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Noto+Sans+Devanagari:wght@700&display=swap');
 
   @page {
     size: 210mm 297mm;
@@ -33,8 +33,9 @@
     text-decoration: none;
   }
 
+  /* Hindi text fallback */
   .devanagari {
-    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-family: 'Noto Sans Devanagari', 'Montserrat', sans-serif;
   }
 
   /* Page Setup */
@@ -112,10 +113,11 @@
     filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
   }
 
+  ./* Page 1: Main Cover Title */
   .front-main-title {
-    font-family: 'Lora', Georgia, serif;
-    font-size: 46px;
-    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 44px;
+    font-weight: 800;
     color: #ffffff;
     letter-spacing: -0.5px;
     line-height: 1.1;
@@ -222,11 +224,13 @@
     margin-bottom: 12px;
   }
 
+  /* Page 2: Instructions Title */
   .inst-title {
-    font-family: 'Lora', Georgia, serif;
-    font-size: 24px;
-    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
     color: #0b1f36;
+    letter-spacing: -0.3px;
   }
 
   .inst-subtitle {
@@ -736,12 +740,14 @@
     backdrop-filter: blur(6px);
   }
 
+  /* Final Page: Back Cover Title */
   .back-end-title {
-    font-family: 'Lora', Georgia, serif;
-    font-size: 32px;
-    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    font-weight: 800;
     color: #ffffff;
     margin-bottom: 8px;
+    letter-spacing: -0.3px;
   }
 
   .back-end-subtitle {
@@ -944,7 +950,7 @@
   <div>
     <div class="index-header">
       <div>
-        <h2 style="font-family: 'Lora', serif; font-size: 20px; font-weight: 700; color: #0b1e36;">Weekly Editorial Index</h2>
+        <h2 style="font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 800; color: #0b1e36; letter-spacing: -0.3px;">Weekly Editorial Index</h2>
         <div style="font-size: 10px; color: #64748b; font-weight: 600;">List of all {{ total_articles }} articles compiled in this edition</div>
       </div>
       <div style="font-size: 9px; font-weight: 800; color: #d97706; text-transform: uppercase;">{{ date_range_formatted }}</div>

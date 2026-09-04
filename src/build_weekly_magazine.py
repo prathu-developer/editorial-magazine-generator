@@ -66,7 +66,7 @@ def categorize_vocabulary(vocab_items):
 
     return categorized
 
-def send_to_telegram(pdf_path, date_range_formatted, editorial_titles):
+def send_to_telegram(pdf_path, date_range_formatted, total_articles, total_words, newspapers_covered, universal_vocab):
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
     chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
     
@@ -74,20 +74,36 @@ def send_to_telegram(pdf_path, date_range_formatted, editorial_titles):
         print("⚠️ Telegram BOT_TOKEN or ADMIN_CHAT_ID missing. Skipping Telegram upload.")
         return
 
-    quote_lines = [f"{idx:02d} {title}" for idx, title in enumerate(editorial_titles, start=1)]
-    quote_content = "\n".join(quote_lines)
+    # Category counts breakdown
+    core_count = len(universal_vocab.get("core_vocab", []))
+    ows_count = len(universal_vocab.get("one_word_subs", []))
+    prep_count = len(universal_vocab.get("fixed_prepositions", []))
+    phr_count = len(universal_vocab.get("phrasal_verbs", []))
+    idm_count = len(universal_vocab.get("idioms", []))
+    foreign_count = len(universal_vocab.get("foreign_words", []))
 
     caption = (
-        f"📚 <b>Ez Editorialś Weekly Compilation ({date_range_formatted})</b>\n"
-        f"<blockquote expandable>{quote_content}</blockquote>"
+        f"📚 <b>Ez Editorialś Weekly Vocab Lab</b>\n"
+        f"🗓 <b>Edition:</b> {date_range_formatted}\n"
+        f"🗞 <b>Newspapers Covered:</b> {newspapers_covered}\n\n"
+        f"📊 <b>Compilation Overview:</b>\n"
+        f"• <b>Total Editorials:</b> {total_articles} Articles\n"
+        f"• <b>Total High-Yield Lexicons:</b> {total_words} Words\n\n"
+        f"🗂 <b>What's Inside:</b>\n"
+        f"📖 <b>Editorial Vocab:</b> {core_count} words (with Hindi & Connotations)\n"
+        f"📝 <b>One-Word Substitutions:</b> {ows_count} terms\n"
+        f"🔗 <b>Fixed Prepositions:</b> {prep_count} rules\n"
+        f"⚡ <b>Phrasal Verbs:</b> {phr_count} phrases\n"
+        f"💡 <b>Idioms & Expressions:</b> {idm_count} idioms\n"
     )
 
-    # FIX: Check if the caption exceeds Telegram's 1024 character limit
-    if len(caption) > 1024:
-        caption = (
-            f"📚 <b>Ez Editorialś Weekly Compilation ({date_range_formatted})</b>\n"
-            f"<i>Includes {len(editorial_titles)} Editorials. See Page 03 for the full index.</i>"
-        )
+    if foreign_count > 0:
+        caption += f"🌐 <b>Foreign Words & Phrases:</b> {foreign_count} terms\n"
+
+    caption += (
+        f"\n🎯 <i>Curated for SSC CGL, Banking, UPSC & State PCS aspirants. "
+        f"Includes British synonyms/antonyms & complete editorial index on Page 03.</i>"
+    )
 
     url = f"https://api.telegram.org/bot{bot_token}/sendDocument"
     filename = os.path.basename(pdf_path)
@@ -381,7 +397,14 @@ def compile_weekly_magazine():
             os.remove(tmp)
 
     print(f"✅ Generated Weekly Magazine with TOC & Page Numbers: {output_pdf_path}")
-    send_to_telegram(output_pdf_path, date_range_formatted, editorial_titles)
+    send_to_telegram(
+        pdf_path=output_pdf_path,
+        date_range_formatted=date_range_formatted,
+        total_articles=len(aggregated_editorials),
+        total_words=total_unique_words,
+        newspapers_covered=newspapers_covered,
+        universal_vocab=universal_vocab
+    )
 
 if __name__ == "__main__":
     compile_weekly_magazine()

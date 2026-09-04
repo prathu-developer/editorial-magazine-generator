@@ -693,10 +693,9 @@ def compile_magazine():
                 if l_idx is not None and l_idx < len(writer.pages):
                     writer.add_outline_item("Vocabulary Lab", l_idx, parent=parent_outline)
 
-        # Compress text streams and deduplicate identical embedded fonts/images
+        # Compress content streams across all generated pages
         for p in writer.pages:
             p.compress_content_streams()
-        writer.compress_identical_objects(remove_identicals=True, remove_orphans=True)
 
         with open(output_pdf_path, "wb") as f_out:
             writer.write(f_out)

@@ -308,21 +308,20 @@ def compile_weekly_magazine():
 
         overlay_pages_html = []
         for i in range(1, total_pages + 1):
-            # Page 4 up to second-to-last page get page numbers
             if 4 <= i < total_pages:
                 overlay_pages_html.append(f'<div class="overlay-page"><div class="footer-page-badge">Page {i:02d}</div></div>')
             else:
                 overlay_pages_html.append('<div class="overlay-page"></div>')
 
+        # Drop the external @import; use system sans-serif stack to prevent font bloat
         overlay_html = f"""
         <!DOCTYPE html>
         <html>
         <head>
         <style>
-          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
           @page {{ size: 210mm 297mm; margin: 0; }}
           * {{ box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact !important; }}
-          body {{ font-family: 'Montserrat', sans-serif; }}
+          body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Montserrat", sans-serif; }}
           .overlay-page {{ width: 210mm; height: 297mm; position: relative; }}
           .overlay-page:not(:last-child) {{ page-break-after: always; break-after: page; }}
           .footer-page-badge {{
@@ -345,7 +344,6 @@ def compile_weekly_magazine():
         </html>
         """
 
-        # Reuse the existing page instead of spawning a new one
         page.set_content(overlay_html, wait_until="load")
         page.pdf(
             path=overlay_pdf_path,
@@ -356,7 +354,7 @@ def compile_weekly_magazine():
         browser.close()
 
     # -------------------------------------------------------------
-    # MERGE: Stamp overlay page badges onto inner pages
+    # MERGE: Stamp overlay badges & Lossless Compression
     # -------------------------------------------------------------
     overlay_reader = PdfReader(overlay_pdf_path)
     writer = PdfWriter()
@@ -366,6 +364,13 @@ def compile_weekly_magazine():
             if idx < len(overlay_reader.pages):
                 pdf_page.merge_page(overlay_reader.pages[idx])
         writer.add_page(pdf_page)
+
+    # 1. Deduplicate identical fonts, graphics states, and forms across all merged pages
+    writer.compress_identical_objects()
+
+    # 2. Apply lossless zlib Flate compression to all content streams
+    for page in writer.pages:
+        page.compress_content_streams()
 
     with open(output_pdf_path, "wb") as f:
         writer.write(f)

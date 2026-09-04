@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Lora:ital,wght@0,700;0,800;1,400&family=Montserrat:wght@500;600;800;900&family=Noto+Sans+Devanagari:wght@700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
 
   @page {
     margin: 0;
@@ -13,8 +13,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    letter-spacing: 0 !important;
-    word-spacing: normal !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
@@ -24,7 +22,9 @@
     background-color: #ffffff;
     color: #1e293b;
     -webkit-font-smoothing: antialiased;
-    counter-reset: page-num 2; /* Initializes counter after Cover (1) & TOC (2) */
+    text-rendering: optimizeLegibility;
+    font-kerning: normal;
+    counter-reset: page-num 2;
   }
 
   a {
@@ -591,11 +591,12 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 11.8px;
     font-weight: 500;
-    line-height: 1.55;
+    line-height: 1.58;
+    letter-spacing: 0.012em; /* Adds subtle breathing room between glyphs */
     color: #1e293b;
     text-align: justify;
     text-justify: inter-word;
-    hyphens: auto;              /* Enables natural word breaking */
+    hyphens: auto;
     -webkit-hyphens: auto;
     word-break: break-word;
   }
@@ -1231,8 +1232,8 @@
     font-weight: 500;
     color: #1e293b;
     line-height: 1.5;
-    text-align: left; /* Switch from justify to left */
-    letter-spacing: normal !important;
+    text-align: left;
+    letter-spacing: 0.01em;
   }
 
   /* =========================================================
@@ -1402,47 +1403,31 @@
   .ribbon-col-def {
     padding: 6px 8px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 7px;
-    border-right: 1px solid #f1f5f9;
+    border-right: 1px solid #e2e8f0 !important;
   }
-
-  .ribbon-def-icon {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .ribbon-def-icon svg {
-    width: 12px;
-    height: 12px;
-  }
-  .icon-negative { background: #fff1f2; color: #e11d48; border: 1.2px solid #fecdd3; }
-  .icon-positive { background: #ecfdf5; color: #059669; border: 1.2px solid #a7f3d0; }
-  .icon-neutral  { background: #eff6ff; color: #2563eb; border: 1.2px solid #bfdbfe; }
 
   .ribbon-def-text-wrap {
     display: flex;
     flex-direction: column;
-    gap: 2.5px;
-    justify-content: center;
+    gap: 3px;
+    justify-content: flex-start;
+    width: 100%;
   }
 
   .ribbon-def-hindi {
     color: #0284c7;
     font-weight: 700;
-    font-size: 9.6px;
-    line-height: 1.55; /* Expanded vertical headroom */
-    padding: 2px 0;    /* Prevents top vowel signs from clipping */
+    font-size: 8.8px;
+    line-height: 1.35;
+    padding: 0;
   }
 
   .ribbon-def-text {
     font-family: 'Montserrat', sans-serif;
-    font-size: 8.5px; /* Scaled up from 7.8px */
-    font-weight: 600; /* Bolder than 500 for clear readability */
+    font-size: 8.5px;
+    font-weight: 600;
     color: #0f172a;
     line-height: 1.38;
   }
@@ -1452,52 +1437,36 @@
     padding: 6px 8px;
     display: flex !important;
     flex-direction: row !important;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
-    border-right: 1px solid #f1f5f9;
+    border-right: 1px solid #e2e8f0 !important;
     background: #ffffff;
   }
-
-  .hook-brain-circle {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .hook-brain-circle svg {
-    width: 12px;
-    height: 12px;
-  }
-  .brain-negative { background: #fff1f2; color: #e11d48; border: 1px solid #fecdd3; }
-  .brain-positive { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
-  .brain-neutral  { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
 
   .hook-content-wrap {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 2px;
+    justify-content: flex-start;
+    gap: 3px;
     flex: 1;
   }
 
   .hook-header-title {
-    font-size: 7.2px; /* Scaled up from 6.8px */
+    font-size: 8.5px;
     font-weight: 900;
     text-transform: uppercase;
     color: #1e40af;
     letter-spacing: 0.4px;
-    line-height: 1;
+    line-height: 1.35;
+    padding: 0;
   }
 
   .hook-text-content {
     font-family: 'Montserrat', sans-serif;
-    font-size: 8.4px; /* Scaled up from 7.5px */
-    font-weight: 600; /* Bolder than 500 */
+    font-size: 8.5px;
+    font-weight: 600;
     color: #0f172a;
-    line-height: 1.36;
+    line-height: 1.38;
   }
 
   /* Ensure the synonym and antonym columns strictly constrain width */

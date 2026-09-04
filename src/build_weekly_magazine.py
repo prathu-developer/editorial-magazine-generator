@@ -2,12 +2,30 @@ import os
 import json
 import glob
 import requests
+import pypdf
+from pypdf import PdfReader, PdfWriter
 from datetime import datetime, timezone, timedelta
 from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
 
+def get_pos_rank(pos_raw):
+    """Returns sort rank: Verb (1) -> Noun (2) -> Adjective (3) -> Adverb (4) -> Others (5)."""
+    pos = str(pos_raw).strip().lower()
+    if "adverb" in pos or "adv" in pos:
+        return 4
+    if "verb" in pos:
+        return 1
+    if "noun" in pos:
+        return 2
+    if "adj" in pos:
+        return 3
+    return 5
+
 def categorize_vocabulary(vocab_items):
-    """Sorts vocabulary into universal categories across all articles."""
+    """
+    Deduplicates items per category (preserving first chronological occurrence)
+    and sorts each category: Letter -> POS Priority -> Alphabetical.
+    """
     categorized = {
         "core_vocab": [],
         "one_word_subs": [],
@@ -16,22 +34,36 @@ def categorize_vocabulary(vocab_items):
         "idioms": [],
         "foreign_words": []
     }
+    seen_words = {cat: set() for cat in categorized}
 
     for item in vocab_items:
         cat = str(item.get("category", "")).strip().lower()
         if "one-word" in cat or "one word" in cat:
-            categorized["one_word_subs"].append(item)
+            target = "one_word_subs"
         elif "preposition" in cat:
-            categorized["fixed_prepositions"].append(item)
+            target = "fixed_prepositions"
         elif "phrasal" in cat:
-            categorized["phrasal_verbs"].append(item)
+            target = "phrasal_verbs"
         elif "idiom" in cat:
-            categorized["idioms"].append(item)
+            target = "idioms"
         elif "foreign" in cat:
-            categorized["foreign_words"].append(item)
+            target = "foreign_words"
         else:
-            categorized["core_vocab"].append(item)
-            
+            target = "core_vocab"
+
+        word_key = str(item.get("word_or_phrase", "")).strip().lower()
+        if word_key and word_key not in seen_words[target]:
+            seen_words[target].add(word_key)
+            categorized[target].append(item)
+
+    # Sort each category: Letter -> POS -> Word
+    for cat in categorized:
+        categorized[cat].sort(key=lambda x: (
+            str(x.get("word_or_phrase", "")).strip()[:1].upper(),
+            get_pos_rank(x.get("part_of_speech", "")),
+            str(x.get("word_or_phrase", "")).strip().lower()
+        ))
+
     return categorized
 
 def send_to_telegram(pdf_path, date_range_formatted, editorial_titles):
@@ -85,10 +117,35 @@ def compile_weekly_magazine():
     os.makedirs(build_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
 
-    json_files = sorted(glob.glob(os.path.join(backups_dir, "*.json")))
+    # Determine the current week's Monday to Saturday date range (IST)
+    ist = timezone(timedelta(hours=5, minutes=30))
+    today = datetime.now(ist).date()
+    current_monday = today - timedelta(days=today.weekday())
+    current_saturday = current_monday + timedelta(days=5)
+
+    all_files = sorted(glob.glob(os.path.join(backups_dir, "*.json")))
+    json_files = []
+
+    for file_path in all_files:
+        filename = os.path.basename(file_path)
+        try:
+            # Extracts 'YYYY-MM-DD' from 'YYYY-MM-DD_Weekday.json'
+            date_part = filename.split("_")[0]
+            file_date = datetime.strptime(date_part, "%Y-%m-%d").date()
+
+            # Include only files belonging to the ongoing week
+            if current_monday <= file_date <= current_saturday:
+                json_files.append(file_path)
+        except (ValueError, IndexError):
+            continue
+
     if not json_files:
-        print(f"⚠️ No backup JSON files found in: {backups_dir}")
+        print(f"⚠️ No JSON files found for the current week ({current_monday} to {current_saturday}) in: {backups_dir}")
         return
+
+    print(f"📂 Loaded {len(json_files)} files for week {current_monday} to {current_saturday}:")
+    for f in json_files:
+        print(f"   • {os.path.basename(f)}")
 
     aggregated_editorials = []
     all_raw_dates = []
@@ -144,27 +201,24 @@ def compile_weekly_magazine():
     universal_vocab = categorize_vocabulary(all_vocab_items)
     newspapers_covered = " & ".join(sorted(newspapers)) if newspapers else "National Dailies"
 
-    # Render Template
+    # UPDATE THIS LINE: count deduplicated unique words
+    total_unique_words = sum(len(items) for items in universal_vocab.values())
+
+    # Prepare Template Engine
     env = Environment(loader=FileSystemLoader(templates_dir))
     template = env.get_template("weekly_template.html")
-    
-    rendered_html = template.render(
-        date_range_formatted=date_range_formatted,
-        total_articles=len(aggregated_editorials),
-        total_words=len(all_vocab_items),
-        newspapers_covered=newspapers_covered,
-        index_entries=index_entries,
-        universal_vocab=universal_vocab
-    )
+    total_unique_words = sum(len(items) for items in universal_vocab.values())
 
     rendered_html_path = os.path.join(build_dir, "weekly_magazine.html")
-    with open(rendered_html_path, "w", encoding="utf-8") as f:
-        f.write(rendered_html)
+    temp_pdf_path = os.path.join(build_dir, "temp_render.pdf")
+    overlay_pdf_path = os.path.join(build_dir, "overlay_numbers.pdf")
 
-    # Output PDF
     ist_time = datetime.now(timezone(timedelta(hours=5, minutes=30)))
     pdf_filename = f"Weekly_Compilation_{ist_time.strftime('%Y-%m-%d')}.pdf"
     output_pdf_path = os.path.join(output_dir, pdf_filename)
+
+    # Initial dummy TOC pages
+    toc_pages = {k: 4 for k in universal_vocab.keys()}
 
     with sync_playwright() as p:
         browser = p.chromium.launch(args=[
@@ -175,16 +229,124 @@ def compile_weekly_magazine():
             "--single-process"
         ])
         page = browser.new_page()
+
+        # PASS 1: Detect exact page numbers for each category
+        with open(rendered_html_path, "w", encoding="utf-8") as f:
+            f.write(template.render(
+                date_range_formatted=date_range_formatted,
+                total_articles=len(aggregated_editorials),
+                total_words=total_unique_words,
+                newspapers_covered=newspapers_covered,
+                index_entries=index_entries,
+                universal_vocab=universal_vocab,
+                toc_pages=toc_pages
+            ))
+
         page.goto(f"file://{rendered_html_path}", wait_until="load")
-        page.pdf(
-            path=output_pdf_path,
-            format="A4",
-            print_background=True,
-            margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"}
-        )
+        page.pdf(path=temp_pdf_path, format="A4", print_background=True, margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"})
+
+        # Scan PDF for Category Headers
+        reader = PdfReader(temp_pdf_path)
+        category_markers = [
+            ("core_vocab", "EDITORIAL VOCABULARY"),
+            ("one_word_subs", "ONE-WORD SUBSTITUTIONS"),
+            ("fixed_prepositions", "FIXED PREPOSITIONS"),
+            ("phrasal_verbs", "PHRASAL VERBS"),
+            ("idioms", "IDIOMS & PHRASES"),
+            ("foreign_words", "FOREIGN WORDS")
+        ]
+        
+        detected_pages = {}
+        for page_idx, p_obj in enumerate(reader.pages, start=1):
+            text = p_obj.extract_text() or ""
+            for cat_key, marker in category_markers:
+                if cat_key not in detected_pages and marker in text:
+                    detected_pages[cat_key] = page_idx
+
+        # Update TOC with exact detected pages
+        toc_pages.update(detected_pages)
+
+        # PASS 2: Render final HTML with exact TOC numbers
+        with open(rendered_html_path, "w", encoding="utf-8") as f:
+            f.write(template.render(
+                date_range_formatted=date_range_formatted,
+                total_articles=len(aggregated_editorials),
+                total_words=total_unique_words,
+                newspapers_covered=newspapers_covered,
+                index_entries=index_entries,
+                universal_vocab=universal_vocab,
+                toc_pages=toc_pages
+            ))
+
+        page.goto(f"file://{rendered_html_path}", wait_until="load")
+        page.pdf(path=temp_pdf_path, format="A4", print_background=True, margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"})
+
+        # PASS 3: Generate Dynamic Footer Page Numbers for inner pages (Pages 4 to N-1)
+        total_pages = len(reader.pages)
+        overlay_pages_html = []
+        for i in range(1, total_pages + 1):
+            # Inner pages are from Page 4 up to second-to-last page (last page is Back Cover)
+            if 4 <= i < total_pages:
+                overlay_pages_html.append(f'<div class="overlay-page"><div class="footer-page-badge">Page {i:02d}</div></div>')
+            else:
+                overlay_pages_html.append('<div class="overlay-page"></div>')
+
+        overlay_html = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
+          @page {{ size: 210mm 297mm; margin: 0; }}
+          * {{ box-sizing: border-box; margin: 0; padding: 0; -webkit-print-color-adjust: exact !important; }}
+          body {{ font-family: 'Montserrat', sans-serif; }}
+          .overlay-page {{ width: 210mm; height: 297mm; position: relative; page-break-after: always; break-after: page; }}
+          .footer-page-badge {{
+            position: absolute;
+            bottom: 1.8mm;
+            right: 12mm;
+            font-size: 8px;
+            font-weight: 800;
+            color: #ffffff;
+            background: #0f2b48;
+            padding: 2px 8px;
+            border-radius: 4px;
+            letter-spacing: 0.3px;
+          }}
+        </style>
+        </head>
+        <body>
+          {''.join(overlay_pages_html)}
+        </body>
+        </html>
+        """
+
+        overlay_page = browser.new_page()
+        overlay_page.set_content(overlay_html, wait_until="load")
+        overlay_page.pdf(path=overlay_pdf_path, format="A4", print_background=True, margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"})
+        overlay_page.close()
         browser.close()
 
-    print(f"✅ Generated Weekly Magazine: {output_pdf_path}")
+    # Merge footer numbers onto inner pages using pypdf
+    final_reader = PdfReader(temp_pdf_path)
+    overlay_reader = PdfReader(overlay_pdf_path)
+    writer = PdfWriter()
+
+    for idx, pdf_page in enumerate(final_reader.pages):
+        if 3 <= idx < len(final_reader.pages) - 1:
+            pdf_page.merge_page(overlay_reader.pages[idx])
+        writer.add_page(pdf_page)
+
+    with open(output_pdf_path, "wb") as f:
+        writer.write(f)
+
+    # Clean up temporary build artifacts
+    if os.path.exists(temp_pdf_path):
+        os.remove(temp_pdf_path)
+    if os.path.exists(overlay_pdf_path):
+        os.remove(overlay_pdf_path)
+
+    print(f"✅ Generated Weekly Magazine with TOC & Page Numbers: {output_pdf_path}")
     send_to_telegram(output_pdf_path, date_range_formatted, editorial_titles)
 
 if __name__ == "__main__":

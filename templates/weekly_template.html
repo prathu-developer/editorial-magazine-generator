@@ -432,6 +432,80 @@
   .hdr-foreign { border-left-color: #2563eb; }
   .hdr-foreign .lex-header-tag { background: #dbeafe; color: #1e40af; }
 
+  /* Quick Navigation / Table of Contents on Page 2 */
+  .toc-card {
+    margin-top: 8px;
+    background: #ffffff;
+    border: 1.2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    box-shadow: 0 2px 6px rgba(15, 43, 72, 0.03);
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .toc-item-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+    border: 1.2px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 7px 10px;
+    text-decoration: none;
+    color: #0b1e36;
+    transition: background 0.15s ease;
+  }
+  .toc-item-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 800;
+  }
+  .toc-item-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .toc-count-pill {
+    font-size: 7.5px;
+    font-weight: 800;
+    color: #0369a1;
+    background: #e0f2fe;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .toc-page-pill {
+    font-size: 8px;
+    font-weight: 900;
+    color: #ffffff;
+    background: #0f2b48;
+    padding: 2.5px 7px;
+    border-radius: 4px;
+  }
+
+  /* Inner Footer Centering */
+  .inner-page-table .page-footer {
+    position: relative;
+  }
+  .inner-page-table .footer-tg-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .footer-page-pill {
+    font-size: 8px;
+    font-weight: 800;
+    color: #ffffff;
+    background: #0f2b48;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
   /* =========================================================
      5-COLUMN EXACT VOCABULARY RIBBONS (NO MEMORY HOOK)
      ========================================================= */
@@ -785,6 +859,76 @@
     </div>
   </div>
 
+  <!-- Insert right after the Universal Categorical Structure card -->
+    <div class="toc-card">
+      <h3 style="font-size: 13px; font-weight: 800; color: #0f2b48; margin-bottom: 3px; display: flex; align-items: center; gap: 6px;">
+        <span>📑</span> Table of Contents &amp; Quick Jump
+      </h3>
+      <p style="font-size: 10px; color: #64748b;">Tap any category below to jump directly to its starting page:</p>
+      
+      <div class="toc-grid">
+        {% if universal_vocab.core_vocab %}
+        <a href="#cat-core_vocab" class="toc-item-link">
+          <div class="toc-item-left"><span>📖</span> Editorial Vocabulary</div>
+          <div class="toc-item-right">
+            <span class="toc-count-pill">{{ universal_vocab.core_vocab | length }} Words</span>
+            <span class="toc-page-pill">Page {{ '%02d' % toc_pages.get('core_vocab', 4) }} ➔</span>
+          </div>
+        </a>
+        {% endif %}
+
+        {% if universal_vocab.one_word_subs %}
+        <a href="#cat-one_word_subs" class="toc-item-link">
+          <div class="toc-item-left"><span>📝</span> One-Word Substitutions</div>
+          <div class="toc-item-right">
+            <span class="toc-count-pill">{{ universal_vocab.one_word_subs | length }} Terms</span>
+            <span class="toc-page-pill">Page {{ '%02d' % toc_pages.get('one_word_subs', 4) }} ➔</span>
+          </div>
+        </a>
+        {% endif %}
+
+        {% if universal_vocab.fixed_prepositions %}
+        <a href="#cat-fixed_prepositions" class="toc-item-link">
+          <div class="toc-item-left"><span>🔗</span> Fixed Prepositions</div>
+          <div class="toc-item-right">
+            <span class="toc-count-pill">{{ universal_vocab.fixed_prepositions | length }} Rules</span>
+            <span class="toc-page-pill">Page {{ '%02d' % toc_pages.get('fixed_prepositions', 4) }} ➔</span>
+          </div>
+        </a>
+        {% endif %}
+
+        {% if universal_vocab.phrasal_verbs %}
+        <a href="#cat-phrasal_verbs" class="toc-item-link">
+          <div class="toc-item-left"><span>⚡</span> Phrasal Verbs</div>
+          <div class="toc-item-right">
+            <span class="toc-count-pill">{{ universal_vocab.phrasal_verbs | length }} Phrases</span>
+            <span class="toc-page-pill">Page {{ '%02d' % toc_pages.get('phrasal_verbs', 4) }} ➔</span>
+          </div>
+        </a>
+        {% endif %}
+
+        {% if universal_vocab.idioms %}
+        <a href="#cat-idioms" class="toc-item-link">
+          <div class="toc-item-left"><span>💡</span> Idioms &amp; Phrases</div>
+          <div class="toc-item-right">
+            <span class="toc-count-pill">{{ universal_vocab.idioms | length }} Idioms</span>
+            <span class="toc-page-pill">Page {{ '%02d' % toc_pages.get('idioms', 4) }} ➔</span>
+          </div>
+        </a>
+        {% endif %}
+
+        {% if universal_vocab.foreign_words %}
+        <a href="#cat-foreign_words" class="toc-item-link">
+          <div class="toc-item-left"><span>🌐</span> Foreign Words</div>
+          <div class="toc-item-right">
+            <span class="toc-count-pill">{{ universal_vocab.foreign_words | length }} Terms</span>
+            <span class="toc-page-pill">Page {{ '%02d' % toc_pages.get('foreign_words', 4) }} ➔</span>
+          </div>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+
   <div class="page-footer">
     <div class="footer-brand">
       <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>
@@ -850,7 +994,7 @@
 
     <!-- 1. CORE VOCABULARY -->
     {% if universal_vocab.core_vocab %}
-    <div class="lex-section-header hdr-vocab">
+    <div class="lex-section-header hdr-vocab" id="cat-core_vocab">
       <div class="lex-header-left">
         <span class="lex-header-icon">📖</span>
         <span class="lex-section-title">EDITORIAL VOCABULARY</span>
@@ -907,7 +1051,7 @@
 
     <!-- 2. ONE-WORD SUBSTITUTIONS -->
     {% if universal_vocab.one_word_subs %}
-    <div class="lex-section-header hdr-ows">
+    <div class="lex-section-header hdr-ows" id="cat-one_word_subs">
       <div class="lex-header-left">
         <span class="lex-header-icon">📝</span>
         <span class="lex-section-title">ONE-WORD SUBSTITUTIONS</span>
@@ -964,7 +1108,7 @@
 
     <!-- 3. FIXED PREPOSITIONS -->
     {% if universal_vocab.fixed_prepositions %}
-    <div class="lex-section-header hdr-prep">
+    <div class="lex-section-header hdr-prep" id="cat-fixed_prepositions">
       <div class="lex-header-left">
         <span class="lex-header-icon">🔗</span>
         <span class="lex-section-title">FIXED PREPOSITIONS</span>
@@ -1021,7 +1165,7 @@
 
     <!-- 4. PHRASAL VERBS -->
     {% if universal_vocab.phrasal_verbs %}
-    <div class="lex-section-header hdr-phr">
+    <div class="lex-section-header hdr-phr" id="cat-phrasal_verbs">
       <div class="lex-header-left">
         <span class="lex-header-icon">⚡</span>
         <span class="lex-section-title">PHRASAL VERBS</span>
@@ -1078,7 +1222,7 @@
 
     <!-- 5. IDIOMS & PHRASES -->
     {% if universal_vocab.idioms %}
-    <div class="lex-section-header hdr-idm">
+    <div class="lex-section-header hdr-idm" id="cat-idioms">
       <div class="lex-header-left">
         <span class="lex-header-icon">💡</span>
         <span class="lex-section-title">IDIOMS &amp; PHRASES</span>
@@ -1135,7 +1279,7 @@
 
     <!-- 6. FOREIGN WORDS -->
     {% if universal_vocab.foreign_words %}
-    <div class="lex-section-header hdr-foreign">
+    <div class="lex-section-header hdr-foreign" id="cat-foreign_words">
       <div class="lex-header-left">
         <span class="lex-header-icon">🌐</span>
         <span class="lex-section-title">FOREIGN WORDS &amp; PHRASES</span>
@@ -1204,10 +1348,14 @@
             <span>Ez Editorialś Weekly Lab &nbsp;•&nbsp; {{ date_range_formatted }}</span>
           </div>
 
-          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-tg-btn">
+          <!-- Centered button -->
+          <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-tg-btn footer-tg-center">
             <svg class="footer-tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
             <span>SUBSCRIBE TO EZ EDITORIALŚ</span>
           </a>
+
+          <!-- Right side invisible placeholder keeping flex layout aligned -->
+          <div style="visibility: hidden; font-size: 8px; padding: 2px 8px;">Page 00</div>
         </div>
       </td>
     </tr>

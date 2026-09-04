@@ -21,9 +21,10 @@ API_KEYS = [
 
 # Strict Model Priority Order[cite: 1]
 MODELS = [
-    'gemini-3.7-flash',  # 1st Priority[cite: 1]
-    'gemini-3.6-flash',  # 2nd Fallback[cite: 1]
-    'gemini-3.5-flash'   # 3rd Fallback[cite: 1]
+    'gemini-3.8-flash',  
+    'gemini-3.7-flash',  
+    'gemini-3.6-flash',  
+    'gemini-3.5-flash'   
 ]
 
 # --- EMBEDDED PROMPT TEMPLATE ---[cite: 4]

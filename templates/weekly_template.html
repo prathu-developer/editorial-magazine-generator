@@ -566,36 +566,39 @@
     border-right: 1px solid #f1f5f9;
   }
 
+  /* UPDATED (Crisp, sharp, perfectly legible) */
   .ribbon-term {
     font-family: 'Montserrat', sans-serif;
     font-size: 11.5px;
-    font-weight: 900;
+    font-weight: 700;
+    letter-spacing: 0.2px;
     color: #0b1e36;
-    line-height: 1.15;
-    text-transform: capitalize; /* <-- Forces the first letter of every word to be uppercase */
+    line-height: 1.2;
+    text-transform: capitalize;
   }
 
+  /* 1. Clearer POS & High-Contrast Connotation Badges */
   .ribbon-pos {
-    font-size: 7.8px;
+    font-size: 8px;
     font-weight: 700;
     text-transform: uppercase;
-    color: #475569;
-    letter-spacing: 0.4px;
+    color: #334155;
+    letter-spacing: 0.5px;
   }
 
   .ribbon-connot {
-    font-size: 7.4px;
+    font-size: 7.8px;
     font-weight: 800;
     text-transform: uppercase;
-    padding: 2px 6px;
+    padding: 2px 7px;
     border-radius: 4px;
     width: fit-content;
     letter-spacing: 0.4px;
     margin-top: 2px;
   }
-  .connot-negative { background: #fee2e2; color: #dc2626; }
-  .connot-positive { background: #dcfce7; color: #16a34a; }
-  .connot-neutral  { background: #e0f2fe; color: #0284c7; }
+  .connot-negative { background: #fee2e2; color: #b91c1c; }
+  .connot-positive { background: #dcfce7; color: #15803d; }
+  .connot-neutral  { background: #e0f2fe; color: #0369a1; } /* Darkened for readability */
 
   /* Col 3: Definition & Hindi Meaning */
   .ribbon-col-def {
@@ -627,29 +630,30 @@
     justify-content: center;
   }
 
+  /* 2. High-Contrast Hindi Meaning */
   .ribbon-def-hindi {
-    color: #0284c7;
+    color: #075985; /* Deep, sharp blue - matras will never wash out */
     font-weight: 700;
-    font-size: 9.8px;
+    font-size: 10.2px;
     line-height: 1.35;
   }
 
+  /* 3. Highly Readable Definition Text (Inter font) */
   .ribbon-def-text {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 8.8px;
-    font-weight: 600;
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 9px;
+    font-weight: 500;
     color: #0f172a;
-    line-height: 1.38;
+    line-height: 1.4;
   }
 
-  /* Col 4 & 5: Synonyms & Antonyms */
+  /* 4. Left-Aligned Synonyms & Antonyms for Faster Scanning */
   .ribbon-col-syn, .ribbon-col-ant {
-    padding: 6px 4px;
+    padding: 6px 8px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; /* Aligns tags and bullets to the left */
     justify-content: center;
-    text-align: center;
     background: #ffffff;
     border-right: 1px solid #f1f5f9;
   }
@@ -662,28 +666,24 @@
     padding: 2px 6px;
     border-radius: 3px;
     width: fit-content;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
     letter-spacing: 0.4px;
   }
-  .tag-syn { background: #dcfce7; color: #15803d; }
-  .tag-ant { background: #fee2e2; color: #b91c1c; }
 
   .ribbon-bullet-list {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1.5px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 8.3px;
-    font-weight: 600;
-    color: #0f172a;
+    align-items: flex-start;
+    gap: 2px;
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 8.5px;
+    font-weight: 500;
+    color: #1e293b;
   }
 
   .bullet-item {
     white-space: normal;
     word-break: break-word;
-    overflow: visible;
-    text-overflow: clip;
     line-height: 1.25;
   }
 

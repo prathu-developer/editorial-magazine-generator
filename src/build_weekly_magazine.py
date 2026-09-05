@@ -106,11 +106,13 @@ def categorize_vocabulary(vocab_items):
     """
     Deduplicates and filters vocabulary:
     1. Preserves OWS distinctions (e.g., Adjudication vs Adjudicator remain intact).
-    2. Prioritizes OWS over Editorial Vocab (Mitigate, Disenfranchised, Imperialist dropped).
-    3. Merges participle twins without a base verb (Inflicted vs Inflicting).
-    4. Drops pure -ly adverb clones when the adjective is present (Subsequently vs Subsequent).
-    5. Drops duplicate noun/adjective root clones (Volatility vs Volatile, Endurance vs Endure).
-    6. Sorts each category: Letter -> POS Priority -> Alphabetical.
+    2. Prioritizes Foreign Words over OWS (e.g., Impasse stays in Foreign Words, removed from OWS).
+    3. Prioritizes OWS over Editorial Vocab (Mitigate, Disenfranchised, Imperialist dropped).
+    4. Merges participle twins without a base verb (Inflicted vs Inflicting).
+    5. Drops pure -ly adverb clones when the adjective is present (Subsequently vs Subsequent).
+    6. Drops plural nouns when the singular noun is present (Preoccupations vs Preoccupation).
+    7. Drops duplicate noun/adjective root clones (Volatility vs Volatile, Endurance vs Endure).
+    8. Sorts each category: Letter -> POS Priority -> Alphabetical.
     """
     categorized = {
         "core_vocab": [],
@@ -152,7 +154,15 @@ def categorize_vocabulary(vocab_items):
                 seen_words[target].add(word_key)
                 categorized[target].append(item)
 
-    # Step 2: Cross-Category Exclusion (OWS beats Core Vocab)
+    # Step 2: Cross-Category Exclusion
+    # 2a. Filter OWS against Foreign Words (keep loanwords like 'Impasse' exclusively in Foreign Words)
+    foreign_set = {str(x.get("word_or_phrase", "")).strip().lower() for x in categorized["foreign_words"]}
+    categorized["one_word_subs"] = [
+        item for item in categorized["one_word_subs"]
+        if str(item.get("word_or_phrase", "")).strip().lower() not in foreign_set
+    ]
+
+    # 2b. Filter Editorial Vocab against OWS and other specialized sections
     ows_words = [str(item.get("word_or_phrase", "")).strip().lower() for item in categorized["one_word_subs"]]
     other_claimed = set()
     for cat in ["foreign_words", "fixed_prepositions", "phrasal_verbs", "idioms"]:
@@ -182,26 +192,29 @@ def categorize_vocabulary(vocab_items):
         word = str(item.get("word_or_phrase", "")).strip().lower()
         pos_family = _normalize_pos_family(item.get("part_of_speech", ""))
 
-        # Rule #3: Drop pure -ly adverb clone if base adjective is present
+        # Rule: Drop pure -ly adverb clone if base adjective is present
         if pos_family == "adv" and word.endswith("ly") and len(word) > 4:
             base_adj = word[:-2]
             if base_adj in core_word_pos_map and "adj" in core_word_pos_map[base_adj]:
                 continue
 
-        # Rule #1 & #5: Tense, participle, and root twin deduplication
         candidates = _get_base_candidates(word)
 
-        # Drop inflected variant if the base form exists in the list
+        # Drop inflected variants if the base form exists in the list
         if any(base in core_word_pos_map for base in candidates):
-            # If word is a noun like 'volatility' or 'endurance' and the base 'volatile'/'endure' exists, drop noun
+            # Drop plural noun if singular noun exists (e.g., preoccupations -> preoccupation)
+            if pos_family == "noun" and any(base in core_word_pos_map and "noun" in core_word_pos_map[base] for base in candidates):
+                continue
+            # Drop noun if adjective/verb root exists (e.g., volatility -> volatile; endurance -> endure)
             if pos_family == "noun" and any(base in core_word_pos_map and "adj" in core_word_pos_map[base] for base in candidates):
                 continue
             if pos_family == "noun" and any(base in core_word_pos_map and "verb" in core_word_pos_map[base] for base in candidates):
                 continue
+            # Drop conjugated verb if base verb exists (e.g., quashed -> quash)
             if pos_family == "verb" and any(base in core_word_pos_map and "verb" in core_word_pos_map[base] for base in candidates):
                 continue
 
-        # Merge participle twins when base is missing (e.g. Inflicting dropped when Inflicted is seen)
+        # Merge participle twins when base verb is missing (e.g., Inflicting dropped when Inflicted is seen)
         if pos_family == "verb" and (word.endswith("ed") or word.endswith("ing")):
             primary_stem = candidates[0] if candidates else None
             if primary_stem:

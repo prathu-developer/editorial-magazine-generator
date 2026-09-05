@@ -48,14 +48,14 @@ def _get_base_candidates(word):
         stem = w[:-3]
         candidates.extend([stem, stem + "e"])
         if len(stem) > 1 and stem[-1] == stem[-2]:
-            candidates.append(stem[:-1])  # e.g. stopping -> stop
+            candidates.append(stem[:-1])  # stopping -> stop
 
     # Verbs ending in -ed / -d (e.g. quashed -> quash; rendered -> render)
     elif w.endswith("ed") and len(w) > 3:
         stem = w[:-2]
-        candidates.extend([stem, w[:-1]])  # e.g. created -> create
+        candidates.extend([stem, w[:-1]])  # created -> create
         if len(stem) > 1 and stem[-1] == stem[-2]:
-            candidates.append(stem[:-1])  # e.g. dropped -> drop
+            candidates.append(stem[:-1])  # dropped -> drop
 
     # Nouns/Verbs ending in -es or -s (e.g. warrants -> warrant; preoccupations -> preoccupation)
     elif w.endswith("es") and len(w) > 3:
@@ -63,16 +63,51 @@ def _get_base_candidates(word):
     elif w.endswith("s") and len(w) > 2 and not w.endswith("ss"):
         candidates.append(w[:-1])
 
-    return [c for c in candidates if c]
+    return list(dict.fromkeys([c for c in candidates if c]))
+
+
+def _is_ows_derivative(core_word, ows_word):
+    """
+    Checks if an Editorial Vocab word is an obvious inflection/derivative of an OWS term:
+    - Exact match: resilience == resilience
+    - Participle/Verb match: disenfranchised vs disenfranchise
+    - Suffix twin: imperialist vs imperialism (-ist vs -ism)
+    - Verb/Noun twin: mitigate vs mitigation (-ate vs -ation)
+    """
+    c = core_word.strip().lower()
+    o = ows_word.strip().lower()
+
+    if c == o:
+        return True
+
+    # Check inflectional bases (e.g., disenfranchised vs disenfranchise)
+    if c in _get_base_candidates(o) or o in _get_base_candidates(c):
+        return True
+
+    # Suffix pairs: -ist vs -ism (e.g., imperialist vs imperialism)
+    if (c.endswith("ist") and o.endswith("ism") and c[:-3] == o[:-3]) or \
+       (c.endswith("ism") and o.endswith("ist") and c[:-3] == o[:-3]):
+        return True
+
+    # Suffix pairs: -ate vs -ation (e.g., mitigate vs mitigation)
+    if (o.endswith("ation") and c.endswith("ate") and o[:-5] == c[:-3]) or \
+       (c.endswith("ation") and o.endswith("ate") and c[:-5] == o[:-3]):
+        return True
+
+    if o.endswith("ation") and o[:-5] == c:
+        return True
+
+    return False
 
 
 def categorize_vocabulary(vocab_items):
     """
     Deduplicates and filters vocabulary:
-    1. Prioritizes specialized categories (OWS, Foreign Words, etc.) over Core Vocab.
-    2. Safely deduplicates inflected tense/plural variants within Core Vocab ONLY if
-       the base root word is already present with the identical Part of Speech.
-    3. Sorts each category: Letter -> POS Priority -> Alphabetical.
+    1. Preserves OWS distinctions (e.g., Adjudication vs Adjudicator remain intact).
+    2. Prioritizes OWS over Editorial Vocab: drops exact and root twins (Mitigate, Disenfranchised, Imperialist).
+    3. Merges participle twins without a base verb (Inflicted vs Inflicting).
+    4. Drops pure -ly adverb clones when the adjective is already present (Subsequently vs Subsequent).
+    5. Sorts each category: Letter -> POS Priority -> Alphabetical.
     """
     categorized = {
         "core_vocab": [],
@@ -84,7 +119,7 @@ def categorize_vocabulary(vocab_items):
     }
     seen_words = {cat: set() for cat in categorized}
 
-    # Step 1: Initial bucket routing (deduplicating exact matches inside each bucket)
+    # Step 1: Initial bucket routing (exact duplicates deduplicated per bucket)
     raw_core_vocab = []
     for item in vocab_items:
         cat = str(item.get("category", "")).strip().lower()
@@ -114,42 +149,61 @@ def categorize_vocabulary(vocab_items):
                 seen_words[target].add(word_key)
                 categorized[target].append(item)
 
-    # Step 2: Cross-Category Exclusion (Specialized sections beat Core Vocab)
-    # Words like 'Resilience' and 'Resolve' claimed by OWS are removed from Editorial Vocab
-    claimed_words = set()
-    for cat in ["one_word_subs", "foreign_words", "fixed_prepositions", "phrasal_verbs", "idioms"]:
+    # Step 2: Cross-Category Exclusion (Rule #2: OWS Prioritization)
+    # Collect all OWS words to filter their derivatives out of Editorial Vocab
+    ows_words = [str(item.get("word_or_phrase", "")).strip().lower() for item in categorized["one_word_subs"]]
+    other_claimed = set()
+    for cat in ["foreign_words", "fixed_prepositions", "phrasal_verbs", "idioms"]:
         for item in categorized[cat]:
-            claimed_words.add(str(item.get("word_or_phrase", "")).strip().lower())
+            other_claimed.add(str(item.get("word_or_phrase", "")).strip().lower())
 
-    filtered_core = [
-        item for item in raw_core_vocab
-        if str(item.get("word_or_phrase", "")).strip().lower() not in claimed_words
-    ]
+    filtered_core = []
+    for item in raw_core_vocab:
+        w = str(item.get("word_or_phrase", "")).strip().lower()
+        if w in other_claimed:
+            continue
+        # Drop if it is an exact or derivative twin of an OWS term
+        if any(_is_ows_derivative(w, ows_w) for ows_w in ows_words):
+            continue
+        filtered_core.append(item)
 
-    # Step 3: Strict Safe Tense & Number Deduplication within Core Vocab
+    # Step 3: Editorial Vocab Refinement (Rules #1 & #3)
     core_word_pos_map = {}
     for item in filtered_core:
         w = str(item.get("word_or_phrase", "")).strip().lower()
         pos_family = _normalize_pos_family(item.get("part_of_speech", ""))
         core_word_pos_map.setdefault(w, set()).add(pos_family)
 
+    seen_participle_stems = set()
     final_core = []
+
     for item in filtered_core:
         word = str(item.get("word_or_phrase", "")).strip().lower()
         pos_family = _normalize_pos_family(item.get("part_of_speech", ""))
 
-        # Adjectives (e.g. Compelling, Staggering) are NEVER collapsed into verbs
-        is_inflected_duplicate = False
+        # Rule #3: Drop pure -ly adverb clone if base adjective is already present
+        if pos_family == "adv" and word.endswith("ly") and len(word) > 4:
+            base_adj = word[:-2]
+            if base_adj in core_word_pos_map and "adj" in core_word_pos_map[base_adj]:
+                continue
+
+        # Rule #1: Verb tense & participle twin deduplication
         if pos_family in ("verb", "noun"):
             candidates = _get_base_candidates(word)
-            for base in candidates:
-                # Only drop if the base root is physically present in the list WITH the same POS
-                if base in core_word_pos_map and pos_family in core_word_pos_map[base]:
-                    is_inflected_duplicate = True
-                    break
 
-        if not is_inflected_duplicate:
-            final_core.append(item)
+            # Drop if the clean base root exists (e.g., Quashed when Quash is present)
+            if any(base in core_word_pos_map and pos_family in core_word_pos_map[base] for base in candidates):
+                continue
+
+            # Drop participle twins when base is missing (e.g., Inflicting when Inflicted is seen)
+            if pos_family == "verb" and (word.endswith("ed") or word.endswith("ing")):
+                primary_stem = candidates[0] if candidates else None
+                if primary_stem:
+                    if primary_stem in seen_participle_stems:
+                        continue
+                    seen_participle_stems.add(primary_stem)
+
+        final_core.append(item)
 
     categorized["core_vocab"] = final_core
 

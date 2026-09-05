@@ -1763,9 +1763,291 @@
     z-index: 30;
     text-decoration: none !important;
   }
+
+  /* =========================================================
+     PREMIUM MIDNIGHT DARK MODE (OLED-FRIENDLY & EYE-STRAIN FREE)
+     ========================================================= */
+  body.dark-theme {
+    background-color: #080d1a !important;
+    color: #cbd5e1 !important;
+  }
+
+  body.dark-theme .inner-page {
+    background-color: #080d1a !important;
+  }
+
+  body.dark-theme .inner-page-watermark {
+    filter: invert(1) brightness(0.8);
+    opacity: 0.035;
+  }
+
+  /* Cover & TOC Dynamic Adapters */
+  body.dark-theme .front-date-display,
+  body.dark-theme .toc-header-date {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-bottom-color: #1e293b !important;
+  }
+  body.dark-theme .front-edition-tag {
+    background: #1e293b !important;
+    color: #fef08a !important;
+    border-color: #334155 !important;
+  }
+  body.dark-theme .toc-article-title {
+    color: #f8fafc !important;
+  }
+  body.dark-theme .toc-topic-pill {
+    background: #1e293b !important;
+    color: #cbd5e1 !important;
+    border-color: #334155 !important;
+  }
+  body.dark-theme .toc-page-pill {
+    background: #1e3a8a !important;
+    color: #ffffff !important;
+  }
+
+  /* Reading Masthead */
+  body.dark-theme .p1-title {
+    color: #f8fafc !important;
+  }
+  body.dark-theme .p1-subheading-box {
+    background: linear-gradient(90deg, #1c1810 0%, #15130b 100%) !important;
+    border-left-color: #d97706 !important;
+  }
+  body.dark-theme .p1-subtitle-text {
+    color: #fde68a !important;
+  }
+  body.dark-theme .p1-meta-line {
+    border-bottom-color: #1e293b !important;
+    color: #94a3b8 !important;
+  }
+  body.dark-theme .meta-label {
+    color: #38bdf8 !important;
+  }
+  body.dark-theme .p1-cont-header {
+    background: #0f172a !important;
+    border-left-color: #38bdf8 !important;
+    border-bottom-color: #1e293b !important;
+  }
+  body.dark-theme .p1-cont-title {
+    color: #93c5fd !important;
+  }
+  body.dark-theme .p1-cont-badge {
+    background: #1e3a8a !important;
+    color: #ffffff !important;
+  }
+
+  /* Reading Body & In-Text Vocab */
+  body.dark-theme .p1-article-body {
+    color: #cbd5e1 !important;
+  }
+  body.dark-theme .p1-article-body p:first-of-type::first-letter {
+    background: #1e293b !important;
+    color: #fde047 !important;
+  }
+  body.dark-theme .vocab-hl {
+    color: #38bdf8 !important;
+  }
+  body.dark-theme .v-idx {
+    color: #fbbf24 !important;
+  }
+  body.dark-theme .evidence-hl {
+    color: #2dd4bf !important;
+  }
+  body.dark-theme .p1-article-footer-note {
+    color: #64748b !important;
+    border-top-color: #1e293b !important;
+  }
+
+  /* Page 1 Vocab 101 Sidebar */
+  body.dark-theme .p1-sidebar {
+    background: #0f172a !important;
+    border-color: #1e293b !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+  }
+  body.dark-theme .p1-sidebar-header {
+    background: #090d16 !important;
+    border-bottom-color: #1e293b !important;
+  }
+  body.dark-theme .p1-vocab-row {
+    border-bottom-color: #1e293b !important;
+  }
+  body.dark-theme .p1-num-badge {
+    background: #1e293b !important;
+    color: #38bdf8 !important;
+  }
+  body.dark-theme .p1-word-term {
+    color: #f8fafc !important;
+  }
+  body.dark-theme .p1-pos-text {
+    color: #94a3b8 !important;
+  }
+  body.dark-theme .p1-def-eng {
+    color: #fbbf24 !important;
+  }
+  body.dark-theme .p1-def-hindi {
+    color: #2dd4bf !important;
+  }
+  body.dark-theme .p1-cta-wrapper {
+    background: #0f172a !important;
+    border-top-color: #1e293b !important;
+  }
+  body.dark-theme .p1-cta-top-card {
+    background: #1a170d !important;
+    border-color: #78350f !important;
+  }
+  body.dark-theme .p1-cta-heading {
+    color: #fef08a !important;
+  }
+  body.dark-theme .p1-cta-subtext {
+    color: #fde68a !important;
+  }
+  body.dark-theme .p1-cta-action-btn {
+    background: #1e3a8a !important;
+    color: #ffffff !important;
+  }
+
+  /* Page 2 Vocab Lab Masthead */
+  body.dark-theme .p2-header {
+    border-bottom-color: #1e293b !important;
+  }
+  body.dark-theme .p2-title-main {
+    color: #f8fafc !important;
+  }
+  body.dark-theme .p2-title-highlight {
+    color: #818cf8 !important;
+  }
+  body.dark-theme .p2-header-breadcrumb {
+    color: #94a3b8 !important;
+  }
+  body.dark-theme .p2-bc-title {
+    color: #cbd5e1 !important;
+  }
+  body.dark-theme .p2-newspaper-badge {
+    background: #1e293b !important;
+    color: #f8fafc !important;
+  }
+  body.dark-theme .p2-topic-badge {
+    background: #0f172a !important;
+    border-color: #1e293b !important;
+    color: #f8fafc !important;
+  }
+
+  /* Dual Analysis Cards */
+  body.dark-theme .p2-stance-card {
+    background: #0f172a !important;
+    border-color: #1e293b !important;
+  }
+  body.dark-theme .p2-stance-title {
+    color: #f8fafc !important;
+  }
+  body.dark-theme .p2-stance-expl {
+    color: #94a3b8 !important;
+  }
+  body.dark-theme :is(.stance-critical, .stance-pessimistic, .stance-disapproving, .stance-sarcastic, .stance-cynical, .stance-hostile, .stance-admonitory) {
+    background: linear-gradient(135deg, #1c0f14 0%, #2a0812 100%) !important;
+    border-color: #881337 !important;
+  }
+  body.dark-theme :is(.stance-cautious, .stance-concerned, .stance-cautionary, .stance-sceptical) {
+    background: linear-gradient(135deg, #1f170c 0%, #2e1d08 100%) !important;
+    border-color: #92400e !important;
+  }
+  body.dark-theme :is(.stance-appreciative, .stance-optimistic, .stance-empathetic, .stance-conciliatory) {
+    background: linear-gradient(135deg, #0c1f17 0%, #06311f 100%) !important;
+    border-color: #065f46 !important;
+  }
+  body.dark-theme :is(.stance-persuasive-advocative, .stance-informative-explanatory) {
+    background: linear-gradient(135deg, #0c192c 0%, #082444 100%) !important;
+    border-color: #075985 !important;
+  }
+  body.dark-theme .p2-perspective-card {
+    background: #0f172a !important;
+    border-color: #1e293b !important;
+  }
+  body.dark-theme .p2-perspective-title {
+    color: #38bdf8 !important;
+  }
+  body.dark-theme .p2-perspective-body {
+    color: #cbd5e1 !important;
+  }
+
+  /* Section Headers & Lexical Ribbons */
+  body.dark-theme .lex-section-header {
+    background: #0f172a !important;
+    border-color: #1e293b !important;
+  }
+  body.dark-theme .lex-section-title {
+    color: #f8fafc !important;
+  }
+  body.dark-theme .lex-ribbon-row {
+    background: #0f172a !important;
+    border-color: #1e293b !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45) !important;
+  }
+  body.dark-theme .ribbon-col-word,
+  body.dark-theme .ribbon-col-def,
+  body.dark-theme .ribbon-col-hook,
+  body.dark-theme .ribbon-col-syn,
+  body.dark-theme .ribbon-col-ant {
+    background: #0f172a !important;
+    border-right-color: #1e293b !important;
+  }
+  body.dark-theme .ribbon-term {
+    color: #f8fafc !important;
+  }
+  body.dark-theme .ribbon-pos {
+    color: #94a3b8 !important;
+  }
+  body.dark-theme .ribbon-def-hindi {
+    color: #38bdf8 !important;
+  }
+  body.dark-theme .ribbon-def-text {
+    color: #e2e8f0 !important;
+  }
+  body.dark-theme .hook-header-title {
+    color: #818cf8 !important;
+  }
+  body.dark-theme .hook-text-content {
+    color: #cbd5e1 !important;
+  }
+  body.dark-theme .bullet-item {
+    color: #cbd5e1 !important;
+  }
+  body.dark-theme .tag-syn {
+    background: #064e3b !important;
+    color: #6ee7b7 !important;
+  }
+  body.dark-theme .tag-ant {
+    background: #4c0519 !important;
+    color: #fda4af !important;
+  }
+  body.dark-theme .connot-negative { background: #4c0519 !important; color: #fda4af !important; }
+  body.dark-theme .connot-positive { background: #064e3b !important; color: #6ee7b7 !important; }
+  body.dark-theme .connot-neutral  { background: #0c4a6e !important; color: #7dd3fc !important; }
+
+  /* Study Tip & Footer */
+  body.dark-theme .study-tip-card {
+    background: #17140e !important;
+    border-color: #78350f !important;
+  }
+  body.dark-theme .tip-icon-badge {
+    background: #2a1f0a !important;
+    border-color: #92400e !important;
+    color: #fbbf24 !important;
+  }
+  body.dark-theme .tip-heading {
+    color: #fbbf24 !important;
+  }
+  body.dark-theme .tip-body {
+    color: #e2e8f0 !important;
+  }
+  body.dark-theme .page-footer {
+    background: #050811 !important;
+    border-top: 1px solid #1e293b !important;
+  }
 </style>
 </head>
-<body>
+<body class="{% if data.is_dark_mode %}dark-theme{% endif %}">
 
 <!-- =========================================================
      PAGE 1: FRONT COVER

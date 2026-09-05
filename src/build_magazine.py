@@ -171,11 +171,11 @@ def categorize_vocabulary(vocab_items):
 
     return categorized
 
-def send_to_telegram(pdf_path, ist_date_short, editorial_items, thumb_path=None):
+def send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_items, thumb_path=None):
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
     admin_chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
     
-    # --- Group Thread Publishing Config ---
+    # Group Thread Publishing Configuration
     enable_group_publish = os.getenv("ENABLE_GROUP_PUBLISH", "false").strip().lower() == "true"
     source_chat_id = os.getenv("TELEGRAM_GROUP_CHAT_ID")   
     source_thread_id = os.getenv("TELEGRAM_THREAD_ID")     
@@ -192,19 +192,21 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_items, thumb_path=None)
     ]
     quote_content = "\n".join(quote_lines)
 
-    caption = (
+    # 1. Main Light Edition Caption (Contains the index)
+    caption_light = (
         f"📝 <b>Today's Editorials ({ist_date_short})</b>\n"
         f"<blockquote expandable>{quote_content}</blockquote>"
     )
 
-    filename = os.path.basename(pdf_path)
+    # 2. Dark Edition Caption (Compact tag so it sits cleanly below)
+    caption_dark = f"🌙 <b>Dark Mode Edition (Night Study) • {ist_date_short}</b>"
 
-    # Reusable upload helper with 3 retries and a 300s timeout window
-    def upload_pdf(target_chat, thread_id=None):
+    def upload_single_pdf(file_path, target_chat, caption, thread_id=None, include_thumb=True):
+        filename = os.path.basename(file_path)
         for attempt in range(1, 4):
             thumb_f = None
             try:
-                with open(pdf_path, "rb") as doc:
+                with open(file_path, "rb") as doc:
                     payload = {
                         "chat_id": target_chat,
                         "caption": caption,
@@ -214,7 +216,7 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_items, thumb_path=None)
                         payload["message_thread_id"] = int(thread_id)
 
                     files = {"document": (filename, doc, "application/pdf")}
-                    if thumb_path and os.path.exists(thumb_path):
+                    if include_thumb and thumb_path and os.path.exists(thumb_path):
                         thumb_f = open(thumb_path, "rb")
                         files["thumbnail"] = ("thumb.jpg", thumb_f, "image/jpeg")
 
@@ -233,75 +235,73 @@ def send_to_telegram(pdf_path, ist_date_short, editorial_items, thumb_path=None)
                     thumb_f.close()
         return None
 
-    # 1. Standard Admin DM Delivery
-    if admin_chat_id:
-        print(f"📤 Uploading {filename} to Admin Telegram...")
-        res = upload_pdf(admin_chat_id)
-        if res and res.status_code == 200:
-            print("🚀 Successfully delivered magazine PDF to Admin!")
-        else:
-            err_msg = res.text if res else "Connection timed out after 3 attempts"
-            print(f"❌ Telegram Admin Error: {err_msg}")
-
-    # 2. Upload to Thread 2 & Relay to Thread 3 with Buttons
-    if enable_group_publish:
-        if not source_chat_id or not source_thread_id:
-            print("⚠️ Group publishing enabled, but TELEGRAM_GROUP_CHAT_ID or TELEGRAM_THREAD_ID is missing.")
-            return
-
+    def relay_group_file(file_path, caption, include_thumb=False, attach_buttons=False):
+        filename = os.path.basename(file_path)
         print(f"📤 Uploading {filename} to Source Thread ({source_thread_id})...")
-        res = upload_pdf(source_chat_id, source_thread_id)
+        res = upload_single_pdf(file_path, source_chat_id, caption, thread_id=source_thread_id, include_thumb=include_thumb)
+        if not (res and res.status_code == 200):
+            print(f"❌ Upload failed for {filename}")
+            return None
 
-        if res and res.status_code == 200:
-            source_msg_id = res.json()["result"]["message_id"]
-            print(f"🚀 Delivered to Source Thread 2 (Msg ID: {source_msg_id})")
-
-            # --- ✨ FEATURE RELAY: Copy from Thread 2 to Thread 3 ---
-            print(f"🔄 Relaying to Thread {target_thread_id} in Main Group...")
-            copy_payload = {
+        source_msg_id = res.json()["result"]["message_id"]
+        print(f"🔄 Relaying {filename} to Target Thread {target_thread_id}...")
+        
+        copy_res = requests.post(
+            f"https://api.telegram.org/bot{bot_token}/copyMessage",
+            json={
                 "chat_id": target_chat_id,
                 "from_chat_id": source_chat_id,
                 "message_id": source_msg_id,
                 "message_thread_id": target_thread_id
+            },
+            timeout=15
+        )
+
+        if copy_res.status_code != 200:
+            print(f"❌ Failed to relay {filename}")
+            return None
+
+        new_msg_id = copy_res.json()["result"]["message_id"]
+
+        # Attach interactive buttons only to the final message
+        if attach_buttons:
+            markup = {
+                "inline_keyboard": [
+                    [{"text": "📖 Mark as Read • 0", "callback_data": f"read_{new_msg_id}"}],
+                    [{"text": "🎯 Daily Topic Trials", "url": "https://t.me/Ez_vocab_bot/leaderboard"}]
+                ]
             }
-            copy_res = requests.post(
-                f"https://api.telegram.org/bot{bot_token}/copyMessage",
-                json=copy_payload,
-                timeout=15
+            requests.post(
+                f"https://api.telegram.org/bot{bot_token}/editMessageReplyMarkup",
+                json={"chat_id": target_chat_id, "message_id": new_msg_id, "reply_markup": markup},
+                timeout=10
             )
+            print("🪄 Interactive attendance & trial buttons attached at the bottom!")
 
-            if copy_res.status_code == 200:
-                new_msg_id = copy_res.json()["result"]["message_id"]
-                print(f"✅ Relayed successfully (Target Msg ID: {new_msg_id})")
+        return new_msg_id
 
-                # --- ✨ INJECT DUAL INTERACTIVE BUTTONS ---
-                markup = {
-                    "inline_keyboard": [
-                        [{"text": "📖 Mark as Read • 0", "callback_data": f"read_{new_msg_id}"}],
-                        [{"text": "🎯 Topic Quiz (4:30 PM)", "url": "https://t.me/Ez_vocab_bot/leaderboard"}]
-                    ]
-                }
-                btn_res = requests.post(
-                    f"https://api.telegram.org/bot{bot_token}/editMessageReplyMarkup",
-                    json={
-                        "chat_id": target_chat_id,
-                        "message_id": new_msg_id,
-                        "reply_markup": markup
-                    },
-                    timeout=10
-                )
+    # 1. Admin Delivery
+    if admin_chat_id:
+        print("📤 Delivering both files to Admin Telegram...")
+        upload_single_pdf(light_pdf_path, admin_chat_id, caption_light, include_thumb=True)
+        time.sleep(1.5)
+        upload_single_pdf(dark_pdf_path, admin_chat_id, caption_dark, include_thumb=False)
 
-                if btn_res.status_code == 200:
-                    print("🪄 Interactive attendance & quiz buttons attached!")
-                else:
-                    print(f"⚠️ Failed to attach buttons: {btn_res.text}")
-            else:
-                print(f"❌ Failed to relay message to Thread 3: {copy_res.text}")
-        else:
-            err_msg = res.text if res else "Connection timed out after 3 attempts"
-            print(f"❌ Telegram Group Thread Error: {err_msg}")
-    else:
-        print("ℹ️ Group thread publishing is currently turned OFF (ENABLE_GROUP_PUBLISH=false).")
+    # 2. Group Publishing: Light Mode first (no buttons), Dark Mode second (with buttons at bottom)
+    if enable_group_publish:
+        if not source_chat_id or not source_thread_id:
+            print("⚠️ Group publishing enabled, but group IDs are missing.")
+            return
+
+        # Step 1: Send Light PDF (NO buttons, with thumbnail & full index)
+        relay_group_file(light_pdf_path, caption_light, include_thumb=True, attach_buttons=False)
+        
+        # Brief pause to ensure correct ordering
+        time.sleep(1.5)
+
+        # Step 2: Send Dark PDF immediately below (WITH buttons at the bottom)
+        relay_group_file(dark_pdf_path, caption_dark, include_thumb=False, attach_buttons=True)
+        print("🚀 Publication completed: Both files stacked with buttons at the bottom.")
 
 def match_vocab_to_paragraphs(paragraphs, vocab_items):
     """Returns vocab items that appear in the given paragraphs."""
@@ -553,7 +553,15 @@ def compile_magazine():
         opt_wm = optimize_asset_image(watermark_png, build_dir, max_width=800)
         watermark_src = f"file://{opt_wm}".replace("\\", "/")
 
-    render_payload = {
+    # Filenames for both standard and dark-mode variants
+    date_slug = ist_time.strftime('%d-%b-%Y')
+    light_pdf_filename = f"{date_slug}.pdf"
+    dark_pdf_filename = f"{date_slug}-dark-mode.pdf"
+    
+    light_pdf_path = os.path.join(output_dir, light_pdf_filename)
+    dark_pdf_path = os.path.join(output_dir, dark_pdf_filename)
+
+    base_render_payload = {
         "date_formatted": formatted_date_ist,
         "date_scraped": raw_data.get("date_scraped", formatted_date_ist),
         "has_front_cover": os.path.exists(front_cover_path),
@@ -571,141 +579,147 @@ def compile_magazine():
 
     env = Environment(loader=FileSystemLoader([templates_dir, base_dir]))
     template = env.get_template("template.html")
-    rendered_html = template.render(data=render_payload)
 
-    rendered_html_path = os.path.join(build_dir, "rendered_content.html")
-    with open(rendered_html_path, "w", encoding="utf-8") as f:
-        f.write(rendered_html)
+    # Define build list
+    build_variants = [
+        {"is_dark": False, "html_file": "rendered_content_light.html", "pdf_path": light_pdf_path, "name": "Light Mode"},
+        {"is_dark": True,  "html_file": "rendered_content_dark.html",  "pdf_path": dark_pdf_path,  "name": "Dark Mode"}
+    ]
 
-    # PDF generation & in-memory assembly
     with sync_playwright() as p:
         browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
-        
-        page = browser.new_page(viewport={"width": 794, "height": 1123})
-        page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
-        page.evaluate("() => document.fonts.ready")
-        
-        id_to_page = page.evaluate("""() => {
-            const map = {};
-            document.querySelectorAll('.page').forEach((pageElem, pageIdx) => {
-                pageElem.querySelectorAll('[id]').forEach(el => {
-                    if (el.id) map[el.id] = pageIdx;
+
+        for var in build_variants:
+            print(f"🔨 Building {var['name']} PDF...")
+            payload = dict(base_render_payload)
+            payload["is_dark_mode"] = var["is_dark"]
+
+            rendered_html = template.render(data=payload)
+            rendered_html_path = os.path.join(build_dir, var["html_file"])
+            with open(rendered_html_path, "w", encoding="utf-8") as f:
+                f.write(rendered_html)
+
+            page = browser.new_page(viewport={"width": 794, "height": 1123})
+            page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
+            page.evaluate("() => document.fonts.ready")
+
+            id_to_page = page.evaluate("""() => {
+                const map = {};
+                document.querySelectorAll('.page').forEach((pageElem, pageIdx) => {
+                    pageElem.querySelectorAll('[id]').forEach(el => {
+                        if (el.id) map[el.id] = pageIdx;
+                    });
                 });
-            });
-            return map;
-        }""")
-        
-        page_count = page.evaluate("() => document.querySelectorAll('.page').length")
-        
-        writer = PdfWriter()
-        pending_links = []
+                return map;
+            }""")
 
-        for i in range(page_count):
-            page_meta = page.evaluate("""(targetIndex) => {
-                const pages = document.querySelectorAll('.page');
-                pages.forEach((p, idx) => {
-                    p.style.display = (idx === targetIndex) ? '' : 'none';
-                });
-                const current = pages[targetIndex];
-                const pageRect = current.getBoundingClientRect();
-                
-                const links = [];
-                current.querySelectorAll('a[href^="#"]').forEach(a => {
-                    const rect = a.getBoundingClientRect();
-                    const targetId = (a.getAttribute('href') || '').replace('#', '').trim();
-                    if (targetId && rect.width > 0 && rect.height > 0) {
-                        links.push({
-                            targetId: targetId,
-                            x: rect.left - pageRect.left,
-                            y: rect.top - pageRect.top,
-                            w: rect.width,
-                            h: rect.height
-                        });
-                    }
-                });
+            page_count = page.evaluate("() => document.querySelectorAll('.page').length")
+            writer = PdfWriter()
+            pending_links = []
 
-                return {
-                    isCover: current.classList.contains('cover-page'),
-                    widthPx: Math.ceil(pageRect.width) || 794,
-                    heightPx: Math.ceil(pageRect.height),
-                    links: links
-                };
-            }""", i)
+            for i in range(page_count):
+                page_meta = page.evaluate("""(targetIndex) => {
+                    const pages = document.querySelectorAll('.page');
+                    pages.forEach((p, idx) => {
+                        p.style.display = (idx === targetIndex) ? '' : 'none';
+                    });
+                    const current = pages[targetIndex];
+                    const pageRect = current.getBoundingClientRect();
+                    
+                    const links = [];
+                    current.querySelectorAll('a[href^="#"]').forEach(a => {
+                        const rect = a.getBoundingClientRect();
+                        const targetId = (a.getAttribute('href') || '').replace('#', '').trim();
+                        if (targetId && rect.width > 0 && rect.height > 0) {
+                            links.push({
+                                targetId: targetId,
+                                x: rect.left - pageRect.left,
+                                y: rect.top - pageRect.top,
+                                w: rect.width,
+                                h: rect.height
+                            });
+                        }
+                    });
 
-            
-            if i == 0:
-                page.screenshot(path=thumb_path, type="jpeg", quality=85)
+                    return {
+                        isCover: current.classList.contains('cover-page'),
+                        widthPx: Math.ceil(pageRect.width) || 794,
+                        heightPx: Math.ceil(pageRect.height),
+                        links: links
+                    };
+                }""", i)
 
-            page_height = "297mm" if page_meta["isCover"] else f"{page_meta['heightPx']}px"
-            
-            # Render directly to RAM (no disk I/O)
-            pdf_bytes = page.pdf(
-                width="210mm",
-                height=page_height,
-                print_background=True,
-                margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
-            )
-            
-            reader = PdfReader(io.BytesIO(pdf_bytes))
-            if len(reader.pages) > 0:
-                p_obj = reader.pages[0]
-                writer.add_page(p_obj)
-                
-                mb = p_obj.mediabox
-                media_w, media_h = float(mb.width), float(mb.height)
-                scale_x = media_w / page_meta["widthPx"]
-                scale_y = media_h / page_meta["heightPx"]
-                
-                for lk in page_meta["links"]:
-                    target_idx = id_to_page.get(lk["targetId"])
-                    if target_idx is None:
-                        m = re.search(r'-p(\d+)', lk["targetId"])
-                        if m:
-                            target_idx = int(m.group(1)) - 1
-                            
-                    if target_idx is not None and target_idx != i:
-                        x1 = lk["x"] * scale_x
-                        x2 = (lk["x"] + lk["w"]) * scale_x
-                        y1 = media_h - (lk["y"] + lk["h"]) * scale_y
-                        y2 = media_h - lk["y"] * scale_y
-                        pending_links.append((i, target_idx, (x1, y1, x2, y2)))
+                if i == 0 and not var["is_dark"]:
+                    page.screenshot(path=thumb_path, type="jpeg", quality=85)
 
-        # Native click jumps
-        for src_page, target_page, rect in pending_links:
-            if target_page < len(writer.pages):
-                writer.add_annotation(
-                    page_number=src_page,
-                    annotation=Link(
-                        rect=rect,
-                        target_page_index=target_page,
-                        fit=Fit(fit_type="/Fit")
-                    )
+                page_height = "297mm" if page_meta["isCover"] else f"{page_meta['heightPx']}px"
+                pdf_bytes = page.pdf(
+                    width="210mm",
+                    height=page_height,
+                    print_background=True,
+                    margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
                 )
 
-        # Native PDF Outline/Bookmarks for side drawer navigation
-        writer.add_outline_item("Front Cover", 0)
-        writer.add_outline_item("Table of Contents", 1)
-        for art in processed_articles:
-            r_idx = id_to_page.get(art["target_reader_id"])
-            if r_idx is not None and r_idx < len(writer.pages):
-                parent_outline = writer.add_outline_item(f"{art['title']} ({art['newspaper']})", r_idx)
-                l_idx = id_to_page.get(art["target_vocab_id"])
-                if l_idx is not None and l_idx < len(writer.pages):
-                    writer.add_outline_item("Vocabulary Lab", l_idx, parent=parent_outline)
+                reader = PdfReader(io.BytesIO(pdf_bytes))
+                if len(reader.pages) > 0:
+                    p_obj = reader.pages[0]
+                    writer.add_page(p_obj)
 
-        # Compress content streams across all generated pages
-        for p in writer.pages:
-            p.compress_content_streams()
+                    mb = p_obj.mediabox
+                    media_w, media_h = float(mb.width), float(mb.height)
+                    scale_x = media_w / page_meta["widthPx"]
+                    scale_y = media_h / page_meta["heightPx"]
 
-        with open(output_pdf_path, "wb") as f_out:
-            writer.write(f_out)
+                    for lk in page_meta["links"]:
+                        target_idx = id_to_page.get(lk["targetId"])
+                        if target_idx is None:
+                            m = re.search(r'-p(\d+)', lk["targetId"])
+                            if m:
+                                target_idx = int(m.group(1)) - 1
+                                
+                        if target_idx is not None and target_idx != i:
+                            x1 = lk["x"] * scale_x
+                            x2 = (lk["x"] + lk["w"]) * scale_x
+                            y1 = media_h - (lk["y"] + lk["h"]) * scale_y
+                            y2 = media_h - lk["y"] * scale_y
+                            pending_links.append((i, target_idx, (x1, y1, x2, y2)))
+
+            # Internal Click Annotations
+            for src_page, target_page, rect in pending_links:
+                if target_page < len(writer.pages):
+                    writer.add_annotation(
+                        page_number=src_page,
+                        annotation=Link(
+                            rect=rect,
+                            target_page_index=target_page,
+                            fit=Fit(fit_type="/Fit")
+                        )
+                    )
+
+            # Bookmarks & Outlines
+            writer.add_outline_item("Front Cover", 0)
+            writer.add_outline_item("Table of Contents", 1)
+            for art in processed_articles:
+                r_idx = id_to_page.get(art["target_reader_id"])
+                if r_idx is not None and r_idx < len(writer.pages):
+                    parent_outline = writer.add_outline_item(f"{art['title']} ({art['newspaper']})", r_idx)
+                    l_idx = id_to_page.get(art["target_vocab_id"])
+                    if l_idx is not None and l_idx < len(writer.pages):
+                        writer.add_outline_item("Vocabulary Lab", l_idx, parent=parent_outline)
+
+            for page_obj in writer.pages:
+                page_obj.compress_content_streams()
+
+            with open(var["pdf_path"], "wb") as f_out:
+                writer.write(f_out)
+
+            page.close()
+            print(f"✅ Generated {var['name']}: {var['pdf_path']}")
 
         browser.close()
 
-    print(f"✅ Generated Complete Magazine: {output_pdf_path}")
-
-    # Dispatch to Telegram DM
-    send_to_telegram(output_pdf_path, ist_date_short, editorial_items, thumb_path)
+    # Dispatch both files to Telegram sequentially
+    send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_items, thumb_path)
 
 if __name__ == "__main__":
     try:

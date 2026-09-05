@@ -21,10 +21,58 @@ def get_pos_rank(pos_raw):
         return 3
     return 5
 
+def _normalize_pos_family(pos_raw):
+    """Normalizes part of speech into broad categories for safe matching."""
+    p = str(pos_raw).strip().lower()
+    if "verb" in p:
+        return "verb"
+    if "noun" in p:
+        return "noun"
+    if "adj" in p:
+        return "adj"
+    if "adv" in p:
+        return "adv"
+    return "other"
+
+
+def _get_base_candidates(word):
+    """
+    Generates plausible base stems for standard verb/noun inflections.
+    Never guesses roots for irregulars or short words.
+    """
+    w = word.strip().lower()
+    candidates = []
+
+    # Verbs ending in -ing (e.g. dismantling -> dismantle; claiming -> claim)
+    if w.endswith("ing") and len(w) > 4:
+        stem = w[:-3]
+        candidates.extend([stem, stem + "e"])
+        if len(stem) > 1 and stem[-1] == stem[-2]:
+            candidates.append(stem[:-1])  # e.g. stopping -> stop
+
+    # Verbs ending in -ed / -d (e.g. quashed -> quash; rendered -> render)
+    elif w.endswith("ed") and len(w) > 3:
+        stem = w[:-2]
+        candidates.extend([stem, w[:-1]])  # e.g. created -> create
+        if len(stem) > 1 and stem[-1] == stem[-2]:
+            candidates.append(stem[:-1])  # e.g. dropped -> drop
+
+    # Nouns/Verbs ending in -es or -s (e.g. warrants -> warrant; preoccupations -> preoccupation)
+    elif w.endswith("es") and len(w) > 3:
+        candidates.extend([w[:-2], w[:-1]])
+    elif w.endswith("s") and len(w) > 2 and not w.endswith("ss"):
+        candidates.append(w[:-1])
+
+    return [c for c in candidates if c]
+
+
 def categorize_vocabulary(vocab_items):
     """
-    Deduplicates items per category (preserving first chronological occurrence)
-    and sorts each category: Letter -> POS Priority -> Alphabetical.
+    Deduplicates and filters vocabulary:
+    1. Prioritizes specialized categories (OWS, Foreign Words, etc.) over Core Vocab.
+    2. Safely deduplicates inflected tense/plural variants within Core Vocab ONLY if
+       the base root word is already present with the identical Part of Speech.
+    3. Sorts each category: Letter -> POS Priority -> Alphabetical.
     """
     categorized = {
         "core_vocab": [],
@@ -36,6 +84,8 @@ def categorize_vocabulary(vocab_items):
     }
     seen_words = {cat: set() for cat in categorized}
 
+    # Step 1: Initial bucket routing (deduplicating exact matches inside each bucket)
+    raw_core_vocab = []
     for item in vocab_items:
         cat = str(item.get("category", "")).strip().lower()
         if "one-word" in cat or "one word" in cat:
@@ -52,11 +102,58 @@ def categorize_vocabulary(vocab_items):
             target = "core_vocab"
 
         word_key = str(item.get("word_or_phrase", "")).strip().lower()
-        if word_key and word_key not in seen_words[target]:
-            seen_words[target].add(word_key)
-            categorized[target].append(item)
+        if not word_key:
+            continue
 
-    # Sort each category: Letter -> POS -> Word
+        if target == "core_vocab":
+            if word_key not in seen_words["core_vocab"]:
+                seen_words["core_vocab"].add(word_key)
+                raw_core_vocab.append(item)
+        else:
+            if word_key not in seen_words[target]:
+                seen_words[target].add(word_key)
+                categorized[target].append(item)
+
+    # Step 2: Cross-Category Exclusion (Specialized sections beat Core Vocab)
+    # Words like 'Resilience' and 'Resolve' claimed by OWS are removed from Editorial Vocab
+    claimed_words = set()
+    for cat in ["one_word_subs", "foreign_words", "fixed_prepositions", "phrasal_verbs", "idioms"]:
+        for item in categorized[cat]:
+            claimed_words.add(str(item.get("word_or_phrase", "")).strip().lower())
+
+    filtered_core = [
+        item for item in raw_core_vocab
+        if str(item.get("word_or_phrase", "")).strip().lower() not in claimed_words
+    ]
+
+    # Step 3: Strict Safe Tense & Number Deduplication within Core Vocab
+    core_word_pos_map = {}
+    for item in filtered_core:
+        w = str(item.get("word_or_phrase", "")).strip().lower()
+        pos_family = _normalize_pos_family(item.get("part_of_speech", ""))
+        core_word_pos_map.setdefault(w, set()).add(pos_family)
+
+    final_core = []
+    for item in filtered_core:
+        word = str(item.get("word_or_phrase", "")).strip().lower()
+        pos_family = _normalize_pos_family(item.get("part_of_speech", ""))
+
+        # Adjectives (e.g. Compelling, Staggering) are NEVER collapsed into verbs
+        is_inflected_duplicate = False
+        if pos_family in ("verb", "noun"):
+            candidates = _get_base_candidates(word)
+            for base in candidates:
+                # Only drop if the base root is physically present in the list WITH the same POS
+                if base in core_word_pos_map and pos_family in core_word_pos_map[base]:
+                    is_inflected_duplicate = True
+                    break
+
+        if not is_inflected_duplicate:
+            final_core.append(item)
+
+    categorized["core_vocab"] = final_core
+
+    # Step 4: Sort each category: Letter -> POS Priority -> Alphabetical
     for cat in categorized:
         categorized[cat].sort(key=lambda x: (
             str(x.get("word_or_phrase", "")).strip()[:1].upper(),
@@ -102,7 +199,7 @@ def send_to_telegram(pdf_path, date_range_formatted, total_articles, total_words
 
     caption += (
         f"\n🎯 <i>Curated for SSC CGL, Banking, UPSC & State PCS aspirants. "
-        f"Includes British synonyms/antonyms & complete editorial index on Page 03.</i>"
+        f"Includes synonyms/antonyms & complete editorial index on Page 03.</i>"
     )
 
     url = f"https://api.telegram.org/bot{bot_token}/sendDocument"

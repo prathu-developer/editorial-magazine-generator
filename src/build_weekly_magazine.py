@@ -133,10 +133,19 @@ def compile_weekly_magazine():
     os.makedirs(build_dir, exist_ok=True)
     os.makedirs(output_dir, exist_ok=True)
 
-    # Determine the current week's Monday to Saturday date range (IST)
+    # Determine the week window with support for manual overrides and Sunday runs
     ist = timezone(timedelta(hours=5, minutes=30))
-    today = datetime.now(ist).date()
-    current_monday = today - timedelta(days=today.weekday())
+    target_env = os.getenv("TARGET_DATE")
+    
+    if target_env:
+        ref_date = datetime.strptime(target_env.strip(), "%Y-%m-%d").date()
+    else:
+        ref_date = datetime.now(ist).date()
+        # If triggered on Sunday, pull the Monday-Saturday week that just ended
+        if ref_date.weekday() == 6:
+            ref_date -= timedelta(days=1)
+
+    current_monday = ref_date - timedelta(days=ref_date.weekday())
     current_saturday = current_monday + timedelta(days=5)
 
     all_files = sorted(glob.glob(os.path.join(backups_dir, "*.json")))
@@ -179,9 +188,6 @@ def compile_weekly_magazine():
             except json.JSONDecodeError:
                 print(f"⚠️ Skipping corrupted JSON: {file_path}")
 
-    # Enforce maximum of 25 editorials
-    aggregated_editorials = aggregated_editorials[:25]
-
     # Calculate date range from Monday to Saturday
     all_raw_dates = sorted(list(set(all_raw_dates)))
     if all_raw_dates:
@@ -204,29 +210,27 @@ def compile_weekly_magazine():
         editorial_titles.append(title)
         newspapers.add(np)
 
+        # Ingest vocabulary from ALL editorials across the entire week
+        all_vocab_items.extend(art.get("editorial_vocabulary", []))
+
         index_entries.append({
             "title": title,
             "newspaper": np,
             "timestamp": art.get("timestamp", "")
         })
 
-        # Accumulate vocab items for universal grouping
-        all_vocab_items.extend(art.get("editorial_vocabulary", []))
+    # Limit only Page 3's Index cards to 25 so Page 3 never overflows
+    index_entries = index_entries[:25]
 
     # Universal Categorization across all 25 articles
     universal_vocab = categorize_vocabulary(all_vocab_items)
     newspapers_covered = " & ".join(sorted(newspapers)) if newspapers else "National Dailies"
 
-    # UPDATE THIS LINE: count deduplicated unique words
     total_unique_words = sum(len(items) for items in universal_vocab.values())
-
-    import io
-    from pypdf import PdfReader, PdfWriter
 
     # Prepare Template Engine
     env = Environment(loader=FileSystemLoader(templates_dir))
     template = env.get_template("weekly_template.html")
-    total_unique_words = sum(len(items) for items in universal_vocab.values())
 
     rendered_html_path = os.path.join(build_dir, "weekly_magazine.html")
     pass1_pdf_path = os.path.join(build_dir, "temp_pass1.pdf")
@@ -264,7 +268,8 @@ def compile_weekly_magazine():
                 toc_pages=toc_pages
             ))
 
-        page.goto(f"file://{rendered_html_path}", wait_until="load")
+        page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
+        page.evaluate("() => document.fonts.ready")
         page.pdf(
             path=pass1_pdf_path,
             format="A4",
@@ -275,12 +280,12 @@ def compile_weekly_magazine():
         # Scan PDF for Category Headers (Search ONLY page 4 onwards to avoid Page 2 TOC false matches)
         reader1 = PdfReader(pass1_pdf_path)
         category_markers = [
-            ("core_vocab", "EDITORIAL VOCABULARY"),
-            ("one_word_subs", "ONE-WORD SUBSTITUTIONS"),
-            ("fixed_prepositions", "FIXED PREPOSITIONS"),
-            ("phrasal_verbs", "PHRASAL VERBS"),
-            ("idioms", "IDIOMS"),
-            ("foreign_words", "FOREIGN WORDS")
+            ("core_vocab", "__SEC_CORE__"),
+            ("one_word_subs", "__SEC_OWS__"),
+            ("fixed_prepositions", "__SEC_PREP__"),
+            ("phrasal_verbs", "__SEC_PHR__"),
+            ("idioms", "__SEC_IDM__"),
+            ("foreign_words", "__SEC_FOR__")
         ]
 
         detected_pages = {}
@@ -308,9 +313,10 @@ def compile_weekly_magazine():
                 toc_pages=toc_pages
             ))
 
-        page.goto(f"file://{rendered_html_path}", wait_until="load")
+        page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
+        page.evaluate("() => document.fonts.ready")
         page.pdf(
-            path=base_pdf_path,
+            path=pass1_pdf_path,
             format="A4",
             print_background=True,
             margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"}

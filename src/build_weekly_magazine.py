@@ -316,7 +316,7 @@ def compile_weekly_magazine():
         page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
         page.evaluate("() => document.fonts.ready")
         page.pdf(
-            path=pass1_pdf_path,
+            path=base_pdf_path,
             format="A4",
             print_background=True,
             margin={"top": "0mm", "bottom": "0mm", "left": "0mm", "right": "0mm"}

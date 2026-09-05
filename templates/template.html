@@ -1765,7 +1765,7 @@
   }
 
   /* =========================================================
-     PREMIUM MIDNIGHT DARK MODE (OLED-FRIENDLY & EYE-STRAIN FREE)
+     PREMIUM MIDNIGHT DARK MODE (OLED-FRIENDLY & ZERO-BLOAT)
      ========================================================= */
   body.dark-theme {
     background-color: #080d1a !important;
@@ -1776,37 +1776,50 @@
     background-color: #080d1a !important;
   }
 
+  /* Zero-Bloat Watermark: Native opacity, strictly NO CSS filter */
   body.dark-theme .inner-page-watermark {
-    filter: invert(1) brightness(0.8);
-    opacity: 0.035;
+    opacity: 0.035 !important;
   }
 
-  /* Cover & TOC Dynamic Adapters */
-  body.dark-theme .front-date-display,
-  body.dark-theme .toc-header-date {
-    background: #0f172a !important;
-    color: #f8fafc !important;
-    border-bottom-color: #1e293b !important;
-  }
-  body.dark-theme .front-edition-tag {
-    background: #1e293b !important;
-    color: #fef08a !important;
-    border-color: #334155 !important;
-  }
+  /* ---------------------------------------------------------
+     FIX 1: RESTORE TOC TITLES & PRESERVE FIXED COVER ART
+     --------------------------------------------------------- */
   body.dark-theme .toc-article-title {
-    color: #f8fafc !important;
+    color: #0b1f36 !important; /* Bold navy text on the white TOC background card */
   }
   body.dark-theme .toc-topic-pill {
-    background: #1e293b !important;
-    color: #cbd5e1 !important;
-    border-color: #334155 !important;
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+    border: 1.2px solid #cbd5e1 !important;
   }
   body.dark-theme .toc-page-pill {
-    background: #1e3a8a !important;
+    background: #0f2b48 !important;
     color: #ffffff !important;
   }
 
-  /* Reading Masthead */
+  /* ---------------------------------------------------------
+     FIX 2: SLEEK DARK MASTHEAD PILLS (NO WHITE CUTOUTS)
+     --------------------------------------------------------- */
+  body.dark-theme .tag-hindu {
+    background: rgba(30, 64, 175, 0.25) !important;
+    color: #60a5fa !important;
+    border: 1.2px solid rgba(96, 165, 250, 0.4) !important;
+  }
+  body.dark-theme .tag-express {
+    background: rgba(153, 27, 27, 0.25) !important;
+    color: #f87171 !important;
+    border: 1.2px solid rgba(248, 113, 113, 0.4) !important;
+  }
+  body.dark-theme .p1-topic-chip {
+    background: #0f172a !important;
+    color: #cbd5e1 !important;
+    border: 1.2px solid #1e293b !important;
+  }
+  body.dark-theme .p1-topic-chip .chip-dot {
+    background: #f59e0b !important;
+  }
+
+  /* Reading Header & Subtitle */
   body.dark-theme .p1-title {
     color: #f8fafc !important;
   }
@@ -1837,7 +1850,7 @@
     color: #ffffff !important;
   }
 
-  /* Reading Body & In-Text Vocab */
+  /* Reading Body & Highlights */
   body.dark-theme .p1-article-body {
     color: #cbd5e1 !important;
   }
@@ -1859,7 +1872,7 @@
     border-top-color: #1e293b !important;
   }
 
-  /* Page 1 Vocab 101 Sidebar */
+  /* Page 1 Sidebar */
   body.dark-theme .p1-sidebar {
     background: #0f172a !important;
     border-color: #1e293b !important;
@@ -1983,6 +1996,10 @@
     background: #0f172a !important;
     border-color: #1e293b !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45) !important;
+  }
+  body.dark-theme .ribbon-col-num {
+    background: #1e293b !important;
+    color: #38bdf8 !important;
   }
   body.dark-theme .ribbon-col-word,
   body.dark-theme .ribbon-col-def,

@@ -42,6 +42,33 @@ def optimize_asset_image(src_path: str, cache_dir: str, max_width: int = 1654, q
         print(f"⚠️ Could not optimize {src_path}: {err}. Retaining original.")
         return src_path
 
+def create_dark_watermark(src_path: str, cache_dir: str) -> str:
+    """Generates an inverted dark-mode watermark once with PIL so Chromium embeds it as a single native XObject."""
+    if not os.path.exists(src_path):
+        return src_path
+
+    filename = os.path.basename(src_path)
+    dark_path = os.path.join(cache_dir, f"dark_opt_{filename}")
+
+    if os.path.exists(dark_path) and os.path.getmtime(dark_path) >= os.path.getmtime(src_path):
+        return dark_path
+
+    try:
+        from PIL import ImageOps
+        with Image.open(src_path) as img:
+            if img.mode != "RGBA":
+                img = img.convert("RGBA")
+            r, g, b, a = img.split()
+            rgb = Image.merge("RGB", (r, g, b))
+            inv_rgb = ImageOps.invert(rgb)
+            r2, g2, b2 = inv_rgb.split()
+            dark_img = Image.merge("RGBA", (r2, g2, b2, a))
+            dark_img.save(dark_path, "PNG", optimize=True)
+        return dark_path
+    except Exception as err:
+        print(f"⚠️ Could not create dark watermark ({err}). Using original.")
+        return src_path
+
 def sanitize_vocab_text(text: str) -> str:
     if not text:
         return ""
@@ -547,11 +574,17 @@ def compile_magazine():
     watermark_png = os.path.join(assets_dir, "watermark.png")
     watermark_svg = os.path.join(assets_dir, "watermark.svg")
     watermark_src = None
+    watermark_dark_src = None
+
     if os.path.exists(watermark_svg):
         watermark_src = f"file://{watermark_svg}".replace("\\", "/")
+        watermark_dark_src = watermark_src
     elif os.path.exists(watermark_png):
         opt_wm = optimize_asset_image(watermark_png, build_dir, max_width=800)
         watermark_src = f"file://{opt_wm}".replace("\\", "/")
+        # Creates an inverted light-colored watermark file for Dark Mode
+        dark_wm = create_dark_watermark(opt_wm, build_dir)
+        watermark_dark_src = f"file://{dark_wm}".replace("\\", "/")
 
     # Filenames for both standard and dark-mode variants
     date_slug = ist_time.strftime('%d-%b-%Y')
@@ -593,6 +626,10 @@ def compile_magazine():
             print(f"🔨 Building {var['name']} PDF...")
             payload = dict(base_render_payload)
             payload["is_dark_mode"] = var["is_dark"]
+            
+            # If generating Dark Mode, swap the watermark to the inverted version
+            if var["is_dark"] and watermark_dark_src:
+                payload["watermark_src"] = watermark_dark_src
 
             rendered_html = template.render(data=payload)
             rendered_html_path = os.path.join(build_dir, var["html_file"])

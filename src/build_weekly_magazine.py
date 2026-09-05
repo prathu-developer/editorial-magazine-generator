@@ -280,12 +280,12 @@ def compile_weekly_magazine():
         # Scan PDF for Category Headers (Search ONLY page 4 onwards to avoid Page 2 TOC false matches)
         reader1 = PdfReader(pass1_pdf_path)
         category_markers = [
-            ("core_vocab", "__SEC_CORE__"),
-            ("one_word_subs", "__SEC_OWS__"),
-            ("fixed_prepositions", "__SEC_PREP__"),
-            ("phrasal_verbs", "__SEC_PHR__"),
-            ("idioms", "__SEC_IDM__"),
-            ("foreign_words", "__SEC_FOR__")
+            ("core_vocab", "EDITORIAL VOCABULARY"),
+            ("one_word_subs", "ONE-WORD SUBSTITUTIONS"),
+            ("fixed_prepositions", "FIXED PREPOSITIONS"),
+            ("phrasal_verbs", "PHRASAL VERBS"),
+            ("idioms", "IDIOMS & PHRASES"),
+            ("foreign_words", "FOREIGN WORDS & PHRASES")
         ]
 
         detected_pages = {}

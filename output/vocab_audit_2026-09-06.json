@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "generated_at": "2026-09-06T07:15:01.128017+00:00",
+    "generated_at": "2026-09-06T07:33:55.117595+00:00",
     "total_original": 498,
-    "total_retained": 462,
-    "total_eliminated": 36,
-    "elementary_threshold": 5.0,
+    "total_retained": 396,
+    "total_eliminated": 102,
+    "elementary_threshold": 4.2,
     "sorting_order": "Decreasing by effective_score (easiest/most common to rarest)"
   },
   "eliminated_words": [
@@ -17,7 +17,7 @@
         "all": 6.52,
         "out": 6.38
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "out to",
@@ -28,7 +28,7 @@
         "out": 6.38,
         "to": 7.43
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Would do well to",
@@ -41,7 +41,7 @@
         "well": 6.03,
         "to": 7.43
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "A way out",
@@ -52,7 +52,7 @@
         "way": 6.01,
         "out": 6.38
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Going after",
@@ -63,7 +63,7 @@
         "going": 5.94,
         "after": 6.11
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Going by",
@@ -74,7 +74,7 @@
         "going": 5.94,
         "by": 6.66
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Down Under",
@@ -85,7 +85,7 @@
         "down": 5.88,
         "under": 5.73
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "left out of",
@@ -97,7 +97,7 @@
         "out": 6.38,
         "of": 7.4
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Set out",
@@ -108,7 +108,7 @@
         "set": 5.59,
         "out": 6.38
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Set to",
@@ -119,7 +119,7 @@
         "set": 5.59,
         "to": 7.43
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Tell from",
@@ -130,7 +130,7 @@
         "tell": 5.53,
         "from": 6.63
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Call on",
@@ -141,7 +141,7 @@
         "call": 5.51,
         "on": 6.91
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Lost on",
@@ -152,7 +152,7 @@
         "lost": 5.39,
         "on": 6.91
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Due to",
@@ -163,7 +163,7 @@
         "due": 5.35,
         "to": 7.43
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Leave out",
@@ -174,7 +174,7 @@
         "leave": 5.34,
         "out": 6.38
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Under the watch of",
@@ -187,7 +187,7 @@
         "watch": 5.34,
         "of": 7.4
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "bring about",
@@ -198,7 +198,7 @@
         "bring": 5.27,
         "about": 6.4
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "played out",
@@ -209,7 +209,7 @@
         "played": 5.23,
         "out": 6.38
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Near-term",
@@ -220,7 +220,7 @@
         "near": 5.29,
         "term": 5.23
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "on account of",
@@ -232,7 +232,7 @@
         "account": 5.21,
         "of": 7.4
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Takes over",
@@ -243,7 +243,7 @@
         "takes": 5.18,
         "over": 6.08
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "cool down",
@@ -254,7 +254,7 @@
         "cool": 5.15,
         "down": 5.88
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Middle ground",
@@ -265,7 +265,7 @@
         "middle": 5.18,
         "ground": 5.15
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Evidence-based",
@@ -276,7 +276,7 @@
         "evidence": 5.14,
         "based": 5.51
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Stand-off",
@@ -287,7 +287,7 @@
         "stand": 5.14,
         "off": 5.93
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "called upon",
@@ -298,7 +298,7 @@
         "called": 5.59,
         "upon": 5.12
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "By itself",
@@ -309,7 +309,7 @@
         "by": 6.66,
         "itself": 5.1
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "attack on",
@@ -320,7 +320,7 @@
         "attack": 5.09,
         "on": 6.91
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Turned out",
@@ -331,7 +331,7 @@
         "turned": 5.09,
         "out": 6.38
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Back to the table",
@@ -344,7 +344,7 @@
         "the": 7.73,
         "table": 5.05
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "In the dark",
@@ -356,7 +356,7 @@
         "the": 7.73,
         "dark": 5.04
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "With due respect",
@@ -368,7 +368,7 @@
         "due": 5.35,
         "respect": 5.03
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "moving towards",
@@ -379,7 +379,7 @@
         "moving": 5.02,
         "towards": 5.06
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "in effect",
@@ -390,7 +390,7 @@
         "in": 7.27,
         "effect": 5.02
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Under pressure",
@@ -401,7 +401,7 @@
         "under": 5.73,
         "pressure": 5.01
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "leading up to",
@@ -413,10 +413,8 @@
         "up": 6.39,
         "to": 7.43
       },
-      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
-    }
-  ],
-  "retained_words": [
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
     {
       "term": "Calling on",
       "category": "phrasal_verbs",
@@ -426,7 +424,7 @@
         "calling": 4.96,
         "on": 6.91
       },
-      "reason": "Retained: Contains target/rare lexicon 'calling' (Zipf 4.96)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Step in that direction",
@@ -439,7 +437,7 @@
         "that": 7.01,
         "direction": 4.93
       },
-      "reason": "Retained: Contains target/rare lexicon 'direction' (Zipf 4.93)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Place greater weight on",
@@ -452,7 +450,7 @@
         "weight": 5.02,
         "on": 6.91
       },
-      "reason": "Retained: Contains target/rare lexicon 'greater' (Zipf 4.9)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Associated with",
@@ -463,7 +461,7 @@
         "associated": 4.89,
         "with": 6.85
       },
-      "reason": "Retained: Contains target/rare lexicon 'associated' (Zipf 4.89)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Carry forward",
@@ -474,7 +472,7 @@
         "carry": 4.89,
         "forward": 5.12
       },
-      "reason": "Retained: Contains target/rare lexicon 'carry' (Zipf 4.89)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Holding up",
@@ -485,7 +483,7 @@
         "holding": 4.89,
         "up": 6.39
       },
-      "reason": "Retained: Contains target/rare lexicon 'holding' (Zipf 4.89)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "peter out",
@@ -496,7 +494,7 @@
         "peter": 4.88,
         "out": 6.38
       },
-      "reason": "Retained: Contains target/rare lexicon 'peter' (Zipf 4.88)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Open to challenge",
@@ -508,7 +506,7 @@
         "to": 7.43,
         "challenge": 4.88
       },
-      "reason": "Retained: Contains target/rare lexicon 'challenge' (Zipf 4.88)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Put her on trial",
@@ -521,7 +519,7 @@
         "on": 6.91,
         "trial": 4.87
       },
-      "reason": "Retained: Contains target/rare lexicon 'trial' (Zipf 4.87)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Surface",
@@ -529,7 +527,7 @@
       "part_of_speech": "Verb",
       "effective_score": 4.83,
       "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.83)"
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.83 >= 4.2)"
     },
     {
       "term": "acting on",
@@ -540,7 +538,7 @@
         "acting": 4.82,
         "on": 6.91
       },
-      "reason": "Retained: Contains target/rare lexicon 'acting' (Zipf 4.82)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Benefit of every doubt",
@@ -553,7 +551,7 @@
         "every": 5.79,
         "doubt": 4.9
       },
-      "reason": "Retained: Contains target/rare lexicon 'benefit' (Zipf 4.82)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Easier said than done",
@@ -566,7 +564,7 @@
         "than": 6.13,
         "done": 5.58
       },
-      "reason": "Retained: Contains target/rare lexicon 'easier' (Zipf 4.76)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "responsibility towards",
@@ -577,7 +575,7 @@
         "responsibility": 4.75,
         "towards": 5.06
       },
-      "reason": "Retained: Contains target/rare lexicon 'responsibility' (Zipf 4.75)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "guard against",
@@ -588,7 +586,7 @@
         "guard": 4.73,
         "against": 5.68
       },
-      "reason": "Retained: Contains target/rare lexicon 'guard' (Zipf 4.73)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Capacity-building",
@@ -599,7 +597,7 @@
         "capacity": 4.71,
         "building": 5.29
       },
-      "reason": "Retained: Contains target/rare lexicon 'capacity' (Zipf 4.71)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "crowd out",
@@ -610,7 +608,7 @@
         "crowd": 4.7,
         "out": 6.38
       },
-      "reason": "Retained: Contains target/rare lexicon 'crowd' (Zipf 4.7)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "powers that be",
@@ -622,7 +620,7 @@
         "that": 7.01,
         "be": 6.79
       },
-      "reason": "Retained: Contains target/rare lexicon 'powers' (Zipf 4.7)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "factor in",
@@ -633,7 +631,7 @@
         "factor": 4.67,
         "in": 7.27
       },
-      "reason": "Retained: Contains target/rare lexicon 'factor' (Zipf 4.67)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Pulled up",
@@ -644,7 +642,7 @@
         "pulled": 4.67,
         "up": 6.39
       },
-      "reason": "Retained: Contains target/rare lexicon 'pulled' (Zipf 4.67)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "break relations with",
@@ -656,7 +654,7 @@
         "relations": 4.67,
         "with": 6.85
       },
-      "reason": "Retained: Contains target/rare lexicon 'relations' (Zipf 4.67)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "Holds no weight",
@@ -668,7 +666,7 @@
         "no": 6.35,
         "weight": 5.02
       },
-      "reason": "Retained: Contains target/rare lexicon 'holds' (Zipf 4.6)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "dedicated",
@@ -676,15 +674,7 @@
       "part_of_speech": "Adjective",
       "effective_score": 4.58,
       "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.58)"
-    },
-    {
-      "term": "Assume",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 4.57,
-      "word_breakdown": {},
-      "reason": "Retained: Academic Word List (AWL) immunity"
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.58 >= 4.2)"
     },
     {
       "term": "Counter-current",
@@ -695,7 +685,7 @@
         "counter": 4.56,
         "current": 5.27
       },
-      "reason": "Retained: Contains target/rare lexicon 'counter' (Zipf 4.56)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "All roads lead to",
@@ -708,7 +698,7 @@
         "lead": 5.2,
         "to": 7.43
       },
-      "reason": "Retained: Contains target/rare lexicon 'roads' (Zipf 4.55)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
     },
     {
       "term": "On the external front",
@@ -721,7 +711,422 @@
         "external": 4.52,
         "front": 5.28
       },
-      "reason": "Retained: Contains target/rare lexicon 'external' (Zipf 4.52)"
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "duty-bound",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.46,
+      "word_breakdown": {
+        "duty": 4.71,
+        "bound": 4.46
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "accused of",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb phrase (passive)",
+      "effective_score": 4.46,
+      "word_breakdown": {
+        "accused": 4.46,
+        "of": 7.4
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Pointed reference",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.46,
+      "word_breakdown": {
+        "pointed": 4.46,
+        "reference": 4.74
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Alongside",
+      "category": "core_vocab",
+      "part_of_speech": "Preposition",
+      "effective_score": 4.45,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.45 >= 4.2)"
+    },
+    {
+      "term": "in protest against",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Preposition",
+      "effective_score": 4.45,
+      "word_breakdown": {
+        "in": 7.27,
+        "protest": 4.45,
+        "against": 5.68
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Gray zone",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.45,
+      "word_breakdown": {
+        "gray": 4.45,
+        "zone": 4.72
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "out of the woods",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.45,
+      "word_breakdown": {
+        "out": 6.38,
+        "of": 7.4,
+        "the": 7.73,
+        "woods": 4.45
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Cast a shadow over",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 4.44,
+      "word_breakdown": {
+        "cast": 4.79,
+        "shadow": 4.44,
+        "over": 6.08
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Strategic",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.43,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.43 >= 4.2)"
+    },
+    {
+      "term": "pushed towards",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 4.43,
+      "word_breakdown": {
+        "pushed": 4.43,
+        "towards": 5.06
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Bid for",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Noun",
+      "effective_score": 4.4,
+      "word_breakdown": {
+        "bid": 4.4,
+        "for": 7.01
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Thrown up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.4,
+      "word_breakdown": {
+        "thrown": 4.4,
+        "up": 6.39
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "In a bid to",
+      "category": "idioms",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 4.4,
+      "word_breakdown": {
+        "in": 7.27,
+        "bid": 4.4,
+        "to": 7.43
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "progressive",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.34,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.34 >= 4.2)"
+    },
+    {
+      "term": "Close monitoring",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.34,
+      "word_breakdown": {
+        "close": 5.36,
+        "monitoring": 4.34
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Substantial",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.33,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.33 >= 4.2)"
+    },
+    {
+      "term": "implementation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.31,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.31 >= 4.2)"
+    },
+    {
+      "term": "attracted to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.31,
+      "word_breakdown": {
+        "attracted": 4.31,
+        "to": 7.43
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Steady pace",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.31,
+      "word_breakdown": {
+        "steady": 4.31,
+        "pace": 4.38
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Stem from",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 4.3,
+      "word_breakdown": {
+        "stem": 4.3,
+        "from": 6.63
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "collective defence",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.3,
+      "word_breakdown": {
+        "collective": 4.3,
+        "defence": 4.51
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Stocks",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.28,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.28 >= 4.2)"
+    },
+    {
+      "term": "allies",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.27,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.27 >= 4.2)"
+    },
+    {
+      "term": "Healthy clip",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.26,
+      "word_breakdown": {
+        "healthy": 4.8,
+        "clip": 4.26
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Accompanied by",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 4.25,
+      "word_breakdown": {
+        "accompanied": 4.25,
+        "by": 6.66
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Front-loaded",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.25,
+      "word_breakdown": {
+        "front": 5.28,
+        "loaded": 4.25
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Strikes at",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.25,
+      "word_breakdown": {
+        "strikes": 4.25,
+        "at": 6.7
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Trading strikes",
+      "category": "idioms",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 4.25,
+      "word_breakdown": {
+        "trading": 4.63,
+        "strikes": 4.25
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "warrant",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.24,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.24 >= 4.2)"
+    },
+    {
+      "term": "burden",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.23,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.23 >= 4.2)"
+    },
+    {
+      "term": "dominant",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.23,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.23 >= 4.2)"
+    },
+    {
+      "term": "Shed",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.23,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.23 >= 4.2)"
+    },
+    {
+      "term": "Burden of proof",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.23,
+      "word_breakdown": {
+        "burden": 4.23,
+        "of": 7.4,
+        "proof": 4.7
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Bearing",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.22,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.22 >= 4.2)"
+    },
+    {
+      "term": "Competing",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.22,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.22 >= 4.2)"
+    },
+    {
+      "term": "Competing demands",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.22,
+      "word_breakdown": {
+        "competing": 4.22,
+        "demands": 4.41
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "taken into custody",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.22,
+      "word_breakdown": {
+        "taken": 5.33,
+        "into": 6.11,
+        "custody": 4.22
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "Excess",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.21,
+      "word_breakdown": {},
+      "reason": "Eliminated: Elementary frequency floor (Zipf 4.21 >= 4.2)"
+    },
+    {
+      "term": "Vulnerable to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective phrase",
+      "effective_score": 4.21,
+      "word_breakdown": {
+        "vulnerable": 4.21,
+        "to": 7.43
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    },
+    {
+      "term": "stepped in",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.2,
+      "word_breakdown": {
+        "stepped": 4.2,
+        "in": 7.27
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 4.2)"
+    }
+  ],
+  "retained_words": [
+    {
+      "term": "Assume",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.57,
+      "word_breakdown": {},
+      "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "En route to",
@@ -736,154 +1141,12 @@
       "reason": "Retained: Exam-critical category immunity"
     },
     {
-      "term": "duty-bound",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.46,
-      "word_breakdown": {
-        "duty": 4.71,
-        "bound": 4.46
-      },
-      "reason": "Retained: Contains target/rare lexicon 'bound' (Zipf 4.46)"
-    },
-    {
       "term": "transition",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
       "effective_score": 4.46,
       "word_breakdown": {},
       "reason": "Retained: Exam-critical category immunity"
-    },
-    {
-      "term": "accused of",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb phrase (passive)",
-      "effective_score": 4.46,
-      "word_breakdown": {
-        "accused": 4.46,
-        "of": 7.4
-      },
-      "reason": "Retained: Contains target/rare lexicon 'accused' (Zipf 4.46)"
-    },
-    {
-      "term": "Pointed reference",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "effective_score": 4.46,
-      "word_breakdown": {
-        "pointed": 4.46,
-        "reference": 4.74
-      },
-      "reason": "Retained: Contains target/rare lexicon 'pointed' (Zipf 4.46)"
-    },
-    {
-      "term": "Alongside",
-      "category": "core_vocab",
-      "part_of_speech": "Preposition",
-      "effective_score": 4.45,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.45)"
-    },
-    {
-      "term": "in protest against",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Preposition",
-      "effective_score": 4.45,
-      "word_breakdown": {
-        "in": 7.27,
-        "protest": 4.45,
-        "against": 5.68
-      },
-      "reason": "Retained: Contains target/rare lexicon 'protest' (Zipf 4.45)"
-    },
-    {
-      "term": "Gray zone",
-      "category": "idioms",
-      "part_of_speech": "Noun Phrase",
-      "effective_score": 4.45,
-      "word_breakdown": {
-        "gray": 4.45,
-        "zone": 4.72
-      },
-      "reason": "Retained: Contains target/rare lexicon 'gray' (Zipf 4.45)"
-    },
-    {
-      "term": "out of the woods",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "effective_score": 4.45,
-      "word_breakdown": {
-        "out": 6.38,
-        "of": 7.4,
-        "the": 7.73,
-        "woods": 4.45
-      },
-      "reason": "Retained: Contains target/rare lexicon 'woods' (Zipf 4.45)"
-    },
-    {
-      "term": "Cast a shadow over",
-      "category": "idioms",
-      "part_of_speech": "Verb",
-      "effective_score": 4.44,
-      "word_breakdown": {
-        "cast": 4.79,
-        "shadow": 4.44,
-        "over": 6.08
-      },
-      "reason": "Retained: Contains target/rare lexicon 'shadow' (Zipf 4.44)"
-    },
-    {
-      "term": "Strategic",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.43,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.43)"
-    },
-    {
-      "term": "pushed towards",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal Verb",
-      "effective_score": 4.43,
-      "word_breakdown": {
-        "pushed": 4.43,
-        "towards": 5.06
-      },
-      "reason": "Retained: Contains target/rare lexicon 'pushed' (Zipf 4.43)"
-    },
-    {
-      "term": "Bid for",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Noun",
-      "effective_score": 4.4,
-      "word_breakdown": {
-        "bid": 4.4,
-        "for": 7.01
-      },
-      "reason": "Retained: Contains target/rare lexicon 'bid' (Zipf 4.4)"
-    },
-    {
-      "term": "Thrown up",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "effective_score": 4.4,
-      "word_breakdown": {
-        "thrown": 4.4,
-        "up": 6.39
-      },
-      "reason": "Retained: Contains target/rare lexicon 'thrown' (Zipf 4.4)"
-    },
-    {
-      "term": "In a bid to",
-      "category": "idioms",
-      "part_of_speech": "Prepositional Phrase",
-      "effective_score": 4.4,
-      "word_breakdown": {
-        "in": 7.27,
-        "bid": 4.4,
-        "to": 7.43
-      },
-      "reason": "Retained: Contains target/rare lexicon 'bid' (Zipf 4.4)"
     },
     {
       "term": "Subsequent",
@@ -903,269 +1166,6 @@
         "profits": 4.36
       },
       "reason": "Retained: Exam-critical category immunity"
-    },
-    {
-      "term": "progressive",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.34,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.34)"
-    },
-    {
-      "term": "Close monitoring",
-      "category": "idioms",
-      "part_of_speech": "Noun Phrase",
-      "effective_score": 4.34,
-      "word_breakdown": {
-        "close": 5.36,
-        "monitoring": 4.34
-      },
-      "reason": "Retained: Contains target/rare lexicon 'monitoring' (Zipf 4.34)"
-    },
-    {
-      "term": "Substantial",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.33,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.33)"
-    },
-    {
-      "term": "implementation",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.31,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.31)"
-    },
-    {
-      "term": "attracted to",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.31,
-      "word_breakdown": {
-        "attracted": 4.31,
-        "to": 7.43
-      },
-      "reason": "Retained: Contains target/rare lexicon 'attracted' (Zipf 4.31)"
-    },
-    {
-      "term": "Steady pace",
-      "category": "idioms",
-      "part_of_speech": "Noun Phrase",
-      "effective_score": 4.31,
-      "word_breakdown": {
-        "steady": 4.31,
-        "pace": 4.38
-      },
-      "reason": "Retained: Contains target/rare lexicon 'steady' (Zipf 4.31)"
-    },
-    {
-      "term": "Stem from",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Phrasal Verb",
-      "effective_score": 4.3,
-      "word_breakdown": {
-        "stem": 4.3,
-        "from": 6.63
-      },
-      "reason": "Retained: Contains target/rare lexicon 'stem' (Zipf 4.3)"
-    },
-    {
-      "term": "collective defence",
-      "category": "idioms",
-      "part_of_speech": "Noun",
-      "effective_score": 4.3,
-      "word_breakdown": {
-        "collective": 4.3,
-        "defence": 4.51
-      },
-      "reason": "Retained: Contains target/rare lexicon 'collective' (Zipf 4.3)"
-    },
-    {
-      "term": "Stocks",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.28,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.28)"
-    },
-    {
-      "term": "allies",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.27,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.27)"
-    },
-    {
-      "term": "Healthy clip",
-      "category": "idioms",
-      "part_of_speech": "Noun Phrase",
-      "effective_score": 4.26,
-      "word_breakdown": {
-        "healthy": 4.8,
-        "clip": 4.26
-      },
-      "reason": "Retained: Contains target/rare lexicon 'clip' (Zipf 4.26)"
-    },
-    {
-      "term": "Accompanied by",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb",
-      "effective_score": 4.25,
-      "word_breakdown": {
-        "accompanied": 4.25,
-        "by": 6.66
-      },
-      "reason": "Retained: Contains target/rare lexicon 'accompanied' (Zipf 4.25)"
-    },
-    {
-      "term": "Front-loaded",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "effective_score": 4.25,
-      "word_breakdown": {
-        "front": 5.28,
-        "loaded": 4.25
-      },
-      "reason": "Retained: Contains target/rare lexicon 'loaded' (Zipf 4.25)"
-    },
-    {
-      "term": "Strikes at",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "effective_score": 4.25,
-      "word_breakdown": {
-        "strikes": 4.25,
-        "at": 6.7
-      },
-      "reason": "Retained: Contains target/rare lexicon 'strikes' (Zipf 4.25)"
-    },
-    {
-      "term": "Trading strikes",
-      "category": "idioms",
-      "part_of_speech": "Verb Phrase",
-      "effective_score": 4.25,
-      "word_breakdown": {
-        "trading": 4.63,
-        "strikes": 4.25
-      },
-      "reason": "Retained: Contains target/rare lexicon 'strikes' (Zipf 4.25)"
-    },
-    {
-      "term": "warrant",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 4.24,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.24)"
-    },
-    {
-      "term": "burden",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.23,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.23)"
-    },
-    {
-      "term": "dominant",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.23,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.23)"
-    },
-    {
-      "term": "Shed",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 4.23,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.23)"
-    },
-    {
-      "term": "Burden of proof",
-      "category": "idioms",
-      "part_of_speech": "Noun",
-      "effective_score": 4.23,
-      "word_breakdown": {
-        "burden": 4.23,
-        "of": 7.4,
-        "proof": 4.7
-      },
-      "reason": "Retained: Contains target/rare lexicon 'burden' (Zipf 4.23)"
-    },
-    {
-      "term": "Bearing",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 4.22,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.22)"
-    },
-    {
-      "term": "Competing",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.22,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.22)"
-    },
-    {
-      "term": "Competing demands",
-      "category": "idioms",
-      "part_of_speech": "Noun Phrase",
-      "effective_score": 4.22,
-      "word_breakdown": {
-        "competing": 4.22,
-        "demands": 4.41
-      },
-      "reason": "Retained: Contains target/rare lexicon 'competing' (Zipf 4.22)"
-    },
-    {
-      "term": "taken into custody",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "effective_score": 4.22,
-      "word_breakdown": {
-        "taken": 5.33,
-        "into": 6.11,
-        "custody": 4.22
-      },
-      "reason": "Retained: Contains target/rare lexicon 'custody' (Zipf 4.22)"
-    },
-    {
-      "term": "Excess",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.21,
-      "word_breakdown": {},
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.21)"
-    },
-    {
-      "term": "Vulnerable to",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Adjective phrase",
-      "effective_score": 4.21,
-      "word_breakdown": {
-        "vulnerable": 4.21,
-        "to": 7.43
-      },
-      "reason": "Retained: Contains target/rare lexicon 'vulnerable' (Zipf 4.21)"
-    },
-    {
-      "term": "stepped in",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "effective_score": 4.2,
-      "word_breakdown": {
-        "stepped": 4.2,
-        "in": 7.27
-      },
-      "reason": "Retained: Contains target/rare lexicon 'stepped' (Zipf 4.2)"
     },
     {
       "term": "Sustainable",

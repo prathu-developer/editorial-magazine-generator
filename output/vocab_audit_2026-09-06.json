@@ -1,3500 +1,4589 @@
 {
   "metadata": {
-    "generated_at": "2026-09-06T07:01:18.671379+00:00",
+    "generated_at": "2026-09-06T07:15:01.128017+00:00",
     "total_original": 498,
-    "total_retained": 463,
-    "total_eliminated": 35,
-    "elementary_threshold": 5.2,
-    "sorting_order": "Decreasing by zipf_score (easiest/most common to rarest)"
+    "total_retained": 462,
+    "total_eliminated": 36,
+    "elementary_threshold": 5.0,
+    "sorting_order": "Decreasing by effective_score (easiest/most common to rarest)"
   },
   "eliminated_words": [
     {
       "term": "All-out",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 6.14,
-      "reason": "Eliminated: Elementary frequency floor (Zipf 6.14 >= 5.2)"
+      "effective_score": 6.38,
+      "word_breakdown": {
+        "all": 6.52,
+        "out": 6.38
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "Going after",
+      "term": "out to",
       "category": "phrasal_verbs",
-      "part_of_speech": "Verb (Present Participle)",
-      "zipf_score": 5.72,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
+      "part_of_speech": "Adjective",
+      "effective_score": 6.38,
+      "word_breakdown": {
+        "out": 6.38,
+        "to": 7.43
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
       "term": "Would do well to",
       "category": "idioms",
       "part_of_speech": "Idiom",
-      "zipf_score": 5.71,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Set to",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Adjective phrase",
-      "zipf_score": 5.58,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Due to",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Preposition",
-      "zipf_score": 5.35,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "on account of",
-      "category": "idioms",
-      "part_of_speech": "Preposition",
-      "zipf_score": 5.2,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Takes over",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 5.13,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "By itself",
-      "category": "idioms",
-      "part_of_speech": "Adverb",
-      "zipf_score": 5.09,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "attack on",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Noun",
-      "zipf_score": 5.08,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "cool down",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 5.08,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Turned out",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 5.07,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Near-term",
-      "category": "idioms",
-      "part_of_speech": "Adjective",
-      "zipf_score": 4.96,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Under pressure",
-      "category": "idioms",
-      "part_of_speech": "Prepositional Phrase",
-      "zipf_score": 4.93,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Associated with",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Adjective",
-      "zipf_score": 4.89,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "With due respect",
-      "category": "idioms",
-      "part_of_speech": "Adverb",
-      "zipf_score": 4.86,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "acting on",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.82,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "moving towards",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal Verb",
-      "zipf_score": 4.74,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Step in that direction",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 4.71,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Easier said than done",
-      "category": "idioms",
-      "part_of_speech": "Adjective Phrase",
-      "zipf_score": 4.66,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "responsibility towards",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Phrase",
-      "zipf_score": 4.58,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "On the external front",
-      "category": "idioms",
-      "part_of_speech": "Prepositional Phrase",
-      "zipf_score": 4.45,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "in protest against",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Preposition",
-      "zipf_score": 4.42,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "attracted to",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Adjective",
-      "zipf_score": 4.31,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Close monitoring",
-      "category": "idioms",
-      "part_of_speech": "Noun Phrase",
-      "zipf_score": 4.3,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Accompanied by",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.25,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "taken into custody",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 4.18,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Imposed by",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.16,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Perceived as",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.16,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Steady pace",
-      "category": "idioms",
-      "part_of_speech": "Noun Phrase",
-      "zipf_score": 4.04,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Opt for",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal Verb",
-      "zipf_score": 3.9,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "opt out of",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal Verb",
-      "zipf_score": 3.9,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "wiped out",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal Verb",
-      "zipf_score": 3.86,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Confined to",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb",
-      "zipf_score": 3.82,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Exceeded expectations",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 3.68,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    },
-    {
-      "term": "Piling up",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 3.3,
-      "reason": "Eliminated: Transparent non-idiomatic phrase"
-    }
-  ],
-  "retained_words": [
-    {
-      "term": "out to",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Adjective",
-      "zipf_score": 6.34,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Going by",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal Verb",
-      "zipf_score": 5.86,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 6.03,
+      "word_breakdown": {
+        "would": 6.27,
+        "do": 6.35,
+        "well": 6.03,
+        "to": 7.43
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
       "term": "A way out",
       "category": "idioms",
       "part_of_speech": "Noun Phrase",
-      "zipf_score": 5.84,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 6.01,
+      "word_breakdown": {
+        "way": 6.01,
+        "out": 6.38
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "left out of",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 5.54,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Set out",
+      "term": "Going after",
       "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 5.53,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "part_of_speech": "Verb (Present Participle)",
+      "effective_score": 5.94,
+      "word_breakdown": {
+        "going": 5.94,
+        "after": 6.11
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "Tell from",
+      "term": "Going by",
       "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 5.5,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 5.94,
+      "word_breakdown": {
+        "going": 5.94,
+        "by": 6.66
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
       "term": "Down Under",
       "category": "idioms",
       "part_of_speech": "Adverb",
-      "zipf_score": 5.5,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 5.73,
+      "word_breakdown": {
+        "down": 5.88,
+        "under": 5.73
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "left out of",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 5.62,
+      "word_breakdown": {
+        "left": 5.62,
+        "out": 6.38,
+        "of": 7.4
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "Set out",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.59,
+      "word_breakdown": {
+        "set": 5.59,
+        "out": 6.38
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "Set to",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Adjective phrase",
+      "effective_score": 5.59,
+      "word_breakdown": {
+        "set": 5.59,
+        "to": 7.43
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "Tell from",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.53,
+      "word_breakdown": {
+        "tell": 5.53,
+        "from": 6.63
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
       "term": "Call on",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 5.49,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 5.51,
+      "word_breakdown": {
+        "call": 5.51,
+        "on": 6.91
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
       "term": "Lost on",
       "category": "idioms",
       "part_of_speech": "Phrasal Adjective",
-      "zipf_score": 5.38,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 5.39,
+      "word_breakdown": {
+        "lost": 5.39,
+        "on": 6.91
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "Due to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Preposition",
+      "effective_score": 5.35,
+      "word_breakdown": {
+        "due": 5.35,
+        "to": 7.43
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
       "term": "Leave out",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 5.3,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "bring about",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 5.24,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "played out",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 5.2,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 5.34,
+      "word_breakdown": {
+        "leave": 5.34,
+        "out": 6.38
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
       "term": "Under the watch of",
       "category": "idioms",
       "part_of_speech": "Preposition",
-      "zipf_score": 5.19,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 5.34,
+      "word_breakdown": {
+        "under": 5.73,
+        "the": 7.73,
+        "watch": 5.34,
+        "of": 7.4
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "Stand-off",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "zipf_score": 5.08,
-      "reason": "Retained: High-yield target vocabulary (Zipf 5.08)"
+      "term": "bring about",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.27,
+      "word_breakdown": {
+        "bring": 5.27,
+        "about": 6.4
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "In the dark",
+      "term": "played out",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.23,
+      "word_breakdown": {
+        "played": 5.23,
+        "out": 6.38
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "Near-term",
       "category": "idioms",
-      "part_of_speech": "Adverb",
-      "zipf_score": 5.04,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "in effect",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 5.02,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Back to the table",
-      "category": "idioms",
-      "part_of_speech": "Prepositional Phrase",
-      "zipf_score": 5.0,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Evidence-based",
-      "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.99,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.99)"
+      "effective_score": 5.23,
+      "word_breakdown": {
+        "near": 5.29,
+        "term": 5.23
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "called upon",
+      "term": "on account of",
+      "category": "idioms",
+      "part_of_speech": "Preposition",
+      "effective_score": 5.21,
+      "word_breakdown": {
+        "on": 6.91,
+        "account": 5.21,
+        "of": 7.4
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "Takes over",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 4.99,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 5.18,
+      "word_breakdown": {
+        "takes": 5.18,
+        "over": 6.08
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "leading up to",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal verb",
-      "zipf_score": 4.98,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Calling on",
+      "term": "cool down",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 4.96,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Holding up",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb Phrase",
-      "zipf_score": 4.88,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "peter out",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.87,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 5.15,
+      "word_breakdown": {
+        "cool": 5.15,
+        "down": 5.88
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
       "term": "Middle ground",
       "category": "idioms",
       "part_of_speech": "Noun Phrase",
-      "zipf_score": 4.86,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 5.15,
+      "word_breakdown": {
+        "middle": 5.18,
+        "ground": 5.15
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "Surface",
+      "term": "Evidence-based",
       "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.83,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.83)"
+      "part_of_speech": "Adjective",
+      "effective_score": 5.14,
+      "word_breakdown": {
+        "evidence": 5.14,
+        "based": 5.51
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "Put her on trial",
-      "category": "idioms",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.79,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "term": "Stand-off",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 5.14,
+      "word_breakdown": {
+        "stand": 5.14,
+        "off": 5.93
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "Open to challenge",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 4.78,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Carry forward",
+      "term": "called upon",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 4.69,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 5.12,
+      "word_breakdown": {
+        "called": 5.59,
+        "upon": 5.12
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "crowd out",
+      "term": "By itself",
+      "category": "idioms",
+      "part_of_speech": "Adverb",
+      "effective_score": 5.1,
+      "word_breakdown": {
+        "by": 6.66,
+        "itself": 5.1
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "attack on",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Noun",
+      "effective_score": 5.09,
+      "word_breakdown": {
+        "attack": 5.09,
+        "on": 6.91
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "Turned out",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.09,
+      "word_breakdown": {
+        "turned": 5.09,
+        "out": 6.38
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "Back to the table",
+      "category": "idioms",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 5.05,
+      "word_breakdown": {
+        "back": 6.04,
+        "to": 7.43,
+        "the": 7.73,
+        "table": 5.05
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "In the dark",
+      "category": "idioms",
+      "part_of_speech": "Adverb",
+      "effective_score": 5.04,
+      "word_breakdown": {
+        "in": 7.27,
+        "the": 7.73,
+        "dark": 5.04
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "With due respect",
+      "category": "idioms",
+      "part_of_speech": "Adverb",
+      "effective_score": 5.03,
+      "word_breakdown": {
+        "with": 6.85,
+        "due": 5.35,
+        "respect": 5.03
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    },
+    {
+      "term": "moving towards",
       "category": "phrasal_verbs",
       "part_of_speech": "Phrasal Verb",
-      "zipf_score": 4.69,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 5.02,
+      "word_breakdown": {
+        "moving": 5.02,
+        "towards": 5.06
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "powers that be",
+      "term": "in effect",
       "category": "idioms",
       "part_of_speech": "Phrase",
-      "zipf_score": 4.69,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 5.02,
+      "word_breakdown": {
+        "in": 7.27,
+        "effect": 5.02
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "guard against",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.68,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "term": "Under pressure",
+      "category": "idioms",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 5.01,
+      "word_breakdown": {
+        "under": 5.73,
+        "pressure": 5.01
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
     },
     {
-      "term": "factor in",
+      "term": "leading up to",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal verb",
+      "effective_score": 5.0,
+      "word_breakdown": {
+        "leading": 5.0,
+        "up": 6.39,
+        "to": 7.43
+      },
+      "reason": "Eliminated: Trivial phrase (all words elementary, Zipf >= 5.0)"
+    }
+  ],
+  "retained_words": [
+    {
+      "term": "Calling on",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 4.67,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.96,
+      "word_breakdown": {
+        "calling": 4.96,
+        "on": 6.91
+      },
+      "reason": "Retained: Contains target/rare lexicon 'calling' (Zipf 4.96)"
     },
     {
-      "term": "Pulled up",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.66,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "term": "Step in that direction",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.93,
+      "word_breakdown": {
+        "step": 5.13,
+        "in": 7.27,
+        "that": 7.01,
+        "direction": 4.93
+      },
+      "reason": "Retained: Contains target/rare lexicon 'direction' (Zipf 4.93)"
     },
     {
       "term": "Place greater weight on",
       "category": "idioms",
       "part_of_speech": "Phrase",
-      "zipf_score": 4.62,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.9,
+      "word_breakdown": {
+        "place": 5.71,
+        "greater": 4.9,
+        "weight": 5.02,
+        "on": 6.91
+      },
+      "reason": "Retained: Contains target/rare lexicon 'greater' (Zipf 4.9)"
+    },
+    {
+      "term": "Associated with",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.89,
+      "word_breakdown": {
+        "associated": 4.89,
+        "with": 6.85
+      },
+      "reason": "Retained: Contains target/rare lexicon 'associated' (Zipf 4.89)"
+    },
+    {
+      "term": "Carry forward",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.89,
+      "word_breakdown": {
+        "carry": 4.89,
+        "forward": 5.12
+      },
+      "reason": "Retained: Contains target/rare lexicon 'carry' (Zipf 4.89)"
+    },
+    {
+      "term": "Holding up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 4.89,
+      "word_breakdown": {
+        "holding": 4.89,
+        "up": 6.39
+      },
+      "reason": "Retained: Contains target/rare lexicon 'holding' (Zipf 4.89)"
+    },
+    {
+      "term": "peter out",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.88,
+      "word_breakdown": {
+        "peter": 4.88,
+        "out": 6.38
+      },
+      "reason": "Retained: Contains target/rare lexicon 'peter' (Zipf 4.88)"
+    },
+    {
+      "term": "Open to challenge",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.88,
+      "word_breakdown": {
+        "open": 5.48,
+        "to": 7.43,
+        "challenge": 4.88
+      },
+      "reason": "Retained: Contains target/rare lexicon 'challenge' (Zipf 4.88)"
+    },
+    {
+      "term": "Put her on trial",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 4.87,
+      "word_breakdown": {
+        "put": 5.66,
+        "her": 6.3,
+        "on": 6.91,
+        "trial": 4.87
+      },
+      "reason": "Retained: Contains target/rare lexicon 'trial' (Zipf 4.87)"
+    },
+    {
+      "term": "Surface",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.83,
+      "word_breakdown": {},
+      "reason": "Retained: High-yield target vocabulary (Zipf 4.83)"
+    },
+    {
+      "term": "acting on",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 4.82,
+      "word_breakdown": {
+        "acting": 4.82,
+        "on": 6.91
+      },
+      "reason": "Retained: Contains target/rare lexicon 'acting' (Zipf 4.82)"
+    },
+    {
+      "term": "Benefit of every doubt",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.82,
+      "word_breakdown": {
+        "benefit": 4.82,
+        "of": 7.4,
+        "every": 5.79,
+        "doubt": 4.9
+      },
+      "reason": "Retained: Contains target/rare lexicon 'benefit' (Zipf 4.82)"
+    },
+    {
+      "term": "Easier said than done",
+      "category": "idioms",
+      "part_of_speech": "Adjective Phrase",
+      "effective_score": 4.76,
+      "word_breakdown": {
+        "easier": 4.76,
+        "said": 6.01,
+        "than": 6.13,
+        "done": 5.58
+      },
+      "reason": "Retained: Contains target/rare lexicon 'easier' (Zipf 4.76)"
+    },
+    {
+      "term": "responsibility towards",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.75,
+      "word_breakdown": {
+        "responsibility": 4.75,
+        "towards": 5.06
+      },
+      "reason": "Retained: Contains target/rare lexicon 'responsibility' (Zipf 4.75)"
+    },
+    {
+      "term": "guard against",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.73,
+      "word_breakdown": {
+        "guard": 4.73,
+        "against": 5.68
+      },
+      "reason": "Retained: Contains target/rare lexicon 'guard' (Zipf 4.73)"
     },
     {
       "term": "Capacity-building",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.61,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.61)"
+      "effective_score": 4.71,
+      "word_breakdown": {
+        "capacity": 4.71,
+        "building": 5.29
+      },
+      "reason": "Retained: Contains target/rare lexicon 'capacity' (Zipf 4.71)"
+    },
+    {
+      "term": "crowd out",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 4.7,
+      "word_breakdown": {
+        "crowd": 4.7,
+        "out": 6.38
+      },
+      "reason": "Retained: Contains target/rare lexicon 'crowd' (Zipf 4.7)"
+    },
+    {
+      "term": "powers that be",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.7,
+      "word_breakdown": {
+        "powers": 4.7,
+        "that": 7.01,
+        "be": 6.79
+      },
+      "reason": "Retained: Contains target/rare lexicon 'powers' (Zipf 4.7)"
+    },
+    {
+      "term": "factor in",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.67,
+      "word_breakdown": {
+        "factor": 4.67,
+        "in": 7.27
+      },
+      "reason": "Retained: Contains target/rare lexicon 'factor' (Zipf 4.67)"
+    },
+    {
+      "term": "Pulled up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.67,
+      "word_breakdown": {
+        "pulled": 4.67,
+        "up": 6.39
+      },
+      "reason": "Retained: Contains target/rare lexicon 'pulled' (Zipf 4.67)"
+    },
+    {
+      "term": "break relations with",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 4.67,
+      "word_breakdown": {
+        "break": 5.18,
+        "relations": 4.67,
+        "with": 6.85
+      },
+      "reason": "Retained: Contains target/rare lexicon 'relations' (Zipf 4.67)"
+    },
+    {
+      "term": "Holds no weight",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.6,
+      "word_breakdown": {
+        "holds": 4.6,
+        "no": 6.35,
+        "weight": 5.02
+      },
+      "reason": "Retained: Contains target/rare lexicon 'holds' (Zipf 4.6)"
     },
     {
       "term": "dedicated",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.58,
+      "effective_score": 4.58,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.58)"
     },
     {
       "term": "Assume",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 4.57,
+      "effective_score": 4.57,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
-    },
-    {
-      "term": "break relations with",
-      "category": "idioms",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.55,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Benefit of every doubt",
-      "category": "idioms",
-      "part_of_speech": "Noun",
-      "zipf_score": 4.53,
-      "reason": "Retained: Multi-word idiomatic expression"
     },
     {
       "term": "Counter-current",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.48,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.48)"
-    },
-    {
-      "term": "transition",
-      "category": "one_word_subs",
-      "part_of_speech": "Noun",
-      "zipf_score": 4.46,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
-    },
-    {
-      "term": "accused of",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb phrase (passive)",
-      "zipf_score": 4.46,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.46)"
+      "effective_score": 4.56,
+      "word_breakdown": {
+        "counter": 4.56,
+        "current": 5.27
+      },
+      "reason": "Retained: Contains target/rare lexicon 'counter' (Zipf 4.56)"
     },
     {
       "term": "All roads lead to",
       "category": "idioms",
       "part_of_speech": "Verb Phrase",
-      "zipf_score": 4.46,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.55,
+      "word_breakdown": {
+        "all": 6.52,
+        "roads": 4.55,
+        "lead": 5.2,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'roads' (Zipf 4.55)"
+    },
+    {
+      "term": "On the external front",
+      "category": "idioms",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 4.52,
+      "word_breakdown": {
+        "on": 6.91,
+        "the": 7.73,
+        "external": 4.52,
+        "front": 5.28
+      },
+      "reason": "Retained: Contains target/rare lexicon 'external' (Zipf 4.52)"
+    },
+    {
+      "term": "En route to",
+      "category": "foreign_words",
+      "part_of_speech": "Prepositional phrase",
+      "effective_score": 4.5,
+      "word_breakdown": {
+        "en": 4.5,
+        "route": 4.67,
+        "to": 7.43
+      },
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "duty-bound",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.46,
+      "word_breakdown": {
+        "duty": 4.71,
+        "bound": 4.46
+      },
+      "reason": "Retained: Contains target/rare lexicon 'bound' (Zipf 4.46)"
+    },
+    {
+      "term": "transition",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.46,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "accused of",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb phrase (passive)",
+      "effective_score": 4.46,
+      "word_breakdown": {
+        "accused": 4.46,
+        "of": 7.4
+      },
+      "reason": "Retained: Contains target/rare lexicon 'accused' (Zipf 4.46)"
+    },
+    {
+      "term": "Pointed reference",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.46,
+      "word_breakdown": {
+        "pointed": 4.46,
+        "reference": 4.74
+      },
+      "reason": "Retained: Contains target/rare lexicon 'pointed' (Zipf 4.46)"
     },
     {
       "term": "Alongside",
       "category": "core_vocab",
       "part_of_speech": "Preposition",
-      "zipf_score": 4.45,
+      "effective_score": 4.45,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.45)"
     },
     {
-      "term": "Holds no weight",
+      "term": "in protest against",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Preposition",
+      "effective_score": 4.45,
+      "word_breakdown": {
+        "in": 7.27,
+        "protest": 4.45,
+        "against": 5.68
+      },
+      "reason": "Retained: Contains target/rare lexicon 'protest' (Zipf 4.45)"
+    },
+    {
+      "term": "Gray zone",
       "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 4.45,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.45,
+      "word_breakdown": {
+        "gray": 4.45,
+        "zone": 4.72
+      },
+      "reason": "Retained: Contains target/rare lexicon 'gray' (Zipf 4.45)"
     },
     {
       "term": "out of the woods",
       "category": "idioms",
       "part_of_speech": "Phrase",
-      "zipf_score": 4.44,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.45,
+      "word_breakdown": {
+        "out": 6.38,
+        "of": 7.4,
+        "the": 7.73,
+        "woods": 4.45
+      },
+      "reason": "Retained: Contains target/rare lexicon 'woods' (Zipf 4.45)"
+    },
+    {
+      "term": "Cast a shadow over",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 4.44,
+      "word_breakdown": {
+        "cast": 4.79,
+        "shadow": 4.44,
+        "over": 6.08
+      },
+      "reason": "Retained: Contains target/rare lexicon 'shadow' (Zipf 4.44)"
     },
     {
       "term": "Strategic",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.43,
+      "effective_score": 4.43,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.43)"
-    },
-    {
-      "term": "Bid for",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Noun",
-      "zipf_score": 4.4,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.4)"
-    },
-    {
-      "term": "Thrown up",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.4,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "In a bid to",
-      "category": "idioms",
-      "part_of_speech": "Prepositional Phrase",
-      "zipf_score": 4.4,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Subsequent",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "zipf_score": 4.39,
-      "reason": "Retained: Academic Word List (AWL) immunity"
-    },
-    {
-      "term": "progressive",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "zipf_score": 4.34,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.34)"
     },
     {
       "term": "pushed towards",
       "category": "phrasal_verbs",
       "part_of_speech": "Phrasal Verb",
-      "zipf_score": 4.34,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.43,
+      "word_breakdown": {
+        "pushed": 4.43,
+        "towards": 5.06
+      },
+      "reason": "Retained: Contains target/rare lexicon 'pushed' (Zipf 4.43)"
+    },
+    {
+      "term": "Bid for",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Noun",
+      "effective_score": 4.4,
+      "word_breakdown": {
+        "bid": 4.4,
+        "for": 7.01
+      },
+      "reason": "Retained: Contains target/rare lexicon 'bid' (Zipf 4.4)"
+    },
+    {
+      "term": "Thrown up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.4,
+      "word_breakdown": {
+        "thrown": 4.4,
+        "up": 6.39
+      },
+      "reason": "Retained: Contains target/rare lexicon 'thrown' (Zipf 4.4)"
+    },
+    {
+      "term": "In a bid to",
+      "category": "idioms",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 4.4,
+      "word_breakdown": {
+        "in": 7.27,
+        "bid": 4.4,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'bid' (Zipf 4.4)"
+    },
+    {
+      "term": "Subsequent",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.39,
+      "word_breakdown": {},
+      "reason": "Retained: Academic Word List (AWL) immunity"
+    },
+    {
+      "term": "Operating profits",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.36,
+      "word_breakdown": {
+        "operating": 4.75,
+        "profits": 4.36
+      },
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "progressive",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.34,
+      "word_breakdown": {},
+      "reason": "Retained: High-yield target vocabulary (Zipf 4.34)"
+    },
+    {
+      "term": "Close monitoring",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.34,
+      "word_breakdown": {
+        "close": 5.36,
+        "monitoring": 4.34
+      },
+      "reason": "Retained: Contains target/rare lexicon 'monitoring' (Zipf 4.34)"
     },
     {
       "term": "Substantial",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.33,
+      "effective_score": 4.33,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.33)"
     },
     {
       "term": "implementation",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.31,
+      "effective_score": 4.31,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.31)"
+    },
+    {
+      "term": "attracted to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.31,
+      "word_breakdown": {
+        "attracted": 4.31,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'attracted' (Zipf 4.31)"
+    },
+    {
+      "term": "Steady pace",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.31,
+      "word_breakdown": {
+        "steady": 4.31,
+        "pace": 4.38
+      },
+      "reason": "Retained: Contains target/rare lexicon 'steady' (Zipf 4.31)"
     },
     {
       "term": "Stem from",
       "category": "fixed_prepositions",
       "part_of_speech": "Phrasal Verb",
-      "zipf_score": 4.3,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.3)"
+      "effective_score": 4.3,
+      "word_breakdown": {
+        "stem": 4.3,
+        "from": 6.63
+      },
+      "reason": "Retained: Contains target/rare lexicon 'stem' (Zipf 4.3)"
+    },
+    {
+      "term": "collective defence",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.3,
+      "word_breakdown": {
+        "collective": 4.3,
+        "defence": 4.51
+      },
+      "reason": "Retained: Contains target/rare lexicon 'collective' (Zipf 4.3)"
     },
     {
       "term": "Stocks",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.28,
+      "effective_score": 4.28,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.28)"
-    },
-    {
-      "term": "Pointed reference",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 4.28,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "En route to",
-      "category": "foreign_words",
-      "part_of_speech": "Prepositional phrase",
-      "zipf_score": 4.28,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
     },
     {
       "term": "allies",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.27,
+      "effective_score": 4.27,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.27)"
     },
     {
-      "term": "duty-bound",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "zipf_score": 4.27,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.27)"
-    },
-    {
-      "term": "Cast a shadow over",
-      "category": "idioms",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.27,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Gray zone",
+      "term": "Healthy clip",
       "category": "idioms",
       "part_of_speech": "Noun Phrase",
-      "zipf_score": 4.26,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.26,
+      "word_breakdown": {
+        "healthy": 4.8,
+        "clip": 4.26
+      },
+      "reason": "Retained: Contains target/rare lexicon 'clip' (Zipf 4.26)"
+    },
+    {
+      "term": "Accompanied by",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 4.25,
+      "word_breakdown": {
+        "accompanied": 4.25,
+        "by": 6.66
+      },
+      "reason": "Retained: Contains target/rare lexicon 'accompanied' (Zipf 4.25)"
+    },
+    {
+      "term": "Front-loaded",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.25,
+      "word_breakdown": {
+        "front": 5.28,
+        "loaded": 4.25
+      },
+      "reason": "Retained: Contains target/rare lexicon 'loaded' (Zipf 4.25)"
     },
     {
       "term": "Strikes at",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 4.25,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.25,
+      "word_breakdown": {
+        "strikes": 4.25,
+        "at": 6.7
+      },
+      "reason": "Retained: Contains target/rare lexicon 'strikes' (Zipf 4.25)"
+    },
+    {
+      "term": "Trading strikes",
+      "category": "idioms",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 4.25,
+      "word_breakdown": {
+        "trading": 4.63,
+        "strikes": 4.25
+      },
+      "reason": "Retained: Contains target/rare lexicon 'strikes' (Zipf 4.25)"
     },
     {
       "term": "warrant",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 4.24,
+      "effective_score": 4.24,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.24)"
     },
     {
       "term": "burden",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.23,
+      "effective_score": 4.23,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.23)"
     },
     {
       "term": "dominant",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.23,
+      "effective_score": 4.23,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.23)"
     },
     {
       "term": "Shed",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 4.23,
+      "effective_score": 4.23,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.23)"
+    },
+    {
+      "term": "Burden of proof",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.23,
+      "word_breakdown": {
+        "burden": 4.23,
+        "of": 7.4,
+        "proof": 4.7
+      },
+      "reason": "Retained: Contains target/rare lexicon 'burden' (Zipf 4.23)"
     },
     {
       "term": "Bearing",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 4.22,
+      "effective_score": 4.22,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.22)"
     },
     {
       "term": "Competing",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.22,
+      "effective_score": 4.22,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.22)"
+    },
+    {
+      "term": "Competing demands",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.22,
+      "word_breakdown": {
+        "competing": 4.22,
+        "demands": 4.41
+      },
+      "reason": "Retained: Contains target/rare lexicon 'competing' (Zipf 4.22)"
+    },
+    {
+      "term": "taken into custody",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.22,
+      "word_breakdown": {
+        "taken": 5.33,
+        "into": 6.11,
+        "custody": 4.22
+      },
+      "reason": "Retained: Contains target/rare lexicon 'custody' (Zipf 4.22)"
     },
     {
       "term": "Excess",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.21,
+      "effective_score": 4.21,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.21)"
-    },
-    {
-      "term": "Operating profits",
-      "category": "one_word_subs",
-      "part_of_speech": "Noun",
-      "zipf_score": 4.21,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
     },
     {
       "term": "Vulnerable to",
       "category": "fixed_prepositions",
       "part_of_speech": "Adjective phrase",
-      "zipf_score": 4.21,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.21)"
-    },
-    {
-      "term": "Front-loaded",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 4.21,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.21)"
+      "effective_score": 4.21,
+      "word_breakdown": {
+        "vulnerable": 4.21,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'vulnerable' (Zipf 4.21)"
     },
     {
       "term": "stepped in",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 4.2,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.2,
+      "word_breakdown": {
+        "stepped": 4.2,
+        "in": 7.27
+      },
+      "reason": "Retained: Contains target/rare lexicon 'stepped' (Zipf 4.2)"
     },
     {
       "term": "Sustainable",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.19,
+      "effective_score": 4.19,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.19)"
     },
     {
       "term": "Widespread",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.19,
+      "effective_score": 4.19,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "Compound",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 4.18,
+      "effective_score": 4.18,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "Perception",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.18,
+      "effective_score": 4.18,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.18)"
     },
     {
       "term": "consecutive",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.18,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 4.18,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Underlying",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.17,
+      "effective_score": 4.17,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.17)"
-    },
-    {
-      "term": "Resolve",
-      "category": "one_word_subs",
-      "part_of_speech": "Noun",
-      "zipf_score": 4.17,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
-    },
-    {
-      "term": "admission",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "zipf_score": 4.15,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.15)"
-    },
-    {
-      "term": "Healthy clip",
-      "category": "idioms",
-      "part_of_speech": "Noun Phrase",
-      "zipf_score": 4.15,
-      "reason": "Retained: Multi-word idiomatic expression"
     },
     {
       "term": "Non-compliance",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 4.14,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 4.17,
+      "word_breakdown": {
+        "non": 5.29,
+        "compliance": 4.17
+      },
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "Resolve",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.17,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "Imposed by",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 4.16,
+      "word_breakdown": {
+        "imposed": 4.16,
+        "by": 6.66
+      },
+      "reason": "Retained: Contains target/rare lexicon 'imposed' (Zipf 4.16)"
+    },
+    {
+      "term": "Perceived as",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 4.16,
+      "word_breakdown": {
+        "perceived": 4.16,
+        "as": 6.77
+      },
+      "reason": "Retained: Contains target/rare lexicon 'perceived' (Zipf 4.16)"
+    },
+    {
+      "term": "admission",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.15,
+      "word_breakdown": {},
+      "reason": "Retained: High-yield target vocabulary (Zipf 4.15)"
+    },
+    {
+      "term": "Below-par",
+      "category": "idioms",
+      "part_of_speech": "Adjective Phrase",
+      "effective_score": 4.15,
+      "word_breakdown": {
+        "below": 5.05,
+        "par": 4.15
+      },
+      "reason": "Retained: Contains target/rare lexicon 'par' (Zipf 4.15)"
     },
     {
       "term": "Lean on",
       "category": "phrasal_verbs",
       "part_of_speech": "Phrasal Verb",
-      "zipf_score": 4.14,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.14,
+      "word_breakdown": {
+        "lean": 4.14,
+        "on": 6.91
+      },
+      "reason": "Retained: Contains target/rare lexicon 'lean' (Zipf 4.14)"
     },
     {
       "term": "retreat",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.13,
+      "effective_score": 4.13,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.13)"
     },
     {
       "term": "Pressed for",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 4.12,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.12,
+      "word_breakdown": {
+        "pressed": 4.12,
+        "for": 7.01
+      },
+      "reason": "Retained: Contains target/rare lexicon 'pressed' (Zipf 4.12)"
     },
     {
-      "term": "Below-par",
-      "category": "idioms",
-      "part_of_speech": "Adjective Phrase",
-      "zipf_score": 4.1,
-      "reason": "Retained: High-yield target vocabulary (Zipf 4.1)"
-    },
-    {
-      "term": "Burden of proof",
+      "term": "Red flags",
       "category": "idioms",
       "part_of_speech": "Noun",
-      "zipf_score": 4.1,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Trading strikes",
-      "category": "idioms",
-      "part_of_speech": "Verb Phrase",
-      "zipf_score": 4.1,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "collective defence",
-      "category": "idioms",
-      "part_of_speech": "Noun",
-      "zipf_score": 4.09,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.09,
+      "word_breakdown": {
+        "red": 5.32,
+        "flags": 4.09
+      },
+      "reason": "Retained: Contains target/rare lexicon 'flags' (Zipf 4.09)"
     },
     {
       "term": "exhausted",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 4.08,
+      "effective_score": 4.08,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.08)"
     },
     {
       "term": "Pressing",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.08,
+      "effective_score": 4.08,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.08)"
     },
     {
       "term": "blanket",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.07,
+      "effective_score": 4.07,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.07)"
     },
     {
       "term": "Momentum",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 4.07,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 4.07,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
-      "term": "Red flags",
-      "category": "idioms",
+      "term": "Current account deficit",
+      "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 4.06,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 4.06,
+      "word_breakdown": {
+        "current": 5.27,
+        "account": 5.21,
+        "deficit": 4.06
+      },
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "Trade deficit",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.06,
+      "word_breakdown": {
+        "trade": 5.12,
+        "deficit": 4.06
+      },
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Limitations",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.05,
+      "effective_score": 4.05,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.05)"
     },
     {
       "term": "Audit",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.04,
+      "effective_score": 4.04,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.04)"
     },
     {
       "term": "elevated",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.03,
+      "effective_score": 4.03,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.03)"
     },
     {
       "term": "Threshold",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.03,
+      "effective_score": 4.03,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.03)"
-    },
-    {
-      "term": "Trade deficit",
-      "category": "one_word_subs",
-      "part_of_speech": "Noun",
-      "zipf_score": 4.03,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
     },
     {
       "term": "Dimension",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.02,
+      "effective_score": 4.02,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "inclusion",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.02,
+      "effective_score": 4.02,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.02)"
     },
     {
       "term": "Isolation",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.02,
+      "effective_score": 4.02,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.02)"
     },
     {
       "term": "Adaptation",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.01,
+      "effective_score": 4.01,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.01)"
     },
     {
       "term": "stark",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 4.01,
+      "effective_score": 4.01,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.01)"
+    },
+    {
+      "term": "In stark contrast to",
+      "category": "idioms",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 4.01,
+      "word_breakdown": {
+        "in": 7.27,
+        "stark": 4.01,
+        "contrast": 4.46,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'stark' (Zipf 4.01)"
     },
     {
       "term": "Recruitment",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 4.0,
+      "effective_score": 4.0,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 4.0)"
-    },
-    {
-      "term": "Current account deficit",
-      "category": "one_word_subs",
-      "part_of_speech": "Noun",
-      "zipf_score": 4.0,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
-    },
-    {
-      "term": "Competing demands",
-      "category": "idioms",
-      "part_of_speech": "Noun Phrase",
-      "zipf_score": 4.0,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "facilitate",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "zipf_score": 3.99,
-      "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "under-documented",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.99,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.99)"
+      "effective_score": 4.0,
+      "word_breakdown": {
+        "under": 5.73,
+        "documented": 4.0
+      },
+      "reason": "Retained: Contains target/rare lexicon 'documented' (Zipf 4.0)"
+    },
+    {
+      "term": "facilitate",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.99,
+      "word_breakdown": {},
+      "reason": "Retained: Academic Word List (AWL) immunity"
+    },
+    {
+      "term": "Multi-vector",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.99,
+      "word_breakdown": {
+        "multi": 4.54,
+        "vector": 3.99
+      },
+      "reason": "Retained: Contains target/rare lexicon 'vector' (Zipf 3.99)"
     },
     {
       "term": "compelling",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.98,
+      "effective_score": 3.98,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.98)"
+    },
+    {
+      "term": "stepping into a vacuum",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 3.98,
+      "word_breakdown": {
+        "stepping": 3.98,
+        "into": 6.11,
+        "vacuum": 4.09
+      },
+      "reason": "Retained: Contains target/rare lexicon 'stepping' (Zipf 3.98)"
     },
     {
       "term": "Condemned",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.97,
+      "effective_score": 3.97,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.97)"
+    },
+    {
+      "term": "Clean sweep",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 3.97,
+      "word_breakdown": {
+        "clean": 4.97,
+        "sweep": 3.97
+      },
+      "reason": "Retained: Contains target/rare lexicon 'sweep' (Zipf 3.97)"
     },
     {
       "term": "Making exceptions for",
       "category": "idioms",
       "part_of_speech": "Phrase",
-      "zipf_score": 3.96,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.97,
+      "word_breakdown": {
+        "making": 5.54,
+        "exceptions": 3.97,
+        "for": 7.01
+      },
+      "reason": "Retained: Contains target/rare lexicon 'exceptions' (Zipf 3.97)"
     },
     {
       "term": "Amid",
       "category": "core_vocab",
       "part_of_speech": "Preposition",
-      "zipf_score": 3.95,
+      "effective_score": 3.95,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.95)"
     },
     {
       "term": "Rhetoric",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.95,
+      "effective_score": 3.95,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.95)"
     },
     {
       "term": "sanctions",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.95,
+      "effective_score": 3.95,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.95)"
     },
     {
       "term": "Robust",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.94,
+      "effective_score": 3.94,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.94)"
     },
     {
       "term": "Litigation",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.93,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
-    },
-    {
-      "term": "Clean sweep",
-      "category": "idioms",
-      "part_of_speech": "Noun",
-      "zipf_score": 3.93,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.93,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Call a halt to",
       "category": "idioms",
       "part_of_speech": "Verb Phrase",
-      "zipf_score": 3.92,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.93,
+      "word_breakdown": {
+        "call": 5.51,
+        "halt": 3.93,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'halt' (Zipf 3.93)"
     },
     {
       "term": "Persistent",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.9,
+      "effective_score": 3.9,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.9)"
+    },
+    {
+      "term": "Opt for",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.9,
+      "word_breakdown": {
+        "opt": 3.9,
+        "for": 7.01
+      },
+      "reason": "Retained: Contains target/rare lexicon 'opt' (Zipf 3.9)"
+    },
+    {
+      "term": "opt out of",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.9,
+      "word_breakdown": {
+        "opt": 3.9,
+        "out": 6.38,
+        "of": 7.4
+      },
+      "reason": "Retained: Contains target/rare lexicon 'opt' (Zipf 3.9)"
     },
     {
       "term": "In the aftermath of",
       "category": "idioms",
       "part_of_speech": "Prepositional phrase",
-      "zipf_score": 3.9,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.9,
+      "word_breakdown": {
+        "in": 7.27,
+        "the": 7.73,
+        "aftermath": 3.9,
+        "of": 7.4
+      },
+      "reason": "Retained: Contains target/rare lexicon 'aftermath' (Zipf 3.9)"
     },
     {
       "term": "Adverse",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.89,
+      "effective_score": 3.89,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.89)"
     },
     {
       "term": "highlighted",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.89,
+      "effective_score": 3.89,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "yields",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.89,
+      "effective_score": 3.89,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.89)"
     },
     {
       "term": "Leverage",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.88,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.88)"
-    },
-    {
-      "term": "Multi-vector",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "zipf_score": 3.88,
+      "effective_score": 3.88,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.88)"
     },
     {
       "term": "selective",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.88,
+      "effective_score": 3.88,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.88)"
-    },
-    {
-      "term": "In stark contrast to",
-      "category": "idioms",
-      "part_of_speech": "Prepositional Phrase",
-      "zipf_score": 3.88,
-      "reason": "Retained: Multi-word idiomatic expression"
     },
     {
       "term": "problematic",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.87,
+      "effective_score": 3.87,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.87)"
     },
     {
       "term": "underway",
       "category": "idioms",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.87,
+      "effective_score": 3.87,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.87)"
     },
     {
       "term": "fatigue",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.86,
+      "effective_score": 3.86,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.86)"
     },
     {
       "term": "fragile",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.86,
+      "effective_score": 3.86,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.86)"
     },
     {
       "term": "mounting",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.86,
+      "effective_score": 3.86,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.86)"
     },
     {
       "term": "Autonomy",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.86,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.86,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "commodity",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.86,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.86,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "infinite scroll",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.86,
+      "word_breakdown": {
+        "infinite": 4.16,
+        "scroll": 3.86
+      },
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "wiped out",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.86,
+      "word_breakdown": {
+        "wiped": 3.86,
+        "out": 6.38
+      },
+      "reason": "Retained: Contains target/rare lexicon 'wiped' (Zipf 3.86)"
     },
     {
       "term": "manipulation",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.85,
+      "effective_score": 3.85,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.85)"
     },
     {
       "term": "spill over into",
       "category": "phrasal_verbs",
       "part_of_speech": "Phrasal Verb",
-      "zipf_score": 3.84,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.84,
+      "word_breakdown": {
+        "spill": 3.84,
+        "over": 6.08,
+        "into": 6.11
+      },
+      "reason": "Retained: Contains target/rare lexicon 'spill' (Zipf 3.84)"
     },
     {
       "term": "Refined",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.83,
+      "effective_score": 3.83,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "Decree",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.82,
+      "effective_score": 3.82,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.82)"
     },
     {
       "term": "endure",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.82,
+      "effective_score": 3.82,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.82)"
     },
     {
       "term": "surge",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.82,
+      "effective_score": 3.82,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.82)"
+    },
+    {
+      "term": "Confined to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 3.82,
+      "word_breakdown": {
+        "confined": 3.82,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'confined' (Zipf 3.82)"
     },
     {
       "term": "Accounted for",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 3.82,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Obesity",
-      "category": "one_word_subs",
-      "part_of_speech": "Noun",
-      "zipf_score": 3.81,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.82,
+      "word_breakdown": {
+        "accounted": 3.82,
+        "for": 7.01
+      },
+      "reason": "Retained: Contains target/rare lexicon 'accounted' (Zipf 3.82)"
     },
     {
       "term": "Per capita",
       "category": "foreign_words",
       "part_of_speech": "Adverb",
-      "zipf_score": 3.81,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.82,
+      "word_breakdown": {
+        "per": 5.45,
+        "capita": 3.82
+      },
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "Obesity",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.81,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Epidemic",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.8,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.8,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Non-Aligned",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.79,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.8,
+      "word_breakdown": {
+        "non": 5.29,
+        "aligned": 3.8
+      },
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "balancing-act",
       "category": "idioms",
       "part_of_speech": "Noun",
-      "zipf_score": 3.79,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.79)"
+      "effective_score": 3.8,
+      "word_breakdown": {
+        "balancing": 3.8,
+        "act": 5.3
+      },
+      "reason": "Retained: Contains target/rare lexicon 'balancing' (Zipf 3.8)"
     },
     {
       "term": "apparatus",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.78,
+      "effective_score": 3.78,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.78)"
     },
     {
       "term": "Ecosystem",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.78,
+      "effective_score": 3.78,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.78)"
     },
     {
       "term": "render",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.78,
+      "effective_score": 3.78,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.78)"
+    },
+    {
+      "term": "Forge consensus",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.78,
+      "word_breakdown": {
+        "forge": 3.78,
+        "consensus": 4.1
+      },
+      "reason": "Retained: Contains target/rare lexicon 'forge' (Zipf 3.78)"
     },
     {
       "term": "Evolving",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.77,
+      "effective_score": 3.77,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "Pathway",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.77,
+      "effective_score": 3.77,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.77)"
+    },
+    {
+      "term": "Exceeded expectations",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.76,
+      "word_breakdown": {
+        "exceeded": 3.76,
+        "expectations": 4.44
+      },
+      "reason": "Retained: Contains target/rare lexicon 'exceeded' (Zipf 3.76)"
+    },
+    {
+      "term": "storm brewing",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.76,
+      "word_breakdown": {
+        "storm": 4.66,
+        "brewing": 3.76
+      },
+      "reason": "Retained: Contains target/rare lexicon 'brewing' (Zipf 3.76)"
     },
     {
       "term": "Counterparts",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.75,
+      "effective_score": 3.75,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.75)"
+    },
+    {
+      "term": "Revised upwards",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 3.75,
+      "word_breakdown": {
+        "revised": 4.14,
+        "upwards": 3.75
+      },
+      "reason": "Retained: Contains target/rare lexicon 'upwards' (Zipf 3.75)"
     },
     {
       "term": "Aided",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.74,
+      "effective_score": 3.74,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.74)"
     },
     {
       "term": "Interventions",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.74,
+      "effective_score": 3.74,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.74)"
     },
     {
       "term": "Ironically",
       "category": "core_vocab",
       "part_of_speech": "Adverb",
-      "zipf_score": 3.74,
+      "effective_score": 3.74,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.74)"
     },
     {
       "term": "scrutiny",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.74,
+      "effective_score": 3.74,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.74)"
     },
     {
       "term": "Exchanged fire",
       "category": "idioms",
       "part_of_speech": "Verb Phrase",
-      "zipf_score": 3.73,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "stepping into a vacuum",
-      "category": "idioms",
-      "part_of_speech": "Verb",
-      "zipf_score": 3.73,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.74,
+      "word_breakdown": {
+        "exchanged": 3.74,
+        "fire": 5.3
+      },
+      "reason": "Retained: Contains target/rare lexicon 'exchanged' (Zipf 3.74)"
     },
     {
       "term": "volatile",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.72,
+      "effective_score": 3.72,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.72)"
     },
     {
       "term": "Bilateral",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.72,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.72,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Apex",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.71,
+      "effective_score": 3.71,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.71)"
     },
     {
       "term": "engineered",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.71,
+      "effective_score": 3.71,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.71)"
     },
     {
-      "term": "storm brewing",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 3.71,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "term": "fiscal consolidation",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.71,
+      "word_breakdown": {
+        "fiscal": 4.26,
+        "consolidation": 3.71
+      },
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Deploy",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.7,
+      "effective_score": 3.7,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.7)"
     },
     {
       "term": "Premature",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.7,
+      "effective_score": 3.7,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.7)"
     },
     {
       "term": "Vulnerability",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.7,
+      "effective_score": 3.7,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.7)"
     },
     {
       "term": "Apt",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.69,
+      "effective_score": 3.69,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.69)"
     },
     {
       "term": "Contingent on",
       "category": "fixed_prepositions",
       "part_of_speech": "Adjective + Preposition",
-      "zipf_score": 3.69,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.69)"
+      "effective_score": 3.69,
+      "word_breakdown": {
+        "contingent": 3.69,
+        "on": 6.91
+      },
+      "reason": "Retained: Contains target/rare lexicon 'contingent' (Zipf 3.69)"
     },
     {
       "term": "Fallout from",
       "category": "fixed_prepositions",
       "part_of_speech": "Noun Phrase",
-      "zipf_score": 3.69,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.69)"
+      "effective_score": 3.69,
+      "word_breakdown": {
+        "fallout": 3.69,
+        "from": 6.63
+      },
+      "reason": "Retained: Contains target/rare lexicon 'fallout' (Zipf 3.69)"
+    },
+    {
+      "term": "Chilling effect",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 3.69,
+      "word_breakdown": {
+        "chilling": 3.69,
+        "effect": 5.02
+      },
+      "reason": "Retained: Contains target/rare lexicon 'chilling' (Zipf 3.69)"
     },
     {
       "term": "Durable",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.68,
+      "effective_score": 3.68,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.68)"
     },
     {
       "term": "outreach",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.68,
+      "effective_score": 3.68,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.68)"
-    },
-    {
-      "term": "infinite scroll",
-      "category": "one_word_subs",
-      "part_of_speech": "Noun",
-      "zipf_score": 3.68,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
     },
     {
       "term": "procurement",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.68,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.68,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Neutrality",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.67,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.67,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "susceptible to",
       "category": "fixed_prepositions",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.67,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.67)"
-    },
-    {
-      "term": "Chilling effect",
-      "category": "idioms",
-      "part_of_speech": "Noun Phrase",
-      "zipf_score": 3.67,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.67,
+      "word_breakdown": {
+        "susceptible": 3.67,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'susceptible' (Zipf 3.67)"
     },
     {
       "term": "trivial",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.66,
+      "effective_score": 3.66,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.66)"
     },
     {
       "term": "extinct",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.66,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.66,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Formidable",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.65,
+      "effective_score": 3.65,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.65)"
     },
     {
       "term": "hooks",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.65,
+      "effective_score": 3.65,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.65)"
     },
     {
       "term": "Withstand",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.65,
+      "effective_score": 3.65,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.65)"
     },
     {
       "term": "Concessions",
       "category": "one_word_subs",
       "part_of_speech": "Noun (Plural)",
-      "zipf_score": 3.65,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.65,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Swell",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.64,
+      "effective_score": 3.64,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.64)"
+    },
+    {
+      "term": "Forex reserves",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.64,
+      "word_breakdown": {
+        "forex": 3.64,
+        "reserves": 4.22
+      },
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Guarded",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.63,
+      "effective_score": 3.63,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.63)"
     },
     {
       "term": "seldom",
       "category": "core_vocab",
       "part_of_speech": "Adverb",
-      "zipf_score": 3.63,
+      "effective_score": 3.63,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.63)"
     },
     {
       "term": "legitimacy",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.63,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.63,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Surpassed",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.62,
+      "effective_score": 3.62,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.62)"
     },
     {
       "term": "Sabotage",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.62,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.62,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Possesses",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.61,
+      "effective_score": 3.61,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.61)"
     },
     {
       "term": "proliferation",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.61,
+      "effective_score": 3.61,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.61)"
     },
     {
-      "term": "Forge consensus",
+      "term": "the proof of any pudding is in the eating",
       "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 3.61,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "fiscal consolidation",
-      "category": "one_word_subs",
-      "part_of_speech": "Noun",
-      "zipf_score": 3.6,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
-    },
-    {
-      "term": "Revised upwards",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb Phrase",
-      "zipf_score": 3.6,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "part_of_speech": "Idiom",
+      "effective_score": 3.61,
+      "word_breakdown": {
+        "the": 7.73,
+        "proof": 4.7,
+        "of": 7.4,
+        "any": 6.07,
+        "pudding": 3.61,
+        "is": 7.07,
+        "in": 7.27,
+        "eating": 4.85
+      },
+      "reason": "Retained: Contains target/rare lexicon 'pudding' (Zipf 3.61)"
     },
     {
       "term": "Optics",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.58,
+      "effective_score": 3.58,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.58)"
     },
     {
       "term": "Resisting",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.58,
+      "effective_score": 3.58,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.58)"
     },
     {
       "term": "resilience",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.58,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.58,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Deportation",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.57,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.57,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "affirmative action",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 3.57,
+      "word_breakdown": {
+        "affirmative": 3.57,
+        "action": 5.25
+      },
+      "reason": "Retained: Contains target/rare lexicon 'affirmative' (Zipf 3.57)"
     },
     {
       "term": "catastrophe",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.56,
+      "effective_score": 3.56,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.56)"
     },
     {
       "term": "Dissent",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.56,
+      "effective_score": 3.56,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.56)"
     },
     {
       "term": "Amidst",
       "category": "fixed_prepositions",
       "part_of_speech": "Preposition",
-      "zipf_score": 3.56,
+      "effective_score": 3.56,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.56)"
     },
     {
-      "term": "affirmative action",
+      "term": "move responsibility upstream",
       "category": "idioms",
-      "part_of_speech": "Noun",
-      "zipf_score": 3.56,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "part_of_speech": "Phrase",
+      "effective_score": 3.56,
+      "word_breakdown": {
+        "move": 5.35,
+        "responsibility": 4.75,
+        "upstream": 3.56
+      },
+      "reason": "Retained: Contains target/rare lexicon 'upstream' (Zipf 3.56)"
     },
     {
       "term": "cumulative",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.55,
+      "effective_score": 3.55,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.55)"
     },
     {
       "term": "Prevailing",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.55,
+      "effective_score": 3.55,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.55)"
     },
     {
       "term": "Replicate",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.55,
+      "effective_score": 3.55,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.55)"
     },
     {
       "term": "uneven",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.55,
+      "effective_score": 3.55,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.55)"
-    },
-    {
-      "term": "the proof of any pudding is in the eating",
-      "category": "idioms",
-      "part_of_speech": "Idiom",
-      "zipf_score": 3.55,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Forex reserves",
-      "category": "one_word_subs",
-      "part_of_speech": "Noun",
-      "zipf_score": 3.54,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
     },
     {
       "term": "Alarming",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.53,
+      "effective_score": 3.53,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.53)"
     },
     {
       "term": "Conform to",
       "category": "fixed_prepositions",
       "part_of_speech": "Verb",
-      "zipf_score": 3.53,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.53)"
+      "effective_score": 3.53,
+      "word_breakdown": {
+        "conform": 3.53,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'conform' (Zipf 3.53)"
     },
     {
       "term": "persist with",
       "category": "fixed_prepositions",
       "part_of_speech": "Verb",
-      "zipf_score": 3.53,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.53)"
-    },
-    {
-      "term": "move responsibility upstream",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 3.53,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.53,
+      "word_breakdown": {
+        "persist": 3.53,
+        "with": 6.85
+      },
+      "reason": "Retained: Contains target/rare lexicon 'persist' (Zipf 3.53)"
     },
     {
       "term": "Hardened",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.52,
+      "effective_score": 3.52,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.52)"
     },
     {
       "term": "Oversee",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.51,
+      "effective_score": 3.51,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.51)"
     },
     {
       "term": "Picturesque",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.5,
+      "effective_score": 3.5,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.5)"
     },
     {
       "term": "regression",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.5,
+      "effective_score": 3.5,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.5)"
     },
     {
       "term": "Staggering",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.5,
+      "effective_score": 3.5,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.5)"
     },
     {
       "term": "synonymous with",
       "category": "fixed_prepositions",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.5,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.5)"
+      "effective_score": 3.5,
+      "word_breakdown": {
+        "synonymous": 3.5,
+        "with": 6.85
+      },
+      "reason": "Retained: Contains target/rare lexicon 'synonymous' (Zipf 3.5)"
     },
     {
       "term": "Disadvantaged",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.49,
+      "effective_score": 3.49,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.49)"
     },
     {
       "term": "expressly",
       "category": "core_vocab",
       "part_of_speech": "Adverb",
-      "zipf_score": 3.48,
+      "effective_score": 3.48,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.48)"
     },
     {
       "term": "raptors",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.48,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.48,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Anomaly",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.47,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.47,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Espionage",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.47,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.47,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "accelerating",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.46,
+      "effective_score": 3.46,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.46)"
     },
     {
       "term": "discriminatory",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.46,
+      "effective_score": 3.46,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.46)"
     },
     {
       "term": "disruptive",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.46,
+      "effective_score": 3.46,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.46)"
     },
     {
       "term": "Mitigation",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.46,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.46,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "Liquidity surplus",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.45,
+      "word_breakdown": {
+        "liquidity": 3.45,
+        "surplus": 3.87
+      },
+      "reason": "Retained: Contains target/rare lexicon 'liquidity' (Zipf 3.45)"
     },
     {
       "term": "Prompting",
       "category": "core_vocab",
       "part_of_speech": "Verb (Present Participle)",
-      "zipf_score": 3.45,
+      "effective_score": 3.45,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.45)"
     },
     {
       "term": "beneficiaries",
       "category": "one_word_subs",
       "part_of_speech": "Noun (plural)",
-      "zipf_score": 3.45,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.45,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Implicit in",
       "category": "fixed_prepositions",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.45,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.45)"
+      "effective_score": 3.45,
+      "word_breakdown": {
+        "implicit": 3.45,
+        "in": 7.27
+      },
+      "reason": "Retained: Contains target/rare lexicon 'implicit' (Zipf 3.45)"
     },
     {
       "term": "At variance with",
       "category": "idioms",
       "part_of_speech": "Phrase",
-      "zipf_score": 3.45,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.45,
+      "word_breakdown": {
+        "at": 6.7,
+        "variance": 3.45,
+        "with": 6.85
+      },
+      "reason": "Retained: Contains target/rare lexicon 'variance' (Zipf 3.45)"
     },
     {
       "term": "Berth",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.44,
+      "effective_score": 3.44,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.44)"
     },
     {
       "term": "deprivation",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.44,
+      "effective_score": 3.44,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.44)"
     },
     {
       "term": "Hostilities",
       "category": "core_vocab",
       "part_of_speech": "Noun (Plural)",
-      "zipf_score": 3.44,
+      "effective_score": 3.44,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.44)"
     },
     {
       "term": "soaring",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.44,
+      "effective_score": 3.44,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.44)"
     },
     {
       "term": "stringent",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.43,
+      "effective_score": 3.43,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.43)"
     },
     {
       "term": "Poised to",
       "category": "fixed_prepositions",
       "part_of_speech": "Adjective phrase",
-      "zipf_score": 3.43,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.43)"
+      "effective_score": 3.43,
+      "word_breakdown": {
+        "poised": 3.43,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'poised' (Zipf 3.43)"
+    },
+    {
+      "term": "Vis-à-vis",
+      "category": "foreign_words",
+      "part_of_speech": "Preposition",
+      "effective_score": 3.43,
+      "word_breakdown": {
+        "vis": 3.43
+      },
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "leaves untouched",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.42,
+      "word_breakdown": {
+        "leaves": 4.79,
+        "untouched": 3.42
+      },
+      "reason": "Retained: Contains target/rare lexicon 'untouched' (Zipf 3.42)"
     },
     {
       "term": "Constrained",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.41,
+      "effective_score": 3.41,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "proactive",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.41,
+      "effective_score": 3.41,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.41)"
     },
     {
       "term": "ratified",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.41,
+      "effective_score": 3.41,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.41)"
     },
     {
       "term": "Unleash",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.41,
+      "effective_score": 3.41,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.41)"
+    },
+    {
+      "term": "reliant solely on",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.41,
+      "word_breakdown": {
+        "reliant": 3.41,
+        "solely": 4.2,
+        "on": 6.91
+      },
+      "reason": "Retained: Contains target/rare lexicon 'reliant' (Zipf 3.41)"
     },
     {
       "term": "culprit",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.4,
+      "effective_score": 3.4,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.4)"
-    },
-    {
-      "term": "leaves untouched",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 3.4,
-      "reason": "Retained: Multi-word idiomatic expression"
     },
     {
       "term": "Stamina",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.39,
+      "effective_score": 3.39,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.39)"
     },
     {
       "term": "Incremental",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.38,
+      "effective_score": 3.38,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.38)"
     },
     {
       "term": "imperialism",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.38,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.38,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "Sow discord",
+      "category": "idioms",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 3.38,
+      "word_breakdown": {
+        "sow": 3.38,
+        "discord": 3.45
+      },
+      "reason": "Retained: Contains target/rare lexicon 'sow' (Zipf 3.38)"
     },
     {
       "term": "depreciation",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.37,
+      "effective_score": 3.37,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.37)"
     },
     {
       "term": "Spilling over into",
       "category": "fixed_prepositions",
       "part_of_speech": "Prepositional Phrase",
-      "zipf_score": 3.37,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.37)"
+      "effective_score": 3.37,
+      "word_breakdown": {
+        "spilling": 3.37,
+        "over": 6.08,
+        "into": 6.11
+      },
+      "reason": "Retained: Contains target/rare lexicon 'spilling' (Zipf 3.37)"
+    },
+    {
+      "term": "naming and shaming",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.37,
+      "word_breakdown": {
+        "naming": 3.88,
+        "and": 7.41,
+        "shaming": 3.37
+      },
+      "reason": "Retained: Contains target/rare lexicon 'shaming' (Zipf 3.37)"
     },
     {
       "term": "Withheld",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.36,
+      "effective_score": 3.36,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.36)"
     },
     {
       "term": "crackdown",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.35,
+      "effective_score": 3.35,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.35)"
     },
     {
       "term": "Tackled",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.35,
+      "effective_score": 3.35,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.35)"
     },
     {
       "term": "Compounded by",
       "category": "fixed_prepositions",
       "part_of_speech": "Verb Phrase",
-      "zipf_score": 3.35,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.35)"
+      "effective_score": 3.35,
+      "word_breakdown": {
+        "compounded": 3.35,
+        "by": 6.66
+      },
+      "reason": "Retained: Contains target/rare lexicon 'compounded' (Zipf 3.35)"
     },
     {
       "term": "Amplified",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.34,
+      "effective_score": 3.34,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.34)"
     },
     {
       "term": "erratic",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.34,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.34)"
-    },
-    {
-      "term": "reliant solely on",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Phrase",
-      "zipf_score": 3.34,
+      "effective_score": 3.34,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.34)"
     },
     {
       "term": "Deficient",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.33,
+      "effective_score": 3.33,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.33)"
     },
     {
       "term": "fragmented",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.33,
+      "effective_score": 3.33,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.33)"
     },
     {
       "term": "Invoked",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.33,
+      "effective_score": 3.33,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "Entrenched",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.31,
+      "effective_score": 3.31,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.31)"
     },
     {
       "term": "flagged",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.31,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.31)"
-    },
-    {
-      "term": "Liquidity surplus",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "zipf_score": 3.31,
+      "effective_score": 3.31,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.31)"
     },
     {
       "term": "linger on",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 3.31,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.31,
+      "word_breakdown": {
+        "linger": 3.31,
+        "on": 6.91
+      },
+      "reason": "Retained: Contains target/rare lexicon 'linger' (Zipf 3.31)"
     },
     {
       "term": "Tightening",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.3,
+      "effective_score": 3.3,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.3)"
+    },
+    {
+      "term": "Piling up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 3.3,
+      "word_breakdown": {
+        "piling": 3.3,
+        "up": 6.39
+      },
+      "reason": "Retained: Contains target/rare lexicon 'piling' (Zipf 3.3)"
     },
     {
       "term": "feral",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.29,
+      "effective_score": 3.29,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.29)"
     },
     {
       "term": "undue",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.29,
+      "effective_score": 3.29,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.29)"
     },
     {
       "term": "Mediator",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.29,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.29,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "recourse",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.29,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.29,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Sporadic",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.29,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.29,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Departures",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.28,
+      "effective_score": 3.28,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.28)"
     },
     {
       "term": "Reiterated",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.28,
+      "effective_score": 3.28,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.28)"
     },
     {
       "term": "Irreversible",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.28,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.28,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Escalating",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.27,
+      "effective_score": 3.27,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.27)"
     },
     {
       "term": "hamper",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.26,
+      "effective_score": 3.26,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.26)"
     },
     {
       "term": "Projectile",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.26,
+      "effective_score": 3.26,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.26)"
     },
     {
       "term": "veiled",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.26,
+      "effective_score": 3.26,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.26)"
     },
     {
       "term": "Angst",
       "category": "foreign_words",
       "part_of_speech": "Noun",
-      "zipf_score": 3.26,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.26,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "bridging",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.25,
+      "effective_score": 3.25,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.25)"
     },
     {
       "term": "Fictitious",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.25,
+      "effective_score": 3.25,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.25)"
     },
     {
       "term": "Sluggish",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.25,
+      "effective_score": 3.25,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.25)"
     },
     {
       "term": "Throwback",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.25,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
-    },
-    {
-      "term": "naming and shaming",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "zipf_score": 3.25,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.25,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Dismantle",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.24,
+      "effective_score": 3.24,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.24)"
     },
     {
       "term": "Spectre",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.24,
+      "effective_score": 3.24,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.24)"
     },
     {
       "term": "Malnutrition",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.24,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.24,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "rewind to",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 3.24,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.24,
+      "word_breakdown": {
+        "rewind": 3.24,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'rewind' (Zipf 3.24)"
     },
     {
       "term": "Ignited",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.23,
+      "effective_score": 3.23,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.23)"
     },
     {
       "term": "Rotational",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.23,
+      "effective_score": 3.23,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.23)"
     },
     {
       "term": "Ploy",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.22,
+      "effective_score": 3.22,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.22)"
     },
     {
       "term": "Unsettled",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.22,
+      "effective_score": 3.22,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.22)"
     },
     {
       "term": "Found any takers",
       "category": "idioms",
       "part_of_speech": "Idiom",
-      "zipf_score": 3.22,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.22,
+      "word_breakdown": {
+        "found": 5.68,
+        "any": 6.07,
+        "takers": 3.22
+      },
+      "reason": "Retained: Contains target/rare lexicon 'takers' (Zipf 3.22)"
     },
     {
       "term": "Stemmed",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.21,
+      "effective_score": 3.21,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.21)"
     },
     {
       "term": "Intertwined",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.2,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
-    },
-    {
-      "term": "debilitating",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "zipf_score": 3.19,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.19)"
+      "effective_score": 3.2,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Multiplier effect",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.19,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.2,
+      "word_breakdown": {
+        "multiplier": 3.2,
+        "effect": 5.02
+      },
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "debilitating",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.19,
+      "word_breakdown": {},
+      "reason": "Retained: High-yield target vocabulary (Zipf 3.19)"
     },
     {
       "term": "Confer on",
       "category": "fixed_prepositions",
       "part_of_speech": "Verb",
-      "zipf_score": 3.19,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.19)"
+      "effective_score": 3.19,
+      "word_breakdown": {
+        "confer": 3.19,
+        "on": 6.91
+      },
+      "reason": "Retained: Contains target/rare lexicon 'confer' (Zipf 3.19)"
     },
     {
       "term": "Infer",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.16,
+      "effective_score": 3.16,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "vigilance",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.16,
+      "effective_score": 3.16,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.16)"
     },
     {
       "term": "resorting to",
       "category": "fixed_prepositions",
       "part_of_speech": "Phrasal Verb",
-      "zipf_score": 3.16,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.16)"
+      "effective_score": 3.16,
+      "word_breakdown": {
+        "resorting": 3.16,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'resorting' (Zipf 3.16)"
     },
     {
       "term": "pitfalls",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.15,
+      "effective_score": 3.15,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.15)"
     },
     {
       "term": "Geopolitical",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.15,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.15,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "Edging upwards",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 3.15,
+      "word_breakdown": {
+        "edging": 3.15,
+        "upwards": 3.75
+      },
+      "reason": "Retained: Contains target/rare lexicon 'edging' (Zipf 3.15)"
     },
     {
       "term": "Flared up",
       "category": "phrasal_verbs",
       "part_of_speech": "Phrasal Verb",
-      "zipf_score": 3.12,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.12,
+      "word_breakdown": {
+        "flared": 3.12,
+        "up": 6.39
+      },
+      "reason": "Retained: Contains target/rare lexicon 'flared' (Zipf 3.12)"
     },
     {
       "term": "full brunt",
       "category": "idioms",
       "part_of_speech": "Noun",
-      "zipf_score": 3.12,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.12,
+      "word_breakdown": {
+        "full": 5.54,
+        "brunt": 3.12
+      },
+      "reason": "Retained: Contains target/rare lexicon 'brunt' (Zipf 3.12)"
     },
     {
       "term": "understated",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.11,
+      "effective_score": 3.11,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.11)"
     },
     {
       "term": "alluded to",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 3.11,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Sow discord",
-      "category": "idioms",
-      "part_of_speech": "Verb Phrase",
-      "zipf_score": 3.11,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.11,
+      "word_breakdown": {
+        "alluded": 3.11,
+        "to": 7.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'alluded' (Zipf 3.11)"
     },
     {
       "term": "Maximise",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.1,
+      "effective_score": 3.1,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "rebuke",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.1,
+      "effective_score": 3.1,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.1)"
     },
     {
       "term": "Retaliate",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.1,
+      "effective_score": 3.1,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.1)"
     },
     {
       "term": "Stuttering",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.1,
+      "effective_score": 3.1,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.1)"
     },
     {
       "term": "hoarding",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.1,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.1,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Multilateral",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.1,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.1,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "plenary",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.1,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.1,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "Reverse repo",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.1,
+      "word_breakdown": {
+        "reverse": 4.37,
+        "repo": 3.1
+      },
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Inflicting",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.09,
+      "effective_score": 3.09,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.09)"
     },
     {
       "term": "Softening",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.09,
+      "effective_score": 3.09,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.09)"
     },
     {
       "term": "henceforth",
       "category": "core_vocab",
       "part_of_speech": "Adverb",
-      "zipf_score": 3.08,
+      "effective_score": 3.08,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.08)"
     },
     {
       "term": "High-octane",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 3.08,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.08)"
-    },
-    {
-      "term": "Reverse repo",
-      "category": "one_word_subs",
-      "part_of_speech": "Noun",
-      "zipf_score": 3.08,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.08,
+      "word_breakdown": {
+        "high": 5.75,
+        "octane": 3.08
+      },
+      "reason": "Retained: Contains target/rare lexicon 'octane' (Zipf 3.08)"
     },
     {
       "term": "Beset by",
       "category": "fixed_prepositions",
       "part_of_speech": "Verb",
-      "zipf_score": 3.08,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.08)"
+      "effective_score": 3.08,
+      "word_breakdown": {
+        "beset": 3.08,
+        "by": 6.66
+      },
+      "reason": "Retained: Contains target/rare lexicon 'beset' (Zipf 3.08)"
     },
     {
       "term": "Pegged",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.07,
+      "effective_score": 3.07,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.07)"
     },
     {
       "term": "Hinged on",
       "category": "fixed_prepositions",
       "part_of_speech": "Verb",
-      "zipf_score": 3.07,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.07)"
+      "effective_score": 3.07,
+      "word_breakdown": {
+        "hinged": 3.07,
+        "on": 6.91
+      },
+      "reason": "Retained: Contains target/rare lexicon 'hinged' (Zipf 3.07)"
     },
     {
       "term": "mainstay",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.06,
+      "effective_score": 3.06,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.06)"
     },
     {
       "term": "Cropping up",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 3.05,
-      "reason": "Retained: Multi-word idiomatic expression"
-    },
-    {
-      "term": "Edging upwards",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "zipf_score": 3.05,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.05,
+      "word_breakdown": {
+        "cropping": 3.05,
+        "up": 6.39
+      },
+      "reason": "Retained: Contains target/rare lexicon 'cropping' (Zipf 3.05)"
     },
     {
       "term": "Ascribed",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.04,
+      "effective_score": 3.04,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.04)"
     },
     {
       "term": "Convene",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.04,
+      "effective_score": 3.04,
+      "word_breakdown": {},
       "reason": "Retained: Academic Word List (AWL) immunity"
     },
     {
       "term": "Sedition",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.04,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.04,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Stalemate",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.04,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.04,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Enshrined in",
       "category": "fixed_prepositions",
       "part_of_speech": "Verb",
-      "zipf_score": 3.04,
-      "reason": "Retained: High-yield target vocabulary (Zipf 3.04)"
+      "effective_score": 3.04,
+      "word_breakdown": {
+        "enshrined": 3.04,
+        "in": 7.27
+      },
+      "reason": "Retained: Contains target/rare lexicon 'enshrined' (Zipf 3.04)"
     },
     {
       "term": "buffers",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 3.02,
+      "effective_score": 3.02,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.02)"
     },
     {
       "term": "insulating",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 3.02,
+      "effective_score": 3.02,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.02)"
     },
     {
       "term": "retrieving",
       "category": "core_vocab",
       "part_of_speech": "Verb (present participle)",
-      "zipf_score": 3.02,
+      "effective_score": 3.02,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 3.02)"
     },
     {
       "term": "Shortfall",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 3.02,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
-    },
-    {
-      "term": "Vis-à-vis",
-      "category": "foreign_words",
-      "part_of_speech": "Preposition",
-      "zipf_score": 3.02,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 3.02,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Safe havens",
       "category": "idioms",
       "part_of_speech": "Noun",
-      "zipf_score": 3.0,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 3.0,
+      "word_breakdown": {
+        "safe": 5.07,
+        "havens": 3.0
+      },
+      "reason": "Retained: Contains target/rare lexicon 'havens' (Zipf 3.0)"
     },
     {
       "term": "Forgo",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.99,
+      "effective_score": 2.99,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.99)"
     },
     {
       "term": "blistering",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.98,
+      "effective_score": 2.98,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.98)"
     },
     {
       "term": "Breaching",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.98,
+      "effective_score": 2.98,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.98)"
     },
     {
       "term": "Buoyant",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.98,
+      "effective_score": 2.98,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.98)"
     },
     {
       "term": "Leeway",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.98,
+      "effective_score": 2.98,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.98)"
     },
     {
       "term": "amicable",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.97,
+      "effective_score": 2.97,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.97)"
     },
     {
       "term": "weathering",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.97,
+      "effective_score": 2.97,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.97)"
     },
     {
       "term": "hedging",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.96,
+      "effective_score": 2.96,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.96)"
     },
     {
       "term": "Impasse",
       "category": "foreign_words",
       "part_of_speech": "Noun",
-      "zipf_score": 2.96,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.96,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Incursion",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.95,
+      "effective_score": 2.95,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.95)"
     },
     {
       "term": "Pent-up",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.95,
-      "reason": "Retained: High-yield target vocabulary (Zipf 2.95)"
+      "effective_score": 2.95,
+      "word_breakdown": {
+        "pent": 2.95,
+        "up": 6.39
+      },
+      "reason": "Retained: Contains target/rare lexicon 'pent' (Zipf 2.95)"
     },
     {
       "term": "Topple",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.95,
+      "effective_score": 2.95,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.95)"
     },
     {
       "term": "Resonated with",
       "category": "fixed_prepositions",
       "part_of_speech": "Phrasal Verb",
-      "zipf_score": 2.95,
-      "reason": "Retained: High-yield target vocabulary (Zipf 2.95)"
+      "effective_score": 2.95,
+      "word_breakdown": {
+        "resonated": 2.95,
+        "with": 6.85
+      },
+      "reason": "Retained: Contains target/rare lexicon 'resonated' (Zipf 2.95)"
     },
     {
       "term": "Scepticism",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.94,
+      "effective_score": 2.94,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.94)"
     },
     {
       "term": "carcasses",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.94,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.94,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
+    },
+    {
+      "term": "dollar-denominated",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.92,
+      "word_breakdown": {
+        "dollar": 4.59,
+        "denominated": 2.92
+      },
+      "reason": "Retained: Contains target/rare lexicon 'denominated' (Zipf 2.92)"
     },
     {
       "term": "underscores",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.92,
+      "effective_score": 2.92,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.92)"
     },
     {
       "term": "congregate",
       "category": "one_word_subs",
       "part_of_speech": "Verb",
-      "zipf_score": 2.92,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.92,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Admirably",
       "category": "core_vocab",
       "part_of_speech": "Adverb",
-      "zipf_score": 2.91,
-      "reason": "Retained: High-yield target vocabulary (Zipf 2.91)"
-    },
-    {
-      "term": "dollar-denominated",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "zipf_score": 2.91,
+      "effective_score": 2.91,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.91)"
     },
     {
       "term": "elicited",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.91,
+      "effective_score": 2.91,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.91)"
     },
     {
       "term": "Sobering",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.9,
+      "effective_score": 2.9,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.9)"
     },
     {
       "term": "pluralism",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.9,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.9,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "fluctuation",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.89,
+      "effective_score": 2.89,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.89)"
     },
     {
       "term": "Reprieve",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.88,
+      "effective_score": 2.88,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.88)"
     },
     {
       "term": "defaulted on",
       "category": "fixed_prepositions",
       "part_of_speech": "Verb",
-      "zipf_score": 2.88,
-      "reason": "Retained: High-yield target vocabulary (Zipf 2.88)"
+      "effective_score": 2.88,
+      "word_breakdown": {
+        "defaulted": 2.88,
+        "on": 6.91
+      },
+      "reason": "Retained: Contains target/rare lexicon 'defaulted' (Zipf 2.88)"
     },
     {
       "term": "Emblematic",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.87,
+      "effective_score": 2.87,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.87)"
     },
     {
       "term": "Preoccupation",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.87,
+      "effective_score": 2.87,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.87)"
     },
     {
       "term": "Complicates",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.86,
+      "effective_score": 2.86,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.86)"
     },
     {
       "term": "raked up",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 2.86,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 2.86,
+      "word_breakdown": {
+        "raked": 2.86,
+        "up": 6.39
+      },
+      "reason": "Retained: Contains target/rare lexicon 'raked' (Zipf 2.86)"
     },
     {
       "term": "cascading",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.84,
+      "effective_score": 2.84,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.84)"
     },
     {
       "term": "Sombre",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.84,
+      "effective_score": 2.84,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.84)"
     },
     {
       "term": "expedient",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.83,
+      "effective_score": 2.83,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.83)"
     },
     {
       "term": "Inflows",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.83,
+      "effective_score": 2.83,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.83)"
     },
     {
       "term": "technicality",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.83,
+      "effective_score": 2.83,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.83)"
     },
     {
       "term": "Monolith",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.81,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.81,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Intrude into",
       "category": "fixed_prepositions",
       "part_of_speech": "Verb",
-      "zipf_score": 2.81,
-      "reason": "Retained: High-yield target vocabulary (Zipf 2.81)"
+      "effective_score": 2.81,
+      "word_breakdown": {
+        "intrude": 2.81,
+        "into": 6.11
+      },
+      "reason": "Retained: Contains target/rare lexicon 'intrude' (Zipf 2.81)"
     },
     {
       "term": "impeding",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.8,
+      "effective_score": 2.8,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.8)"
     },
     {
       "term": "Abdication",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.8,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.8,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Anthropogenic",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.8,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.8,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Calibrate",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.79,
+      "effective_score": 2.79,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.79)"
     },
     {
       "term": "concocted",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.79,
+      "effective_score": 2.79,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.79)"
     },
     {
       "term": "Permutations",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.79,
+      "effective_score": 2.79,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.79)"
     },
     {
       "term": "appreciable",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.78,
+      "effective_score": 2.78,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.78)"
     },
     {
       "term": "curbs",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.78,
+      "effective_score": 2.78,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.78)"
-    },
-    {
-      "term": "Immovable",
-      "category": "one_word_subs",
-      "part_of_speech": "Adjective",
-      "zipf_score": 2.78,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
     },
     {
       "term": "Multi-pronged",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.77,
-      "reason": "Retained: High-yield target vocabulary (Zipf 2.77)"
+      "effective_score": 2.78,
+      "word_breakdown": {
+        "multi": 4.54,
+        "pronged": 2.78
+      },
+      "reason": "Retained: Contains target/rare lexicon 'pronged' (Zipf 2.78)"
+    },
+    {
+      "term": "Immovable",
+      "category": "one_word_subs",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.78,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Adjudication",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.76,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.76,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Riparian",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.76,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.76,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Awash with",
       "category": "fixed_prepositions",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.76,
-      "reason": "Retained: High-yield target vocabulary (Zipf 2.76)"
+      "effective_score": 2.76,
+      "word_breakdown": {
+        "awash": 2.76,
+        "with": 6.85
+      },
+      "reason": "Retained: Contains target/rare lexicon 'awash' (Zipf 2.76)"
     },
     {
       "term": "contemplates",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.75,
+      "effective_score": 2.75,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.75)"
     },
     {
       "term": "Quash",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.75,
+      "effective_score": 2.75,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.75)"
     },
     {
       "term": "scavengers",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.75,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.75,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Diversifying",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.74,
+      "effective_score": 2.74,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.74)"
     },
     {
       "term": "transcended",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.74,
+      "effective_score": 2.74,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.74)"
     },
     {
       "term": "fora",
       "category": "foreign_words",
       "part_of_speech": "Noun",
-      "zipf_score": 2.74,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.74,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Redux",
       "category": "foreign_words",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.74,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.74,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "disengagement",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.72,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.72,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Emitters",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.7,
+      "effective_score": 2.7,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.7)"
     },
     {
       "term": "Thwarting",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.7,
+      "effective_score": 2.7,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.7)"
     },
     {
       "term": "lethargy",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.69,
+      "effective_score": 2.69,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.69)"
     },
     {
       "term": "Underpinned",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.69,
+      "effective_score": 2.69,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.69)"
     },
     {
       "term": "Abate",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.68,
+      "effective_score": 2.68,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.68)"
     },
     {
       "term": "mobilised",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.68,
+      "effective_score": 2.68,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.68)"
     },
     {
       "term": "supersede",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.68,
+      "effective_score": 2.68,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.68)"
     },
     {
       "term": "Plaguing",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.67,
+      "effective_score": 2.67,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.67)"
     },
     {
       "term": "Decentralised",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.66,
+      "effective_score": 2.66,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.66)"
     },
     {
       "term": "imperatives",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.65,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.65,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Forays",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.64,
+      "effective_score": 2.64,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.64)"
     },
     {
       "term": "Wrest",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.63,
+      "effective_score": 2.63,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.63)"
-    },
-    {
-      "term": "languishing in",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb phrase",
-      "zipf_score": 2.62,
-      "reason": "Retained: High-yield target vocabulary (Zipf 2.62)"
     },
     {
       "term": "Sluice gates",
       "category": "idioms",
       "part_of_speech": "Noun Phrase",
-      "zipf_score": 2.62,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 2.63,
+      "word_breakdown": {
+        "sluice": 2.63,
+        "gates": 4.3
+      },
+      "reason": "Retained: Contains target/rare lexicon 'sluice' (Zipf 2.63)"
+    },
+    {
+      "term": "languishing in",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb phrase",
+      "effective_score": 2.62,
+      "word_breakdown": {
+        "languishing": 2.62,
+        "in": 7.27
+      },
+      "reason": "Retained: Contains target/rare lexicon 'languishing' (Zipf 2.62)"
     },
     {
       "term": "redraw the boundaries of",
       "category": "idioms",
       "part_of_speech": "Phrase",
-      "zipf_score": 2.61,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 2.62,
+      "word_breakdown": {
+        "redraw": 2.62,
+        "the": 7.73,
+        "boundaries": 4.25,
+        "of": 7.4
+      },
+      "reason": "Retained: Contains target/rare lexicon 'redraw' (Zipf 2.62)"
     },
     {
       "term": "Nudging",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.59,
+      "effective_score": 2.59,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.59)"
     },
     {
       "term": "Predate",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.59,
+      "effective_score": 2.59,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.59)"
     },
     {
       "term": "Wherewithal",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.58,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.58,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "brutish",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.57,
+      "effective_score": 2.57,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.57)"
     },
     {
       "term": "Eschew",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.57,
+      "effective_score": 2.57,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.57)"
-    },
-    {
-      "term": "idiosyncrasies",
-      "category": "one_word_subs",
-      "part_of_speech": "Noun",
-      "zipf_score": 2.56,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
     },
     {
       "term": "Inching upwards",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 2.54,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 2.57,
+      "word_breakdown": {
+        "inching": 2.57,
+        "upwards": 3.75
+      },
+      "reason": "Retained: Contains target/rare lexicon 'inching' (Zipf 2.57)"
+    },
+    {
+      "term": "idiosyncrasies",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 2.56,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Overshoot",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.52,
+      "effective_score": 2.52,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.52)"
     },
     {
       "term": "endeavoured",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.48,
+      "effective_score": 2.48,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.48)"
     },
     {
       "term": "exempting",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.47,
+      "effective_score": 2.47,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.47)"
     },
     {
       "term": "adjudicator",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.46,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.46,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Mopped up",
       "category": "phrasal_verbs",
       "part_of_speech": "Verb",
-      "zipf_score": 2.46,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 2.46,
+      "word_breakdown": {
+        "mopped": 2.46,
+        "up": 6.39
+      },
+      "reason": "Retained: Contains target/rare lexicon 'mopped' (Zipf 2.46)"
     },
     {
       "term": "Nudges towards",
       "category": "fixed_prepositions",
       "part_of_speech": "Verb",
-      "zipf_score": 2.44,
-      "reason": "Retained: High-yield target vocabulary (Zipf 2.44)"
+      "effective_score": 2.44,
+      "word_breakdown": {
+        "nudges": 2.44,
+        "towards": 5.06
+      },
+      "reason": "Retained: Contains target/rare lexicon 'nudges' (Zipf 2.44)"
     },
     {
       "term": "Play truant",
       "category": "idioms",
       "part_of_speech": "Idiom",
-      "zipf_score": 2.43,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 2.43,
+      "word_breakdown": {
+        "play": 5.61,
+        "truant": 2.43
+      },
+      "reason": "Retained: Contains target/rare lexicon 'truant' (Zipf 2.43)"
     },
     {
       "term": "Reignited",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.42,
+      "effective_score": 2.42,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.42)"
     },
     {
       "term": "Salutary",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.41,
+      "effective_score": 2.41,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.41)"
     },
     {
       "term": "Disaffection",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.4,
+      "effective_score": 2.4,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.4)"
     },
     {
       "term": "Belied",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.39,
+      "effective_score": 2.39,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.39)"
     },
     {
       "term": "Codify",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.39,
+      "effective_score": 2.39,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.39)"
     },
     {
       "term": "wellspring",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.38,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.38,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Sympathisers",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.36,
+      "effective_score": 2.36,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.36)"
     },
     {
       "term": "Hamstrung",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.35,
+      "effective_score": 2.35,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.35)"
     },
     {
       "term": "Radicalisation",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.34,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.34,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "salience",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.32,
+      "effective_score": 2.32,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.32)"
     },
     {
       "term": "Capex",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.32,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.32,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "normalise",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.31,
+      "effective_score": 2.31,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.31)"
     },
     {
       "term": "Ignominy",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.3,
+      "effective_score": 2.3,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.3)"
     },
     {
       "term": "Headwinds",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 2.28,
+      "effective_score": 2.28,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.28)"
     },
     {
       "term": "Disenfranchise",
       "category": "one_word_subs",
       "part_of_speech": "Verb",
-      "zipf_score": 2.28,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.28,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "unheeded",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.27,
+      "effective_score": 2.27,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.27)"
     },
     {
       "term": "Legibility",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.26,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.26,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Piquant",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.23,
+      "effective_score": 2.23,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.23)"
     },
     {
       "term": "perching on",
       "category": "phrasal_verbs",
       "part_of_speech": "Phrasal Verb",
-      "zipf_score": 2.23,
-      "reason": "Retained: Multi-word idiomatic expression"
+      "effective_score": 2.23,
+      "word_breakdown": {
+        "perching": 2.23,
+        "on": 6.91
+      },
+      "reason": "Retained: Contains target/rare lexicon 'perching' (Zipf 2.23)"
     },
     {
       "term": "Antediluvian",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.08,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.08,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "disaggregated",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 2.04,
+      "effective_score": 2.04,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.04)"
     },
     {
       "term": "criminalisation",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 2.03,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 2.03,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Neutralising",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 2.02,
+      "effective_score": 2.02,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 2.02)"
     },
     {
       "term": "bounteous",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 1.88,
+      "effective_score": 1.88,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.88)"
     },
     {
       "term": "remunerative",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 1.88,
+      "effective_score": 1.88,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.88)"
     },
     {
       "term": "Pedigreed",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
-      "zipf_score": 1.85,
+      "effective_score": 1.85,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.85)"
     },
     {
       "term": "commendably",
       "category": "core_vocab",
       "part_of_speech": "Adverb",
-      "zipf_score": 1.84,
+      "effective_score": 1.84,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.84)"
     },
     {
       "term": "debility",
       "category": "core_vocab",
       "part_of_speech": "Noun",
-      "zipf_score": 1.81,
+      "effective_score": 1.81,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.81)"
     },
     {
       "term": "Foisting",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 1.76,
+      "effective_score": 1.76,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.76)"
     },
     {
       "term": "Rubbished",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 1.73,
+      "effective_score": 1.73,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.73)"
     },
     {
       "term": "Equivocate",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 1.72,
+      "effective_score": 1.72,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.72)"
     },
     {
       "term": "Antagonising",
       "category": "core_vocab",
       "part_of_speech": "Verb (Present Participle)",
-      "zipf_score": 1.7,
+      "effective_score": 1.7,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.7)"
     },
     {
       "term": "Burgeon",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 1.65,
+      "effective_score": 1.65,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.65)"
     },
     {
       "term": "monetised",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 1.64,
+      "effective_score": 1.64,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.64)"
     },
     {
       "term": "refoulement",
       "category": "foreign_words",
       "part_of_speech": "Noun",
-      "zipf_score": 1.62,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 1.62,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "precarity",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
-      "zipf_score": 1.58,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 1.58,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     },
     {
       "term": "Delegitimise",
       "category": "core_vocab",
       "part_of_speech": "Verb",
-      "zipf_score": 1.39,
+      "effective_score": 1.39,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.39)"
     },
     {
       "term": "nosediving",
       "category": "idioms",
       "part_of_speech": "Verb",
-      "zipf_score": 1.16,
+      "effective_score": 1.16,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 1.16)"
     },
     {
       "term": "Disincentivising",
       "category": "core_vocab",
       "part_of_speech": "Verb (Gerund)",
-      "zipf_score": 0.0,
+      "effective_score": 0.0,
+      "word_breakdown": {},
       "reason": "Retained: High-yield target vocabulary (Zipf 0.0)"
     },
     {
       "term": "Confrontationist",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
-      "zipf_score": 0.0,
-      "reason": "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+      "effective_score": 0.0,
+      "word_breakdown": {},
+      "reason": "Retained: Exam-critical category immunity"
     }
   ]
 }

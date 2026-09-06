@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "generated_at": "2026-09-06T07:55:34.427444+00:00",
+    "generated_at": "2026-09-06T08:00:05.375052+00:00",
     "total_words": 498,
-    "total_spotlight_tagged": 394,
-    "total_foundational_plain": 104,
+    "total_spotlight_tagged": 271,
+    "total_foundational_plain": 227,
     "spotlight_symbol": "⚡",
-    "spotlight_threshold": 4.2,
+    "spotlight_threshold": 3.5,
     "sorting_order": "Decreasing by effective_score (easiest to rarest)"
   },
   "spotlight_words": [
@@ -44,42 +44,6 @@
       "reason": "Spotlight (⚡): Exam-critical category immunity"
     },
     {
-      "term": "Sustainable",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.19,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.19 < 4.2)"
-    },
-    {
-      "term": "Widespread",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.19,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.19 < 4.2)"
-    },
-    {
-      "term": "Compound",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 4.18,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.18 < 4.2)"
-    },
-    {
-      "term": "Perception",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.18,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.18 < 4.2)"
-    },
-    {
       "term": "consecutive",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
@@ -87,15 +51,6 @@
       "is_spotlight": true,
       "word_breakdown": {},
       "reason": "Spotlight (⚡): Exam-critical category immunity"
-    },
-    {
-      "term": "Underlying",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.17,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.17 < 4.2)"
     },
     {
       "term": "Non-compliance",
@@ -117,123 +72,6 @@
       "is_spotlight": true,
       "word_breakdown": {},
       "reason": "Spotlight (⚡): Exam-critical category immunity"
-    },
-    {
-      "term": "Imposed by",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb",
-      "effective_score": 4.16,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "imposed": 4.16,
-        "by": 6.66
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'imposed' (Zipf 4.16)"
-    },
-    {
-      "term": "Perceived as",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb",
-      "effective_score": 4.16,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "perceived": 4.16,
-        "as": 6.77
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'perceived' (Zipf 4.16)"
-    },
-    {
-      "term": "admission",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.15,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.15 < 4.2)"
-    },
-    {
-      "term": "Below-par",
-      "category": "idioms",
-      "part_of_speech": "Adjective Phrase",
-      "effective_score": 4.15,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "below": 5.05,
-        "par": 4.15
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'par' (Zipf 4.15)"
-    },
-    {
-      "term": "Lean on",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal Verb",
-      "effective_score": 4.14,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "lean": 4.14,
-        "on": 6.91
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'lean' (Zipf 4.14)"
-    },
-    {
-      "term": "retreat",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.13,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.13 < 4.2)"
-    },
-    {
-      "term": "Pressed for",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "effective_score": 4.12,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "pressed": 4.12,
-        "for": 7.01
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'pressed' (Zipf 4.12)"
-    },
-    {
-      "term": "Red flags",
-      "category": "idioms",
-      "part_of_speech": "Noun",
-      "effective_score": 4.09,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "red": 5.32,
-        "flags": 4.09
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'flags' (Zipf 4.09)"
-    },
-    {
-      "term": "exhausted",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 4.08,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.08 < 4.2)"
-    },
-    {
-      "term": "Pressing",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.08,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.08 < 4.2)"
-    },
-    {
-      "term": "blanket",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.07,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.07 < 4.2)"
     },
     {
       "term": "Momentum",
@@ -270,235 +108,6 @@
       "reason": "Spotlight (⚡): Exam-critical category immunity"
     },
     {
-      "term": "Limitations",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.05,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.05 < 4.2)"
-    },
-    {
-      "term": "Audit",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.04,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.04 < 4.2)"
-    },
-    {
-      "term": "elevated",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.03,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.03 < 4.2)"
-    },
-    {
-      "term": "Threshold",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.03,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.03 < 4.2)"
-    },
-    {
-      "term": "Dimension",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.02,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.02 < 4.2)"
-    },
-    {
-      "term": "inclusion",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.02,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.02 < 4.2)"
-    },
-    {
-      "term": "Isolation",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.02,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.02 < 4.2)"
-    },
-    {
-      "term": "Adaptation",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.01,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.01 < 4.2)"
-    },
-    {
-      "term": "stark",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.01,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.01 < 4.2)"
-    },
-    {
-      "term": "In stark contrast to",
-      "category": "idioms",
-      "part_of_speech": "Prepositional Phrase",
-      "effective_score": 4.01,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "in": 7.27,
-        "stark": 4.01,
-        "contrast": 4.46,
-        "to": 7.43
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'stark' (Zipf 4.01)"
-    },
-    {
-      "term": "Recruitment",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 4.0,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 4.0 < 4.2)"
-    },
-    {
-      "term": "under-documented",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 4.0,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "under": 5.73,
-        "documented": 4.0
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'documented' (Zipf 4.0)"
-    },
-    {
-      "term": "facilitate",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.99,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.99 < 4.2)"
-    },
-    {
-      "term": "Multi-vector",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.99,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "multi": 4.54,
-        "vector": 3.99
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'vector' (Zipf 3.99)"
-    },
-    {
-      "term": "compelling",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.98,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.98 < 4.2)"
-    },
-    {
-      "term": "stepping into a vacuum",
-      "category": "idioms",
-      "part_of_speech": "Verb",
-      "effective_score": 3.98,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "stepping": 3.98,
-        "into": 6.11,
-        "vacuum": 4.09
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'stepping' (Zipf 3.98)"
-    },
-    {
-      "term": "Condemned",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.97,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.97 < 4.2)"
-    },
-    {
-      "term": "Clean sweep",
-      "category": "idioms",
-      "part_of_speech": "Noun",
-      "effective_score": 3.97,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "clean": 4.97,
-        "sweep": 3.97
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'sweep' (Zipf 3.97)"
-    },
-    {
-      "term": "Making exceptions for",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "effective_score": 3.97,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "making": 5.54,
-        "exceptions": 3.97,
-        "for": 7.01
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'exceptions' (Zipf 3.97)"
-    },
-    {
-      "term": "Amid",
-      "category": "core_vocab",
-      "part_of_speech": "Preposition",
-      "effective_score": 3.95,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.95 < 4.2)"
-    },
-    {
-      "term": "Rhetoric",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.95,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.95 < 4.2)"
-    },
-    {
-      "term": "sanctions",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.95,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.95 < 4.2)"
-    },
-    {
-      "term": "Robust",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.94,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.94 < 4.2)"
-    },
-    {
       "term": "Litigation",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
@@ -506,157 +115,6 @@
       "is_spotlight": true,
       "word_breakdown": {},
       "reason": "Spotlight (⚡): Exam-critical category immunity"
-    },
-    {
-      "term": "Call a halt to",
-      "category": "idioms",
-      "part_of_speech": "Verb Phrase",
-      "effective_score": 3.93,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "call": 5.51,
-        "halt": 3.93,
-        "to": 7.43
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'halt' (Zipf 3.93)"
-    },
-    {
-      "term": "Persistent",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.9,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.9 < 4.2)"
-    },
-    {
-      "term": "Opt for",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal Verb",
-      "effective_score": 3.9,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "opt": 3.9,
-        "for": 7.01
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'opt' (Zipf 3.9)"
-    },
-    {
-      "term": "opt out of",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal Verb",
-      "effective_score": 3.9,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "opt": 3.9,
-        "out": 6.38,
-        "of": 7.4
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'opt' (Zipf 3.9)"
-    },
-    {
-      "term": "In the aftermath of",
-      "category": "idioms",
-      "part_of_speech": "Prepositional phrase",
-      "effective_score": 3.9,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "in": 7.27,
-        "the": 7.73,
-        "aftermath": 3.9,
-        "of": 7.4
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'aftermath' (Zipf 3.9)"
-    },
-    {
-      "term": "Adverse",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.89,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.89 < 4.2)"
-    },
-    {
-      "term": "highlighted",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.89,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.89 < 4.2)"
-    },
-    {
-      "term": "yields",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.89,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.89 < 4.2)"
-    },
-    {
-      "term": "Leverage",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.88,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.88 < 4.2)"
-    },
-    {
-      "term": "selective",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.88,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.88 < 4.2)"
-    },
-    {
-      "term": "problematic",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.87,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.87 < 4.2)"
-    },
-    {
-      "term": "underway",
-      "category": "idioms",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.87,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.87 < 4.2)"
-    },
-    {
-      "term": "fatigue",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.86,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.86 < 4.2)"
-    },
-    {
-      "term": "fragile",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.86,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.86 < 4.2)"
-    },
-    {
-      "term": "mounting",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.86,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.86 < 4.2)"
     },
     {
       "term": "Autonomy",
@@ -687,100 +145,6 @@
         "scroll": 3.86
       },
       "reason": "Spotlight (⚡): Exam-critical category immunity"
-    },
-    {
-      "term": "wiped out",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal Verb",
-      "effective_score": 3.86,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "wiped": 3.86,
-        "out": 6.38
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'wiped' (Zipf 3.86)"
-    },
-    {
-      "term": "manipulation",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.85,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.85 < 4.2)"
-    },
-    {
-      "term": "spill over into",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Phrasal Verb",
-      "effective_score": 3.84,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "spill": 3.84,
-        "over": 6.08,
-        "into": 6.11
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'spill' (Zipf 3.84)"
-    },
-    {
-      "term": "Refined",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.83,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.83 < 4.2)"
-    },
-    {
-      "term": "Decree",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.82,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.82 < 4.2)"
-    },
-    {
-      "term": "endure",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.82,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.82 < 4.2)"
-    },
-    {
-      "term": "surge",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.82,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.82 < 4.2)"
-    },
-    {
-      "term": "Confined to",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb",
-      "effective_score": 3.82,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "confined": 3.82,
-        "to": 7.43
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'confined' (Zipf 3.82)"
-    },
-    {
-      "term": "Accounted for",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb",
-      "effective_score": 3.82,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "accounted": 3.82,
-        "for": 7.01
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'accounted' (Zipf 3.82)"
     },
     {
       "term": "Per capita",
@@ -825,177 +189,6 @@
       "reason": "Spotlight (⚡): Exam-critical category immunity"
     },
     {
-      "term": "balancing-act",
-      "category": "idioms",
-      "part_of_speech": "Noun",
-      "effective_score": 3.8,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "balancing": 3.8,
-        "act": 5.3
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'balancing' (Zipf 3.8)"
-    },
-    {
-      "term": "apparatus",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.78,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.78 < 4.2)"
-    },
-    {
-      "term": "Ecosystem",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.78,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.78 < 4.2)"
-    },
-    {
-      "term": "render",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.78,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.78 < 4.2)"
-    },
-    {
-      "term": "Forge consensus",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "effective_score": 3.78,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "forge": 3.78,
-        "consensus": 4.1
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'forge' (Zipf 3.78)"
-    },
-    {
-      "term": "Evolving",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.77,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.77 < 4.2)"
-    },
-    {
-      "term": "Pathway",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.77,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.77 < 4.2)"
-    },
-    {
-      "term": "Exceeded expectations",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "effective_score": 3.76,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "exceeded": 3.76,
-        "expectations": 4.44
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'exceeded' (Zipf 3.76)"
-    },
-    {
-      "term": "storm brewing",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "effective_score": 3.76,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "storm": 4.66,
-        "brewing": 3.76
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'brewing' (Zipf 3.76)"
-    },
-    {
-      "term": "Counterparts",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.75,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.75 < 4.2)"
-    },
-    {
-      "term": "Revised upwards",
-      "category": "phrasal_verbs",
-      "part_of_speech": "Verb Phrase",
-      "effective_score": 3.75,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "revised": 4.14,
-        "upwards": 3.75
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'upwards' (Zipf 3.75)"
-    },
-    {
-      "term": "Aided",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.74,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.74 < 4.2)"
-    },
-    {
-      "term": "Interventions",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.74,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.74 < 4.2)"
-    },
-    {
-      "term": "Ironically",
-      "category": "core_vocab",
-      "part_of_speech": "Adverb",
-      "effective_score": 3.74,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.74 < 4.2)"
-    },
-    {
-      "term": "scrutiny",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.74,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.74 < 4.2)"
-    },
-    {
-      "term": "Exchanged fire",
-      "category": "idioms",
-      "part_of_speech": "Verb Phrase",
-      "effective_score": 3.74,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "exchanged": 3.74,
-        "fire": 5.3
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'exchanged' (Zipf 3.74)"
-    },
-    {
-      "term": "volatile",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.72,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.72 < 4.2)"
-    },
-    {
       "term": "Bilateral",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
@@ -1003,24 +196,6 @@
       "is_spotlight": true,
       "word_breakdown": {},
       "reason": "Spotlight (⚡): Exam-critical category immunity"
-    },
-    {
-      "term": "Apex",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.71,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.71 < 4.2)"
-    },
-    {
-      "term": "engineered",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.71,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.71 < 4.2)"
     },
     {
       "term": "fiscal consolidation",
@@ -1033,96 +208,6 @@
         "consolidation": 3.71
       },
       "reason": "Spotlight (⚡): Exam-critical category immunity"
-    },
-    {
-      "term": "Deploy",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.7,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.7 < 4.2)"
-    },
-    {
-      "term": "Premature",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.7,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.7 < 4.2)"
-    },
-    {
-      "term": "Vulnerability",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.7,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.7 < 4.2)"
-    },
-    {
-      "term": "Apt",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.69,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.69 < 4.2)"
-    },
-    {
-      "term": "Contingent on",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Adjective + Preposition",
-      "effective_score": 3.69,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "contingent": 3.69,
-        "on": 6.91
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'contingent' (Zipf 3.69)"
-    },
-    {
-      "term": "Fallout from",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Noun Phrase",
-      "effective_score": 3.69,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "fallout": 3.69,
-        "from": 6.63
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'fallout' (Zipf 3.69)"
-    },
-    {
-      "term": "Chilling effect",
-      "category": "idioms",
-      "part_of_speech": "Noun Phrase",
-      "effective_score": 3.69,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "chilling": 3.69,
-        "effect": 5.02
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'chilling' (Zipf 3.69)"
-    },
-    {
-      "term": "Durable",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.68,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.68 < 4.2)"
-    },
-    {
-      "term": "outreach",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.68,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.68 < 4.2)"
     },
     {
       "term": "procurement",
@@ -1143,27 +228,6 @@
       "reason": "Spotlight (⚡): Exam-critical category immunity"
     },
     {
-      "term": "susceptible to",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.67,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "susceptible": 3.67,
-        "to": 7.43
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'susceptible' (Zipf 3.67)"
-    },
-    {
-      "term": "trivial",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.66,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.66 < 4.2)"
-    },
-    {
       "term": "extinct",
       "category": "one_word_subs",
       "part_of_speech": "Adjective",
@@ -1173,33 +237,6 @@
       "reason": "Spotlight (⚡): Exam-critical category immunity"
     },
     {
-      "term": "Formidable",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.65,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.65 < 4.2)"
-    },
-    {
-      "term": "hooks",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.65,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.65 < 4.2)"
-    },
-    {
-      "term": "Withstand",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.65,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.65 < 4.2)"
-    },
-    {
       "term": "Concessions",
       "category": "one_word_subs",
       "part_of_speech": "Noun (Plural)",
@@ -1207,15 +244,6 @@
       "is_spotlight": true,
       "word_breakdown": {},
       "reason": "Spotlight (⚡): Exam-critical category immunity"
-    },
-    {
-      "term": "Swell",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.64,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.64 < 4.2)"
     },
     {
       "term": "Forex reserves",
@@ -1230,24 +258,6 @@
       "reason": "Spotlight (⚡): Exam-critical category immunity"
     },
     {
-      "term": "Guarded",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.63,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.63 < 4.2)"
-    },
-    {
-      "term": "seldom",
-      "category": "core_vocab",
-      "part_of_speech": "Adverb",
-      "effective_score": 3.63,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.63 < 4.2)"
-    },
-    {
       "term": "legitimacy",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
@@ -1257,15 +267,6 @@
       "reason": "Spotlight (⚡): Exam-critical category immunity"
     },
     {
-      "term": "Surpassed",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.62,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.62 < 4.2)"
-    },
-    {
       "term": "Sabotage",
       "category": "one_word_subs",
       "part_of_speech": "Noun",
@@ -1273,60 +274,6 @@
       "is_spotlight": true,
       "word_breakdown": {},
       "reason": "Spotlight (⚡): Exam-critical category immunity"
-    },
-    {
-      "term": "Possesses",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.61,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.61 < 4.2)"
-    },
-    {
-      "term": "proliferation",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.61,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.61 < 4.2)"
-    },
-    {
-      "term": "the proof of any pudding is in the eating",
-      "category": "idioms",
-      "part_of_speech": "Idiom",
-      "effective_score": 3.61,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "the": 7.73,
-        "proof": 4.7,
-        "of": 7.4,
-        "any": 6.07,
-        "pudding": 3.61,
-        "is": 7.07,
-        "in": 7.27,
-        "eating": 4.85
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'pudding' (Zipf 3.61)"
-    },
-    {
-      "term": "Optics",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.58,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.58 < 4.2)"
-    },
-    {
-      "term": "Resisting",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.58,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.58 < 4.2)"
     },
     {
       "term": "resilience",
@@ -1347,191 +294,13 @@
       "reason": "Spotlight (⚡): Exam-critical category immunity"
     },
     {
-      "term": "affirmative action",
-      "category": "idioms",
-      "part_of_speech": "Noun",
-      "effective_score": 3.57,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "affirmative": 3.57,
-        "action": 5.25
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'affirmative' (Zipf 3.57)"
-    },
-    {
-      "term": "catastrophe",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.56,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.56 < 4.2)"
-    },
-    {
-      "term": "Dissent",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.56,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.56 < 4.2)"
-    },
-    {
-      "term": "Amidst",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Preposition",
-      "effective_score": 3.56,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.56 < 4.2)"
-    },
-    {
-      "term": "move responsibility upstream",
-      "category": "idioms",
-      "part_of_speech": "Phrase",
-      "effective_score": 3.56,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "move": 5.35,
-        "responsibility": 4.75,
-        "upstream": 3.56
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'upstream' (Zipf 3.56)"
-    },
-    {
-      "term": "cumulative",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.55,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.55 < 4.2)"
-    },
-    {
-      "term": "Prevailing",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.55,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.55 < 4.2)"
-    },
-    {
-      "term": "Replicate",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.55,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.55 < 4.2)"
-    },
-    {
-      "term": "uneven",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.55,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.55 < 4.2)"
-    },
-    {
-      "term": "Alarming",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.53,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.53 < 4.2)"
-    },
-    {
-      "term": "Conform to",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb",
-      "effective_score": 3.53,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "conform": 3.53,
-        "to": 7.43
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'conform' (Zipf 3.53)"
-    },
-    {
-      "term": "persist with",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Verb",
-      "effective_score": 3.53,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "persist": 3.53,
-        "with": 6.85
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'persist' (Zipf 3.53)"
-    },
-    {
-      "term": "Hardened",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.52,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.52 < 4.2)"
-    },
-    {
-      "term": "Oversee",
-      "category": "core_vocab",
-      "part_of_speech": "Verb",
-      "effective_score": 3.51,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.51 < 4.2)"
-    },
-    {
-      "term": "Picturesque",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.5,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.5 < 4.2)"
-    },
-    {
-      "term": "regression",
-      "category": "core_vocab",
-      "part_of_speech": "Noun",
-      "effective_score": 3.5,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.5 < 4.2)"
-    },
-    {
-      "term": "Staggering",
-      "category": "core_vocab",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.5,
-      "is_spotlight": true,
-      "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.5 < 4.2)"
-    },
-    {
-      "term": "synonymous with",
-      "category": "fixed_prepositions",
-      "part_of_speech": "Adjective",
-      "effective_score": 3.5,
-      "is_spotlight": true,
-      "word_breakdown": {
-        "synonymous": 3.5,
-        "with": 6.85
-      },
-      "reason": "Spotlight (⚡): Contains rare lexicon 'synonymous' (Zipf 3.5)"
-    },
-    {
       "term": "Disadvantaged",
       "category": "core_vocab",
       "part_of_speech": "Adjective",
       "effective_score": 3.49,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.49 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.49 < 3.5)"
     },
     {
       "term": "expressly",
@@ -1540,7 +309,7 @@
       "effective_score": 3.48,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.48 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.48 < 3.5)"
     },
     {
       "term": "raptors",
@@ -1576,7 +345,7 @@
       "effective_score": 3.46,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.46 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.46 < 3.5)"
     },
     {
       "term": "discriminatory",
@@ -1585,7 +354,7 @@
       "effective_score": 3.46,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.46 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.46 < 3.5)"
     },
     {
       "term": "disruptive",
@@ -1594,7 +363,7 @@
       "effective_score": 3.46,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.46 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.46 < 3.5)"
     },
     {
       "term": "Mitigation",
@@ -1624,7 +393,7 @@
       "effective_score": 3.45,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.45 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.45 < 3.5)"
     },
     {
       "term": "beneficiaries",
@@ -1667,7 +436,7 @@
       "effective_score": 3.44,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.44 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.44 < 3.5)"
     },
     {
       "term": "deprivation",
@@ -1676,7 +445,7 @@
       "effective_score": 3.44,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.44 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.44 < 3.5)"
     },
     {
       "term": "Hostilities",
@@ -1685,7 +454,7 @@
       "effective_score": 3.44,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.44 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.44 < 3.5)"
     },
     {
       "term": "soaring",
@@ -1694,7 +463,7 @@
       "effective_score": 3.44,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.44 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.44 < 3.5)"
     },
     {
       "term": "stringent",
@@ -1703,7 +472,7 @@
       "effective_score": 3.43,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.43 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.43 < 3.5)"
     },
     {
       "term": "Poised to",
@@ -1747,7 +516,7 @@
       "effective_score": 3.41,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.41 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.41 < 3.5)"
     },
     {
       "term": "proactive",
@@ -1756,7 +525,7 @@
       "effective_score": 3.41,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.41 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.41 < 3.5)"
     },
     {
       "term": "ratified",
@@ -1765,7 +534,7 @@
       "effective_score": 3.41,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.41 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.41 < 3.5)"
     },
     {
       "term": "Unleash",
@@ -1774,7 +543,7 @@
       "effective_score": 3.41,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.41 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.41 < 3.5)"
     },
     {
       "term": "reliant solely on",
@@ -1796,7 +565,7 @@
       "effective_score": 3.4,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.4 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.4 < 3.5)"
     },
     {
       "term": "Stamina",
@@ -1805,7 +574,7 @@
       "effective_score": 3.39,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.39 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.39 < 3.5)"
     },
     {
       "term": "Incremental",
@@ -1814,7 +583,7 @@
       "effective_score": 3.38,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.38 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.38 < 3.5)"
     },
     {
       "term": "imperialism",
@@ -1844,7 +613,7 @@
       "effective_score": 3.37,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.37 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.37 < 3.5)"
     },
     {
       "term": "Spilling over into",
@@ -1879,7 +648,7 @@
       "effective_score": 3.36,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.36 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.36 < 3.5)"
     },
     {
       "term": "crackdown",
@@ -1888,7 +657,7 @@
       "effective_score": 3.35,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.35 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.35 < 3.5)"
     },
     {
       "term": "Tackled",
@@ -1897,7 +666,7 @@
       "effective_score": 3.35,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.35 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.35 < 3.5)"
     },
     {
       "term": "Compounded by",
@@ -1918,7 +687,7 @@
       "effective_score": 3.34,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.34 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.34 < 3.5)"
     },
     {
       "term": "erratic",
@@ -1927,7 +696,7 @@
       "effective_score": 3.34,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.34 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.34 < 3.5)"
     },
     {
       "term": "Deficient",
@@ -1936,7 +705,7 @@
       "effective_score": 3.33,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.33 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.33 < 3.5)"
     },
     {
       "term": "fragmented",
@@ -1945,7 +714,7 @@
       "effective_score": 3.33,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.33 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.33 < 3.5)"
     },
     {
       "term": "Invoked",
@@ -1954,7 +723,7 @@
       "effective_score": 3.33,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.33 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.33 < 3.5)"
     },
     {
       "term": "Entrenched",
@@ -1963,7 +732,7 @@
       "effective_score": 3.31,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.31 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.31 < 3.5)"
     },
     {
       "term": "flagged",
@@ -1972,7 +741,7 @@
       "effective_score": 3.31,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.31 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.31 < 3.5)"
     },
     {
       "term": "linger on",
@@ -1993,7 +762,7 @@
       "effective_score": 3.3,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.3 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.3 < 3.5)"
     },
     {
       "term": "Piling up",
@@ -2014,7 +783,7 @@
       "effective_score": 3.29,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.29 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.29 < 3.5)"
     },
     {
       "term": "undue",
@@ -2023,7 +792,7 @@
       "effective_score": 3.29,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.29 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.29 < 3.5)"
     },
     {
       "term": "Mediator",
@@ -2059,7 +828,7 @@
       "effective_score": 3.28,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.28 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.28 < 3.5)"
     },
     {
       "term": "Reiterated",
@@ -2068,7 +837,7 @@
       "effective_score": 3.28,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.28 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.28 < 3.5)"
     },
     {
       "term": "Irreversible",
@@ -2086,7 +855,7 @@
       "effective_score": 3.27,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.27 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.27 < 3.5)"
     },
     {
       "term": "hamper",
@@ -2095,7 +864,7 @@
       "effective_score": 3.26,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.26 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.26 < 3.5)"
     },
     {
       "term": "Projectile",
@@ -2104,7 +873,7 @@
       "effective_score": 3.26,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.26 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.26 < 3.5)"
     },
     {
       "term": "veiled",
@@ -2113,7 +882,7 @@
       "effective_score": 3.26,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.26 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.26 < 3.5)"
     },
     {
       "term": "Angst",
@@ -2131,7 +900,7 @@
       "effective_score": 3.25,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.25 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.25 < 3.5)"
     },
     {
       "term": "Fictitious",
@@ -2140,7 +909,7 @@
       "effective_score": 3.25,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.25 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.25 < 3.5)"
     },
     {
       "term": "Sluggish",
@@ -2149,7 +918,7 @@
       "effective_score": 3.25,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.25 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.25 < 3.5)"
     },
     {
       "term": "Throwback",
@@ -2167,7 +936,7 @@
       "effective_score": 3.24,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.24 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.24 < 3.5)"
     },
     {
       "term": "Spectre",
@@ -2176,7 +945,7 @@
       "effective_score": 3.24,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.24 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.24 < 3.5)"
     },
     {
       "term": "Malnutrition",
@@ -2206,7 +975,7 @@
       "effective_score": 3.23,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.23 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.23 < 3.5)"
     },
     {
       "term": "Rotational",
@@ -2215,7 +984,7 @@
       "effective_score": 3.23,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.23 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.23 < 3.5)"
     },
     {
       "term": "Ploy",
@@ -2224,7 +993,7 @@
       "effective_score": 3.22,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.22 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.22 < 3.5)"
     },
     {
       "term": "Unsettled",
@@ -2233,7 +1002,7 @@
       "effective_score": 3.22,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.22 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.22 < 3.5)"
     },
     {
       "term": "Found any takers",
@@ -2255,7 +1024,7 @@
       "effective_score": 3.21,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.21 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.21 < 3.5)"
     },
     {
       "term": "Intertwined",
@@ -2285,7 +1054,7 @@
       "effective_score": 3.19,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.19 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.19 < 3.5)"
     },
     {
       "term": "Confer on",
@@ -2306,7 +1075,7 @@
       "effective_score": 3.16,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.16 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.16 < 3.5)"
     },
     {
       "term": "vigilance",
@@ -2315,7 +1084,7 @@
       "effective_score": 3.16,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.16 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.16 < 3.5)"
     },
     {
       "term": "resorting to",
@@ -2336,7 +1105,7 @@
       "effective_score": 3.15,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.15 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.15 < 3.5)"
     },
     {
       "term": "Geopolitical",
@@ -2390,7 +1159,7 @@
       "effective_score": 3.11,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.11 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.11 < 3.5)"
     },
     {
       "term": "alluded to",
@@ -2411,7 +1180,7 @@
       "effective_score": 3.1,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.1 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.1 < 3.5)"
     },
     {
       "term": "rebuke",
@@ -2420,7 +1189,7 @@
       "effective_score": 3.1,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.1 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.1 < 3.5)"
     },
     {
       "term": "Retaliate",
@@ -2429,7 +1198,7 @@
       "effective_score": 3.1,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.1 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.1 < 3.5)"
     },
     {
       "term": "Stuttering",
@@ -2438,7 +1207,7 @@
       "effective_score": 3.1,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.1 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.1 < 3.5)"
     },
     {
       "term": "hoarding",
@@ -2486,7 +1255,7 @@
       "effective_score": 3.09,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.09 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.09 < 3.5)"
     },
     {
       "term": "Softening",
@@ -2495,7 +1264,7 @@
       "effective_score": 3.09,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.09 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.09 < 3.5)"
     },
     {
       "term": "henceforth",
@@ -2504,7 +1273,7 @@
       "effective_score": 3.08,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.08 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.08 < 3.5)"
     },
     {
       "term": "High-octane",
@@ -2537,7 +1306,7 @@
       "effective_score": 3.07,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.07 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.07 < 3.5)"
     },
     {
       "term": "Hinged on",
@@ -2558,7 +1327,7 @@
       "effective_score": 3.06,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.06 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.06 < 3.5)"
     },
     {
       "term": "Cropping up",
@@ -2579,7 +1348,7 @@
       "effective_score": 3.04,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.04 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.04 < 3.5)"
     },
     {
       "term": "Convene",
@@ -2588,7 +1357,7 @@
       "effective_score": 3.04,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.04 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.04 < 3.5)"
     },
     {
       "term": "Sedition",
@@ -2627,7 +1396,7 @@
       "effective_score": 3.02,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.02 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.02 < 3.5)"
     },
     {
       "term": "insulating",
@@ -2636,7 +1405,7 @@
       "effective_score": 3.02,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.02 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.02 < 3.5)"
     },
     {
       "term": "retrieving",
@@ -2645,7 +1414,7 @@
       "effective_score": 3.02,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.02 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 3.02 < 3.5)"
     },
     {
       "term": "Shortfall",
@@ -2675,7 +1444,7 @@
       "effective_score": 2.99,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.99 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.99 < 3.5)"
     },
     {
       "term": "blistering",
@@ -2684,7 +1453,7 @@
       "effective_score": 2.98,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.98 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.98 < 3.5)"
     },
     {
       "term": "Breaching",
@@ -2693,7 +1462,7 @@
       "effective_score": 2.98,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.98 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.98 < 3.5)"
     },
     {
       "term": "Buoyant",
@@ -2702,7 +1471,7 @@
       "effective_score": 2.98,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.98 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.98 < 3.5)"
     },
     {
       "term": "Leeway",
@@ -2711,7 +1480,7 @@
       "effective_score": 2.98,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.98 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.98 < 3.5)"
     },
     {
       "term": "amicable",
@@ -2720,7 +1489,7 @@
       "effective_score": 2.97,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.97 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.97 < 3.5)"
     },
     {
       "term": "weathering",
@@ -2729,7 +1498,7 @@
       "effective_score": 2.97,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.97 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.97 < 3.5)"
     },
     {
       "term": "hedging",
@@ -2738,7 +1507,7 @@
       "effective_score": 2.96,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.96 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.96 < 3.5)"
     },
     {
       "term": "Impasse",
@@ -2756,7 +1525,7 @@
       "effective_score": 2.95,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.95 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.95 < 3.5)"
     },
     {
       "term": "Pent-up",
@@ -2777,7 +1546,7 @@
       "effective_score": 2.95,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.95 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.95 < 3.5)"
     },
     {
       "term": "Resonated with",
@@ -2798,7 +1567,7 @@
       "effective_score": 2.94,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.94 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.94 < 3.5)"
     },
     {
       "term": "carcasses",
@@ -2828,7 +1597,7 @@
       "effective_score": 2.92,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.92 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.92 < 3.5)"
     },
     {
       "term": "congregate",
@@ -2846,7 +1615,7 @@
       "effective_score": 2.91,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.91 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.91 < 3.5)"
     },
     {
       "term": "elicited",
@@ -2855,7 +1624,7 @@
       "effective_score": 2.91,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.91 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.91 < 3.5)"
     },
     {
       "term": "Sobering",
@@ -2864,7 +1633,7 @@
       "effective_score": 2.9,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.9 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.9 < 3.5)"
     },
     {
       "term": "pluralism",
@@ -2882,7 +1651,7 @@
       "effective_score": 2.89,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.89 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.89 < 3.5)"
     },
     {
       "term": "Reprieve",
@@ -2891,7 +1660,7 @@
       "effective_score": 2.88,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.88 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.88 < 3.5)"
     },
     {
       "term": "defaulted on",
@@ -2912,7 +1681,7 @@
       "effective_score": 2.87,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.87 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.87 < 3.5)"
     },
     {
       "term": "Preoccupation",
@@ -2921,7 +1690,7 @@
       "effective_score": 2.87,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.87 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.87 < 3.5)"
     },
     {
       "term": "Complicates",
@@ -2930,7 +1699,7 @@
       "effective_score": 2.86,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.86 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.86 < 3.5)"
     },
     {
       "term": "raked up",
@@ -2951,7 +1720,7 @@
       "effective_score": 2.84,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.84 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.84 < 3.5)"
     },
     {
       "term": "Sombre",
@@ -2960,7 +1729,7 @@
       "effective_score": 2.84,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.84 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.84 < 3.5)"
     },
     {
       "term": "expedient",
@@ -2969,7 +1738,7 @@
       "effective_score": 2.83,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.83 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.83 < 3.5)"
     },
     {
       "term": "Inflows",
@@ -2978,7 +1747,7 @@
       "effective_score": 2.83,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.83 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.83 < 3.5)"
     },
     {
       "term": "technicality",
@@ -2987,7 +1756,7 @@
       "effective_score": 2.83,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.83 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.83 < 3.5)"
     },
     {
       "term": "Monolith",
@@ -3017,7 +1786,7 @@
       "effective_score": 2.8,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.8 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.8 < 3.5)"
     },
     {
       "term": "Abdication",
@@ -3044,7 +1813,7 @@
       "effective_score": 2.79,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.79 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.79 < 3.5)"
     },
     {
       "term": "concocted",
@@ -3053,7 +1822,7 @@
       "effective_score": 2.79,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.79 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.79 < 3.5)"
     },
     {
       "term": "Permutations",
@@ -3062,7 +1831,7 @@
       "effective_score": 2.79,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.79 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.79 < 3.5)"
     },
     {
       "term": "appreciable",
@@ -3071,7 +1840,7 @@
       "effective_score": 2.78,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.78 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.78 < 3.5)"
     },
     {
       "term": "curbs",
@@ -3080,7 +1849,7 @@
       "effective_score": 2.78,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.78 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.78 < 3.5)"
     },
     {
       "term": "Multi-pronged",
@@ -3140,7 +1909,7 @@
       "effective_score": 2.75,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.75 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.75 < 3.5)"
     },
     {
       "term": "Quash",
@@ -3149,7 +1918,7 @@
       "effective_score": 2.75,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.75 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.75 < 3.5)"
     },
     {
       "term": "scavengers",
@@ -3167,7 +1936,7 @@
       "effective_score": 2.74,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.74 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.74 < 3.5)"
     },
     {
       "term": "transcended",
@@ -3176,7 +1945,7 @@
       "effective_score": 2.74,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.74 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.74 < 3.5)"
     },
     {
       "term": "fora",
@@ -3212,7 +1981,7 @@
       "effective_score": 2.7,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.7 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.7 < 3.5)"
     },
     {
       "term": "Thwarting",
@@ -3221,7 +1990,7 @@
       "effective_score": 2.7,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.7 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.7 < 3.5)"
     },
     {
       "term": "lethargy",
@@ -3230,7 +1999,7 @@
       "effective_score": 2.69,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.69 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.69 < 3.5)"
     },
     {
       "term": "Underpinned",
@@ -3239,7 +2008,7 @@
       "effective_score": 2.69,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.69 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.69 < 3.5)"
     },
     {
       "term": "Abate",
@@ -3248,7 +2017,7 @@
       "effective_score": 2.68,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.68 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.68 < 3.5)"
     },
     {
       "term": "mobilised",
@@ -3257,7 +2026,7 @@
       "effective_score": 2.68,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.68 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.68 < 3.5)"
     },
     {
       "term": "supersede",
@@ -3266,7 +2035,7 @@
       "effective_score": 2.68,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.68 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.68 < 3.5)"
     },
     {
       "term": "Plaguing",
@@ -3275,7 +2044,7 @@
       "effective_score": 2.67,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.67 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.67 < 3.5)"
     },
     {
       "term": "Decentralised",
@@ -3284,7 +2053,7 @@
       "effective_score": 2.66,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.66 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.66 < 3.5)"
     },
     {
       "term": "imperatives",
@@ -3302,7 +2071,7 @@
       "effective_score": 2.64,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.64 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.64 < 3.5)"
     },
     {
       "term": "Wrest",
@@ -3311,7 +2080,7 @@
       "effective_score": 2.63,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.63 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.63 < 3.5)"
     },
     {
       "term": "Sluice gates",
@@ -3358,7 +2127,7 @@
       "effective_score": 2.59,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.59 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.59 < 3.5)"
     },
     {
       "term": "Predate",
@@ -3367,7 +2136,7 @@
       "effective_score": 2.59,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.59 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.59 < 3.5)"
     },
     {
       "term": "Wherewithal",
@@ -3385,7 +2154,7 @@
       "effective_score": 2.57,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.57 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.57 < 3.5)"
     },
     {
       "term": "Eschew",
@@ -3394,7 +2163,7 @@
       "effective_score": 2.57,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.57 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.57 < 3.5)"
     },
     {
       "term": "Inching upwards",
@@ -3424,7 +2193,7 @@
       "effective_score": 2.52,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.52 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.52 < 3.5)"
     },
     {
       "term": "endeavoured",
@@ -3433,7 +2202,7 @@
       "effective_score": 2.48,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.48 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.48 < 3.5)"
     },
     {
       "term": "exempting",
@@ -3442,7 +2211,7 @@
       "effective_score": 2.47,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.47 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.47 < 3.5)"
     },
     {
       "term": "adjudicator",
@@ -3496,7 +2265,7 @@
       "effective_score": 2.42,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.42 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.42 < 3.5)"
     },
     {
       "term": "Salutary",
@@ -3505,7 +2274,7 @@
       "effective_score": 2.41,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.41 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.41 < 3.5)"
     },
     {
       "term": "Disaffection",
@@ -3514,7 +2283,7 @@
       "effective_score": 2.4,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.4 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.4 < 3.5)"
     },
     {
       "term": "Belied",
@@ -3523,7 +2292,7 @@
       "effective_score": 2.39,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.39 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.39 < 3.5)"
     },
     {
       "term": "Codify",
@@ -3532,7 +2301,7 @@
       "effective_score": 2.39,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.39 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.39 < 3.5)"
     },
     {
       "term": "wellspring",
@@ -3550,7 +2319,7 @@
       "effective_score": 2.36,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.36 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.36 < 3.5)"
     },
     {
       "term": "Hamstrung",
@@ -3559,7 +2328,7 @@
       "effective_score": 2.35,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.35 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.35 < 3.5)"
     },
     {
       "term": "Radicalisation",
@@ -3577,7 +2346,7 @@
       "effective_score": 2.32,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.32 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.32 < 3.5)"
     },
     {
       "term": "Capex",
@@ -3595,7 +2364,7 @@
       "effective_score": 2.31,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.31 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.31 < 3.5)"
     },
     {
       "term": "Ignominy",
@@ -3604,7 +2373,7 @@
       "effective_score": 2.3,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.3 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.3 < 3.5)"
     },
     {
       "term": "Headwinds",
@@ -3613,7 +2382,7 @@
       "effective_score": 2.28,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.28 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.28 < 3.5)"
     },
     {
       "term": "Disenfranchise",
@@ -3631,7 +2400,7 @@
       "effective_score": 2.27,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.27 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.27 < 3.5)"
     },
     {
       "term": "Legibility",
@@ -3649,7 +2418,7 @@
       "effective_score": 2.23,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.23 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.23 < 3.5)"
     },
     {
       "term": "perching on",
@@ -3679,7 +2448,7 @@
       "effective_score": 2.04,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.04 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.04 < 3.5)"
     },
     {
       "term": "criminalisation",
@@ -3697,7 +2466,7 @@
       "effective_score": 2.02,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.02 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 2.02 < 3.5)"
     },
     {
       "term": "bounteous",
@@ -3706,7 +2475,7 @@
       "effective_score": 1.88,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.88 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.88 < 3.5)"
     },
     {
       "term": "remunerative",
@@ -3715,7 +2484,7 @@
       "effective_score": 1.88,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.88 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.88 < 3.5)"
     },
     {
       "term": "Pedigreed",
@@ -3724,7 +2493,7 @@
       "effective_score": 1.85,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.85 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.85 < 3.5)"
     },
     {
       "term": "commendably",
@@ -3733,7 +2502,7 @@
       "effective_score": 1.84,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.84 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.84 < 3.5)"
     },
     {
       "term": "debility",
@@ -3742,7 +2511,7 @@
       "effective_score": 1.81,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.81 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.81 < 3.5)"
     },
     {
       "term": "Foisting",
@@ -3751,7 +2520,7 @@
       "effective_score": 1.76,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.76 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.76 < 3.5)"
     },
     {
       "term": "Rubbished",
@@ -3760,7 +2529,7 @@
       "effective_score": 1.73,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.73 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.73 < 3.5)"
     },
     {
       "term": "Equivocate",
@@ -3769,7 +2538,7 @@
       "effective_score": 1.72,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.72 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.72 < 3.5)"
     },
     {
       "term": "Antagonising",
@@ -3778,7 +2547,7 @@
       "effective_score": 1.7,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.7 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.7 < 3.5)"
     },
     {
       "term": "Burgeon",
@@ -3787,7 +2556,7 @@
       "effective_score": 1.65,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.65 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.65 < 3.5)"
     },
     {
       "term": "monetised",
@@ -3796,7 +2565,7 @@
       "effective_score": 1.64,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.64 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.64 < 3.5)"
     },
     {
       "term": "refoulement",
@@ -3823,7 +2592,7 @@
       "effective_score": 1.39,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.39 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.39 < 3.5)"
     },
     {
       "term": "nosediving",
@@ -3832,7 +2601,7 @@
       "effective_score": 1.16,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.16 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 1.16 < 3.5)"
     },
     {
       "term": "Disincentivising",
@@ -3841,7 +2610,7 @@
       "effective_score": 0.0,
       "is_spotlight": true,
       "word_breakdown": {},
-      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 0.0 < 4.2)"
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Zipf 0.0 < 3.5)"
     },
     {
       "term": "Confrontationist",
@@ -3864,7 +2633,7 @@
         "all": 6.52,
         "out": 6.38
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "out to",
@@ -3876,7 +2645,7 @@
         "out": 6.38,
         "to": 7.43
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Would do well to",
@@ -3890,7 +2659,7 @@
         "well": 6.03,
         "to": 7.43
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "A way out",
@@ -3902,7 +2671,7 @@
         "way": 6.01,
         "out": 6.38
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Going after",
@@ -3914,7 +2683,7 @@
         "going": 5.94,
         "after": 6.11
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Going by",
@@ -3926,7 +2695,7 @@
         "going": 5.94,
         "by": 6.66
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Down Under",
@@ -3938,7 +2707,7 @@
         "down": 5.88,
         "under": 5.73
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "left out of",
@@ -3951,7 +2720,7 @@
         "out": 6.38,
         "of": 7.4
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Set out",
@@ -3963,7 +2732,7 @@
         "set": 5.59,
         "out": 6.38
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Set to",
@@ -3975,7 +2744,7 @@
         "set": 5.59,
         "to": 7.43
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Tell from",
@@ -3987,7 +2756,7 @@
         "tell": 5.53,
         "from": 6.63
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Call on",
@@ -3999,7 +2768,7 @@
         "call": 5.51,
         "on": 6.91
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Lost on",
@@ -4011,7 +2780,7 @@
         "lost": 5.39,
         "on": 6.91
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Due to",
@@ -4023,7 +2792,7 @@
         "due": 5.35,
         "to": 7.43
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Leave out",
@@ -4035,7 +2804,7 @@
         "leave": 5.34,
         "out": 6.38
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Under the watch of",
@@ -4049,7 +2818,7 @@
         "watch": 5.34,
         "of": 7.4
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "bring about",
@@ -4061,7 +2830,7 @@
         "bring": 5.27,
         "about": 6.4
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "played out",
@@ -4073,7 +2842,7 @@
         "played": 5.23,
         "out": 6.38
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Near-term",
@@ -4085,7 +2854,7 @@
         "near": 5.29,
         "term": 5.23
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "on account of",
@@ -4098,7 +2867,7 @@
         "account": 5.21,
         "of": 7.4
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Takes over",
@@ -4110,7 +2879,7 @@
         "takes": 5.18,
         "over": 6.08
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "cool down",
@@ -4122,7 +2891,7 @@
         "cool": 5.15,
         "down": 5.88
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Middle ground",
@@ -4134,7 +2903,7 @@
         "middle": 5.18,
         "ground": 5.15
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Evidence-based",
@@ -4146,7 +2915,7 @@
         "evidence": 5.14,
         "based": 5.51
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Stand-off",
@@ -4158,7 +2927,7 @@
         "stand": 5.14,
         "off": 5.93
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "called upon",
@@ -4170,7 +2939,7 @@
         "called": 5.59,
         "upon": 5.12
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "By itself",
@@ -4182,7 +2951,7 @@
         "by": 6.66,
         "itself": 5.1
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "attack on",
@@ -4194,7 +2963,7 @@
         "attack": 5.09,
         "on": 6.91
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Turned out",
@@ -4206,7 +2975,7 @@
         "turned": 5.09,
         "out": 6.38
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Back to the table",
@@ -4220,7 +2989,7 @@
         "the": 7.73,
         "table": 5.05
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "In the dark",
@@ -4233,7 +3002,7 @@
         "the": 7.73,
         "dark": 5.04
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "With due respect",
@@ -4246,7 +3015,7 @@
         "due": 5.35,
         "respect": 5.03
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "moving towards",
@@ -4258,7 +3027,7 @@
         "moving": 5.02,
         "towards": 5.06
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "in effect",
@@ -4270,7 +3039,7 @@
         "in": 7.27,
         "effect": 5.02
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Under pressure",
@@ -4282,7 +3051,7 @@
         "under": 5.73,
         "pressure": 5.01
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "leading up to",
@@ -4295,7 +3064,7 @@
         "up": 6.39,
         "to": 7.43
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Calling on",
@@ -4307,7 +3076,7 @@
         "calling": 4.96,
         "on": 6.91
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Step in that direction",
@@ -4321,7 +3090,7 @@
         "that": 7.01,
         "direction": 4.93
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Place greater weight on",
@@ -4335,7 +3104,7 @@
         "weight": 5.02,
         "on": 6.91
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Associated with",
@@ -4347,7 +3116,7 @@
         "associated": 4.89,
         "with": 6.85
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Carry forward",
@@ -4359,7 +3128,7 @@
         "carry": 4.89,
         "forward": 5.12
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Holding up",
@@ -4371,7 +3140,7 @@
         "holding": 4.89,
         "up": 6.39
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "peter out",
@@ -4383,7 +3152,7 @@
         "peter": 4.88,
         "out": 6.38
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Open to challenge",
@@ -4396,7 +3165,7 @@
         "to": 7.43,
         "challenge": 4.88
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Put her on trial",
@@ -4410,7 +3179,7 @@
         "on": 6.91,
         "trial": 4.87
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Surface",
@@ -4419,7 +3188,7 @@
       "effective_score": 4.83,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.83 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.83 >= 3.5)"
     },
     {
       "term": "acting on",
@@ -4431,7 +3200,7 @@
         "acting": 4.82,
         "on": 6.91
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Benefit of every doubt",
@@ -4445,7 +3214,7 @@
         "every": 5.79,
         "doubt": 4.9
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Easier said than done",
@@ -4459,7 +3228,7 @@
         "than": 6.13,
         "done": 5.58
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "responsibility towards",
@@ -4471,7 +3240,7 @@
         "responsibility": 4.75,
         "towards": 5.06
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "guard against",
@@ -4483,7 +3252,7 @@
         "guard": 4.73,
         "against": 5.68
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Capacity-building",
@@ -4495,7 +3264,7 @@
         "capacity": 4.71,
         "building": 5.29
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "crowd out",
@@ -4507,7 +3276,7 @@
         "crowd": 4.7,
         "out": 6.38
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "powers that be",
@@ -4520,7 +3289,7 @@
         "that": 7.01,
         "be": 6.79
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "factor in",
@@ -4532,7 +3301,7 @@
         "factor": 4.67,
         "in": 7.27
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Pulled up",
@@ -4544,7 +3313,7 @@
         "pulled": 4.67,
         "up": 6.39
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "break relations with",
@@ -4557,7 +3326,7 @@
         "relations": 4.67,
         "with": 6.85
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Holds no weight",
@@ -4570,7 +3339,7 @@
         "no": 6.35,
         "weight": 5.02
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "dedicated",
@@ -4579,7 +3348,7 @@
       "effective_score": 4.58,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.58 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.58 >= 3.5)"
     },
     {
       "term": "Assume",
@@ -4588,7 +3357,7 @@
       "effective_score": 4.57,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.57 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.57 >= 3.5)"
     },
     {
       "term": "Counter-current",
@@ -4600,7 +3369,7 @@
         "counter": 4.56,
         "current": 5.27
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "All roads lead to",
@@ -4614,7 +3383,7 @@
         "lead": 5.2,
         "to": 7.43
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "On the external front",
@@ -4628,7 +3397,7 @@
         "external": 4.52,
         "front": 5.28
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "duty-bound",
@@ -4640,7 +3409,7 @@
         "duty": 4.71,
         "bound": 4.46
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "accused of",
@@ -4652,7 +3421,7 @@
         "accused": 4.46,
         "of": 7.4
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Pointed reference",
@@ -4664,7 +3433,7 @@
         "pointed": 4.46,
         "reference": 4.74
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Alongside",
@@ -4673,7 +3442,7 @@
       "effective_score": 4.45,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.45 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.45 >= 3.5)"
     },
     {
       "term": "in protest against",
@@ -4686,7 +3455,7 @@
         "protest": 4.45,
         "against": 5.68
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Gray zone",
@@ -4698,7 +3467,7 @@
         "gray": 4.45,
         "zone": 4.72
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "out of the woods",
@@ -4712,7 +3481,7 @@
         "the": 7.73,
         "woods": 4.45
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Cast a shadow over",
@@ -4725,7 +3494,7 @@
         "shadow": 4.44,
         "over": 6.08
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Strategic",
@@ -4734,7 +3503,7 @@
       "effective_score": 4.43,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.43 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.43 >= 3.5)"
     },
     {
       "term": "pushed towards",
@@ -4746,7 +3515,7 @@
         "pushed": 4.43,
         "towards": 5.06
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Bid for",
@@ -4758,7 +3527,7 @@
         "bid": 4.4,
         "for": 7.01
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Thrown up",
@@ -4770,7 +3539,7 @@
         "thrown": 4.4,
         "up": 6.39
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "In a bid to",
@@ -4783,7 +3552,7 @@
         "bid": 4.4,
         "to": 7.43
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Subsequent",
@@ -4792,7 +3561,7 @@
       "effective_score": 4.39,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.39 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.39 >= 3.5)"
     },
     {
       "term": "progressive",
@@ -4801,7 +3570,7 @@
       "effective_score": 4.34,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.34 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.34 >= 3.5)"
     },
     {
       "term": "Close monitoring",
@@ -4813,7 +3582,7 @@
         "close": 5.36,
         "monitoring": 4.34
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Substantial",
@@ -4822,7 +3591,7 @@
       "effective_score": 4.33,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.33 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.33 >= 3.5)"
     },
     {
       "term": "implementation",
@@ -4831,7 +3600,7 @@
       "effective_score": 4.31,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.31 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.31 >= 3.5)"
     },
     {
       "term": "attracted to",
@@ -4843,7 +3612,7 @@
         "attracted": 4.31,
         "to": 7.43
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Steady pace",
@@ -4855,7 +3624,7 @@
         "steady": 4.31,
         "pace": 4.38
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Stem from",
@@ -4867,7 +3636,7 @@
         "stem": 4.3,
         "from": 6.63
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "collective defence",
@@ -4879,7 +3648,7 @@
         "collective": 4.3,
         "defence": 4.51
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Stocks",
@@ -4888,7 +3657,7 @@
       "effective_score": 4.28,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.28 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.28 >= 3.5)"
     },
     {
       "term": "allies",
@@ -4897,7 +3666,7 @@
       "effective_score": 4.27,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.27 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.27 >= 3.5)"
     },
     {
       "term": "Healthy clip",
@@ -4909,7 +3678,7 @@
         "healthy": 4.8,
         "clip": 4.26
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Accompanied by",
@@ -4921,7 +3690,7 @@
         "accompanied": 4.25,
         "by": 6.66
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Front-loaded",
@@ -4933,7 +3702,7 @@
         "front": 5.28,
         "loaded": 4.25
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Strikes at",
@@ -4945,7 +3714,7 @@
         "strikes": 4.25,
         "at": 6.7
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Trading strikes",
@@ -4957,7 +3726,7 @@
         "trading": 4.63,
         "strikes": 4.25
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "warrant",
@@ -4966,7 +3735,7 @@
       "effective_score": 4.24,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.24 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.24 >= 3.5)"
     },
     {
       "term": "burden",
@@ -4975,7 +3744,7 @@
       "effective_score": 4.23,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.23 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.23 >= 3.5)"
     },
     {
       "term": "dominant",
@@ -4984,7 +3753,7 @@
       "effective_score": 4.23,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.23 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.23 >= 3.5)"
     },
     {
       "term": "Shed",
@@ -4993,7 +3762,7 @@
       "effective_score": 4.23,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.23 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.23 >= 3.5)"
     },
     {
       "term": "Burden of proof",
@@ -5006,7 +3775,7 @@
         "of": 7.4,
         "proof": 4.7
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Bearing",
@@ -5015,7 +3784,7 @@
       "effective_score": 4.22,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.22 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.22 >= 3.5)"
     },
     {
       "term": "Competing",
@@ -5024,7 +3793,7 @@
       "effective_score": 4.22,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.22 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.22 >= 3.5)"
     },
     {
       "term": "Competing demands",
@@ -5036,7 +3805,7 @@
         "competing": 4.22,
         "demands": 4.41
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "taken into custody",
@@ -5049,7 +3818,7 @@
         "into": 6.11,
         "custody": 4.22
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "Excess",
@@ -5058,7 +3827,7 @@
       "effective_score": 4.21,
       "is_spotlight": false,
       "word_breakdown": {},
-      "reason": "Foundational: Everyday newspaper word (Zipf 4.21 >= 4.2)"
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.21 >= 3.5)"
     },
     {
       "term": "Vulnerable to",
@@ -5070,7 +3839,7 @@
         "vulnerable": 4.21,
         "to": 7.43
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     },
     {
       "term": "stepped in",
@@ -5082,7 +3851,1238 @@
         "stepped": 4.2,
         "in": 7.27
       },
-      "reason": "Foundational: Conversational phrase (all words Zipf >= 4.2)"
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Sustainable",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.19,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.19 >= 3.5)"
+    },
+    {
+      "term": "Widespread",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.19,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.19 >= 3.5)"
+    },
+    {
+      "term": "Compound",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.18,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.18 >= 3.5)"
+    },
+    {
+      "term": "Perception",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.18,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.18 >= 3.5)"
+    },
+    {
+      "term": "Underlying",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.17,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.17 >= 3.5)"
+    },
+    {
+      "term": "Imposed by",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 4.16,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "imposed": 4.16,
+        "by": 6.66
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Perceived as",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 4.16,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "perceived": 4.16,
+        "as": 6.77
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "admission",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.15,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.15 >= 3.5)"
+    },
+    {
+      "term": "Below-par",
+      "category": "idioms",
+      "part_of_speech": "Adjective Phrase",
+      "effective_score": 4.15,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "below": 5.05,
+        "par": 4.15
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Lean on",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 4.14,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "lean": 4.14,
+        "on": 6.91
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "retreat",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.13,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.13 >= 3.5)"
+    },
+    {
+      "term": "Pressed for",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.12,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "pressed": 4.12,
+        "for": 7.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Red flags",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.09,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "red": 5.32,
+        "flags": 4.09
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "exhausted",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.08,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.08 >= 3.5)"
+    },
+    {
+      "term": "Pressing",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.08,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.08 >= 3.5)"
+    },
+    {
+      "term": "blanket",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.07,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.07 >= 3.5)"
+    },
+    {
+      "term": "Limitations",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.05,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.05 >= 3.5)"
+    },
+    {
+      "term": "Audit",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.04,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.04 >= 3.5)"
+    },
+    {
+      "term": "elevated",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.03,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.03 >= 3.5)"
+    },
+    {
+      "term": "Threshold",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.03,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.03 >= 3.5)"
+    },
+    {
+      "term": "Dimension",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.02,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.02 >= 3.5)"
+    },
+    {
+      "term": "inclusion",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.02,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.02 >= 3.5)"
+    },
+    {
+      "term": "Isolation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.02,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.02 >= 3.5)"
+    },
+    {
+      "term": "Adaptation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.01,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.01 >= 3.5)"
+    },
+    {
+      "term": "stark",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.01,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.01 >= 3.5)"
+    },
+    {
+      "term": "In stark contrast to",
+      "category": "idioms",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 4.01,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "in": 7.27,
+        "stark": 4.01,
+        "contrast": 4.46,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Recruitment",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.0,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 4.0 >= 3.5)"
+    },
+    {
+      "term": "under-documented",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.0,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "under": 5.73,
+        "documented": 4.0
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "facilitate",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.99,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.99 >= 3.5)"
+    },
+    {
+      "term": "Multi-vector",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.99,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "multi": 4.54,
+        "vector": 3.99
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "compelling",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.98,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.98 >= 3.5)"
+    },
+    {
+      "term": "stepping into a vacuum",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 3.98,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "stepping": 3.98,
+        "into": 6.11,
+        "vacuum": 4.09
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Condemned",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.97,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.97 >= 3.5)"
+    },
+    {
+      "term": "Clean sweep",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 3.97,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "clean": 4.97,
+        "sweep": 3.97
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Making exceptions for",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.97,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "making": 5.54,
+        "exceptions": 3.97,
+        "for": 7.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Amid",
+      "category": "core_vocab",
+      "part_of_speech": "Preposition",
+      "effective_score": 3.95,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.95 >= 3.5)"
+    },
+    {
+      "term": "Rhetoric",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.95,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.95 >= 3.5)"
+    },
+    {
+      "term": "sanctions",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.95,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.95 >= 3.5)"
+    },
+    {
+      "term": "Robust",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.94,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.94 >= 3.5)"
+    },
+    {
+      "term": "Call a halt to",
+      "category": "idioms",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 3.93,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "call": 5.51,
+        "halt": 3.93,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Persistent",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.9,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.9 >= 3.5)"
+    },
+    {
+      "term": "Opt for",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.9,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "opt": 3.9,
+        "for": 7.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "opt out of",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.9,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "opt": 3.9,
+        "out": 6.38,
+        "of": 7.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "In the aftermath of",
+      "category": "idioms",
+      "part_of_speech": "Prepositional phrase",
+      "effective_score": 3.9,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "in": 7.27,
+        "the": 7.73,
+        "aftermath": 3.9,
+        "of": 7.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Adverse",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.89,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.89 >= 3.5)"
+    },
+    {
+      "term": "highlighted",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.89,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.89 >= 3.5)"
+    },
+    {
+      "term": "yields",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.89,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.89 >= 3.5)"
+    },
+    {
+      "term": "Leverage",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.88,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.88 >= 3.5)"
+    },
+    {
+      "term": "selective",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.88,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.88 >= 3.5)"
+    },
+    {
+      "term": "problematic",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.87,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.87 >= 3.5)"
+    },
+    {
+      "term": "underway",
+      "category": "idioms",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.87,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.87 >= 3.5)"
+    },
+    {
+      "term": "fatigue",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.86,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.86 >= 3.5)"
+    },
+    {
+      "term": "fragile",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.86,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.86 >= 3.5)"
+    },
+    {
+      "term": "mounting",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.86,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.86 >= 3.5)"
+    },
+    {
+      "term": "wiped out",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.86,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "wiped": 3.86,
+        "out": 6.38
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "manipulation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.85,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.85 >= 3.5)"
+    },
+    {
+      "term": "spill over into",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.84,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "spill": 3.84,
+        "over": 6.08,
+        "into": 6.11
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Refined",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.83,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.83 >= 3.5)"
+    },
+    {
+      "term": "Decree",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.82,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.82 >= 3.5)"
+    },
+    {
+      "term": "endure",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.82,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.82 >= 3.5)"
+    },
+    {
+      "term": "surge",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.82,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.82 >= 3.5)"
+    },
+    {
+      "term": "Confined to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 3.82,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "confined": 3.82,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Accounted for",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 3.82,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "accounted": 3.82,
+        "for": 7.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "balancing-act",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 3.8,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "balancing": 3.8,
+        "act": 5.3
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "apparatus",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.78,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.78 >= 3.5)"
+    },
+    {
+      "term": "Ecosystem",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.78,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.78 >= 3.5)"
+    },
+    {
+      "term": "render",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.78,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.78 >= 3.5)"
+    },
+    {
+      "term": "Forge consensus",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.78,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "forge": 3.78,
+        "consensus": 4.1
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Evolving",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.77,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.77 >= 3.5)"
+    },
+    {
+      "term": "Pathway",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.77,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.77 >= 3.5)"
+    },
+    {
+      "term": "Exceeded expectations",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.76,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "exceeded": 3.76,
+        "expectations": 4.44
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "storm brewing",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.76,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "storm": 4.66,
+        "brewing": 3.76
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Counterparts",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.75,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.75 >= 3.5)"
+    },
+    {
+      "term": "Revised upwards",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 3.75,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "revised": 4.14,
+        "upwards": 3.75
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Aided",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.74,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.74 >= 3.5)"
+    },
+    {
+      "term": "Interventions",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.74,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.74 >= 3.5)"
+    },
+    {
+      "term": "Ironically",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 3.74,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.74 >= 3.5)"
+    },
+    {
+      "term": "scrutiny",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.74,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.74 >= 3.5)"
+    },
+    {
+      "term": "Exchanged fire",
+      "category": "idioms",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 3.74,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "exchanged": 3.74,
+        "fire": 5.3
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "volatile",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.72,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.72 >= 3.5)"
+    },
+    {
+      "term": "Apex",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.71,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.71 >= 3.5)"
+    },
+    {
+      "term": "engineered",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.71,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.71 >= 3.5)"
+    },
+    {
+      "term": "Deploy",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.7,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.7 >= 3.5)"
+    },
+    {
+      "term": "Premature",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.7,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.7 >= 3.5)"
+    },
+    {
+      "term": "Vulnerability",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.7,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.7 >= 3.5)"
+    },
+    {
+      "term": "Apt",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.69,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.69 >= 3.5)"
+    },
+    {
+      "term": "Contingent on",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective + Preposition",
+      "effective_score": 3.69,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "contingent": 3.69,
+        "on": 6.91
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Fallout from",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 3.69,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "fallout": 3.69,
+        "from": 6.63
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Chilling effect",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 3.69,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "chilling": 3.69,
+        "effect": 5.02
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Durable",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.68,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.68 >= 3.5)"
+    },
+    {
+      "term": "outreach",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.68,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.68 >= 3.5)"
+    },
+    {
+      "term": "susceptible to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.67,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "susceptible": 3.67,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "trivial",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.66,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.66 >= 3.5)"
+    },
+    {
+      "term": "Formidable",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.65,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.65 >= 3.5)"
+    },
+    {
+      "term": "hooks",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.65,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.65 >= 3.5)"
+    },
+    {
+      "term": "Withstand",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.65,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.65 >= 3.5)"
+    },
+    {
+      "term": "Swell",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.64,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.64 >= 3.5)"
+    },
+    {
+      "term": "Guarded",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.63,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.63 >= 3.5)"
+    },
+    {
+      "term": "seldom",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 3.63,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.63 >= 3.5)"
+    },
+    {
+      "term": "Surpassed",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.62,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.62 >= 3.5)"
+    },
+    {
+      "term": "Possesses",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.61,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.61 >= 3.5)"
+    },
+    {
+      "term": "proliferation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.61,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.61 >= 3.5)"
+    },
+    {
+      "term": "the proof of any pudding is in the eating",
+      "category": "idioms",
+      "part_of_speech": "Idiom",
+      "effective_score": 3.61,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "the": 7.73,
+        "proof": 4.7,
+        "of": 7.4,
+        "any": 6.07,
+        "pudding": 3.61,
+        "is": 7.07,
+        "in": 7.27,
+        "eating": 4.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Optics",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.58,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.58 >= 3.5)"
+    },
+    {
+      "term": "Resisting",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.58,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.58 >= 3.5)"
+    },
+    {
+      "term": "affirmative action",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 3.57,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "affirmative": 3.57,
+        "action": 5.25
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "catastrophe",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.56,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.56 >= 3.5)"
+    },
+    {
+      "term": "Dissent",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.56,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.56 >= 3.5)"
+    },
+    {
+      "term": "Amidst",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Preposition",
+      "effective_score": 3.56,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.56 >= 3.5)"
+    },
+    {
+      "term": "move responsibility upstream",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.56,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "move": 5.35,
+        "responsibility": 4.75,
+        "upstream": 3.56
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "cumulative",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.55,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.55 >= 3.5)"
+    },
+    {
+      "term": "Prevailing",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.55,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.55 >= 3.5)"
+    },
+    {
+      "term": "Replicate",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.55,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.55 >= 3.5)"
+    },
+    {
+      "term": "uneven",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.55,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.55 >= 3.5)"
+    },
+    {
+      "term": "Alarming",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.53,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.53 >= 3.5)"
+    },
+    {
+      "term": "Conform to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 3.53,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "conform": 3.53,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "persist with",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 3.53,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "persist": 3.53,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
+    },
+    {
+      "term": "Hardened",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.52,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.52 >= 3.5)"
+    },
+    {
+      "term": "Oversee",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.51,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.51 >= 3.5)"
+    },
+    {
+      "term": "Picturesque",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.5,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.5 >= 3.5)"
+    },
+    {
+      "term": "regression",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.5,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.5 >= 3.5)"
+    },
+    {
+      "term": "Staggering",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.5,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Zipf 3.5 >= 3.5)"
+    },
+    {
+      "term": "synonymous with",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.5,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "synonymous": 3.5,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.5)"
     }
   ]
 }

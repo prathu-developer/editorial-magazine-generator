@@ -30,7 +30,6 @@ def compile_weekly_backup():
     start_date, end_date = get_target_week_range()
     print(f"Compiling backups for week: {start_date} to {end_date} (IST)")
 
-    # Regex matches filename pattern: 2026-09-05_Saturday.json
     filename_pattern = re.compile(r"^(\d{4}-\d{2}-\d{2})_([A-Za-z]+)\.json$")
     
     weekly_files = []
@@ -68,8 +67,13 @@ def compile_weekly_backup():
             
             cleaned_editorials = []
             for item in raw_editorials:
-                # Strip out the passage field completely
+                # 1. Remove raw editorial passage text
                 item.pop("passage", None)
+                
+                # 2. Remove analysis_summary from inside analysis
+                if isinstance(item.get("analysis"), dict):
+                    item["analysis"].pop("analysis_summary", None)
+                    
                 cleaned_editorials.append(item)
 
             compiled_payload["days_included"].append(file_date.isoformat())

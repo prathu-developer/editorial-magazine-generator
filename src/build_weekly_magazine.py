@@ -317,7 +317,7 @@ AWL_SHIELD = {
 }
 
 # Threshold: Words with Zipf >= 5.00 are everyday conversational English (>100 per million)
-ELEMENTARY_THRESHOLD = 5.00
+ELEMENTARY_THRESHOLD = 4.20
 
 def _get_phrase_word_scores(phrase):
     """Extracts alphabetic tokens and returns list of (word, zipf_score) tuples."""

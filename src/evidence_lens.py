@@ -3,33 +3,36 @@ import re
 from typing import Any, Dict, List, Tuple
 
 # ==============================================================================
-# COMPILED NUMERIC & STATISTICAL PATTERNS (NUMBERS & UNITS ONLY)
+# COMPILED NUMERIC & STATISTICAL PATTERNS (HARDENED AGAINST FALSE POSITIVES)
 # ==============================================================================
 
-# 1. Currencies, Outlays & Price Ranges (INR, USD, EUR, GBP)
+# Currency prefix: \b for alphanumeric codes, (?<!\w) for symbols
+CURRENCY_PREFIX = r'(?:\b(?:Rs\.?|USD|EUR|GBP|INR)|(?<!\w)[₹\$€£])'
+
+# 1. Currencies, Outlays & Price Ranges (Requires at least one digit \d+)
 FINANCIAL_PATTERN = re.compile(
-    r'(?:(?:Rs\.?|₹|\$|USD|EUR|€|GBP|£)\s*[\d\.,]+'
-    r'(?:\s*(?:to|-|and)\s*(?:Rs\.?|₹|\$|USD|EUR|€|GBP|£)?\s*[\d\.,]+)?'
+    rf'(?:{CURRENCY_PREFIX}\s*\d+[\d\.,]*'
+    r'(?:\s*(?:to|-|and)\s*' + CURRENCY_PREFIX + r'?\s*\d+[\d\.,]*)?'
     r'(?:\s*(?:lakh\s+crore|crore|lakh|thousand|million|billion|trillion))?'
     r'(?:\s*(?:per|/)\s*(?:kg|tonne|quintal|barrel|litre|annum|month|year|capita|unit|ration\s+card))?)'
     r'|'
-    r'(?:[\d\.,]+\s*(?:lakh\s+crore|crore|lakh|million|billion|trillion)\s*(?:economy|outlay|budget|package|capex|revenue))',
+    r'(?:\b\d+[\d\.,]*\s*(?:lakh\s+crore|crore|lakh|million|billion|trillion)\s*(?:economy|outlay|budget|package|capex|revenue)\b)',
     re.IGNORECASE
 )
 
 # 2. Macro Rates, Shifts, Percentages & Basis Points
 RATES_AND_MACRO_PATTERN = re.compile(
-    r'(?:[\d\.,]+\s*(?:%|per\s*cent|percent)(?:\s*(?:to|-|and)\s*[\d\.,]+\s*(?:%|per\s*cent|percent))?(?:\s+of\s+GDP)?)'
+    r'(?:\b\d+[\d\.,]*\s*(?:%|per\s*cent|percent)(?:\s*(?:to|-|and)\s*\d+[\d\.,]*\s*(?:%|per\s*cent|percent))?(?:\s+of\s+GDP)?\b)'
     r'|'
-    r'(?:[\d\.,]+(?:%|per\s*cent)?\s*(?:to|-)\s*[\d\.,]+\s*(?:%|per\s*cent|percent))'
+    r'(?:\b\d+[\d\.,]*(?:%|per\s*cent)?\s*(?:to|-)\s*\d+[\d\.,]*\s*(?:%|per\s*cent|percent)\b)'
     r'|'
-    r'(?:[\d\.,]+\s*(?:-|to|\s+)?(?:basis\s+points|bps))',
+    r'(?:\b\d+[\d\.,]*\s*(?:-|to|\s+)?(?:basis\s+points|bps)\b)',
     re.IGNORECASE
 )
 
 # 3. Demographic Counts, Beneficiaries & Large Quantities
 DEMOGRAPHICS_AND_QUANTITIES_PATTERN = re.compile(
-    r'\b[\d\.,]+\s+(?:lakh\s+crore|crore|lakh|thousand|million|billion|trillion)\b'
+    r'\b\d+[\d\.,]*\s+(?:lakh\s+crore|crore|lakh|thousand|million|billion|trillion)\b'
     r'(?:\s+(?:additional\s+)?(?:people|citizens|electors|voters|civilians|men|women|residents|'
     r'beneficiaries|households|families|candidates|seats|homes|appeals|cases|tonnes|mt|jobs|farmers|indians))?',
     re.IGNORECASE
@@ -37,7 +40,7 @@ DEMOGRAPHICS_AND_QUANTITIES_PATTERN = re.compile(
 
 # 4. Physical, Energy, Agrarian & Climate Measurements
 PHYSICAL_AND_CLIMATE_PATTERN = re.compile(
-    r'\b[\d\.,]+\s*(?:°C|degrees?\s+celsius|degrees|centimetres|cm|kilometres|km|sq\s*km|'
+    r'\b\d+[\d\.,]*\s*(?:°C|degrees?\s+celsius|degrees|centimetres|cm|kilometres|km|sq\s*km|'
     r'square\s+kilometres|hectares|acres|metres|GW|MW|gigawatts|megawatts|tonnes|mt|quintal|cusecs)\b',
     re.IGNORECASE
 )
@@ -65,7 +68,7 @@ THRESHOLDS_AND_LIMITS_PATTERN = re.compile(
 
 # 7. Discrete Counts & Raw High-Precision Numbers
 DISCRETE_COUNTS_PATTERN = re.compile(
-    r'\b[\d\.,]+\s+(?:people|indians|voters|electors|civilians|residents|newborns|babies|'
+    r'\b\d+[\d\.,]*\s+(?:people|indians|voters|electors|civilians|residents|newborns|babies|'
     r'bridges|roads|appeals|tribunals|colleges|institutions|launches|protesters|cases|'
     r'seats|candidates|graduates|states|countries|drones|rockets|firms|points|runs)\b'
     r'|'
@@ -73,23 +76,28 @@ DISCRETE_COUNTS_PATTERN = re.compile(
     re.IGNORECASE
 )
 
-# Exclusion Guards: Legal sections, forms, and pure calendar dates
+# ==============================================================================
+# EXCLUSION GUARDS (LEGAL NOISE, STATUTORY FORMS, AND CALENDAR DATES)
+# ==============================================================================
+
 NOISE_CONTEXT_REGEX = re.compile(
     r'\b(?:Article|Section|Schedule|Clause|Rule|Form|Order|Act)\s+[\dA-Za-z\(\)]+\b',
     re.IGNORECASE
 )
+
 CALENDAR_DATE_REGEX = re.compile(
     r'\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(?:,\s+\d{4})?\b'
     r'|\b\d{1,2}\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)(?:\s+\d{4})?\b'
     r'|\b\d{1,2}:\d{2}(?:\s*(?:AM|PM|IST))?\b',
     re.IGNORECASE
 )
+
 STANDALONE_YEAR_REGEX = re.compile(
     r'\b(?<![₹\$\d\.,\-])(19\d\d|20\d\d)(?![%\d\.,\w\-])\b'
 )
 
 # ==============================================================================
-# SPAN RESOLVER & MERGER
+# RESOLUTION, EXTRACTION & INJECTION
 # ==============================================================================
 
 def _get_exclusion_ranges(text: str) -> List[Tuple[int, int]]:
@@ -129,8 +137,8 @@ def merge_overlapping_spans(spans: List[Dict[str, Any]]) -> List[Dict[str, Any]]
 
 def extract_evidence_spans(paragraph_text: str) -> List[Dict[str, Any]]:
     """
-    Direct replacement for your original function.
-    Extracts strictly numeric and statistical spans, skipping legal noise and calendar dates.
+    Extracts sorted, clean numeric and statistical spans.
+    Prevents token collisions with common word suffixes (-rs).
     """
     exclusions = _get_exclusion_ranges(paragraph_text)
     raw_spans = []
@@ -162,15 +170,8 @@ def extract_evidence_spans(paragraph_text: str) -> List[Dict[str, Any]]:
     return merged
 
 
-# ==============================================================================
-# PIPELINE HIGHLIGHTING UTILITIES
-# ==============================================================================
-
 def highlight_passage(passage: str, highlight_format: str = "html") -> Tuple[str, List[str]]:
-    """
-    Highlights all statistical and numeric entries in a passage.
-    Returns the highlighted text along with the list of extracted numbers.
-    """
+    """Highlights statistical tokens inside passage strings."""
     spans = extract_evidence_spans(passage)
     if not spans:
         return passage, []
@@ -193,9 +194,7 @@ def highlight_passage(passage: str, highlight_format: str = "html") -> Tuple[str
 
 
 def process_editorials_json(file_path: str, output_path: str = None, highlight_format: str = "html") -> Dict[str, Any]:
-    """
-    Reads daily editorial JSON, updates every 'passage' field, and stores extracted values.
-    """
+    """Processes editorial JSON files, updating the passage field in place."""
     with open(file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 

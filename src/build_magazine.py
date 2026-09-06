@@ -307,14 +307,14 @@ def send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_it
 
         return new_msg_id
 
-    # 1. Admin Delivery
+    # 1. Admin Delivery: pass the same thumbnail to both editions
     if admin_chat_id:
         print("📤 Delivering both files to Admin Telegram...")
         upload_single_pdf(light_pdf_path, admin_chat_id, caption_light, include_thumb=True)
         time.sleep(1.5)
-        upload_single_pdf(dark_pdf_path, admin_chat_id, caption_dark, include_thumb=False)
+        upload_single_pdf(dark_pdf_path, admin_chat_id, caption_dark, include_thumb=True)
 
-    # 2. Group Publishing: Light Mode first (no buttons), Dark Mode second (with buttons at bottom)
+    # 2. Group Publishing: pass the same thumbnail to both editions
     if enable_group_publish:
         if not source_chat_id or not source_thread_id:
             print("⚠️ Group publishing enabled, but group IDs are missing.")
@@ -326,9 +326,9 @@ def send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_it
         # Brief pause to ensure correct ordering
         time.sleep(1.5)
 
-        # Step 2: Send Dark PDF immediately below (WITH buttons at the bottom)
-        relay_group_file(dark_pdf_path, caption_dark, include_thumb=False, attach_buttons=True)
-        print("🚀 Publication completed: Both files stacked with buttons at the bottom.")
+        # Step 2: Send Dark PDF immediately below (WITH thumbnail & buttons at the bottom)
+        relay_group_file(dark_pdf_path, caption_dark, include_thumb=True, attach_buttons=True)
+        print("🚀 Publication completed: Both files stacked with thumbnails and buttons at the bottom.")
 
 def match_vocab_to_paragraphs(paragraphs, vocab_items):
     """Returns vocab items that appear in the given paragraphs."""

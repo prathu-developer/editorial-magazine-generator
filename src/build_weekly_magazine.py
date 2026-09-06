@@ -237,10 +237,10 @@ def categorize_vocabulary(vocab_items):
     return categorized
 
 # ----------------------------------------------------------------------
-# VOCABULARY ELIMINATION & AUDIT ENGINE
+# DYNAMIC VOCABULARY ELIMINATION & AUDIT ENGINE (ZERO HARDCODING)
 # ----------------------------------------------------------------------
 
-# 1. Full Academic Word List (AWL) - 570 root families protected from deletion
+# Standard Academic Word List (AWL) - 570 universal academic word families
 AWL_SHIELD = {
     "abandon", "abstract", "academy", "access", "accommodate", "accompany", "accumulate",
     "accurate", "achieve", "acknowledge", "acquire", "adapt", "adequate", "adjacent",
@@ -315,27 +315,20 @@ AWL_SHIELD = {
     "visual", "volume", "voluntary", "welfare", "whereas", "whereby", "widespread"
 }
 
-# 2. Transparent literal combinations to eliminate deterministically
-TRIVIAL_PHRASES = {
-    # Prepositions & connectors
-    "attack on", "due to", "in protest against", "perceived as", "responsibility towards",
-    "confined to", "acting on", "associated with", "attracted to", "imposed by", "accompanied by",
-    # Transparent phrasal verbs
-    "cool down", "going after", "opt for", "opt out of", "piling up", "set to",
-    "takes over", "turned out", "wiped out", "moving towards",
-    # Literal collocations
-    "by itself", "close monitoring", "easier said than done", "exceeded expectations",
-    "near-term", "on account of", "on the external front", "steady pace",
-    "step in that direction", "taken into custody", "under pressure",
-    "with due respect", "would do well to"
-}
+# Threshold: Words with Zipf >= 5.00 are everyday conversational English (>100 per million)
+ELEMENTARY_THRESHOLD = 5.00
 
-# Strict 5th-grade elementary cut-off
-ZIPF_ELEMENTARY_THRESHOLD = 5.20
+def _get_phrase_word_scores(phrase):
+    """Extracts alphabetic tokens and returns list of (word, zipf_score) tuples."""
+    tokens = [w for w in re.findall(r"[a-zA-Z]+", phrase.lower()) if len(w) > 1]
+    return [(w, round(zipf_frequency(w, "en"), 2)) for w in tokens]
 
 def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
     """
-    Evaluates vocabulary using AWL immunity, category shields, and Zipf frequency.
+    Dynamically filters vocabulary without hardcoded word lists:
+    1. Categories 'one_word_subs' and 'foreign_words' always kept.
+    2. Single words checked against Academic Word List (AWL) and elementary threshold.
+    3. Multi-word phrases checked for bottleneck word rarity: if every word is elementary (>= 5.00), it is eliminated.
     Saves an audit JSON sorted in decreasing order of Zipf score (easiest to rarest).
     """
     pruned_vocab = {cat: [] for cat in universal_vocab}
@@ -346,37 +339,47 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
         for item in items:
             term = str(item.get("word_or_phrase", "")).strip()
             term_lower = term.lower()
-            score = round(zipf_frequency(term_lower, "en"), 2)
+            word_scores = _get_phrase_word_scores(term_lower)
+
+            # Assign score: for single word it's its own score; for phrase it's the score of its rarest word
+            if len(word_scores) == 1:
+                effective_score = word_scores[0][1]
+            elif len(word_scores) > 1:
+                effective_score = min(score for _, score in word_scores)
+            else:
+                effective_score = round(zipf_frequency(term_lower, "en"), 2)
 
             record = {
                 "term": term,
                 "category": cat_key,
                 "part_of_speech": item.get("part_of_speech", ""),
-                "zipf_score": score,
+                "effective_score": effective_score,
+                "word_breakdown": {w: s for w, s in word_scores} if len(word_scores) > 1 else {},
                 "reason": ""
             }
 
             # Rule 1: Always protect exam-specific categories (OWS & Foreign Words)
             if cat_key in ["one_word_subs", "foreign_words"]:
-                record["reason"] = "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+                record["reason"] = "Retained: Exam-critical category immunity"
                 kept_records.append(record)
                 pruned_vocab[cat_key].append(item)
                 continue
 
-            # Rule 2: Eliminate non-idiomatic literal combinations
-            if term_lower in TRIVIAL_PHRASES:
-                record["reason"] = "Eliminated: Transparent non-idiomatic phrase"
-                eliminated_records.append(record)
-                continue
+            # Rule 2: Multi-word phrase dynamic evaluation (Prepositions, Phrasals, Idioms)
+            if len(word_scores) > 1:
+                # If every single word in the phrase is common conversational English (all >= 5.00)
+                if all(score >= ELEMENTARY_THRESHOLD for _, score in word_scores):
+                    record["reason"] = f"Eliminated: Trivial phrase (all words elementary, Zipf >= {ELEMENTARY_THRESHOLD})"
+                    eliminated_records.append(record)
+                    continue
+                else:
+                    rarest_word = min(word_scores, key=lambda x: x[1])[0]
+                    record["reason"] = f"Retained: Contains target/rare lexicon '{rarest_word}' (Zipf {effective_score})"
+                    kept_records.append(record)
+                    pruned_vocab[cat_key].append(item)
+                    continue
 
-            # Rule 3: Shield true multi-word idioms and phrasal verbs containing spaces
-            if " " in term_lower and cat_key in ["phrasal_verbs", "idioms"]:
-                record["reason"] = "Retained: Multi-word idiomatic expression"
-                kept_records.append(record)
-                pruned_vocab[cat_key].append(item)
-                continue
-
-            # Rule 4: Academic Word List (AWL) Shield (matches surface form or base candidate)
+            # Rule 3: Single Word Academic Word List (AWL) Shield
             candidates = _get_base_candidates(term_lower)
             if term_lower in AWL_SHIELD or any(base in AWL_SHIELD for base in candidates):
                 record["reason"] = "Retained: Academic Word List (AWL) immunity"
@@ -384,20 +387,20 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
                 pruned_vocab[cat_key].append(item)
                 continue
 
-            # Rule 5: Strict 5th-grade elementary frequency floor (Zipf >= 5.20)
-            if score >= ZIPF_ELEMENTARY_THRESHOLD:
-                record["reason"] = f"Eliminated: Elementary frequency floor (Zipf {score} >= {ZIPF_ELEMENTARY_THRESHOLD})"
+            # Rule 4: Single Word Elementary Floor Cut
+            if effective_score >= ELEMENTARY_THRESHOLD:
+                record["reason"] = f"Eliminated: Elementary frequency floor (Zipf {effective_score} >= {ELEMENTARY_THRESHOLD})"
                 eliminated_records.append(record)
                 continue
 
-            # Default: Retain advanced single-word target vocabulary
-            record["reason"] = f"Retained: High-yield target vocabulary (Zipf {score})"
+            # Default: Retain high-yield single word
+            record["reason"] = f"Retained: High-yield target vocabulary (Zipf {effective_score})"
             kept_records.append(record)
             pruned_vocab[cat_key].append(item)
 
-    # Sort in decreasing order of Zipf score (easiest / highest frequency to rarest)
-    kept_records.sort(key=lambda x: x["zipf_score"], reverse=True)
-    eliminated_records.sort(key=lambda x: x["zipf_score"], reverse=True)
+    # Sort both lists in decreasing order of effective_score (highest/easiest to lowest/rarest)
+    kept_records.sort(key=lambda x: x["effective_score"], reverse=True)
+    eliminated_records.sort(key=lambda x: x["effective_score"], reverse=True)
 
     audit_payload = {
         "metadata": {
@@ -405,8 +408,8 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
             "total_original": len(kept_records) + len(eliminated_records),
             "total_retained": len(kept_records),
             "total_eliminated": len(eliminated_records),
-            "elementary_threshold": ZIPF_ELEMENTARY_THRESHOLD,
-            "sorting_order": "Decreasing by zipf_score (easiest/most common to rarest)"
+            "elementary_threshold": ELEMENTARY_THRESHOLD,
+            "sorting_order": "Decreasing by effective_score (easiest/most common to rarest)"
         },
         "eliminated_words": eliminated_records,
         "retained_words": kept_records

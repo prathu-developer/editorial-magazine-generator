@@ -52,18 +52,17 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python src/build_weekly_magazine.py
 
-      - name: Commit and Push PDF to Repository
+      - name: Commit and Push Audit Log to Repository
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add output/*.pdf output/*.json
-          git commit -m "Auto-generate Weekly Compilation Magazine and Audit [skip ci]" || echo "No changes to commit"
+          git add output/*.json
+          git commit -m "Update weekly vocabulary audit log [skip ci]" || echo "No changes to commit"
           git push
 
-      - name: Upload PDF Artifact
+      - name: Upload PDF Artifact (Temporary Backup)
         uses: actions/upload-artifact@v4
         with:
           name: Weekly_Compilation_Magazine
-          path: |
-            output/*.pdf
-            output/*.json
+          path: output/*.pdf
+          retention-days: 14

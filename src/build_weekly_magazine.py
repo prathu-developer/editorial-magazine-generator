@@ -316,22 +316,40 @@ AWL_SHIELD = {
     "visual", "volume", "voluntary", "welfare", "whereas", "whereby", "widespread"
 }
 
-# Threshold: Words with Zipf >= 5.00 are everyday conversational English (>100 per million)
-ELEMENTARY_THRESHOLD = 3.50
+# Dual thresholds: separates single word rarity from multi-word idiomatic phrasing
+SINGLE_WORD_SPOTLIGHT_THRESHOLD = 3.80
+PHRASE_SPOTLIGHT_THRESHOLD = 4.89
 
 def _get_phrase_word_scores(phrase):
     """Extracts alphabetic tokens and returns list of (word, zipf_score) tuples."""
     tokens = [w for w in re.findall(r"[a-zA-Z]+", phrase.lower()) if len(w) > 1]
     return [(w, round(zipf_frequency(w, "en"), 2)) for w in tokens]
 
+def _get_word_stem_score(word):
+    """
+    Computes effective Zipf score by evaluating surface word alongside its base lemmas.
+    Prevents false spotlights on regular verb (-ing, -ed) and adverb (-ly) inflections.
+    """
+    w = word.strip().lower()
+    candidates = _get_base_candidates(w)
+    
+    # Strip -ly adverb suffix to check base adjective/verb
+    if w.endswith("ly") and len(w) > 4:
+        candidates.extend([w[:-2], w[:-2] + "e", w[:-1]])
+
+    scores = [round(zipf_frequency(w, "en"), 2)]
+    for c in candidates:
+        scores.append(round(zipf_frequency(c, "en"), 2))
+
+    return max(scores)
+
 def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
     """
-    Evaluates vocabulary and tags high-yield terms with ⚡ Bolt without eliminating any word:
-    1. Categories 'one_word_subs' and 'foreign_words' always receive the ⚡ Bolt.
-    2. Multi-word phrases with rare words (< 4.20) receive the ⚡ Bolt.
-    3. Single words with Zipf < 4.20 receive the ⚡ Bolt.
-    4. Foundational/elementary words remain in the magazine without a symbol.
-    Saves an audit JSON sorted in decreasing order of effective score.
+    Evaluates vocabulary and tags high-yield terms with ⚡ Bolt:
+    1. Categories 'one_word_subs' and 'foreign_words' always receive ⚡.
+    2. Multi-word phrases receive ⚡ if bottleneck word Zipf < 4.89 (shields true idioms like 'peter out', 'gray zone').
+    3. Single words receive ⚡ if stem-aware Zipf < 3.80 (eliminates -ing/-ly false alarms while protecting 'volatile', 'dissent').
+    4. Conversational and foundational words remain plain in the PDF.
     """
     tagged_vocab = {cat: [] for cat in universal_vocab}
     spotlight_records = []
@@ -343,9 +361,9 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
             term_lower = term.lower()
             word_scores = _get_phrase_word_scores(term_lower)
 
-            # Assign score: single word score or bottleneck word score for phrases
+            # Assign stem-aware score for single words; bottleneck score for multi-word phrases
             if len(word_scores) == 1:
-                effective_score = word_scores[0][1]
+                effective_score = _get_word_stem_score(term_lower)
             elif len(word_scores) > 1:
                 effective_score = min(score for _, score in word_scores)
             else:
@@ -354,31 +372,31 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
             is_spotlight = False
             reason = ""
 
-            # Rule 1: Always spotlight exam-critical categories (OWS & Foreign Words)
+            # Rule 1: Category Immunity (OWS & Foreign Words always get ⚡)
             if cat_key in ["one_word_subs", "foreign_words"]:
                 is_spotlight = True
                 reason = "Spotlight (⚡): Exam-critical category immunity"
 
-            # Rule 2: Multi-word phrases
+            # Rule 2: Multi-word phrases (Idioms, Phrasal Verbs, Fixed Prepositions)
             elif len(word_scores) > 1:
-                if all(score >= ELEMENTARY_THRESHOLD for _, score in word_scores):
+                if all(score >= PHRASE_SPOTLIGHT_THRESHOLD for _, score in word_scores):
                     is_spotlight = False
-                    reason = f"Foundational: Conversational phrase (all words Zipf >= {ELEMENTARY_THRESHOLD})"
+                    reason = f"Foundational: Conversational phrase (all words Zipf >= {PHRASE_SPOTLIGHT_THRESHOLD})"
                 else:
                     is_spotlight = True
                     rarest_word = min(word_scores, key=lambda x: x[1])[0]
-                    reason = f"Spotlight (⚡): Contains rare lexicon '{rarest_word}' (Zipf {effective_score})"
+                    reason = f"Spotlight (⚡): High-yield idiom/phrase containing '{rarest_word}' (Zipf {effective_score} < {PHRASE_SPOTLIGHT_THRESHOLD})"
 
-            # Rule 3: Single words
+            # Rule 3: Single words with base-stem awareness
             else:
-                if effective_score < ELEMENTARY_THRESHOLD:
+                if effective_score < SINGLE_WORD_SPOTLIGHT_THRESHOLD:
                     is_spotlight = True
-                    reason = f"Spotlight (⚡): High-yield target vocabulary (Zipf {effective_score} < {ELEMENTARY_THRESHOLD})"
+                    reason = f"Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf {effective_score} < {SINGLE_WORD_SPOTLIGHT_THRESHOLD})"
                 else:
                     is_spotlight = False
-                    reason = f"Foundational: Everyday newspaper word (Zipf {effective_score} >= {ELEMENTARY_THRESHOLD})"
+                    reason = f"Foundational: Everyday newspaper word (Effective Stem Zipf {effective_score} >= {SINGLE_WORD_SPOTLIGHT_THRESHOLD})"
 
-            # Attach flag directly to item for Jinja template rendering
+            # Attach flag for Jinja rendering
             item["is_high_yield"] = is_spotlight
 
             record = {
@@ -396,10 +414,8 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
             else:
                 foundational_records.append(record)
 
-            # Keep 100% of words in the magazine
             tagged_vocab[cat_key].append(item)
 
-    # Sort both lists in decreasing order of score (easiest to rarest)
     spotlight_records.sort(key=lambda x: x["effective_score"], reverse=True)
     foundational_records.sort(key=lambda x: x["effective_score"], reverse=True)
 
@@ -410,7 +426,8 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
             "total_spotlight_tagged": len(spotlight_records),
             "total_foundational_plain": len(foundational_records),
             "spotlight_symbol": "⚡",
-            "spotlight_threshold": ELEMENTARY_THRESHOLD,
+            "single_word_threshold": SINGLE_WORD_SPOTLIGHT_THRESHOLD,
+            "phrase_threshold": PHRASE_SPOTLIGHT_THRESHOLD,
             "sorting_order": "Decreasing by effective_score (easiest to rarest)"
         },
         "spotlight_words": spotlight_records,
@@ -421,7 +438,7 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
         json.dump(audit_payload, f, ensure_ascii=False, indent=2)
 
     print(f"📋 Audit report saved: {audit_json_path}")
-    print(f"⚡ Tagged {len(spotlight_records)} high-yield items with ⚡ Bolt. Kept all {len(spotlight_records) + len(foundational_records)} words.")
+    print(f"⚡ Tagged {len(spotlight_records)} items with ⚡ Bolt. Kept all {len(spotlight_records) + len(foundational_records)} words.")
 
     return tagged_vocab
 

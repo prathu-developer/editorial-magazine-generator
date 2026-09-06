@@ -7,6 +7,7 @@ from pypdf import PdfReader, PdfWriter
 from datetime import datetime, timezone, timedelta
 from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
+from wordfreq import zipf_frequency
 
 def get_pos_rank(pos_raw):
     """Returns sort rank: Verb (1) -> Noun (2) -> Adjective (3) -> Adverb (4) -> Others (5)."""
@@ -226,15 +227,198 @@ def categorize_vocabulary(vocab_items):
 
     categorized["core_vocab"] = final_core
 
-    # Step 4: Sort each category: Letter -> POS Priority -> Alphabetical
+    # Step 4: Sort each category: True Dictionary Alphabetical Order (A-Z)
     for cat in categorized:
         categorized[cat].sort(key=lambda x: (
-            str(x.get("word_or_phrase", "")).strip()[:1].upper(),
-            get_pos_rank(x.get("part_of_speech", "")),
-            str(x.get("word_or_phrase", "")).strip().lower()
+            str(x.get("word_or_phrase", "")).strip().lower(),
+            get_pos_rank(x.get("part_of_speech", ""))
         ))
 
     return categorized
+
+# ----------------------------------------------------------------------
+# VOCABULARY ELIMINATION & AUDIT ENGINE
+# ----------------------------------------------------------------------
+
+# 1. Full Academic Word List (AWL) - 570 root families protected from deletion
+AWL_SHIELD = {
+    "abandon", "abstract", "academy", "access", "accommodate", "accompany", "accumulate",
+    "accurate", "achieve", "acknowledge", "acquire", "adapt", "adequate", "adjacent",
+    "adjust", "administrate", "advocate", "aggregate", "allocate", "alter", "alternative",
+    "ambiguous", "amend", "analogy", "analyse", "anticipate", "apparent", "append",
+    "appreciate", "approach", "appropriate", "approximate", "arbitrary", "aspect", "assemble",
+    "assess", "assign", "assist", "assume", "assure", "attach", "attain", "attitude",
+    "attribute", "author", "authority", "automate", "available", "aware", "behalf", "benefit",
+    "bias", "bond", "brief", "bulk", "capable", "capacity", "category", "cease", "challenge",
+    "channel", "circumstance", "cite", "civil", "clarify", "classic", "clause", "code",
+    "coherent", "coincide", "collapse", "colleague", "commence", "comment", "commission",
+    "commit", "commodity", "compatible", "compensate", "compile", "complement", "complex",
+    "component", "compound", "comprehensive", "comprise", "compute", "conceive", "concentrate",
+    "concept", "conclude", "concurrent", "conduct", "confer", "confine", "confirm", "conform",
+    "consent", "consequent", "considerable", "consist", "constitute", "constrain", "construct",
+    "consult", "consume", "contact", "contemporary", "context", "contract", "contradict",
+    "contrary", "contrast", "contribute", "controversy", "convene", "converse", "convert",
+    "convince", "cooperate", "coordinate", "core", "corporate", "correspond", "crucial",
+    "currency", "cycle", "debate", "decade", "decline", "deduce", "define", "definite",
+    "demonstrate", "denote", "deny", "depress", "derive", "design", "despite", "detect",
+    "deviate", "device", "devote", "differentiate", "dimension", "diminish", "discrete",
+    "discriminate", "displace", "display", "dispose", "distinct", "distort", "distribute",
+    "diverse", "document", "domain", "domestic", "dominate", "draft", "duration", "dynamic",
+    "economy", "eliminate", "emerge", "emphasis", "empirical", "enable", "encounter", "energy",
+    "enforce", "enhance", "enormous", "ensure", "entity", "environment", "equate", "equip",
+    "equivalent", "erode", "error", "establish", "estate", "estimate", "ethic", "ethnic",
+    "evaluate", "eventual", "evident", "evolve", "exceed", "exclude", "exhibit", "expand",
+    "expert", "explicit", "exploit", "export", "expose", "external", "extract", "facilitate",
+    "factor", "feature", "federal", "fee", "file", "final", "finance", "finite", "flexible",
+    "fluctuate", "focus", "format", "formula", "forthcoming", "foundation", "framework",
+    "function", "fund", "fundamental", "furthermore", "gender", "generate", "generation",
+    "globe", "goal", "grade", "grant", "guarantee", "guideline", "hence", "hierarchy",
+    "highlight", "hypothesis", "identical", "identify", "ideology", "ignorant", "illustrate",
+    "image", "immigrate", "impact", "implement", "implicate", "implicit", "imply", "impose",
+    "incentive", "incidence", "incline", "income", "incorporate", "index", "indicate",
+    "individual", "induce", "inevitable", "infer", "infrastructure", "inherent", "inhibit",
+    "initial", "initiate", "injure", "innovate", "input", "insert", "insight", "inspect",
+    "instance", "institute", "instruct", "integral", "integrate", "integrity", "intelligence",
+    "intense", "interact", "intermediate", "internal", "interpret", "interval", "intervene",
+    "intrinsic", "invest", "investigate", "invoke", "involve", "isolate", "issue", "item",
+    "journal", "justify", "label", "layer", "lecture", "legal", "legislate", "levy",
+    "liberal", "licence", "likewise", "link", "locate", "logic", "maintain", "major",
+    "manipulate", "manual", "margin", "mature", "maximise", "mechanism", "media", "mediate",
+    "medical", "medium", "mental", "method", "migrate", "military", "minimal", "minimise",
+    "minimum", "ministry", "minor", "mode", "modify", "monitor", "motive", "mutual", "negate",
+    "network", "neutral", "nevertheless", "nonetheless", "norm", "normal", "notion",
+    "notwithstanding", "nuclear", "objective", "obtain", "obvious", "occupy", "occur", "odd",
+    "offset", "ongoing", "option", "orient", "outcome", "output", "overall", "overlap",
+    "overseas", "panel", "paradigm", "paragraph", "parallel", "parameter", "participate",
+    "partner", "passive", "perceive", "percent", "period", "persist", "perspective", "phase",
+    "phenomenon", "philosophy", "physical", "policy", "portion", "pose", "positive",
+    "potential", "practitioner", "precede", "precise", "predict", "predominant", "preliminary",
+    "presume", "previous", "primary", "prime", "principal", "principle", "prior", "priority",
+    "proceed", "process", "professional", "prohibit", "project", "promote", "proportion",
+    "prospect", "protocol", "psychology", "publication", "publish", "purchase", "pursue",
+    "qualitative", "quote", "radical", "random", "range", "ratio", "rational", "react",
+    "recover", "refine", "regime", "region", "register", "regulate", "reinforce", "reject",
+    "relax", "release", "relevant", "reluctance", "rely", "remove", "require", "research",
+    "reside", "resolve", "resource", "respond", "restore", "restrain", "restrict", "retain",
+    "reveal", "revenue", "reverse", "revise", "revolution", "rigid", "role", "route",
+    "scenario", "schedule", "scheme", "scope", "section", "sector", "secure", "seek",
+    "select", "sequence", "series", "shift", "significant", "similar", "simulate", "site",
+    "so-called", "sole", "somewhat", "source", "specific", "specify", "sphere", "stable",
+    "statistic", "status", "straightforward", "strategy", "stress", "structure", "style",
+    "submit", "subordinate", "subsequent", "subsidy", "substitute", "successor", "sufficient",
+    "sum", "summary", "supplement", "survey", "survive", "suspend", "sustain", "symbol",
+    "target", "task", "team", "technical", "technique", "technology", "temporary", "tense",
+    "terminate", "text", "theme", "theory", "thereby", "thesis", "topic", "trace", "tradition",
+    "transfer", "transform", "transit", "transmit", "transport", "trend", "trigger",
+    "ultimate", "undergo", "underlie", "undertake", "uniform", "unify", "unique", "utilise",
+    "valid", "vary", "vehicle", "version", "via", "violate", "virtual", "visible", "vision",
+    "visual", "volume", "voluntary", "welfare", "whereas", "whereby", "widespread"
+}
+
+# 2. Transparent literal combinations to eliminate deterministically
+TRIVIAL_PHRASES = {
+    # Prepositions & connectors
+    "attack on", "due to", "in protest against", "perceived as", "responsibility towards",
+    "confined to", "acting on", "associated with", "attracted to", "imposed by", "accompanied by",
+    # Transparent phrasal verbs
+    "cool down", "going after", "opt for", "opt out of", "piling up", "set to",
+    "takes over", "turned out", "wiped out", "moving towards",
+    # Literal collocations
+    "by itself", "close monitoring", "easier said than done", "exceeded expectations",
+    "near-term", "on account of", "on the external front", "steady pace",
+    "step in that direction", "taken into custody", "under pressure",
+    "with due respect", "would do well to"
+}
+
+# Strict 5th-grade elementary cut-off
+ZIPF_ELEMENTARY_THRESHOLD = 5.20
+
+def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
+    """
+    Evaluates vocabulary using AWL immunity, category shields, and Zipf frequency.
+    Saves an audit JSON sorted in decreasing order of Zipf score (easiest to rarest).
+    """
+    pruned_vocab = {cat: [] for cat in universal_vocab}
+    kept_records = []
+    eliminated_records = []
+
+    for cat_key, items in universal_vocab.items():
+        for item in items:
+            term = str(item.get("word_or_phrase", "")).strip()
+            term_lower = term.lower()
+            score = round(zipf_frequency(term_lower, "en"), 2)
+
+            record = {
+                "term": term,
+                "category": cat_key,
+                "part_of_speech": item.get("part_of_speech", ""),
+                "zipf_score": score,
+                "reason": ""
+            }
+
+            # Rule 1: Always protect exam-specific categories (OWS & Foreign Words)
+            if cat_key in ["one_word_subs", "foreign_words"]:
+                record["reason"] = "Retained: Exam-critical category immunity (OWS / Foreign Words)"
+                kept_records.append(record)
+                pruned_vocab[cat_key].append(item)
+                continue
+
+            # Rule 2: Eliminate non-idiomatic literal combinations
+            if term_lower in TRIVIAL_PHRASES:
+                record["reason"] = "Eliminated: Transparent non-idiomatic phrase"
+                eliminated_records.append(record)
+                continue
+
+            # Rule 3: Shield true multi-word idioms and phrasal verbs containing spaces
+            if " " in term_lower and cat_key in ["phrasal_verbs", "idioms"]:
+                record["reason"] = "Retained: Multi-word idiomatic expression"
+                kept_records.append(record)
+                pruned_vocab[cat_key].append(item)
+                continue
+
+            # Rule 4: Academic Word List (AWL) Shield (matches surface form or base candidate)
+            candidates = _get_base_candidates(term_lower)
+            if term_lower in AWL_SHIELD or any(base in AWL_SHIELD for base in candidates):
+                record["reason"] = "Retained: Academic Word List (AWL) immunity"
+                kept_records.append(record)
+                pruned_vocab[cat_key].append(item)
+                continue
+
+            # Rule 5: Strict 5th-grade elementary frequency floor (Zipf >= 5.20)
+            if score >= ZIPF_ELEMENTARY_THRESHOLD:
+                record["reason"] = f"Eliminated: Elementary frequency floor (Zipf {score} >= {ZIPF_ELEMENTARY_THRESHOLD})"
+                eliminated_records.append(record)
+                continue
+
+            # Default: Retain advanced single-word target vocabulary
+            record["reason"] = f"Retained: High-yield target vocabulary (Zipf {score})"
+            kept_records.append(record)
+            pruned_vocab[cat_key].append(item)
+
+    # Sort in decreasing order of Zipf score (easiest / highest frequency to rarest)
+    kept_records.sort(key=lambda x: x["zipf_score"], reverse=True)
+    eliminated_records.sort(key=lambda x: x["zipf_score"], reverse=True)
+
+    audit_payload = {
+        "metadata": {
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "total_original": len(kept_records) + len(eliminated_records),
+            "total_retained": len(kept_records),
+            "total_eliminated": len(eliminated_records),
+            "elementary_threshold": ZIPF_ELEMENTARY_THRESHOLD,
+            "sorting_order": "Decreasing by zipf_score (easiest/most common to rarest)"
+        },
+        "eliminated_words": eliminated_records,
+        "retained_words": kept_records
+    }
+
+    with open(audit_json_path, "w", encoding="utf-8") as f:
+        json.dump(audit_payload, f, ensure_ascii=False, indent=2)
+
+    print(f"📋 Audit report saved: {audit_json_path}")
+    print(f"✂️ Pruned {len(eliminated_records)} entries. Retained {len(kept_records)} high-yield items.")
+
+    return pruned_vocab
 
 def send_to_telegram(pdf_path, date_range_formatted, total_articles, total_words, newspapers_covered, universal_vocab):
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
@@ -393,7 +577,14 @@ def compile_weekly_magazine():
     index_entries = index_entries[:25]
 
     # Universal Categorization across all 25 articles
-    universal_vocab = categorize_vocabulary(all_vocab_items)
+    raw_universal_vocab = categorize_vocabulary(all_vocab_items)
+
+    # Filter baseline words and write audit JSON
+    ist_time = datetime.now(timezone(timedelta(hours=5, minutes=30)))
+    audit_filename = f"vocab_audit_{ist_time.strftime('%Y-%m-%d')}.json"
+    audit_json_path = os.path.join(output_dir, audit_filename)
+    universal_vocab = audit_and_filter_vocabulary(raw_universal_vocab, audit_json_path)
+
     newspapers_covered = " & ".join(sorted(newspapers)) if newspapers else "National Dailies"
 
     total_unique_words = sum(len(items) for items in universal_vocab.values())

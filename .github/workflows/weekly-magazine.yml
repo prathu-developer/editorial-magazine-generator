@@ -35,7 +35,7 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install jinja2 playwright requests pypdf
+          pip install jinja2 playwright requests pypdf wordfreq
 
       - name: Install Headless Chromium
         if: steps.playwright-cache.outputs.cache-hit != 'true'
@@ -56,12 +56,14 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add output/*.pdf
-          git commit -m "Auto-generate Weekly Compilation Magazine [skip ci]" || echo "No changes to commit"
+          git add output/*.pdf output/*.json
+          git commit -m "Auto-generate Weekly Compilation Magazine and Audit [skip ci]" || echo "No changes to commit"
           git push
 
       - name: Upload PDF Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Weekly_Compilation_Magazine
-          path: output/*.pdf
+          path: |
+            output/*.pdf
+            output/*.json

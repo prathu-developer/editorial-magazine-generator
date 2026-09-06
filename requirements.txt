@@ -4,3 +4,4 @@ pypdf==4.3.1
 google-genai
 requests
 Pillow>=10.2.0
+wordfreq>=3.1.1

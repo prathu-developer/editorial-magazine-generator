@@ -547,6 +547,7 @@ def compile_magazine():
             "reading_time": art.get("reading_time", "2 min read"),
             "timestamp": art.get("timestamp", formatted_date_ist),
             "published_at": art.get("published_at") or art.get("editorial_metadata", {}).get("published_at") or raw_data.get("date_scraped", formatted_date_ist),
+            "link": art.get("link", "").strip(),
             "analysis": {
                 "tone": tone_data.get("tone", "Analytical"),
                 "tone_simple_explanation": clean_expl,

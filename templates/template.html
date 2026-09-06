@@ -646,11 +646,42 @@
   .p1-article-footer-note {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 7.2px;
     color: #64748b;
     border-top: 1px dashed #cbd5e1;
     padding-top: 4px;
     margin-top: 4px;
+  }
+
+  .p1-footer-meta {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .p1-source-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 7.2px;
+    font-weight: 800;
+    color: #0b1e36;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    padding: 2.5px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    line-height: 1.2;
+  }
+
+  .p1-source-arrow {
+    font-size: 8px;
+    font-weight: 900;
+    color: #0284c7;
+    line-height: 1;
   }
 
   /* --- NEW: Static Data / Evidence Lens --- */
@@ -1871,6 +1902,14 @@
     color: #64748b !important;
     border-top-color: #1e293b !important;
   }
+  body.dark-theme .p1-source-btn {
+    background: #0f172a !important;
+    color: #38bdf8 !important;
+    border-color: #1e293b !important;
+  }
+  body.dark-theme .p1-source-arrow {
+    color: #38bdf8 !important;
+  }
 
   /* Page 1 Sidebar */
   body.dark-theme .p1-sidebar {
@@ -2211,8 +2250,17 @@
           </div>
           {% if loop.last %}
           <div class="p1-article-footer-note">
-            <span>Source: <strong>{{ art.newspaper }}</strong></span>
-            <span>Published: <strong>{{ art.published_at }}</strong></span>
+            <div class="p1-footer-meta">
+              <span>Source: <strong>{{ art.newspaper }}</strong></span>
+              <span class="meta-sep">·</span>
+              <span>Published: <strong>{{ art.published_at }}</strong></span>
+            </div>
+            {% if art.link %}
+            <a href="{{ art.link }}" target="_blank" rel="noopener noreferrer" class="p1-source-btn">
+              <span>🌐 Original Source</span>
+              <span class="p1-source-arrow">↗</span>
+            </a>
+            {% endif %}
           </div>
           {% endif %}
         </div>

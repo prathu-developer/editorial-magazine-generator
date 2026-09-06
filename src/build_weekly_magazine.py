@@ -316,9 +316,9 @@ AWL_SHIELD = {
     "visual", "volume", "voluntary", "welfare", "whereas", "whereby", "widespread"
 }
 
-# Calibrated for the 130–160 words (25%–32%) high-yield revision sweet spot
-SINGLE_WORD_SPOTLIGHT_THRESHOLD = 3.25
-PHRASE_SPOTLIGHT_THRESHOLD = 3.80
+# Dual thresholds: calibrated for ~140–150 high-yield revision bolts (~28%–30%)
+SINGLE_WORD_SPOTLIGHT_THRESHOLD = 3.40
+PHRASE_SPOTLIGHT_THRESHOLD = 3.35
 
 def _get_phrase_word_scores(phrase):
     """Extracts alphabetic tokens and returns list of (word, zipf_score) tuples."""

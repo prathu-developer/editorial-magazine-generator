@@ -316,9 +316,9 @@ AWL_SHIELD = {
     "visual", "volume", "voluntary", "welfare", "whereas", "whereby", "widespread"
 }
 
-# Dual thresholds: separates single word rarity from multi-word idiomatic phrasing
-SINGLE_WORD_SPOTLIGHT_THRESHOLD = 3.80
-PHRASE_SPOTLIGHT_THRESHOLD = 4.89
+# Calibrated for the 130–160 words (25%–32%) high-yield revision sweet spot
+SINGLE_WORD_SPOTLIGHT_THRESHOLD = 3.25
+PHRASE_SPOTLIGHT_THRESHOLD = 3.80
 
 def _get_phrase_word_scores(phrase):
     """Extracts alphabetic tokens and returns list of (word, zipf_score) tuples."""
@@ -332,8 +332,8 @@ def _get_word_stem_score(word):
     """
     w = word.strip().lower()
     candidates = _get_base_candidates(w)
-    
-    # Strip -ly adverb suffix to check base adjective/verb
+
+    # Strip -ly adverb suffix to evaluate base adjective/verb root
     if w.endswith("ly") and len(w) > 4:
         candidates.extend([w[:-2], w[:-2] + "e", w[:-1]])
 
@@ -346,10 +346,11 @@ def _get_word_stem_score(word):
 def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
     """
     Evaluates vocabulary and tags high-yield terms with ⚡ Bolt:
-    1. Categories 'one_word_subs' and 'foreign_words' always receive ⚡.
-    2. Multi-word phrases receive ⚡ if bottleneck word Zipf < 4.89 (shields true idioms like 'peter out', 'gray zone').
-    3. Single words receive ⚡ if stem-aware Zipf < 3.80 (eliminates -ing/-ly false alarms while protecting 'volatile', 'dissent').
-    4. Conversational and foundational words remain plain in the PDF.
+    1. Foreign Words retain 100% category immunity.
+    2. One-Word Substitutions (OWS) pass through rarity filters (easy ones stay plain; hard ones get ⚡).
+    3. Multi-word phrases receive ⚡ only if bottleneck word Zipf < 3.80.
+    4. Single words receive ⚡ only if stem-aware Zipf < 3.25.
+    5. All 498 items remain in the magazine without deletion.
     """
     tagged_vocab = {cat: [] for cat in universal_vocab}
     spotlight_records = []
@@ -372,12 +373,12 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
             is_spotlight = False
             reason = ""
 
-            # Rule 1: Category Immunity (OWS & Foreign Words always get ⚡)
-            if cat_key in ["one_word_subs", "foreign_words"]:
+            # Rule 1: Full Immunity for Foreign Words only
+            if cat_key == "foreign_words":
                 is_spotlight = True
-                reason = "Spotlight (⚡): Exam-critical category immunity"
+                reason = "Spotlight (⚡): Foreign word category immunity"
 
-            # Rule 2: Multi-word phrases (Idioms, Phrasal Verbs, Fixed Prepositions)
+            # Rule 2: Multi-word phrases (Phrasals, Idioms, Prepositions, Multi-word OWS)
             elif len(word_scores) > 1:
                 if all(score >= PHRASE_SPOTLIGHT_THRESHOLD for _, score in word_scores):
                     is_spotlight = False
@@ -385,9 +386,9 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
                 else:
                     is_spotlight = True
                     rarest_word = min(word_scores, key=lambda x: x[1])[0]
-                    reason = f"Spotlight (⚡): High-yield idiom/phrase containing '{rarest_word}' (Zipf {effective_score} < {PHRASE_SPOTLIGHT_THRESHOLD})"
+                    reason = f"Spotlight (⚡): High-yield phrase containing '{rarest_word}' (Zipf {effective_score} < {PHRASE_SPOTLIGHT_THRESHOLD})"
 
-            # Rule 3: Single words with base-stem awareness
+            # Rule 3: Single words (Core Vocab and Single-word OWS)
             else:
                 if effective_score < SINGLE_WORD_SPOTLIGHT_THRESHOLD:
                     is_spotlight = True
@@ -396,7 +397,7 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
                     is_spotlight = False
                     reason = f"Foundational: Everyday newspaper word (Effective Stem Zipf {effective_score} >= {SINGLE_WORD_SPOTLIGHT_THRESHOLD})"
 
-            # Attach flag for Jinja rendering
+            # Attach flag for Jinja template rendering
             item["is_high_yield"] = is_spotlight
 
             record = {
@@ -416,6 +417,7 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
 
             tagged_vocab[cat_key].append(item)
 
+    # Sort descending by effective score (easiest to rarest)
     spotlight_records.sort(key=lambda x: x["effective_score"], reverse=True)
     foundational_records.sort(key=lambda x: x["effective_score"], reverse=True)
 

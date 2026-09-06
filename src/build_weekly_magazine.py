@@ -326,15 +326,16 @@ def _get_phrase_word_scores(phrase):
 
 def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
     """
-    Dynamically filters vocabulary without hardcoded word lists:
-    1. Categories 'one_word_subs' and 'foreign_words' always kept.
-    2. Single words checked against Academic Word List (AWL) and elementary threshold.
-    3. Multi-word phrases checked for bottleneck word rarity: if every word is elementary (>= 5.00), it is eliminated.
-    Saves an audit JSON sorted in decreasing order of Zipf score (easiest to rarest).
+    Evaluates vocabulary and tags high-yield terms with ⚡ Bolt without eliminating any word:
+    1. Categories 'one_word_subs' and 'foreign_words' always receive the ⚡ Bolt.
+    2. Multi-word phrases with rare words (< 4.20) receive the ⚡ Bolt.
+    3. Single words with Zipf < 4.20 receive the ⚡ Bolt.
+    4. Foundational/elementary words remain in the magazine without a symbol.
+    Saves an audit JSON sorted in decreasing order of effective score.
     """
-    pruned_vocab = {cat: [] for cat in universal_vocab}
-    kept_records = []
-    eliminated_records = []
+    tagged_vocab = {cat: [] for cat in universal_vocab}
+    spotlight_records = []
+    foundational_records = []
 
     for cat_key, items in universal_vocab.items():
         for item in items:
@@ -342,7 +343,7 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
             term_lower = term.lower()
             word_scores = _get_phrase_word_scores(term_lower)
 
-            # Assign score: for single word it's its own score; for phrase it's the score of its rarest word
+            # Assign score: single word score or bottleneck word score for phrases
             if len(word_scores) == 1:
                 effective_score = word_scores[0][1]
             elif len(word_scores) > 1:
@@ -350,79 +351,79 @@ def audit_and_filter_vocabulary(universal_vocab, audit_json_path):
             else:
                 effective_score = round(zipf_frequency(term_lower, "en"), 2)
 
+            is_spotlight = False
+            reason = ""
+
+            # Rule 1: Always spotlight exam-critical categories (OWS & Foreign Words)
+            if cat_key in ["one_word_subs", "foreign_words"]:
+                is_spotlight = True
+                reason = "Spotlight (⚡): Exam-critical category immunity"
+
+            # Rule 2: Multi-word phrases
+            elif len(word_scores) > 1:
+                if all(score >= ELEMENTARY_THRESHOLD for _, score in word_scores):
+                    is_spotlight = False
+                    reason = f"Foundational: Conversational phrase (all words Zipf >= {ELEMENTARY_THRESHOLD})"
+                else:
+                    is_spotlight = True
+                    rarest_word = min(word_scores, key=lambda x: x[1])[0]
+                    reason = f"Spotlight (⚡): Contains rare lexicon '{rarest_word}' (Zipf {effective_score})"
+
+            # Rule 3: Single words
+            else:
+                if effective_score < ELEMENTARY_THRESHOLD:
+                    is_spotlight = True
+                    reason = f"Spotlight (⚡): High-yield target vocabulary (Zipf {effective_score} < {ELEMENTARY_THRESHOLD})"
+                else:
+                    is_spotlight = False
+                    reason = f"Foundational: Everyday newspaper word (Zipf {effective_score} >= {ELEMENTARY_THRESHOLD})"
+
+            # Attach flag directly to item for Jinja template rendering
+            item["is_high_yield"] = is_spotlight
+
             record = {
                 "term": term,
                 "category": cat_key,
                 "part_of_speech": item.get("part_of_speech", ""),
                 "effective_score": effective_score,
+                "is_spotlight": is_spotlight,
                 "word_breakdown": {w: s for w, s in word_scores} if len(word_scores) > 1 else {},
-                "reason": ""
+                "reason": reason
             }
 
-            # Rule 1: Always protect exam-specific categories (OWS & Foreign Words)
-            if cat_key in ["one_word_subs", "foreign_words"]:
-                record["reason"] = "Retained: Exam-critical category immunity"
-                kept_records.append(record)
-                pruned_vocab[cat_key].append(item)
-                continue
+            if is_spotlight:
+                spotlight_records.append(record)
+            else:
+                foundational_records.append(record)
 
-            # Rule 2: Multi-word phrase dynamic evaluation (Prepositions, Phrasals, Idioms)
-            if len(word_scores) > 1:
-                # If every single word in the phrase is common conversational English (all >= 5.00)
-                if all(score >= ELEMENTARY_THRESHOLD for _, score in word_scores):
-                    record["reason"] = f"Eliminated: Trivial phrase (all words elementary, Zipf >= {ELEMENTARY_THRESHOLD})"
-                    eliminated_records.append(record)
-                    continue
-                else:
-                    rarest_word = min(word_scores, key=lambda x: x[1])[0]
-                    record["reason"] = f"Retained: Contains target/rare lexicon '{rarest_word}' (Zipf {effective_score})"
-                    kept_records.append(record)
-                    pruned_vocab[cat_key].append(item)
-                    continue
+            # Keep 100% of words in the magazine
+            tagged_vocab[cat_key].append(item)
 
-            # Rule 3: Single Word Academic Word List (AWL) Shield
-            candidates = _get_base_candidates(term_lower)
-            if term_lower in AWL_SHIELD or any(base in AWL_SHIELD for base in candidates):
-                record["reason"] = "Retained: Academic Word List (AWL) immunity"
-                kept_records.append(record)
-                pruned_vocab[cat_key].append(item)
-                continue
-
-            # Rule 4: Single Word Elementary Floor Cut
-            if effective_score >= ELEMENTARY_THRESHOLD:
-                record["reason"] = f"Eliminated: Elementary frequency floor (Zipf {effective_score} >= {ELEMENTARY_THRESHOLD})"
-                eliminated_records.append(record)
-                continue
-
-            # Default: Retain high-yield single word
-            record["reason"] = f"Retained: High-yield target vocabulary (Zipf {effective_score})"
-            kept_records.append(record)
-            pruned_vocab[cat_key].append(item)
-
-    # Sort both lists in decreasing order of effective_score (highest/easiest to lowest/rarest)
-    kept_records.sort(key=lambda x: x["effective_score"], reverse=True)
-    eliminated_records.sort(key=lambda x: x["effective_score"], reverse=True)
+    # Sort both lists in decreasing order of score (easiest to rarest)
+    spotlight_records.sort(key=lambda x: x["effective_score"], reverse=True)
+    foundational_records.sort(key=lambda x: x["effective_score"], reverse=True)
 
     audit_payload = {
         "metadata": {
             "generated_at": datetime.now(timezone.utc).isoformat(),
-            "total_original": len(kept_records) + len(eliminated_records),
-            "total_retained": len(kept_records),
-            "total_eliminated": len(eliminated_records),
-            "elementary_threshold": ELEMENTARY_THRESHOLD,
-            "sorting_order": "Decreasing by effective_score (easiest/most common to rarest)"
+            "total_words": len(spotlight_records) + len(foundational_records),
+            "total_spotlight_tagged": len(spotlight_records),
+            "total_foundational_plain": len(foundational_records),
+            "spotlight_symbol": "⚡",
+            "spotlight_threshold": ELEMENTARY_THRESHOLD,
+            "sorting_order": "Decreasing by effective_score (easiest to rarest)"
         },
-        "eliminated_words": eliminated_records,
-        "retained_words": kept_records
+        "spotlight_words": spotlight_records,
+        "foundational_words": foundational_records
     }
 
     with open(audit_json_path, "w", encoding="utf-8") as f:
         json.dump(audit_payload, f, ensure_ascii=False, indent=2)
 
     print(f"📋 Audit report saved: {audit_json_path}")
-    print(f"✂️ Pruned {len(eliminated_records)} entries. Retained {len(kept_records)} high-yield items.")
+    print(f"⚡ Tagged {len(spotlight_records)} high-yield items with ⚡ Bolt. Kept all {len(spotlight_records) + len(foundational_records)} words.")
 
-    return pruned_vocab
+    return tagged_vocab
 
 def send_to_telegram(pdf_path, date_range_formatted, total_articles, total_words, newspapers_covered, universal_vocab):
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")

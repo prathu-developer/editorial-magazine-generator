@@ -577,6 +577,14 @@
     text-transform: capitalize;
   }
 
+  .ribbon-bolt {
+    font-size: 10px;
+    color: #d97706;
+    margin-left: 3px;
+    vertical-align: 0.5px;
+    display: inline-block;
+  }
+
   .ribbon-pos {
     font-family: 'Montserrat', sans-serif;
     font-size: 7.8px;
@@ -869,6 +877,9 @@
     <div class="inst-card">
       <h3><span>📌</span> About The Weekly Compilation</h3>
       <p>This edition aggregates every high-yield vocabulary word, phrase, idiom, and grammatical expression curated from Monday to Saturday editorials. Rather than reviewing individual articles, all terms are unified into <strong>Universal Categorical Sections</strong> for fast, systematic revision.</p>
+      <p style="margin-top: 5px; font-size: 9.2px; font-weight: 700; color: #b45309;">
+        ⚡ <strong>High-Yield Spotlight:</strong> Terms marked with ⚡ represent high-difficulty, exam-critical targets. Prioritise these during rapid revision.
+      </p>
     </div>
 
     <div class="inst-card">
@@ -1043,7 +1054,7 @@
           <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
         </div>
         <div class="ribbon-col-word">
-          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-term">{{ item.word_or_phrase }}{% if item.is_high_yield %}<span class="ribbon-bolt">⚡</span>{% endif %}</div>
           <div class="ribbon-pos">{{ item.part_of_speech }}</div>
           <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
         </div>
@@ -1100,7 +1111,7 @@
           <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
         </div>
         <div class="ribbon-col-word">
-          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-term">{{ item.word_or_phrase }}{% if item.is_high_yield %}<span class="ribbon-bolt">⚡</span>{% endif %}</div>
           <div class="ribbon-pos">{{ item.part_of_speech }}</div>
           <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
         </div>
@@ -1157,7 +1168,7 @@
           <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
         </div>
         <div class="ribbon-col-word">
-          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-term">{{ item.word_or_phrase }}{% if item.is_high_yield %}<span class="ribbon-bolt">⚡</span>{% endif %}</div>
           <div class="ribbon-pos">{{ item.part_of_speech }}</div>
           <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
         </div>
@@ -1214,7 +1225,7 @@
           <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
         </div>
         <div class="ribbon-col-word">
-          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-term">{{ item.word_or_phrase }}{% if item.is_high_yield %}<span class="ribbon-bolt">⚡</span>{% endif %}</div>
           <div class="ribbon-pos">{{ item.part_of_speech }}</div>
           <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
         </div>
@@ -1271,7 +1282,7 @@
           <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
         </div>
         <div class="ribbon-col-word">
-          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-term">{{ item.word_or_phrase }}{% if item.is_high_yield %}<span class="ribbon-bolt">⚡</span>{% endif %}</div>
           <div class="ribbon-pos">{{ item.part_of_speech }}</div>
           <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
         </div>
@@ -1328,7 +1339,7 @@
           <span class="ribbon-num">{{ '%02d' % loop.index }}</span>
         </div>
         <div class="ribbon-col-word">
-          <div class="ribbon-term">{{ item.word_or_phrase }}</div>
+          <div class="ribbon-term">{{ item.word_or_phrase }}{% if item.is_high_yield %}<span class="ribbon-bolt">⚡</span>{% endif %}</div>
           <div class="ribbon-pos">{{ item.part_of_speech }}</div>
           <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
         </div>

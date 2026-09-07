@@ -1148,45 +1148,45 @@
   .p2-stance-tone { color: #1e293b; }
   .p2-stance-bg-target { color: #475569; }
 
-  /* Red Theme (Negative / Hostile) */
-  :is(.stance-critical, .stance-pessimistic, .stance-disapproving, .stance-sarcastic, .stance-cynical, .stance-hostile, .stance-admonitory) {
+  /* Red Theme (Negative / Hostile / Critical) */
+  :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 241, 242, 0.75) 100%) !important;
     border-color: rgba(254, 205, 211, 0.9) !important;
     box-shadow: 0 10px 24px -10px rgba(225, 29, 72, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
   }
-  :is(.stance-critical, .stance-pessimistic, .stance-disapproving, .stance-sarcastic, .stance-cynical, .stance-hostile, .stance-admonitory) .p2-stance-icon-circle svg,
-  :is(.stance-critical, .stance-pessimistic, .stance-disapproving, .stance-sarcastic, .stance-cynical, .stance-hostile, .stance-admonitory) .p2-stance-bg-target { color: #e11d48; }
-  :is(.stance-critical, .stance-pessimistic, .stance-disapproving, .stance-sarcastic, .stance-cynical, .stance-hostile, .stance-admonitory) .p2-stance-tone { color: #be123c; }
+  :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-icon-circle svg,
+  :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-bg-target { color: #e11d48; }
+  :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-tone { color: #be123c; }
 
-  /* Amber Theme (Warning / Cautious) */
-  :is(.stance-cautious, .stance-concerned, .stance-cautionary, .stance-sceptical) {
+  /* Amber Theme (Warning / Cautious / Cautiously Optimistic) */
+  :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(254, 243, 199, 0.75) 100%) !important;
     border-color: rgba(253, 230, 138, 0.9) !important;
     box-shadow: 0 10px 24px -10px rgba(217, 119, 6, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
   }
-  :is(.stance-cautious, .stance-concerned, .stance-cautionary, .stance-sceptical) .p2-stance-icon-circle svg,
-  :is(.stance-cautious, .stance-concerned, .stance-cautionary, .stance-sceptical) .p2-stance-bg-target { color: #d97706; }
-  :is(.stance-cautious, .stance-concerned, .stance-cautionary, .stance-sceptical) .p2-stance-tone { color: #b45309; }
+  :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-icon-circle svg,
+  :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-bg-target { color: #d97706; }
+  :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-tone { color: #b45309; }
 
-  /* Green Theme (Positive / Appreciative) */
-  :is(.stance-appreciative, .stance-optimistic, .stance-empathetic, .stance-conciliatory) {
+  /* Green Theme (Positive / Appreciative / Optimistic) */
+  :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(236, 253, 245, 0.75) 100%) !important;
     border-color: rgba(167, 243, 208, 0.9) !important;
     box-shadow: 0 10px 24px -10px rgba(5, 150, 105, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
   }
-  :is(.stance-appreciative, .stance-optimistic, .stance-empathetic, .stance-conciliatory) .p2-stance-icon-circle svg,
-  :is(.stance-appreciative, .stance-optimistic, .stance-empathetic, .stance-conciliatory) .p2-stance-bg-target { color: #059669; }
-  :is(.stance-appreciative, .stance-optimistic, .stance-empathetic, .stance-conciliatory) .p2-stance-tone { color: #047857; }
+  :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-icon-circle svg,
+  :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-bg-target { color: #059669; }
+  :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-tone { color: #047857; }
 
-  /* Blue Theme (Informative / Persuasive) */
-  :is(.stance-persuasive-advocative, .stance-informative-explanatory) {
+  /* Blue Theme (Informative / Analytical / Persuasive) */
+  :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(224, 242, 254, 0.75) 100%) !important;
     border-color: rgba(186, 230, 253, 0.9) !important;
     box-shadow: 0 10px 24px -10px rgba(2, 132, 199, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
   }
-  :is(.stance-persuasive-advocative, .stance-informative-explanatory) .p2-stance-icon-circle svg,
-  :is(.stance-persuasive-advocative, .stance-informative-explanatory) .p2-stance-bg-target { color: #0284c7; }
-  :is(.stance-persuasive-advocative, .stance-informative-explanatory) .p2-stance-tone { color: #0369a1; }
+  :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-icon-circle svg,
+  :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-bg-target { color: #0284c7; }
+  :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-tone { color: #0369a1; }
 
   /* Right Executive Perspective Card */
   .p2-perspective-card {
@@ -1977,7 +1977,7 @@
     color: #ffffff !important;
   }
 
-  /* Dual Analysis Cards (Dark Glass) */
+  /* Dual Analysis Cards (Dark Glass & High-Contrast Tones) */
   body.dark-theme .p2-stance-card {
     background: rgba(255, 255, 255, 0.06) !important;
     border-color: rgba(255, 255, 255, 0.14) !important;
@@ -1986,24 +1986,60 @@
   body.dark-theme .p2-stance-title {
     color: #f8fafc !important;
   }
+  /* Default fallback tone color in dark mode (prevents dark #1e293b text leak) */
+  body.dark-theme .p2-stance-tone {
+    color: #38bdf8 !important;
+  }
   body.dark-theme .p2-stance-expl {
-    color: #94a3b8 !important;
+    color: #cbd5e1 !important;
   }
-  body.dark-theme :is(.stance-critical, .stance-pessimistic, .stance-disapproving, .stance-sarcastic, .stance-cynical, .stance-hostile, .stance-admonitory) {
-    background: linear-gradient(135deg, rgba(35, 15, 22, 0.8) 0%, rgba(45, 10, 18, 0.8) 100%) !important;
-    border-color: rgba(225, 29, 72, 0.4) !important;
+
+  /* Red Theme (Negative / Hostile / Critical) */
+  body.dark-theme :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) {
+    background: linear-gradient(135deg, rgba(45, 12, 20, 0.88) 0%, rgba(30, 8, 14, 0.85) 100%) !important;
+    border-color: rgba(244, 63, 94, 0.45) !important;
   }
-  body.dark-theme :is(.stance-cautious, .stance-concerned, .stance-cautionary, .stance-sceptical) {
-    background: linear-gradient(135deg, rgba(35, 25, 10, 0.8) 0%, rgba(45, 30, 8, 0.8) 100%) !important;
-    border-color: rgba(217, 119, 6, 0.4) !important;
+  body.dark-theme :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-tone {
+    color: #fda4af !important; /* Radiant Coral/Rose */
   }
-  body.dark-theme :is(.stance-appreciative, .stance-optimistic, .stance-empathetic, .stance-conciliatory) {
-    background: linear-gradient(135deg, rgba(12, 35, 24, 0.8) 0%, rgba(6, 45, 30, 0.8) 100%) !important;
-    border-color: rgba(5, 150, 105, 0.4) !important;
+  body.dark-theme :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-icon-circle svg {
+    color: #f43f5e !important;
   }
-  body.dark-theme :is(.stance-persuasive-advocative, .stance-informative-explanatory) {
-    background: linear-gradient(135deg, rgba(12, 28, 48, 0.8) 0%, rgba(8, 38, 70, 0.8) 100%) !important;
-    border-color: rgba(2, 132, 199, 0.4) !important;
+
+  /* Amber Theme (Cautious / Cautiously Optimistic / Concerned / Warning) */
+  body.dark-theme :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) {
+    background: linear-gradient(135deg, rgba(45, 28, 10, 0.88) 0%, rgba(30, 18, 6, 0.85) 100%) !important;
+    border-color: rgba(245, 158, 11, 0.45) !important;
+  }
+  body.dark-theme :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-tone {
+    color: #fbbf24 !important; /* Radiant Warm Gold */
+  }
+  body.dark-theme :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-icon-circle svg {
+    color: #f59e0b !important;
+  }
+
+  /* Green Theme (Positive / Pure Optimistic / Appreciative) */
+  body.dark-theme :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) {
+    background: linear-gradient(135deg, rgba(10, 40, 25, 0.88) 0%, rgba(6, 25, 16, 0.85) 100%) !important;
+    border-color: rgba(16, 185, 129, 0.45) !important;
+  }
+  body.dark-theme :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-tone {
+    color: #6ee7b7 !important; /* Radiant Mint Green */
+  }
+  body.dark-theme :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-icon-circle svg {
+    color: #10b981 !important;
+  }
+
+  /* Blue Theme (Informative / Analytical / Persuasive / Balanced) */
+  body.dark-theme :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) {
+    background: linear-gradient(135deg, rgba(12, 30, 52, 0.88) 0%, rgba(8, 20, 36, 0.85) 100%) !important;
+    border-color: rgba(14, 165, 233, 0.45) !important;
+  }
+  body.dark-theme :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-tone {
+    color: #38bdf8 !important; /* Radiant Sky Cyan */
+  }
+  body.dark-theme :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-icon-circle svg {
+    color: #0ea5e9 !important;
   }
   body.dark-theme .p2-perspective-card {
     background: rgba(255, 255, 255, 0.06) !important;

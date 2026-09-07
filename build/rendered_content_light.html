@@ -639,45 +639,60 @@
     margin-right: 1.5px;
   }
 
+  /* Article Passage Source Bar (Frosted Capsule Skin) */
   .p1-article-footer-note {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 7.2px;
+    font-size: 7.4px;
     color: #64748b;
-    border-top: 1px dashed rgba(203, 213, 225, 0.8);
-    padding-top: 4px;
-    margin-top: 4px;
+    border-top: 1px solid rgba(203, 213, 225, 0.6);
+    padding-top: 5px;
+    margin-top: 5px;
   }
 
   .p1-footer-meta {
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 4px;
+    font-weight: 500;
   }
 
+  .p1-footer-meta strong {
+    color: #0b1e36;
+    font-weight: 700;
+  }
+
+  /* Frosted Glass Action Capsule */
   .p1-source-btn {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
     font-family: 'Inter', sans-serif;
-    font-size: 6.8px;
+    font-size: 7px;
     font-weight: 800;
-    color: #0b1e36;
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(203, 213, 225, 0.8);
-    padding: 2.5px 7px;
-    border-radius: 4px;
+    color: #1e40af !important;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(191, 219, 254, 0.9);
+    padding: 3px 10px;
+    border-radius: 16px;
     text-decoration: none !important;
+    letter-spacing: 0.3px;
     line-height: 1;
-    box-shadow: 0 2px 4px rgba(15, 43, 72, 0.05);
+    box-shadow: 0 2px 8px -2px rgba(30, 64, 175, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   }
 
-  .p1-source-icon,
+  .p1-source-icon {
+    width: 9px;
+    height: 9px;
+    color: #2563eb;
+    flex-shrink: 0;
+  }
+
   .p1-source-arrow {
     width: 8px;
     height: 8px;
-    color: #0284c7;
+    color: #2563eb;
     flex-shrink: 0;
   }
 
@@ -1882,15 +1897,23 @@
   body.dark-theme .evidence-hl {
     color: #2dd4bf !important;
   }
+  /* Article Passage Source Bar (Dark Frosted Capsule) */
   body.dark-theme .p1-article-footer-note {
-    color: #64748b !important;
-    border-top-color: rgba(255, 255, 255, 0.1) !important;
+    color: #94a3b8 !important;
+    border-top-color: rgba(255, 255, 255, 0.12) !important;
   }
+
+  body.dark-theme .p1-footer-meta strong {
+    color: #f1f5f9 !important;
+  }
+
   body.dark-theme .p1-source-btn {
     background: rgba(255, 255, 255, 0.07) !important;
     color: #38bdf8 !important;
-    border-color: rgba(255, 255, 255, 0.14) !important;
+    border: 1px solid rgba(56, 189, 248, 0.35) !important;
+    box-shadow: 0 4px 12px -3px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
   }
+
   body.dark-theme .p1-source-icon,
   body.dark-theme .p1-source-arrow {
     color: #38bdf8 !important;

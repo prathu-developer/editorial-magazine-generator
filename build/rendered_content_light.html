@@ -66,24 +66,7 @@
     box-shadow: 0 2px 6px rgba(30, 64, 175, 0.25);
   }
 
-  /* Adjust Sidebar & Paragraph Flow */
-  .p1-sidebar {
-    border: 1.2px solid #cbd5e1;
-    border-radius: 8px;
-    background: #ffffff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 0 2px 8px rgba(15, 43, 72, 0.05);
-    height: 100%;
-  }
-  .p1-vocab-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 5px;
-    padding: 2px 0 2.5px 0;
-    border-bottom: 1px dotted #e2e8f0;
-  }
+  /* Sidebar styles unified under Section 3 (Phase 2 Frosted Glass Skin) */
 
   /* =========================================================
      DYNAMIC MULTI-PAGE FLOW & PRINT GEOMETRY
@@ -314,17 +297,17 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 900;
-    color: #ffffff;
-    background: linear-gradient(135deg, rgba(15, 43, 72, 0.98), rgba(30, 64, 175, 0.95));
-    padding: 6px 20px;
-    border-radius: 20px;
-    border: 1.2px solid rgba(254, 240, 138, 0.7);
+    color: #ffffff !important;
+    background: linear-gradient(135deg, rgba(15, 43, 72, 0.92), rgba(30, 64, 175, 0.92));
+    padding: 5.5px 20px;
+    border-radius: 24px;
+    border: 1px solid rgba(254, 240, 138, 0.75);
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-    text-decoration: none;
+    box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.4);
+    text-decoration: none !important;
   }
 
   /* =========================================================
@@ -332,8 +315,8 @@
      ========================================================= */
   .inner-page {
     width: 210mm;
-    height: auto;       /* Retains natural height expansion */
-    max-height: none;   /* Zero clipping */
+    height: auto;
+    max-height: none;
     padding: 8mm 12mm 0 12mm;
     display: flex;
     flex-direction: column;
@@ -341,12 +324,8 @@
     position: relative;
     box-sizing: border-box;
     z-index: 1;
-    /* Ambient radial gradient mesh mapped from reader/vocab concept */
-    background:
-      radial-gradient(circle at 10% 0%, rgba(254, 243, 199, 0.6) 0%, transparent 42%),
-      radial-gradient(circle at 100% 30%, rgba(219, 234, 254, 0.65) 0%, transparent 48%),
-      radial-gradient(circle at 18% 90%, rgba(252, 231, 243, 0.45) 0%, transparent 40%),
-      #fafaf9;
+    /* High-Performance 1-Pass Hardware Gradient (Zero PDF Lag) */
+    background: linear-gradient(168deg, #fef8ee 0%, #f1f5f9 42%, #fdf2f8 82%, #fafaf9 100%);
   }
 
   /* Prevent Any Card or Block from Getting Cut Across Pages */
@@ -639,13 +618,13 @@
     box-shadow: 0 6px 16px -4px rgba(30, 64, 175, 0.4);
   }
 
-  /* In-Text Vocabulary Pill Highlights */
+  /* Clean Distraction-Free Vocabulary Highlights (Royal Blue Ink, Zero Box Fill) */
   .vocab-hl {
     font-weight: 700;
-    color: #1e40af;
-    background: rgba(30, 64, 175, 0.09);
-    padding: 0 3.5px;
-    border-radius: 4px;
+    color: #1e40af !important; /* Retains the vibrant editorial blue text */
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
     display: inline;
   }
 
@@ -656,7 +635,7 @@
     color: #b45309;
     vertical-align: super;
     line-height: 0;
-    margin-left: 1.5px;
+    margin-left: 1px;
     margin-right: 1.5px;
   }
 
@@ -723,13 +702,13 @@
      VOCABULARY 101: FROSTED SIDEBAR CARD
      ========================================================= */
   .p1-sidebar {
-    border: 1px solid rgba(255, 255, 255, 0.85);
+    border: 1px solid #cbd5e1;
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.75);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 14px 28px -12px rgba(15, 43, 72, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(15, 43, 72, 0.06);
     height: 100%;
     overflow: hidden;
     padding: 0;
@@ -1345,11 +1324,12 @@
   .lex-ribbon-row {
     display: grid;
     grid-template-columns: 24px 30mm 44mm 46mm 28mm 28mm;
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid #e2e8f0;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 8px 20px -8px rgba(15, 43, 72, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    /* Clean, zero-lag single vector shadow */
+    box-shadow: 0 1px 3px rgba(15, 43, 72, 0.04);
     align-items: stretch;
     min-height: 20mm;
     break-inside: avoid;
@@ -1742,35 +1722,36 @@
     text-decoration: none !important;
   }
 
-  /* Compact, high-precision badge button */
+  /* Compact, high-precision frosted glass badge button */
   .back-join-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 3.5px;
+    gap: 4px;
     font-size: 7.2px;
     font-weight: 900;
-    color: #ffffff;
-    background: linear-gradient(135deg, #0b1e36 0%, #1e3a8a 100%);
-    padding: 2.2px 7.5px;
-    border-radius: 12px;
-    border: 1px solid rgba(254, 240, 138, 0.75);
+    color: #ffffff !important;
+    background: linear-gradient(135deg, rgba(15, 43, 72, 0.95), rgba(30, 64, 175, 0.95));
+    padding: 2.5px 8.5px;
+    border-radius: 14px;
+    border: 1px solid rgba(254, 240, 138, 0.8);
     letter-spacing: 0.3px;
     text-transform: uppercase;
-    box-shadow: 0 2px 5px rgba(11, 30, 54, 0.28);
+    box-shadow: 0 4px 10px -2px rgba(11, 30, 54, 0.35);
     white-space: nowrap;
   }
 
   .back-join-badge svg {
     width: 9px;
     height: 9px;
-    fill: #38bdf8; /* Telegram Cyan */
+    fill: #38bdf8;
     flex-shrink: 0;
   }
 
   .back-join-badge.badge-contact {
-    background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+    background: linear-gradient(135deg, rgba(15, 118, 110, 0.95), rgba(13, 148, 136, 0.95));
     border-color: rgba(167, 243, 208, 0.85);
+    box-shadow: 0 4px 10px -2px rgba(15, 118, 110, 0.35);
   }
 
   .back-join-badge.badge-contact svg {
@@ -1797,11 +1778,8 @@
   }
 
   body.dark-theme .inner-page {
-    background:
-      radial-gradient(circle at 90% 0%, rgba(217, 119, 6, 0.22) 0%, transparent 42%),
-      radial-gradient(circle at 0% 55%, rgba(30, 58, 138, 0.38) 0%, transparent 50%),
-      radial-gradient(circle at 85% 95%, rgba(109, 40, 217, 0.2) 0%, transparent 40%),
-      linear-gradient(160deg, #0b1220 0%, #06182c 100%) !important;
+    /* Fast 1-Pass Midnight Gradient */
+    background: linear-gradient(165deg, #0f172a 0%, #0b1220 40%, #06182c 100%) !important;
   }
 
   /* Clean watermark visibility across dark gradients */
@@ -1810,19 +1788,20 @@
   }
 
   /* ---------------------------------------------------------
-     FIX 1: RESTORE TOC TITLES & PRESERVE FIXED COVER ART
+     TOC RESTORATION & GLASS PILLS (PRESERVES ARTWORK BACKGROUND)
      --------------------------------------------------------- */
   body.dark-theme .toc-article-title {
-    color: #0b1f36 !important; /* Bold navy text on the white TOC background card */
+    color: #0b1f36 !important; /* Retains dark navy on the light artwork card */
   }
   body.dark-theme .toc-topic-pill {
-    background: #f1f5f9 !important;
+    background: rgba(255, 255, 255, 0.85) !important;
     color: #334155 !important;
-    border: 1.2px solid #cbd5e1 !important;
+    border: 1px solid rgba(203, 213, 225, 0.9) !important;
   }
   body.dark-theme .toc-page-pill {
-    background: #0f2b48 !important;
+    background: linear-gradient(135deg, #1e40af 0%, #0b1e36 100%) !important;
     color: #ffffff !important;
+    box-shadow: 0 3px 8px -2px rgba(30, 64, 175, 0.35) !important;
   }
 
   /* ---------------------------------------------------------
@@ -1891,9 +1870,11 @@
     box-shadow: 0 0 20px -2px rgba(251, 191, 36, 0.5) !important;
   }
   body.dark-theme .vocab-hl {
-    color: #fbbf24 !important;
-    background: rgba(251, 191, 36, 0.12) !important;
-    text-shadow: 0 0 10px rgba(251, 191, 36, 0.35) !important;
+    color: #fbbf24 !important; /* Retains the warm radiant gold text from the dark theme */
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    text-shadow: none !important;
   }
   body.dark-theme .v-idx {
     color: #fde047 !important;
@@ -1919,7 +1900,7 @@
   body.dark-theme .p1-sidebar {
     background: rgba(255, 255, 255, 0.06) !important;
     border: 1px solid rgba(255, 255, 255, 0.14) !important;
-    box-shadow: 0 16px 36px -16px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
   }
   body.dark-theme .p1-sidebar-header {
     background: rgba(11, 18, 32, 0.85) !important;
@@ -2047,8 +2028,8 @@
   }
   body.dark-theme .lex-ribbon-row {
     background: rgba(255, 255, 255, 0.05) !important;
-    border-color: rgba(255, 255, 255, 0.12) !important;
-    box-shadow: 0 14px 28px -14px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
   }
   body.dark-theme .ribbon-col-word,
   body.dark-theme .ribbon-col-def,

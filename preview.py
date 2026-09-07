@@ -1,38 +1,122 @@
 import os
+import sys
 import re
 import json
 from datetime import datetime, timezone, timedelta
 from jinja2 import Environment, FileSystemLoader
 
+# Resolve repository paths whether executed from repo root or src/
+CURRENT_DIR = os.path.abspath(os.path.dirname(__file__))
+REPO_ROOT = CURRENT_DIR if os.path.exists(os.path.join(CURRENT_DIR, "schema.json")) else os.path.dirname(CURRENT_DIR)
+SRC_DIR = os.path.join(REPO_ROOT, "src")
+
+for path in (REPO_ROOT, SRC_DIR):
+    if os.path.exists(path) and path not in sys.path:
+        sys.path.insert(0, path)
+
+from evidence_lens import extract_evidence_spans
+
+def sanitize_vocab_text(text: str) -> str:
+    if not text:
+        return ""
+    fixes = {
+        r'\breve\s+al\b': 'reveal',
+        r'\bide\s+a\b': 'idea',
+        r'\bsome\s+one\b': 'someone',
+        r'\bint\s+o\b': 'into',
+        r'\bwith\s+in\b': 'within'
+    }
+    for pattern, repl in fixes.items():
+        text = re.sub(pattern, repl, text, flags=re.IGNORECASE)
+    return text
+
 def clean_and_highlight_passage(passage_text, vocab_items):
-    raw_paras = [p.strip() for p in re.split(r'[\r\n]+', passage_text) if p.strip()]
-    cleaned = []
-    sorted_vocab = sorted(vocab_items, key=lambda x: len(x.get("word_or_phrase", "")), reverse=True)
+    # Clean broken LaTeX / math currency strings before processing paragraphs
+    passage_text = passage_text.replace(r'$\overline{7}', '₹').replace(r'$\approx', '₹~')
+    passage_text = re.sub(r'\$(\\overline\{7\}|\\approx)?', '₹', passage_text)
     
+    raw_paras = [p.strip() for p in re.split(r'[\r\n]+', passage_text) if p.strip()]
+    cleaned_paras = []
+    
+    # Sort vocab by length descending so multi-word phrases match before single words
+    sorted_vocab = sorted(
+        vocab_items,
+        key=lambda x: len(x.get("word_or_phrase", "")),
+        reverse=True
+    )
+
     for p in raw_paras:
         # 1. Skip scraper timestamps & metadata
-        if re.match(r'^(Published|Updated|- ?[A-Za-z]+|\d{1,2}\s+[A-Za-z]+)', p, re.IGNORECASE):
+        if re.match(r'^(Published|Updated|- ?[A-Za-z]+|\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\b)', p, re.IGNORECASE):
             continue
-            
-        # 2. Skip tag & taxonomy blocks containing multiple slashes
-        if p.count('/') >= 2 or len(re.findall(r'\s*/\s*', p)) >= 2:
+
+        # 2. Skip dedicated tag/taxonomy lines
+        is_tag_block = bool(re.match(r'^[\w\s\(\)-]+(\s+/\s+[\w\s\(\)-]+){2,}$', p.strip())) or p.count(' / ') >= 3
+        if is_tag_block:
             continue
-            
-        # 3. Strip trailing inline tags attached directly to the last sentence
-        p = re.sub(r'(\s*[\w\s]+(\s*/\s*[\w\s]+){2,}\s*)$', '', p)
+
+        # 3. Strip trailing category tags
+        p = re.sub(r'(\s+/\s+[\w\s\(\)-]+){2,}$', '', p)
         if not p.strip():
             continue
 
-        h = p
+        # Reserve claimed character segments to prevent duplicate sub-token matching
+        vocab_spans = []
+        claimed = [False] * len(p)
         for item in sorted_vocab:
             term = item.get("word_or_phrase", "").strip()
             idx = item.get("order_index", "")
-            if term:
-                pattern = re.compile(rf'\b({re.escape(term)})\b', re.IGNORECASE)
-                h = pattern.sub(rf'<span class="vocab-hl">\1<sup class="v-idx">{idx}</sup></span>', h)
-        cleaned.append(h)
+            if not term:
+                continue
+            pattern = rf'(?<![A-Za-z0-9])({re.escape(term)})(?![A-Za-z0-9])'
+            for match in re.finditer(pattern, p, re.IGNORECASE):
+                start, end = match.start(), match.end()
+                if any(claimed[i] for i in range(start, end)):
+                    continue
+                for i in range(start, end):
+                    claimed[i] = True
+                vocab_spans.append({
+                    "start": start,
+                    "end": end,
+                    "idx": idx
+                })
+
+        # Clip boundary-crossing spans to prevent overlapping HTML
+        raw_evidence = extract_evidence_spans(p)
+        clean_evidence = []
+        for e in raw_evidence:
+            e_start, e_end = e["start"], e["end"]
+            for v in vocab_spans:
+                v_start, v_end = v["start"], v["end"]
+                if e_start < v_start < e_end < v_end:
+                    e_end = v_start
+                elif v_start < e_start < v_end < e_end:
+                    e_start = v_end
+            if e_start < e_end:
+                clean_evidence.append({"start": e_start, "end": e_end})
+
+        # Nesting order: Vocab Close (1), Evidence Close (2), Evidence Open (3), Vocab Open (4)
+        tags_by_pos = {}
+        for v in vocab_spans:
+            tags_by_pos.setdefault(v["end"], []).append((1, f'<sup class="v-idx">{v["idx"]}</sup></span>'))
+            tags_by_pos.setdefault(v["start"], []).append((4, '<span class="vocab-hl">'))
+
+        for e in clean_evidence:
+            tags_by_pos.setdefault(e["end"], []).append((2, '</span>'))
+            tags_by_pos.setdefault(e["start"], []).append((3, '<span class="evidence-hl">'))
+
+        annotated_para = []
+        last_idx = 0
+        for pos in sorted(tags_by_pos.keys()):
+            annotated_para.append(p[last_idx:pos])
+            for _, tag_str in sorted(tags_by_pos[pos], key=lambda x: x[0]):
+                annotated_para.append(tag_str)
+            last_idx = pos
+        annotated_para.append(p[last_idx:])
+
+        cleaned_paras.append("".join(annotated_para))
         
-    return cleaned
+    return cleaned_paras
 
 def categorize_vocabulary(vocab_items):
     def match_cat(item, target_cat):
@@ -48,15 +132,14 @@ def categorize_vocabulary(vocab_items):
         "foreign_words": [v for v in vocab_items if match_cat(v, "Foreign Words")]
     }
 
-    # Catch any untagged/mismatched item and route it safely to core_vocab
     all_matched = {id(item) for cat_list in categorized.values() for item in cat_list}
     for item in vocab_items:
         if id(item) not in all_matched:
             categorized["core_vocab"].append(item)
 
     return categorized
+
 def match_vocab_to_paragraphs(paragraphs, vocab_items):
-    """Returns vocab items that appear in the given paragraphs."""
     combined_text = " ".join(paragraphs)
     matched_vocab = []
     unmatched_vocab = []
@@ -73,21 +156,14 @@ def match_vocab_to_paragraphs(paragraphs, vocab_items):
     return matched_vocab, unmatched_vocab
 
 def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
-    """Partitions an editorial and its vocab lab dynamically across pages."""
     raw_paras = clean_and_highlight_passage(art_raw.get("passage", ""), all_vocab)
-    total_words = sum(len(p.split()) for p in raw_paras)
-    total_vocab = len(all_vocab)
-    title_len = len(art_raw.get("title", ""))
-    
-    # Continuous Budget: Set to extreme numbers to prevent page splitting
     p1_max_words = 999999
     p1_max_vocab = 999999
     
-    needs_split = (total_words > p1_max_words) or (total_vocab > p1_max_vocab)
+    needs_split = (sum(len(p.split()) for p in raw_paras) > p1_max_words) or (len(all_vocab) > p1_max_vocab)
     
     reader_pages = []
     if not needs_split or len(raw_paras) <= 1:
-        # Single Reader Page
         reader_pages.append({
             "is_continuation": False,
             "paragraphs": raw_paras,
@@ -96,7 +172,6 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "has_next_reader_page": False
         })
     else:
-        # Multi-page distribution
         pages_paras = []
         curr_page_paras = []
         curr_words = 0
@@ -108,7 +183,7 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
                 pages_paras.append(curr_page_paras)
                 curr_page_paras = [para]
                 curr_words = w_count
-                limit = 350  # Continuation pages have no masthead, accommodating more words
+                limit = 350
             else:
                 curr_page_paras.append(para)
                 curr_words += w_count
@@ -116,26 +191,18 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
         if curr_page_paras:
             pages_paras.append(curr_page_paras)
 
-        if len(pages_paras) == 1 and len(raw_paras) >= 2:
-            mid = len(raw_paras) // 2
-            pages_paras = [raw_paras[:mid], raw_paras[mid:]]
-
-        # Allocate matching vocabulary to each page
         assigned_vocab_ids = set()
         for idx, paras in enumerate(pages_paras):
             is_first = (idx == 0)
             is_last = (idx == len(pages_paras) - 1)
             
             page_vocab, _ = match_vocab_to_paragraphs(paras, all_vocab)
-            # Retain only unassigned terms
             page_vocab = [v for v in page_vocab if id(v) not in assigned_vocab_ids]
             for v in page_vocab:
                 assigned_vocab_ids.add(id(v))
 
-            # Push any leftovers to the last reader page
             if is_last:
-                leftovers = [v for v in all_vocab if id(v) not in assigned_vocab_ids]
-                page_vocab.extend(leftovers)
+                page_vocab.extend([v for v in all_vocab if id(v) not in assigned_vocab_ids])
 
             current_page_num = start_page + idx
             reader_pages.append({
@@ -147,12 +214,11 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
                 "next_page_num": current_page_num + 1 if not is_last else None
             })
 
-    # Vocab Lab Split Logic (Over 10 total ribbons spans 2 Lab pages)
-    total_ribbons = sum(len(items) for items in categorized_vocab.values())
+    other_cats = {k: v for k, v in categorized_vocab.items() if k != "core_vocab" and v}
     lab_start_page = start_page + len(reader_pages)
     lab_pages = []
-    
-    if total_ribbons <= 10:
+
+    if not other_cats:
         lab_pages.append({
             "is_continuation": False,
             "page_num": lab_start_page,
@@ -161,7 +227,6 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "has_next_lab_page": False
         })
     else:
-        # Lab Page 1: Analysis + Core Vocab Ribbons
         lab_pages.append({
             "is_continuation": False,
             "page_num": lab_start_page,
@@ -169,8 +234,6 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "categorized_vocab": {"core_vocab": categorized_vocab.get("core_vocab", [])},
             "has_next_lab_page": True
         })
-        # Lab Page 2: Remaining categories
-        other_cats = {k: v for k, v in categorized_vocab.items() if k != "core_vocab" and v}
         lab_pages.append({
             "is_continuation": True,
             "page_num": lab_start_page + 1,
@@ -182,40 +245,47 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
     return reader_pages, lab_pages
 
 def generate_preview():
-    base_dir = os.path.abspath(os.path.dirname(__file__))
-    
-    # Handle project path resolution
-    json_path = os.path.join(base_dir, "schema.json")
+    json_path = os.path.join(REPO_ROOT, "schema.json")
+    templates_dir = os.path.join(REPO_ROOT, "templates")
+    assets_dir = os.path.join(REPO_ROOT, "assets")
+    build_dir = os.path.join(REPO_ROOT, "build")
+    os.makedirs(build_dir, exist_ok=True)
+
     if not os.path.exists(json_path):
-        json_path = os.path.join(os.path.dirname(base_dir), "schema.json")
-        
-    templates_dir = os.path.join(base_dir, "templates")
-    if not os.path.exists(templates_dir):
-        templates_dir = os.path.join(os.path.dirname(base_dir), "templates")
+        raise FileNotFoundError(f"schema.json not found at: {json_path}")
 
     with open(json_path, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
-    # Calculate Indian Standard Time (IST)
     ist_offset = timezone(timedelta(hours=5, minutes=30))
     ist_time = datetime.now(ist_offset)
     formatted_date_ist = ist_time.strftime(f"%B {ist_time.day}, %Y")
 
-    processed = []
-    toc = []
+    processed_articles = []
+    toc_entries = []
     page_counter = 3
 
     for art in raw_data.get("editorials", []):
-        v_list = art.get("editorial_vocabulary", [])
-        cats = categorize_vocabulary(v_list)
+        vocab_list = art.get("editorial_vocabulary", [])
+        for item in vocab_list:
+            item["concise_meaning"] = sanitize_vocab_text(item.get("concise_meaning", ""))
+            item["mnemonic_trick"] = sanitize_vocab_text(item.get("mnemonic_trick", ""))
+
+        categorized_vocab = categorize_vocabulary(vocab_list)
+        tone_data = art.get("analysis", {})
+        clean_expl = tone_data.get("tone_simple_explanation", "").strip("()")
         
-        reader_pages, lab_pages = partition_article(art, cats, v_list, page_counter)
+        meta_sub = art.get("editorial_metadata", {}).get("subtitle", "")
+        subtitle = meta_sub if meta_sub and meta_sub != "N/A" else None
+        title_clean = art.get("title", "")
+
+        reader_pages, lab_pages = partition_article(art, categorized_vocab, vocab_list, page_counter)
 
         target_reader_id = f"article-p{page_counter}"
         target_vocab_id = f"vocab-p{lab_pages[0]['page_num']}"
 
-        toc.append({
-            "title": art.get("title", ""),
+        toc_entries.append({
+            "title": title_clean,
             "newspaper": art.get("newspaper", "Editorial"),
             "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
             "reading_time": art.get("reading_time", "2 min read"),
@@ -225,17 +295,19 @@ def generate_preview():
 
         total_art_pages = len(reader_pages) + len(lab_pages)
 
-        processed.append({
+        processed_articles.append({
             "newspaper": art.get("newspaper", "Editorial"),
-            "title": art.get("title", ""),
-            "subtitle": art.get("editorial_metadata", {}).get("subtitle"),
+            "title": title_clean,
+            "subtitle": subtitle,
             "topic": art.get("editorial_metadata", {}).get("topic", "General Studies"),
             "reading_time": art.get("reading_time", "2 min read"),
+            "timestamp": art.get("timestamp", formatted_date_ist),
             "published_at": art.get("published_at") or art.get("editorial_metadata", {}).get("published_at") or raw_data.get("date_scraped", formatted_date_ist),
+            "link": art.get("link", "").strip(),
             "analysis": {
-                "tone": art.get("analysis", {}).get("tone", "Analytical"),
-                "tone_simple_explanation": art.get("analysis", {}).get("tone_simple_explanation", "").strip("()"),
-                "analysis_summary": art.get("analysis", {}).get("analysis_summary", "")
+                "tone": tone_data.get("tone", "Analytical"),
+                "tone_simple_explanation": clean_expl,
+                "analysis_summary": tone_data.get("analysis_summary", "")
             },
             "reader_pages": reader_pages,
             "lab_pages": lab_pages,
@@ -246,48 +318,51 @@ def generate_preview():
         
         page_counter += total_art_pages
 
-    # Check asset paths
-    assets_dir = os.path.join(base_dir, "assets")
-    if not os.path.exists(assets_dir):
-        assets_dir = os.path.join(os.path.dirname(base_dir), "assets")
+    def get_asset_uri(filename):
+        target = os.path.join(assets_dir, filename)
+        if os.path.exists(target):
+            # Compute relative path from build/ to assets/ so HTML opens cleanly in any browser
+            return os.path.relpath(target, build_dir).replace("\\", "/")
+        return ""
 
-    # Add flexible SVG/PNG checking to match build_magazine.py
-    watermark_png = os.path.join(assets_dir, "watermark.png")
-    watermark_svg = os.path.join(assets_dir, "watermark.svg")
-    watermark_src = None
-    
-    if os.path.exists(watermark_png):
-        watermark_src = "../assets/watermark.png"
-    elif os.path.exists(watermark_svg):
-        watermark_src = "../assets/watermark.svg"
+    front_cover_uri = get_asset_uri("front_cover_bg.jpg")
+    toc_bg_uri = get_asset_uri("toc_bg.jpg")
+    back_cover_uri = get_asset_uri("back_cover_bg.jpg")
+    watermark_uri = get_asset_uri("watermark.svg") or get_asset_uri("watermark.png")
 
-    payload = {
+    base_payload = {
         "date_formatted": formatted_date_ist,
         "date_scraped": raw_data.get("date_scraped", formatted_date_ist),
-        "has_front_cover": os.path.exists(os.path.join(assets_dir, "front_cover_bg.jpg")),
-        "front_cover_src": "../assets/front_cover_bg.jpg",
-        "has_toc_bg": os.path.exists(os.path.join(assets_dir, "toc_bg.jpg")),
-        "toc_bg_src": "../assets/toc_bg.jpg",
-        "has_back_cover": os.path.exists(os.path.join(assets_dir, "back_cover_bg.jpg")),
-        "back_cover_src": "../assets/back_cover_bg.jpg",
-        "has_watermark": watermark_src is not None,
-        "watermark_src": watermark_src,
-        "toc_entries": toc,
-        "total_articles": len(processed),
-        "articles": processed
+        "has_front_cover": bool(front_cover_uri),
+        "front_cover_src": front_cover_uri,
+        "has_toc_bg": bool(toc_bg_uri),
+        "toc_bg_src": toc_bg_uri,
+        "has_back_cover": bool(back_cover_uri),
+        "back_cover_src": back_cover_uri,
+        "has_watermark": bool(watermark_uri),
+        "watermark_src": watermark_uri,
+        "toc_entries": toc_entries,
+        "total_articles": len(processed_articles),
+        "articles": processed_articles
     }
 
     env = Environment(loader=FileSystemLoader(templates_dir))
     template = env.get_template("template.html")
-    
-    build_dir = os.path.join(base_dir, "build")
-    os.makedirs(build_dir, exist_ok=True)
-    out_file = os.path.join(build_dir, "rendered_content.html")
-    
-    with open(out_file, "w", encoding="utf-8") as f:
-        f.write(template.render(data=payload))
-        
-    print(f"✨ Clean preview generated successfully: {out_file}")
+
+    # Generate both light and dark preview files
+    variants = [
+        {"file": "rendered_content_light.html", "is_dark": False},
+        {"file": "rendered_content_dark.html", "is_dark": True},
+        {"file": "rendered_content.html", "is_dark": False}  # Default fallback
+    ]
+
+    for v in variants:
+        payload = dict(base_payload)
+        payload["is_dark_mode"] = v["is_dark"]
+        out_path = os.path.join(build_dir, v["file"])
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(template.render(data=payload))
+        print(f"✨ Generated: {out_path}")
 
 if __name__ == "__main__":
     generate_preview()

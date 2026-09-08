@@ -1,1450 +1,1954 @@
 # 🧠 Schema Generation Audit Log
 
-Total Articles: 3
+Total Articles: 4
 
 ---
 
-## 📰 Editorial 1: Steady gaze: On the launch of the ISRO’s EOS-05 satellite
+## 📰 Editorial 1: Natural partners: On India-Belgium ties
 ```json
 {
   "editorial_metadata": {
-    "title": "Steady gaze: On the launch of the ISRO’s EOS-05 satellite",
-    "subtitle": "ISRO’s geosynchronous imaging satellite enhances surveillance while highlighting the need for sustained launch reliability.",
+    "title": "Natural partners: On India-Belgium ties",
+    "subtitle": "India and Belgium expand strategic and economic ties amid broader geopolitical realignments.",
     "author": "Editorial Board",
-    "topic": "Space Technology & Disaster Management"
+    "topic": "Geopolitics & International Relations"
   },
   "analysis": {
-    "tone": "Cautiously Optimistic",
-    "tone_simple_explanation": "hopeful yet advising caution",
-    "analysis_summary": "The author commends the milestone launch of ISRO's EOS-05 satellite, emphasising its strategic and real-time surveillance value for disaster relief and environmental tracking. However, the piece injects caution by referencing recent launch failures to remind readers that institutional reputation relies on long-term consistency rather than isolated triumphs."
+    "tone": "Analytical",
+    "tone_simple_explanation": "examining strategic cooperation",
+    "analysis_summary": "The author objectively examines how India-Belgium relations fit into New Delhi's broader strategic outreach to Europe. The piece highlights trade expansion, high-tech defence collaboration, and shared lessons on strategic autonomy. It positively notes the diplomatic maturity shown by both nations in compartmentalising differences over the Russia-Ukraine war to pursue shared economic and security goals."
   },
   "editorial_vocabulary": [
     {
       "order_index": 1,
-      "word_or_phrase": "bound for",
-      "category": "Fixed Prepositions",
-      "part_of_speech": "Prepositional Phrase",
-      "connotation": "Neutral",
-      "easy_synonym": "headed towards",
-      "hindi_meaning": "की ओर जाने वाला",
-      "mnemonic_trick": "Think of 'boundary'—travelling directly towards a defined boundary or destination.",
-      "concise_meaning": "Travelling, destined, or directed towards a specific destination or state.",
+      "word_or_phrase": "engagement",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Positive",
+      "easy_synonym": "involvement",
+      "hindi_meaning": "संलग्नता / जुड़ाव",
+      "mnemonic_trick": "Think of an engagement ceremony where two parties formally agree to interact and stay committed.",
+      "concise_meaning": "Formal or active involvement, participation, or interaction between parties.",
       "british_synonyms": [
-        "headed for",
-        "destined for",
-        "en route to"
+        "involvement",
+        "participation",
+        "interaction"
       ],
       "british_antonyms": [
-        "originating from",
-        "returning from",
-        "departing from"
+        "disengagement",
+        "detachment",
+        "withdrawal"
       ]
     },
     {
       "order_index": 2,
-      "word_or_phrase": "locked-in to",
-      "category": "Fixed Prepositions",
-      "part_of_speech": "Prepositional Phrase",
+      "word_or_phrase": "larger puzzle",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Noun Phrase",
       "connotation": "Neutral",
-      "easy_synonym": "fixed to",
-      "hindi_meaning": "से जुड़ा हुआ / स्थिर",
-      "mnemonic_trick": "When something is 'locked in', a key has turned and it cannot move independently.",
-      "concise_meaning": "Firmly fixed, synchronised with, or unable to be detached from something.",
+      "easy_synonym": "bigger picture",
+      "hindi_meaning": "विस्तृत परिदृश्य का हिस्सा",
+      "mnemonic_trick": "Imagine a single jigsaw puzzle piece that only makes sense when seen as part of the entire picture.",
+      "concise_meaning": "A complex broader situation or overarching context composed of many smaller interconnected elements.",
       "british_synonyms": [
-        "synchronised with",
-        "anchored to",
-        "fastened to"
+        "broader context",
+        "bigger picture",
+        "macrocosm"
       ],
       "british_antonyms": [
-        "detached from",
-        "freed from",
-        "independent of"
+        "isolated incident",
+        "narrow focus",
+        "singularity"
       ]
     },
     {
       "order_index": 3,
-      "word_or_phrase": "perch",
+      "word_or_phrase": "salience",
       "category": "Vocabulary",
       "part_of_speech": "Noun",
-      "connotation": "Neutral",
-      "easy_synonym": "high spot",
-      "hindi_meaning": "ऊंचा स्थान",
-      "mnemonic_trick": "A bird sits atop a high branch—that elevated vantage point is its perch.",
-      "concise_meaning": "A high, secure resting place or advantageous elevated position.",
+      "connotation": "Positive",
+      "easy_synonym": "prominence",
+      "hindi_meaning": "प्रमुखता / विशिष्टता",
+      "mnemonic_trick": "Connect 'salience' with 'silent': a salient feature cannot remain silent; it stands out clearly.",
+      "concise_meaning": "The quality of being particularly noticeable, prominent, or important.",
       "british_synonyms": [
-        "vantage point",
-        "resting place",
-        "lookout"
+        "prominence",
+        "importance",
+        "significance"
       ],
       "british_antonyms": [
-        "abyss",
-        "base",
-        "nadir"
+        "insignificance",
+        "obscurity",
+        "triviality"
       ]
     },
     {
       "order_index": 4,
-      "word_or_phrase": "distinguish",
-      "category": "Vocabulary",
-      "part_of_speech": "Verb",
+      "word_or_phrase": "At the top of the agenda",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Prepositional Phrase",
       "connotation": "Neutral",
-      "easy_synonym": "differentiate",
-      "hindi_meaning": "अंतर करना",
-      "mnemonic_trick": "To distinguish is to extinguish any doubt regarding the difference between two things.",
-      "concise_meaning": "To recognise, show, or treat as different from something else.",
+      "easy_synonym": "highest priority",
+      "hindi_meaning": "सर्वोच्च प्राथमिकता पर",
+      "mnemonic_trick": "The item placed at the very top of a meeting schedule naturally gets discussed first.",
+      "concise_meaning": "Considered to be the most urgent or important issue requiring immediate attention.",
       "british_synonyms": [
-        "differentiate",
-        "discriminate",
-        "discern"
+        "foremost priority",
+        "prime concern",
+        "paramount focus"
       ],
       "british_antonyms": [
-        "confuse",
-        "conflate",
-        "overlook"
+        "back burner",
+        "low priority",
+        "secondary issue"
       ]
     },
     {
       "order_index": 5,
-      "word_or_phrase": "successive",
-      "category": "Vocabulary",
+      "word_or_phrase": "bilateral",
+      "category": "One-Word Substitutions",
       "part_of_speech": "Adjective",
       "connotation": "Neutral",
-      "easy_synonym": "consecutive",
-      "hindi_meaning": "लगातार",
-      "mnemonic_trick": "Think of people who 'succeed' one another in a royal queue: one right after the other.",
-      "concise_meaning": "Following one another in uninterrupted or orderly sequence.",
+      "easy_synonym": "two-sided",
+      "hindi_meaning": "द्विपक्षीय",
+      "mnemonic_trick": "'Bi' means two, and 'lateral' means side; hence, involving two distinct sides.",
+      "concise_meaning": "Involving or agreed upon by two distinct nations, groups, or parties.",
       "british_synonyms": [
-        "consecutive",
-        "sequential",
-        "subsequent"
+        "two-party",
+        "mutual",
+        "joint"
       ],
       "british_antonyms": [
-        "intermittent",
-        "non-consecutive",
-        "isolated"
+        "unilateral",
+        "multilateral",
+        "plurilateral"
       ]
     },
     {
       "order_index": 6,
-      "word_or_phrase": "deluge",
-      "category": "One-Word Substitutions",
+      "word_or_phrase": "collaboration",
+      "category": "Vocabulary",
       "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "flood",
-      "hindi_meaning": "महाप्रलय / भारी बाढ़",
-      "mnemonic_trick": "Sounds like 'huge downpour' that 'de-lodges' everything in its path.",
-      "concise_meaning": "A severe flood or sudden overwhelming rush of water.",
+      "connotation": "Positive",
+      "easy_synonym": "teamwork",
+      "hindi_meaning": "सहयोग",
+      "mnemonic_trick": "'Co' (together) + 'labour' (work): working together on a shared endeavour.",
+      "concise_meaning": "The situation of two or more people or organisations working together to create or achieve the same goal.",
       "british_synonyms": [
-        "inundation",
-        "torrent",
-        "flash flood"
+        "cooperation",
+        "partnership",
+        "alliance"
       ],
       "british_antonyms": [
-        "drought",
-        "trickle",
-        "scarcity"
+        "opposition",
+        "rivalry",
+        "conflict"
       ]
     },
     {
       "order_index": 7,
-      "word_or_phrase": "precursors",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Noun",
-      "connotation": "Neutral",
-      "easy_synonym": "forerunners",
-      "hindi_meaning": "अग्रदूत / पूर्वसंकेत",
-      "mnemonic_trick": "'Pre' (before) + 'cursor' (runner) = someone or something that runs before to signal what comes next.",
-      "concise_meaning": "Things that happen before another event and indicate its future approach.",
-      "british_synonyms": [
-        "forerunners",
-        "harbingers",
-        "antecedents"
-      ],
-      "british_antonyms": [
-        "aftermaths",
-        "sequels",
-        "consequences"
-      ]
-    },
-    {
-      "order_index": 8,
-      "word_or_phrase": "slip past",
-      "category": "Phrasal Verbs",
-      "part_of_speech": "Verb",
-      "connotation": "Neutral",
-      "easy_synonym": "evade",
-      "hindi_meaning": "चुपके से बच निकलना",
-      "mnemonic_trick": "Imagine slipping on ice right past a security guard without being caught.",
-      "concise_meaning": "To pass by unnoticed or evade detection by an observer or system.",
-      "british_synonyms": [
-        "evade",
-        "bypass",
-        "elude"
-      ],
-      "british_antonyms": [
-        "confront",
-        "encounter",
-        "intercept"
-      ]
-    },
-    {
-      "order_index": 9,
-      "word_or_phrase": "premised on",
-      "category": "Fixed Prepositions",
-      "part_of_speech": "Prepositional Phrase",
-      "connotation": "Neutral",
-      "easy_synonym": "based on",
-      "hindi_meaning": "पर आधारित",
-      "mnemonic_trick": "Your logical argument relies upon its primary 'premise'.",
-      "concise_meaning": "Based on, grounded upon, or dependent upon a specific assumption or foundation.",
-      "british_synonyms": [
-        "contingent upon",
-        "grounded in",
-        "predicated on"
-      ],
-      "british_antonyms": [
-        "independent of",
-        "unrelated to",
-        "unsupported by"
-      ]
-    },
-    {
-      "order_index": 10,
-      "word_or_phrase": "actionable",
-      "category": "Vocabulary",
-      "part_of_speech": "Adjective",
-      "connotation": "Positive",
-      "easy_synonym": "practical",
-      "hindi_meaning": "कार्यान्वयन योग्य",
-      "mnemonic_trick": "'Action' + 'able' = information that makes you able to take direct action.",
-      "concise_meaning": "Giving sufficient information or clarity to allow practical measures to be taken.",
-      "british_synonyms": [
-        "usable",
-        "operative",
-        "feasible"
-      ],
-      "british_antonyms": [
-        "impractical",
-        "theoretical",
-        "useless"
-      ]
-    },
-    {
-      "order_index": 11,
-      "word_or_phrase": "vote of confidence",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Noun Phrase",
-      "connotation": "Positive",
-      "easy_synonym": "endorsement",
-      "hindi_meaning": "विश्वास मत / समर्थन",
-      "mnemonic_trick": "Literally casting a ballot that says 'I trust this system completely'.",
-      "concise_meaning": "A formal or informal show of support expressing belief in someone or something's capability.",
-      "british_synonyms": [
-        "endorsement",
-        "approbation",
-        "sanction"
-      ],
-      "british_antonyms": [
-        "censure",
-        "vote of no confidence",
-        "disapproval"
-      ]
-    },
-    {
-      "order_index": 12,
-      "word_or_phrase": "setbacks",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "reversals",
-      "hindi_meaning": "नाकामियां / झटके",
-      "mnemonic_trick": "Events that literally 'set' you 'back' several steps from your goal.",
-      "concise_meaning": "Unforeseen reversals or problems that delay or obstruct progress.",
-      "british_synonyms": [
-        "reversals",
-        "impediments",
-        "mishaps"
-      ],
-      "british_antonyms": [
-        "breakthroughs",
-        "advancements",
-        "triumphs"
-      ]
-    },
-    {
-      "order_index": 13,
-      "word_or_phrase": "temperamental",
-      "category": "Vocabulary",
-      "part_of_speech": "Adjective",
-      "connotation": "Negative",
-      "easy_synonym": "unpredictable",
-      "hindi_meaning": "अनिश्चित / तुनकमिज़ाज",
-      "mnemonic_trick": "Like someone whose 'temper' fluctuates erratically without warning.",
-      "concise_meaning": "Liable to erratic, moody, or unpredictable performance and behaviour.",
-      "british_synonyms": [
-        "mercurial",
-        "volatile",
-        "capricious"
-      ],
-      "british_antonyms": [
-        "dependable",
-        "equable",
-        "consistent"
-      ]
-    },
-    {
-      "order_index": 14,
-      "word_or_phrase": "consecutive",
-      "category": "Vocabulary",
-      "part_of_speech": "Adjective",
-      "connotation": "Neutral",
-      "easy_synonym": "in a row",
-      "hindi_meaning": "क्रमिक / लगातार",
-      "mnemonic_trick": "Think of a 'sequence' where terms follow each other without breaks.",
-      "concise_meaning": "Following continuously in an unbroken chain or logical sequence.",
-      "british_synonyms": [
-        "successive",
-        "unbroken",
-        "continuous"
-      ],
-      "british_antonyms": [
-        "interrupted",
-        "sporadic",
-        "alternating"
-      ]
-    },
-    {
-      "order_index": 15,
-      "word_or_phrase": "workhorse",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Noun",
-      "connotation": "Positive",
-      "easy_synonym": "reliable machine",
-      "hindi_meaning": "मेहनती / मुख्य आधार",
-      "mnemonic_trick": "A dependable horse on a farm that does the heavy, tireless pulling year after year.",
-      "concise_meaning": "A machine or person that performs reliably and bears the brunt of demanding work.",
-      "british_synonyms": [
-        "stalwart",
-        "backbone",
-        "linchpin"
-      ],
-      "british_antonyms": [
-        "slacker",
-        "liability",
-        "underperformer"
-      ]
-    },
-    {
-      "order_index": 16,
-      "word_or_phrase": "traced to",
-      "category": "Fixed Prepositions",
-      "part_of_speech": "Prepositional Phrase",
-      "connotation": "Neutral",
-      "easy_synonym": "attributed to",
-      "hindi_meaning": "का पता लगाना / की वजह होना",
-      "mnemonic_trick": "Following the tracks left on the ground right back to their origin.",
-      "concise_meaning": "Found, tracked, or discovered to originate from a particular cause or origin.",
-      "british_synonyms": [
-        "attributed to",
-        "ascribed to",
-        "identified with"
-      ],
-      "british_antonyms": [
-        "dissociated from",
-        "unrelated to",
-        "independent of"
-      ]
-    },
-    {
-      "order_index": 17,
-      "word_or_phrase": "dependability",
+      "word_or_phrase": "hub",
       "category": "Vocabulary",
       "part_of_speech": "Noun",
       "connotation": "Positive",
-      "easy_synonym": "reliability",
-      "hindi_meaning": "विश्वसनीयता",
-      "mnemonic_trick": "The ability of others to depend completely on you in times of need.",
-      "concise_meaning": "The quality of being trustworthy, steady, and reliable over time.",
+      "easy_synonym": "centre",
+      "hindi_meaning": "केन्द्र / धुरी",
+      "mnemonic_trick": "Think of the central hub of a bicycle wheel where all the spokes meet.",
+      "concise_meaning": "The effective centre of an activity, network, or commercial region.",
       "british_synonyms": [
-        "reliability",
-        "fidelity",
-        "trustworthiness"
-      ],
-      "british_antonyms": [
-        "unreliability",
-        "fickleness",
-        "dubiousness"
-      ]
-    },
-    {
-      "order_index": 18,
-      "word_or_phrase": "infallibility",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Noun",
-      "connotation": "Positive",
-      "easy_synonym": "perfection",
-      "hindi_meaning": "अचूकता",
-      "mnemonic_trick": "'In-' (not) + 'fallible' (capable of falling/failing) = completely incapable of making errors.",
-      "concise_meaning": "The state or condition of being completely incapable of failing or making mistakes.",
-      "british_synonyms": [
-        "unerringness",
-        "flawlessness",
-        "impeccability"
-      ],
-      "british_antonyms": [
-        "fallibility",
-        "imperfection",
-        "errancy"
-      ]
-    },
-    {
-      "order_index": 19,
-      "word_or_phrase": "cadence",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Neutral",
-      "easy_synonym": "rhythm",
-      "hindi_meaning": "नियमित गति / ताल",
-      "mnemonic_trick": "Sounds like 'dance'—every well-coordinated dance requires a regular, steady beat.",
-      "concise_meaning": "The regular rhythm, pace, or recurrence of a series of events.",
-      "british_synonyms": [
-        "tempo",
-        "rhythm",
-        "frequency"
-      ],
-      "british_antonyms": [
-        "irregularity",
-        "discord",
-        "disorganisation"
-      ]
-    },
-    {
-      "order_index": 20,
-      "word_or_phrase": "calling card",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Noun Phrase",
-      "connotation": "Positive",
-      "easy_synonym": "trademark",
-      "hindi_meaning": "पहचान चिह्न",
-      "mnemonic_trick": "A card you hand someone that defines who you are and what you are known for.",
-      "concise_meaning": "A distinctive signature trait, hallmark, or primary badge of identity.",
-      "british_synonyms": [
-        "trademark",
-        "hallmark",
-        "signature feature"
-      ],
-      "british_antonyms": [
-        "anomaly",
-        "aberration",
-        "irregularity"
-      ]
-    },
-    {
-      "order_index": 21,
-      "word_or_phrase": "hallmark",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Noun",
-      "connotation": "Positive",
-      "easy_synonym": "benchmark",
-      "hindi_meaning": "कसौटी / प्रामाणिक चिह्न",
-      "mnemonic_trick": "The official mark stamped on gold at Goldsmiths' Hall to certify its absolute purity.",
-      "concise_meaning": "A typical, distinctive, or definitive feature establishing genuine quality or authenticity.",
-      "british_synonyms": [
-        "touchstone",
-        "benchmark",
-        "badge"
-      ],
-      "british_antonyms": [
-        "counterfeit",
-        "deviation",
-        "blemish"
-      ]
-    }
-  ]
-}
-```
-
----
-
-## 📰 Editorial 2: Bogged down: On the U.S.-Iran conflict escalation
-```json
-{
-  "editorial_metadata": {
-    "title": "Bogged down: On the U.S.-Iran conflict escalation",
-    "subtitle": "Escalating military friction in the Gulf highlights America's strategic quagmire against Iran.",
-    "author": "Editorial Board",
-    "topic": "Geopolitics"
-  },
-  "analysis": {
-    "tone": "Critical",
-    "tone_simple_explanation": "critiquing failed military strategies",
-    "analysis_summary": "The author adopts a critical and cautionary tone to scrutinise the Trump administration's faltering Gulf strategy. By highlighting the failure of both military deterrence and economic sanctions, the editorial argues that America is trapped in an unsustainable cycle of escalation. Ultimately, the piece warns of spiralling regional instability and urges Washington to acknowledge strategic miscalculations and revive diplomatic talks."
-  },
-  "editorial_vocabulary": [
-    {
-      "order_index": 1,
-      "word_or_phrase": "Bogged down",
-      "category": "Phrasal Verbs",
-      "part_of_speech": "Phrasal Verb",
-      "connotation": "Negative",
-      "easy_synonym": "Stuck",
-      "hindi_meaning": "दलदल में फंस जाना / गतिरोध में आना",
-      "mnemonic_trick": "Think of walking into a wet 'bog' (marsh) where your boots get stuck and you cannot move forward.",
-      "concise_meaning": "Prevented from making progress or becoming entangled in a complex, stagnant situation.",
-      "british_synonyms": [
-        "entangled",
-        "impeded",
-        "mired"
-      ],
-      "british_antonyms": [
-        "unhindered",
-        "facilitated",
-        "liberated"
-      ]
-    },
-    {
-      "order_index": 2,
-      "word_or_phrase": "retaliatory",
-      "category": "Vocabulary",
-      "part_of_speech": "Adjective",
-      "connotation": "Negative",
-      "easy_synonym": "Revengeful",
-      "hindi_meaning": "प्रतिशोधात्मक / बदले की कार्रवाई संबंधी",
-      "mnemonic_trick": "Sound association with 'retaliate' — returning fire or strike in response to an attack.",
-      "concise_meaning": "Characterised by or done as an action taken in revenge for a perceived harm or injury.",
-      "british_synonyms": [
-        "reprisal",
-        "punitive",
-        "avenging"
-      ],
-      "british_antonyms": [
-        "conciliatory",
-        "placatory",
-        "forgiving"
-      ]
-    },
-    {
-      "order_index": 3,
-      "word_or_phrase": "escalation",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "Intensification",
-      "hindi_meaning": "तीव्रता में वृद्धि / प्रसार",
-      "mnemonic_trick": "Think of an 'escalator' that moves continuously upwards, just as tensions rise higher and higher.",
-      "concise_meaning": "A rapid increase in the intensity, severity, or scope of a conflict.",
-      "british_synonyms": [
-        "intensification",
-        "heightening",
-        "amplification"
-      ],
-      "british_antonyms": [
-        "de-escalation",
-        "diminution",
-        "abatement"
-      ]
-    },
-    {
-      "order_index": 4,
-      "word_or_phrase": "tit-for-tat",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Adjective",
-      "connotation": "Negative",
-      "easy_synonym": "Eye-for-an-eye",
-      "hindi_meaning": "जैसे को तैसा",
-      "mnemonic_trick": "Sounds like 'this for that' — you hit me with this, I will hit you back with that.",
-      "concise_meaning": "Inflicting an equivalent retaliatory injury or insult in return for an initial grievance.",
-      "british_synonyms": [
-        "reciprocal",
-        "retributive",
-        "quid-pro-quo"
-      ],
-      "british_antonyms": [
-        "forgiving",
-        "non-retaliatory",
-        "magnanimous"
-      ]
-    },
-    {
-      "order_index": 5,
-      "word_or_phrase": "blockade",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "Barrier",
-      "hindi_meaning": "नाकाबंदी",
-      "mnemonic_trick": "Break into 'block' + 'aid' — completely blocking passage, goods, or aid from reaching a place.",
-      "concise_meaning": "An act or means of sealing off a place to prevent goods, vessels, or people from entering or leaving.",
-      "british_synonyms": [
-        "siege",
-        "cordon",
-        "interdiction"
-      ],
-      "british_antonyms": [
-        "clearance",
-        "opening",
-        "unbarring"
-      ]
-    },
-    {
-      "order_index": 6,
-      "word_or_phrase": "chokehold",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "Tight grip",
-      "hindi_meaning": "कड़ा शिकंजा",
-      "mnemonic_trick": "Literally holding someone by the throat so tightly that they choke and lose freedom to breathe or move.",
-      "concise_meaning": "A strategic grip or state of complete control that stifles or severely restricts free movement.",
-      "british_synonyms": [
-        "stranglehold",
-        "domination",
-        "grip"
-      ],
-      "british_antonyms": [
-        "liberation",
-        "release",
-        "freedom"
-      ]
-    },
-    {
-      "order_index": 7,
-      "word_or_phrase": "red line",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "Limit",
-      "hindi_meaning": "लक्ष्मण रेखा / अस्वीकार्य सीमा",
-      "mnemonic_trick": "Visualise a red danger line on a border or gauge that triggers an alarm once crossed.",
-      "concise_meaning": "A definitive, non-negotiable boundary or limit that triggers severe consequences if breached.",
-      "british_synonyms": [
-        "threshold",
-        "boundary",
-        "demarcation"
-      ],
-      "british_antonyms": [
-        "leeway",
-        "latitude",
-        "concession"
-      ]
-    },
-    {
-      "order_index": 8,
-      "word_or_phrase": "vowed",
-      "category": "Vocabulary",
-      "part_of_speech": "Verb",
-      "connotation": "Neutral",
-      "easy_synonym": "Promised",
-      "hindi_meaning": "संकल्प लिया / प्रतिज्ञा की",
-      "mnemonic_trick": "Rhymes with 'pledged' and shares root with wedding 'vows' — a formal and solemn commitment.",
-      "concise_meaning": "Solemnly promised or made a determined, public commitment to carry out a specific action.",
-      "british_synonyms": [
-        "pledged",
-        "sworn",
-        "undertaken"
-      ],
-      "british_antonyms": [
-        "renounced",
-        "retracted",
-        "repudiated"
-      ]
-    },
-    {
-      "order_index": 9,
-      "word_or_phrase": "regime change",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "Toppling a government",
-      "hindi_meaning": "तख्तापलट / शासन परिवर्तन",
-      "mnemonic_trick": "'Regime' means authoritarian rule; changing it forcibly usually implies foreign-led overthrow.",
-      "concise_meaning": "The replacement of a country's government, frequently achieved through external military intervention or force.",
-      "british_synonyms": [
-        "overthrow",
-        "deposition",
-        "toppling"
-      ],
-      "british_antonyms": [
-        "preservation",
-        "perpetuation",
-        "stability"
-      ]
-    },
-    {
-      "order_index": 10,
-      "word_or_phrase": "underscore",
-      "category": "Vocabulary",
-      "part_of_speech": "Verb",
-      "connotation": "Neutral",
-      "easy_synonym": "Emphasise",
-      "hindi_meaning": "रेखांकित करना / बल देना",
-      "mnemonic_trick": "Drawing an 'underline' (score under) beneath text to make it stand out as crucial.",
-      "concise_meaning": "To emphasise, reinforce, or highlight the distinct significance of a fact or point.",
-      "british_synonyms": [
-        "accentuate",
-        "highlight",
-        "stress"
-      ],
-      "british_antonyms": [
-        "downplay",
-        "minimise",
-        "gloss over"
-      ]
-    },
-    {
-      "order_index": 11,
-      "word_or_phrase": "toll on",
-      "category": "Fixed Prepositions",
-      "part_of_speech": "Prepositional Phrase",
-      "connotation": "Negative",
-      "easy_synonym": "Damage to",
-      "hindi_meaning": "पर भारी नुकसान / कुप्रभाव",
-      "mnemonic_trick": "Paying a high 'toll' (tax/cost) at a checkpoint; an ordeal that exacts a heavy fee on vitality or wealth.",
-      "concise_meaning": "Causing cumulative harm, loss, suffering, or adverse effects upon something over time.",
-      "british_synonyms": [
-        "burden on",
-        "damage to",
-        "strain on"
-      ],
-      "british_antonyms": [
-        "benefit to",
-        "boon to",
-        "relief to"
-      ]
-    },
-    {
-      "order_index": 12,
-      "word_or_phrase": "mounting",
-      "category": "Vocabulary",
-      "part_of_speech": "Adjective",
-      "connotation": "Negative",
-      "easy_synonym": "Growing",
-      "hindi_meaning": "बढ़ता हुआ",
-      "mnemonic_trick": "Like climbing a 'mountain', the numbers and scale keep rising relentlessly.",
-      "concise_meaning": "Steadily growing, increasing in quantity, or becoming progressively larger over time.",
-      "british_synonyms": [
-        "accumulating",
-        "escalating",
-        "burgeoning"
-      ],
-      "british_antonyms": [
-        "dwindling",
-        "diminishing",
-        "subsiding"
-      ]
-    },
-    {
-      "order_index": 13,
-      "word_or_phrase": "mowing the lawn",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Phrase",
-      "connotation": "Negative",
-      "easy_synonym": "Temporary containment",
-      "hindi_meaning": "समय-समय पर कुचलना (बिना स्थायी समाधान के)",
-      "mnemonic_trick": "Cutting grass (mowing) does not pull the roots; it merely keeps the grass short until it grows back.",
-      "concise_meaning": "A strategic metaphor for periodically degrading an adversary's military assets without achieving a permanent solution.",
-      "british_synonyms": [
-        "periodic degradation",
-        "attrition",
-        "containment"
-      ],
-      "british_antonyms": [
-        "permanent resolution",
-        "complete eradication",
-        "lasting peace"
-      ]
-    },
-    {
-      "order_index": 14,
-      "word_or_phrase": "blunting",
-      "category": "Vocabulary",
-      "part_of_speech": "Verb",
-      "connotation": "Neutral",
-      "easy_synonym": "Weakening",
-      "hindi_meaning": "कुंद करना / प्रभावहीन करना",
-      "mnemonic_trick": "A knife with a 'blunt' edge loses its sharpness; hence, blunting dulls the sharp power of an adversary.",
-      "concise_meaning": "Dulling, weakening, or reducing the force, effectiveness, or impact of something.",
-      "british_synonyms": [
-        "attenuating",
-        "dulling",
-        "dampening"
-      ],
-      "british_antonyms": [
-        "sharpening",
-        "honing",
-        "whetting"
-      ]
-    },
-    {
-      "order_index": 15,
-      "word_or_phrase": "periphery",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Noun",
-      "connotation": "Neutral",
-      "easy_synonym": "Edge",
-      "hindi_meaning": "परिधि / सीमावर्ती क्षेत्र",
-      "mnemonic_trick": "Links to 'perimeter' — the outer boundary encircling a core area.",
-      "concise_meaning": "The outer limits, margins, or surrounding edge of an area or sphere of influence.",
-      "british_synonyms": [
-        "boundary",
-        "perimeter",
-        "outskirts"
-      ],
-      "british_antonyms": [
         "centre",
-        "core",
-        "heartland"
-      ]
-    },
-    {
-      "order_index": 16,
-      "word_or_phrase": "woes",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "Troubles",
-      "hindi_meaning": "कष्ट / विपत्तियां",
-      "mnemonic_trick": "Crying 'woe is me' conveys deep misery, distress, and heavy financial or personal problems.",
-      "concise_meaning": "Grievous problems, sorrows, distress, or serious economic difficulties.",
-      "british_synonyms": [
-        "tribulations",
-        "adversities",
-        "afflictions"
+        "focal point",
+        "nexus"
       ],
       "british_antonyms": [
-        "blessings",
-        "triumphs",
-        "fortunes"
-      ]
-    },
-    {
-      "order_index": 17,
-      "word_or_phrase": "assertive",
-      "category": "Vocabulary",
-      "part_of_speech": "Adjective",
-      "connotation": "Positive",
-      "easy_synonym": "Confident",
-      "hindi_meaning": "दृढ़ / मुखर",
-      "mnemonic_trick": "One who 'asserts' facts states positions firmly and refuses to back down shyly.",
-      "concise_meaning": "Having or showing a confident, decisive, and forceful personality or posture.",
-      "british_synonyms": [
-        "forthright",
-        "resolute",
-        "uncompromising"
-      ],
-      "british_antonyms": [
-        "submissive",
-        "timid",
-        "diffident"
-      ]
-    },
-    {
-      "order_index": 18,
-      "word_or_phrase": "gridlock",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "Deadlock",
-      "hindi_meaning": "पूर्ण गतिरोध",
-      "mnemonic_trick": "Traffic on a 'grid' of streets that is completely 'locked' up and unable to move anywhere.",
-      "concise_meaning": "A situation of severe standstill where no progress or movement can be made by any party.",
-      "british_synonyms": [
-        "impasse",
-        "stalemate",
-        "standstill"
-      ],
-      "british_antonyms": [
-        "breakthrough",
-        "progress",
-        "mobility"
-      ]
-    },
-    {
-      "order_index": 19,
-      "word_or_phrase": "risk-averse",
-      "category": "Vocabulary",
-      "part_of_speech": "Adjective",
-      "connotation": "Neutral",
-      "easy_synonym": "Cautious",
-      "hindi_meaning": "जोखिम से बचने वाला",
-      "mnemonic_trick": "'Averse' means having a strong dislike; combined with 'risk', it denotes someone who shuns danger.",
-      "concise_meaning": "Reluctant to take risks or actively seeking to avoid uncertainty and hazards.",
-      "british_synonyms": [
-        "circumspect",
-        "hesitant",
-        "prudent"
-      ],
-      "british_antonyms": [
-        "audacious",
-        "venturesome",
-        "reckless"
-      ]
-    },
-    {
-      "order_index": 20,
-      "word_or_phrase": "escalation dominance",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Noun",
-      "connotation": "Neutral",
-      "easy_synonym": "Upper hand",
-      "hindi_meaning": "विवाद को बढ़ाकर बढ़त बनाने की क्षमता",
-      "mnemonic_trick": "Dominating the escalation ladder by being able to strike harder at any higher rung than the foe.",
-      "concise_meaning": "The strategic ability to increase the intensity of a conflict such that the adversary is deterred from matching it.",
-      "british_synonyms": [
-        "strategic superiority",
-        "tactical leverage",
-        "supremacy"
-      ],
-      "british_antonyms": [
-        "strategic parity",
-        "vulnerability",
-        "disadvantage"
-      ]
-    },
-    {
-      "order_index": 21,
-      "word_or_phrase": "spiralling out of control",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Phrase",
-      "connotation": "Negative",
-      "easy_synonym": "Becoming unmanageable",
-      "hindi_meaning": "नियंत्रण से बाहर होना",
-      "mnemonic_trick": "Visualise an aircraft in an uncontrolled, accelerating downward spiral that cannot be righted.",
-      "concise_meaning": "Deteriorating or expanding rapidly and uncontrollably beyond any party's capacity to manage.",
-      "british_synonyms": [
-        "unravelling",
-        "careering",
-        "escalating uncontrollably"
-      ],
-      "british_antonyms": [
-        "stabilising",
-        "normalising",
-        "moderating"
-      ]
-    },
-    {
-      "order_index": 22,
-      "word_or_phrase": "cold fact",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "Harsh truth",
-      "hindi_meaning": "कड़वा सच / निर्विवाद सत्य",
-      "mnemonic_trick": "'Cold' implies stripped of comforting warmth or emotion — a blunt, undeniable reality.",
-      "concise_meaning": "An unvarnished, indisputable, and often unpleasant or harsh reality.",
-      "british_synonyms": [
-        "stark reality",
-        "hard truth",
-        "bare fact"
-      ],
-      "british_antonyms": [
-        "delusion",
-        "fallacy",
-        "wishful thinking"
-      ]
-    }
-  ]
-}
-```
-
----
-
-## 📰 Editorial 3: Moscow-Kyiv to Delhi, connect the dots
-```json
-{
-  "editorial_metadata": {
-    "title": "Moscow-Kyiv to Delhi, connect the dots",
-    "subtitle": "India must leverage its diplomatic capital with Moscow and Kyiv to broker peace.",
-    "author": "Editorial Board",
-    "topic": "Geopolitics"
-  },
-  "analysis": {
-    "tone": "Persuasive / Advocative",
-    "tone_simple_explanation": "urging diplomatic action",
-    "analysis_summary": "The author adopts a persuasive tone to urge New Delhi to leverage its rare access to both Russia and Ukraine. By highlighting mounting military escalation, economic disruptions, and the risk of the conflict spreading across Europe, the editorial argues that India should actively champion confidence-building measures and push for a ceasefire."
-  },
-  "editorial_vocabulary": [
-    {
-      "order_index": 1,
-      "word_or_phrase": "in the thick of",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Idiom",
-      "connotation": "Neutral",
-      "easy_synonym": "deeply involved in",
-      "hindi_meaning": "किसी गतिविधि के केंद्र में होना",
-      "mnemonic_trick": "Picture being in the 'thick' centre of a dense crowd where all the action happens.",
-      "concise_meaning": "Heavily involved in the most active or central part of an activity or situation.",
-      "british_synonyms": [
-        "at the centre of",
-        "embroiled in",
-        "immersed in"
-      ],
-      "british_antonyms": [
-        "detached from",
-        "on the periphery of",
-        "uninvolved in"
-      ]
-    },
-    {
-      "order_index": 2,
-      "word_or_phrase": "engagements",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Neutral",
-      "easy_synonym": "meetings",
-      "hindi_meaning": "कूटनीतिक बैठकें या बातचीत",
-      "mnemonic_trick": "When diplomats 'engage' with one another, they hold formal discussions and meetings.",
-      "concise_meaning": "Formal interactions, discussions, or appointments between state representatives.",
-      "british_synonyms": [
-        "consultations",
-        "interactions",
-        "negotiations"
-      ],
-      "british_antonyms": [
-        "disengagements",
-        "boycotts",
-        "alienations"
-      ]
-    },
-    {
-      "order_index": 3,
-      "word_or_phrase": "proactive",
-      "category": "Vocabulary",
-      "part_of_speech": "Adjective",
-      "connotation": "Positive",
-      "easy_synonym": "taking initiative",
-      "hindi_meaning": "सक्रिय / पहल करने वाला",
-      "mnemonic_trick": "Break into 'pro' (forward) + 'active' (moving) — acting forward before being asked.",
-      "concise_meaning": "Controlling a situation by making things happen rather than merely responding after an event.",
-      "british_synonyms": [
-        "enterprising",
-        "forward-looking",
-        "pre-emptive"
-      ],
-      "british_antonyms": [
-        "reactive",
-        "passive",
-        "inert"
-      ]
-    },
-    {
-      "order_index": 4,
-      "word_or_phrase": "build on",
-      "category": "Phrasal Verbs",
-      "part_of_speech": "Phrasal Verb",
-      "connotation": "Positive",
-      "easy_synonym": "develop further",
-      "hindi_meaning": "किसी प्रगति को आगे बढ़ाना",
-      "mnemonic_trick": "Think of laying the next layer of bricks on an existing solid foundation.",
-      "concise_meaning": "To use previous achievements or initial success as a base for further progress.",
-      "british_synonyms": [
-        "expand upon",
-        "capitalise on",
-        "consolidate"
-      ],
-      "british_antonyms": [
-        "undermine",
-        "squander",
-        "demolish"
-      ]
-    },
-    {
-      "order_index": 5,
-      "word_or_phrase": "momentum",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Positive",
-      "easy_synonym": "forward drive",
-      "hindi_meaning": "गति / रफ़्तार",
-      "mnemonic_trick": "Relate to physics: 'mass in motion' creates a force that keeps things rolling.",
-      "concise_meaning": "The driving impetus gained through a series of successful events that keeps a process moving.",
-      "british_synonyms": [
-        "impetus",
-        "thrust",
-        "traction"
-      ],
-      "british_antonyms": [
-        "stagnation",
-        "inertia",
-        "standstill"
-      ]
-    },
-    {
-      "order_index": 6,
-      "word_or_phrase": "negotiated settlement",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Noun",
-      "connotation": "Positive",
-      "easy_synonym": "peace deal",
-      "hindi_meaning": "बातचीत से तय हुआ समझौता",
-      "mnemonic_trick": "'Negotiate' (talk) + 'settle' (resolve) = an agreement made by talking instead of fighting.",
-      "concise_meaning": "A formal resolution to a conflict agreed upon through diplomatic dialogue rather than military force.",
-      "british_synonyms": [
-        "diplomatic compromise",
-        "peace accord",
-        "brokered treaty"
-      ],
-      "british_antonyms": [
-        "military conquest",
-        "unilateral surrender",
-        "armed deadlock"
-      ]
-    },
-    {
-      "order_index": 7,
-      "word_or_phrase": "caught up in",
-      "category": "Phrasal Verbs",
-      "part_of_speech": "Phrasal Verb",
-      "connotation": "Negative",
-      "easy_synonym": "entangled in",
-      "hindi_meaning": "उलझा हुआ",
-      "mnemonic_trick": "Picture getting your sleeve 'caught' in moving machinery; you are pulled in helplessly.",
-      "concise_meaning": "Deeply entangled or preoccupied with a difficult situation against one's clear intentions.",
-      "british_synonyms": [
-        "embroiled in",
-        "bogged down in",
-        "preoccupied with"
-      ],
-      "british_antonyms": [
-        "freed from",
-        "detached from",
-        "clear of"
+        "periphery",
+        "outskirts",
+        "margin"
       ]
     },
     {
       "order_index": 8,
-      "word_or_phrase": "deterrence",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Noun",
-      "connotation": "Neutral",
-      "easy_synonym": "discouragement",
-      "hindi_meaning": "निवारण / रोकथाम",
-      "mnemonic_trick": "'Deter' means to discourage; deterrence prevents someone from doing harm out of fear.",
-      "concise_meaning": "The action of discouraging an action or event through instilling doubt or fear of the consequences.",
+      "word_or_phrase": "robust",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Positive",
+      "easy_synonym": "strong",
+      "hindi_meaning": "मजबूत / सुदृढ़",
+      "mnemonic_trick": "Sounds like 'robot', which is built to be extremely tough, sturdy, and reliable.",
+      "concise_meaning": "Strong, healthy, and capable of withstanding vigorous conditions or competition.",
       "british_synonyms": [
-        "disincentive",
-        "prevention",
-        "containment"
+        "resilient",
+        "sturdy",
+        "vigorous"
       ],
       "british_antonyms": [
-        "encouragement",
-        "incitement",
-        "provocation"
+        "fragile",
+        "feeble",
+        "vulnerable"
       ]
     },
     {
       "order_index": 9,
-      "word_or_phrase": "cut a deal",
-      "category": "Idioms & Phrases",
-      "part_of_speech": "Idiom",
-      "connotation": "Neutral",
-      "easy_synonym": "strike an agreement",
-      "hindi_meaning": "सौदा या समझौता करना",
-      "mnemonic_trick": "Like 'cutting' a deck of cards to finalize rules before playing a fair game together.",
-      "concise_meaning": "To reach a mutual arrangement or agreement, especially in politics or commerce.",
+      "word_or_phrase": "keen to",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Adjective + Preposition",
+      "connotation": "Positive",
+      "easy_synonym": "eager to",
+      "hindi_meaning": "उत्सुक / इच्छुक",
+      "mnemonic_trick": "A 'keen' eye is sharp and eagerly focused on spotting opportunities.",
+      "concise_meaning": "Highly interested, eager, or enthusiastic about doing something.",
       "british_synonyms": [
-        "strike a bargain",
-        "reach an accord",
-        "come to terms"
+        "eager to",
+        "intent on",
+        "enthusiastic about"
       ],
       "british_antonyms": [
-        "break off talks",
-        "reach an impasse",
-        "renege"
+        "reluctant to",
+        "averse to",
+        "indifferent to"
       ]
     },
     {
       "order_index": 10,
-      "word_or_phrase": "pursuit",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
+      "word_or_phrase": "make inroads",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Verb Phrase",
       "connotation": "Positive",
-      "easy_synonym": "quest",
-      "hindi_meaning": "प्रयास / खोज",
-      "mnemonic_trick": "When you 'pursue' a target or dream, the active process is your 'pursuit'.",
-      "concise_meaning": "The act of following or striving continuously to achieve a particular goal.",
+      "easy_synonym": "make progress",
+      "hindi_meaning": "पैठ बनाना / प्रगति करना",
+      "mnemonic_trick": "Building 'roads into' new territory allows you to successfully penetrate and advance.",
+      "concise_meaning": "To make substantial progress or establish an entry into a competitive market or territory.",
       "british_synonyms": [
-        "quest",
-        "striving",
-        "undertaking"
+        "penetrate",
+        "gain ground",
+        "establish a foothold"
       ],
       "british_antonyms": [
-        "abandonment",
-        "relinquishment",
-        "surrender"
+        "retreat",
+        "lose ground",
+        "withdraw"
       ]
     },
     {
       "order_index": 11,
-      "word_or_phrase": "reset",
-      "category": "Vocabulary",
+      "word_or_phrase": "procurement",
+      "category": "One-Word Substitutions",
       "part_of_speech": "Noun",
       "connotation": "Neutral",
-      "easy_synonym": "fresh start",
-      "hindi_meaning": "पुनर्स्थापन / नए सिरे से शुरुआत",
-      "mnemonic_trick": "Think of hitting the 'reset button' on an electronic device to clear errors and start fresh.",
-      "concise_meaning": "A complete overhaul or fresh restart of relations between nations.",
+      "easy_synonym": "purchasing",
+      "hindi_meaning": "खरीद / अधिप्राप्ति",
+      "mnemonic_trick": "Think of 'secure': you work to procure (secure) supplies and equipment formally.",
+      "concise_meaning": "The formal process of obtaining or purchasing goods, equipment, or services, especially for military or state use.",
       "british_synonyms": [
-        "reboot",
-        "realignment",
-        "fresh start"
+        "acquisition",
+        "purchasing",
+        "requisition"
       ],
       "british_antonyms": [
-        "continuation",
-        "perpetuation",
-        "status quo"
+        "disposal",
+        "sale",
+        "liquidation"
       ]
     },
     {
       "order_index": 12,
-      "word_or_phrase": "back down",
-      "category": "Phrasal Verbs",
-      "part_of_speech": "Phrasal Verb",
-      "connotation": "Negative",
-      "easy_synonym": "yield",
-      "hindi_meaning": "पीछे हटना या हार मानना",
-      "mnemonic_trick": "Literally taking steps 'back' while stepping 'down' from your confrontational stance.",
-      "concise_meaning": "To withdraw from a confrontation or concede an argument in the face of resistance.",
+      "word_or_phrase": "attaché",
+      "category": "Foreign Words",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "diplomat",
+      "hindi_meaning": "राजनयिक प्रतिनिधि",
+      "mnemonic_trick": "Borrowing from French: an official 'attached' to an embassy for a specialised role.",
+      "concise_meaning": "A technical or military expert attached to a diplomatic mission or embassy.",
       "british_synonyms": [
-        "concede",
-        "climb down",
-        "capitulate"
+        "envoy",
+        "diplomat",
+        "emissary"
       ],
       "british_antonyms": [
-        "stand firm",
-        "persist",
-        "hold out"
+        "civilian",
+        "private citizen",
+        "non-official"
       ]
     },
     {
       "order_index": 13,
-      "word_or_phrase": "in the face of",
-      "category": "Fixed Prepositions",
-      "part_of_speech": "Prepositional Phrase",
-      "connotation": "Neutral",
-      "easy_synonym": "despite",
-      "hindi_meaning": "के सामने / के बावजूद",
-      "mnemonic_trick": "Standing directly 'face to face' against a strong gust of wind or adversity.",
-      "concise_meaning": "When confronted with or despite encountering severe opposition, threat, or difficulty.",
+      "word_or_phrase": "complementing",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Positive",
+      "easy_synonym": "enhancing",
+      "hindi_meaning": "पूरक बनना / परस्पर सुधारना",
+      "mnemonic_trick": "Spell with 'e' for complete: something that complements makes the other whole or better.",
+      "concise_meaning": "Adding to something in a way that enhances, balances, or improves it.",
       "british_synonyms": [
-        "notwithstanding",
-        "despite",
-        "in spite of"
+        "supplementing",
+        "augmenting",
+        "enhancing"
       ],
       "british_antonyms": [
-        "in absence of",
-        "regardless of",
-        "shielded from"
+        "diminishing",
+        "contradicting",
+        "undermining"
       ]
     },
     {
       "order_index": 14,
-      "word_or_phrase": "escalation",
+      "word_or_phrase": "geopolitical",
       "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "intensification",
-      "hindi_meaning": "तनाव या संघर्ष में वृद्धि",
-      "mnemonic_trick": "An 'escalator' continuously carries people up; 'escalation' carries conflict to higher levels.",
-      "concise_meaning": "A rapid increase in the intensity, scope, or seriousness of a dispute or warfare.",
+      "part_of_speech": "Adjective",
+      "connotation": "Neutral",
+      "easy_synonym": "world-political",
+      "hindi_meaning": "भू-राजनीतिक",
+      "mnemonic_trick": "'Geo' (earth/geography) + 'political' (governance/state relations): politics shaped by global geography.",
+      "concise_meaning": "Relating to international relations as influenced by geographic and strategic factors.",
       "british_synonyms": [
-        "intensification",
-        "amplification",
-        "heightening"
+        "geo-strategic",
+        "international",
+        "transnational"
       ],
       "british_antonyms": [
-        "de-escalation",
-        "reduction",
-        "moderation"
+        "domestic",
+        "provincial",
+        "local"
       ]
     },
     {
       "order_index": 15,
-      "word_or_phrase": "intensified",
-      "category": "Vocabulary",
-      "part_of_speech": "Verb",
-      "connotation": "Negative",
-      "easy_synonym": "stepped up",
-      "hindi_meaning": "और तीव्र या गंभीर कर दिया",
-      "mnemonic_trick": "Making something more 'intense' by adding force, frequency, or energy.",
-      "concise_meaning": "Made more severe, strong, or acute in degree and activity.",
+      "word_or_phrase": "strategic autonomy",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Noun Phrase",
+      "connotation": "Positive",
+      "easy_synonym": "policy independence",
+      "hindi_meaning": "रणनीतिक स्वायत्तता",
+      "mnemonic_trick": "'Auto' (self) + 'nomos' (law): the strategic power of a nation to govern its own foreign policy decisions.",
+      "concise_meaning": "The ability of a state to pursue its national interests and make foreign policy decisions without foreign coercion.",
       "british_synonyms": [
-        "sharpened",
+        "policy sovereignty",
+        "independent statecraft",
+        "self-reliance"
+      ],
+      "british_antonyms": [
+        "vassalage",
+        "servility",
+        "subjugation"
+      ]
+    },
+    {
+      "order_index": 16,
+      "word_or_phrase": "stepped up",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Verb",
+      "connotation": "Positive",
+      "easy_synonym": "increased",
+      "hindi_meaning": "तेज किया / बढ़ाया",
+      "mnemonic_trick": "Picture taking bigger steps or pressing the accelerator step to speed up progress.",
+      "concise_meaning": "Accelerated, increased, or intensified the pace or scale of an activity.",
+      "british_synonyms": [
+        "intensified",
         "escalated",
         "heightened"
       ],
       "british_antonyms": [
-        "lessened",
-        "subdued",
+        "curbed",
+        "scaled down",
         "abated"
       ]
     },
     {
-      "order_index": 16,
-      "word_or_phrase": "relentlessly",
-      "category": "Vocabulary",
-      "part_of_speech": "Adverb",
-      "connotation": "Negative",
-      "easy_synonym": "unstoppably",
-      "hindi_meaning": "लगातार / बिना रुके",
-      "mnemonic_trick": "Without 'relenting' (never giving up or slackening speed).",
-      "concise_meaning": "In an unceasingly harsh, determined, and unwavering manner without stopping.",
-      "british_synonyms": [
-        "persistently",
-        "unremittingly",
-        "implacably"
-      ],
-      "british_antonyms": [
-        "spasmodically",
-        "intermittently",
-        "haltingly"
-      ]
-    },
-    {
       "order_index": 17,
-      "word_or_phrase": "disruption",
-      "category": "Vocabulary",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "interruption",
-      "hindi_meaning": "बाधा / गड़बड़ी",
-      "mnemonic_trick": "'Rupt' means to break (like rupture); disruption breaks the smooth flow of things.",
-      "concise_meaning": "A major disturbance that interrupts an ongoing process, activity, or normal operation.",
+      "word_or_phrase": "in the run-up to",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Prepositional Phrase",
+      "connotation": "Neutral",
+      "easy_synonym": "leading up to",
+      "hindi_meaning": "के पहले की अवधि में",
+      "mnemonic_trick": "Like a long-jumper's run-up track immediately before the final jump.",
+      "concise_meaning": "During the period of preparation or time immediately preceding a significant event.",
       "british_synonyms": [
-        "upheaval",
-        "interruption",
-        "disorder"
+        "prior to",
+        "in the lead-up to",
+        "on the eve of"
       ],
       "british_antonyms": [
-        "continuity",
-        "regularity",
-        "stability"
+        "in the aftermath of",
+        "following",
+        "in the wake of"
       ]
     },
     {
       "order_index": 18,
-      "word_or_phrase": "turn to",
-      "category": "Phrasal Verbs",
-      "part_of_speech": "Phrasal Verb",
-      "connotation": "Neutral",
-      "easy_synonym": "seek help from",
-      "hindi_meaning": "मदद के लिए किसी का सहारा लेना",
-      "mnemonic_trick": "Literally 'turning' your body toward someone to ask for assistance.",
-      "concise_meaning": "To approach someone or something for help, support, or a commercial supply.",
+      "word_or_phrase": "maturity",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Positive",
+      "easy_synonym": "sophistication",
+      "hindi_meaning": "परिपक्वता / समझदारी",
+      "mnemonic_trick": "A mature thinker avoids petty conflicts and handles differences with balanced wisdom.",
+      "concise_meaning": "The state of being sensible, experienced, and capable of handling complex situations prudently.",
       "british_synonyms": [
-        "resort to",
-        "apply to",
-        "appeal to"
+        "wisdom",
+        "prudence",
+        "sophistication"
       ],
       "british_antonyms": [
-        "rely on oneself",
-        "shun",
-        "turn away from"
+        "immaturity",
+        "naivety",
+        "puerility"
       ]
     },
     {
       "order_index": 19,
-      "word_or_phrase": "sabotage",
-      "category": "One-Word Substitutions",
-      "part_of_speech": "Noun",
-      "connotation": "Negative",
-      "easy_synonym": "deliberate damage",
-      "hindi_meaning": "तोड़-फोड़ / सुनियोजित विनाश",
-      "mnemonic_trick": "Historical origin: French workers threw wooden shoes ('sabots') into machines to wreck them.",
-      "concise_meaning": "Deliberate destruction or disruption of infrastructure or equipment to gain an advantage.",
+      "word_or_phrase": "sensitivity to",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Noun + Preposition",
+      "connotation": "Positive",
+      "easy_synonym": "regard for",
+      "hindi_meaning": "के प्रति संवेदनशीलता / समझ",
+      "mnemonic_trick": "Being sensitive 'to' others means opening your senses to their specific viewpoints.",
+      "concise_meaning": "An appreciation of and tactful consideration for the feelings, needs, or positions of others.",
       "british_synonyms": [
-        "subversion",
-        "wrecking",
-        "treachery"
+        "mindfulness of",
+        "consideration for",
+        "empathy towards"
       ],
       "british_antonyms": [
-        "protection",
-        "safeguarding",
-        "reinforcement"
+        "indifference to",
+        "callousness towards",
+        "blindness to"
       ]
     },
     {
       "order_index": 20,
-      "word_or_phrase": "spilling into",
-      "category": "Phrasal Verbs",
-      "part_of_speech": "Phrasal Verb",
-      "connotation": "Negative",
-      "easy_synonym": "spreading over to",
-      "hindi_meaning": "फैलकर किसी अन्य क्षेत्र में चले जाना",
-      "mnemonic_trick": "Like a cup of water overfilling and 'spilling' across the entire table.",
-      "concise_meaning": "Expanding beyond original boundaries and affecting adjacent areas or territories.",
+      "word_or_phrase": "outweigh",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "surpass",
+      "hindi_meaning": "से अधिक भारी या महत्वपूर्ण होना",
+      "mnemonic_trick": "On a physical scale, the heavier and more important side outweighs the lighter one.",
+      "concise_meaning": "To be greater in significance, importance, or value than something else.",
       "british_synonyms": [
-        "overflowing into",
-        "encroaching on",
-        "seeping into"
+        "overshadow",
+        "predominate",
+        "surpass"
       ],
       "british_antonyms": [
-        "contained within",
-        "confined to",
-        "restricted to"
+        "underestimate",
+        "pale in comparison",
+        "succumb to"
       ]
     },
     {
       "order_index": 21,
-      "word_or_phrase": "imperative",
+      "word_or_phrase": "enmity",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "hostility",
+      "hindi_meaning": "शत्रुता / बैर",
+      "mnemonic_trick": "Root word 'enemy': enmity is the intense feeling of being enemies.",
+      "concise_meaning": "A state or feeling of active mutual hatred, hostility, or animosity.",
+      "british_synonyms": [
+        "hostility",
+        "animosity",
+        "antagonism"
+      ],
+      "british_antonyms": [
+        "amity",
+        "friendship",
+        "goodwill"
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## 📰 Editorial 2: Ground control: On ISRO, policy and and its focus
+```json
+{
+  "editorial_metadata": {
+    "title": "Ground control: On ISRO, policy and and its focus",
+    "subtitle": "ISRO must balance commercial space ambitions and workforce security with its founding developmental mission.",
+    "author": "Editorial Board",
+    "topic": "Science & Technology / Space Policy"
+  },
+  "analysis": {
+    "tone": "Analytical / Cautionary",
+    "tone_simple_explanation": "thoughtful warning of risks",
+    "analysis_summary": "The author critically evaluates ISRO's shifting focus from public-good space exploration to commercialisation and outsourcing, highlighting legitimate employee concerns over job security. By comparing ISRO's restructuring with NASA's history, the writer cautions that chasing private-sector trends and billionaire space fantasies must not overshadow India's founding vision of social development. The piece urges policymakers to create a transparent, well-considered roadmap that secures skilled employment while competing effectively on the global stage."
+  },
+  "editorial_vocabulary": [
+    {
+      "order_index": 1,
+      "word_or_phrase": "Irony",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "Contradiction",
+      "hindi_meaning": "विडम्बना",
+      "mnemonic_trick": "Think of 'ironic'—when the outcome is the polar opposite of what everyone expected, like rain on a dry forecast day.",
+      "concise_meaning": "A state of affairs or an event that seems deliberately contrary to what one expects.",
+      "british_synonyms": [
+        "paradox",
+        "incongruity",
+        "contradiction"
+      ],
+      "british_antonyms": [
+        "logic",
+        "consistency",
+        "expectedness"
+      ]
+    },
+    {
+      "order_index": 2,
+      "word_or_phrase": "Temperamental",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "Unpredictable",
+      "hindi_meaning": "तुनकमिज़ाज / अनिश्चित",
+      "mnemonic_trick": "Relate it to 'temper'—something whose temperature or mood changes suddenly and becomes unreliable.",
+      "concise_meaning": "Liable to unreasonable or unpredictable changes in behaviour or performance.",
+      "british_synonyms": [
+        "volatile",
+        "erratic",
+        "capricious"
+      ],
+      "british_antonyms": [
+        "dependable",
+        "consistent",
+        "stable"
+      ]
+    },
+    {
+      "order_index": 3,
+      "word_or_phrase": "Grievance",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "Complaint",
+      "hindi_meaning": "शिकायत / व्यथा",
+      "mnemonic_trick": "Connect 'grief' + 'grievance': a cause of grief that makes you officially complain.",
+      "concise_meaning": "A real or perceived cause for complaint or resentment, especially unfair treatment.",
+      "british_synonyms": [
+        "complaint",
+        "objection",
+        "dissatisfaction"
+      ],
+      "british_antonyms": [
+        "contentment",
+        "satisfaction",
+        "approval"
+      ]
+    },
+    {
+      "order_index": 4,
+      "word_or_phrase": "In the making",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Phrase",
+      "connotation": "Neutral",
+      "easy_synonym": "Developing",
+      "hindi_meaning": "तैयार होने की प्रक्रिया में",
+      "mnemonic_trick": "If something is 'in the making', it is currently being cooked or manufactured over time.",
+      "concise_meaning": "In the process of developing or being formed over a considerable period.",
+      "british_synonyms": [
+        "brewing",
+        "developing",
+        "unfolding"
+      ],
+      "british_antonyms": [
+        "concluded",
+        "settled",
+        "finished"
+      ]
+    },
+    {
+      "order_index": 5,
+      "word_or_phrase": "Ramping up",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Phrasal Verb",
+      "connotation": "Positive",
+      "easy_synonym": "Increasing",
+      "hindi_meaning": "तेज़ी से बढ़ाना",
+      "mnemonic_trick": "Picture walking up a 'ramp' to go higher—speeding up and expanding operations.",
+      "concise_meaning": "Increasing the level, speed, or volume of an activity sharply.",
+      "british_synonyms": [
+        "escalating",
+        "stepping up",
+        "intensifying"
+      ],
+      "british_antonyms": [
+        "scaling down",
+        "curtailing",
+        "reducing"
+      ]
+    },
+    {
+      "order_index": 6,
+      "word_or_phrase": "Paradox",
+      "category": "One-Word Substitutions",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "Puzzle",
+      "hindi_meaning": "विरोधाभास",
+      "mnemonic_trick": "'Para' (alongside) + 'dox' (opinion/belief)—two conflicting truths existing side by side.",
+      "concise_meaning": "A seemingly absurd or contradictory statement or situation that may nonetheless be true.",
+      "british_synonyms": [
+        "enigma",
+        "anomaly",
+        "contradiction"
+      ],
+      "british_antonyms": [
+        "normality",
+        "truism",
+        "certainty"
+      ]
+    },
+    {
+      "order_index": 7,
+      "word_or_phrase": "Facilitate",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Positive",
+      "easy_synonym": "Help",
+      "hindi_meaning": "सुगम बनाना",
+      "mnemonic_trick": "Derived from the Latin 'facilis' (easy)—to provide 'facilities' to make a task easier.",
+      "concise_meaning": "To make an action or process easy or easier to achieve.",
+      "british_synonyms": [
+        "expedite",
+        "enable",
+        "promote"
+      ],
+      "british_antonyms": [
+        "hinder",
+        "impede",
+        "obstruct"
+      ]
+    },
+    {
+      "order_index": 8,
+      "word_or_phrase": "Diminished",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "Reduced",
+      "hindi_meaning": "घटाया हुआ / कम किया हुआ",
+      "mnemonic_trick": "'Mini' is inside 'diminish'—to make something small or reduced in stature.",
+      "concise_meaning": "Made smaller, less important, or reduced in size and value.",
+      "british_synonyms": [
+        "lessened",
+        "curtailed",
+        "attenuated"
+      ],
+      "british_antonyms": [
+        "augmented",
+        "enhanced",
+        "amplified"
+      ]
+    },
+    {
+      "order_index": 9,
+      "word_or_phrase": "Underlying",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Neutral",
+      "easy_synonym": "Fundamental",
+      "hindi_meaning": "अन्तर्निहित / बुनियादी",
+      "mnemonic_trick": "Literally 'lying under' the surface—the hidden, foundational root cause.",
+      "concise_meaning": "Significant as a fundamental cause or basis, though not immediately obvious.",
+      "british_synonyms": [
+        "fundamental",
+        "basal",
+        "implicit"
+      ],
+      "british_antonyms": [
+        "superficial",
+        "surface",
+        "explicit"
+      ]
+    },
+    {
+      "order_index": 10,
+      "word_or_phrase": "Enamoured of",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Adjective phrase",
+      "connotation": "Positive",
+      "easy_synonym": "Charmed by",
+      "hindi_meaning": "मोहित होना",
+      "mnemonic_trick": "'Amour' means love—being enamoured of something means being in love or fascinated with it.",
+      "concise_meaning": "Filled with fascination, love, or excessive admiration for someone or something.",
+      "british_synonyms": [
+        "infatuated with",
+        "captivated by",
+        "captivated with"
+      ],
+      "british_antonyms": [
+        "disenchanted with",
+        "repulsed by",
+        "indifferent to"
+      ]
+    },
+    {
+      "order_index": 11,
+      "word_or_phrase": "Laser-focused",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Positive",
+      "easy_synonym": "Undivided",
+      "hindi_meaning": "पूर्णतः केंद्रित",
+      "mnemonic_trick": "A laser beam concentrates light on a single pinpoint spot without wavering.",
+      "concise_meaning": "Intensely and unwaveringly focused on a specific target or objective.",
+      "british_synonyms": [
+        "single-minded",
+        "riveted",
+        "pinpointed"
+      ],
+      "british_antonyms": [
+        "distracted",
+        "unfocused",
+        "scattered"
+      ]
+    },
+    {
+      "order_index": 12,
+      "word_or_phrase": "Space-faring",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Neutral",
+      "easy_synonym": "Space-traveling",
+      "hindi_meaning": "अंतरिक्ष में जाने में सक्षम",
+      "mnemonic_trick": "Similar to 'seafaring' (travelling by sea), but travelling into outer space.",
+      "concise_meaning": "Capable of travelling in outer space or sending spacecraft beyond Earth's atmosphere.",
+      "british_synonyms": [
+        "astronautic",
+        "cosmonautic",
+        "space-capable"
+      ],
+      "british_antonyms": [
+        "earthbound",
+        "terrestrial",
+        "ground-based"
+      ]
+    },
+    {
+      "order_index": 13,
+      "word_or_phrase": "Mushrooming",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "Rapid growth",
+      "hindi_meaning": "अचानक तेज़ी से बढ़ना",
+      "mnemonic_trick": "Mushrooms sprout up overnight in large numbers after rain—rapid, sudden multiplication.",
+      "concise_meaning": "Rapid and widespread growth or proliferation in a very short period.",
+      "british_synonyms": [
+        "burgeoning",
+        "proliferation",
+        "exponential growth"
+      ],
+      "british_antonyms": [
+        "stagnation",
+        "decline",
+        "diminution"
+      ]
+    },
+    {
+      "order_index": 14,
+      "word_or_phrase": "Bedrock",
       "category": "Vocabulary",
       "part_of_speech": "Noun",
       "connotation": "Positive",
-      "easy_synonym": "urgent necessity",
-      "hindi_meaning": "अनिवार्य आवश्यकता",
-      "mnemonic_trick": "'Important' and 'imperative' share the urgency of doing something right away.",
-      "concise_meaning": "An essential requirement or action that demands immediate attention and execution.",
+      "easy_synonym": "Foundation",
+      "hindi_meaning": "मजबूत आधारशिला",
+      "mnemonic_trick": "The solid 'rock' at the very 'bed' or bottom of the ground that supports heavy structures.",
+      "concise_meaning": "The fundamental principles or solid base on which something is founded.",
       "british_synonyms": [
-        "necessity",
-        "vital duty",
-        "requirement"
+        "cornerstone",
+        "foundation",
+        "keystone"
       ],
       "british_antonyms": [
-        "option",
+        "superstructure",
         "triviality",
-        "luxury"
+        "exterior"
+      ]
+    },
+    {
+      "order_index": 15,
+      "word_or_phrase": "Scaled back",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Phrasal Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "Trimmed",
+      "hindi_meaning": "पैमाना कम किया",
+      "mnemonic_trick": "Think of reducing the 'scale' or size of an operation backwards.",
+      "concise_meaning": "Reduced in size, extent, number, or financial expenditure.",
+      "british_synonyms": [
+        "downsized",
+        "cut back",
+        "retrenched"
+      ],
+      "british_antonyms": [
+        "expanded",
+        "amplified",
+        "stepped up"
+      ]
+    },
+    {
+      "order_index": 16,
+      "word_or_phrase": "Fleeting",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "Short-lived",
+      "hindi_meaning": "अल्पकालिक / क्षणभंगुर",
+      "mnemonic_trick": "Sounds like 'fleet' (running quickly)—passing away in the blink of an eye.",
+      "concise_meaning": "Lasting for a very short or transient period of time.",
+      "british_synonyms": [
+        "ephemeral",
+        "transitory",
+        "evanescent"
+      ],
+      "british_antonyms": [
+        "permanent",
+        "perduring",
+        "perpetual"
+      ]
+    },
+    {
+      "order_index": 17,
+      "word_or_phrase": "Static",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Neutral",
+      "easy_synonym": "Unchanging",
+      "hindi_meaning": "स्थिर / गतिहीन",
+      "mnemonic_trick": "Static means staying in one 'state' or position without motion.",
+      "concise_meaning": "Lacking in movement, action, progress, or change.",
+      "british_synonyms": [
+        "motionless",
+        "stationary",
+        "stagnant"
+      ],
+      "british_antonyms": [
+        "dynamic",
+        "evolving",
+        "progressive"
+      ]
+    },
+    {
+      "order_index": 18,
+      "word_or_phrase": "Reckoning with",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Phrasal Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "Confronting",
+      "hindi_meaning": "सामना करना / हिसाब करना",
+      "mnemonic_trick": "To reckon is to calculate or face reality directly.",
+      "concise_meaning": "Confronting, taking into account, or dealing with a formidable challenge.",
+      "british_synonyms": [
+        "grappling with",
+        "confronting",
+        "tackling"
+      ],
+      "british_antonyms": [
+        "evading",
+        "ignoring",
+        "disregarding"
+      ]
+    },
+    {
+      "order_index": 19,
+      "word_or_phrase": "Nucleus",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Positive",
+      "easy_synonym": "Core",
+      "hindi_meaning": "केंद्र / नाभिक",
+      "mnemonic_trick": "In biology and physics, the 'nucleus' is the central core around which everything rotates.",
+      "concise_meaning": "The central and most important part of an object, movement, or group, forming the basis for its activity and growth.",
+      "british_synonyms": [
+        "epicentre",
+        "kernel",
+        "focal point"
+      ],
+      "british_antonyms": [
+        "periphery",
+        "fringe",
+        "margin"
+      ]
+    },
+    {
+      "order_index": 20,
+      "word_or_phrase": "Jumping onto a bandwagon",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Phrase",
+      "connotation": "Negative",
+      "easy_synonym": "Following a trend",
+      "hindi_meaning": "बहती गंगा में हाथ धोना / अंधाधुंध रुझान अपनाना",
+      "mnemonic_trick": "Hopping onto a wagon just because everyone else is riding it and making music.",
+      "concise_meaning": "Joining a popular trend or activity simply because it has become fashionable.",
+      "british_synonyms": [
+        "following the crowd",
+        "copycatting",
+        "riding a wave"
+      ],
+      "british_antonyms": [
+        "bucking the trend",
+        "going against the grain",
+        "resisting conformity"
+      ]
+    },
+    {
+      "order_index": 21,
+      "word_or_phrase": "Foolhardy",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "Reckless",
+      "hindi_meaning": "दुस्साहसी / नासमझी भरा",
+      "mnemonic_trick": "'Fool' + 'hardy' (tough)—a fool trying to act bold without assessing consequences.",
+      "concise_meaning": "Recklessly bold or rash; taking unnecessary and dangerous risks without forethought.",
+      "british_synonyms": [
+        "impetuous",
+        "temerarious",
+        "heedless"
+      ],
+      "british_antonyms": [
+        "prudent",
+        "circumspect",
+        "judicious"
       ]
     },
     {
       "order_index": 22,
-      "word_or_phrase": "ceasefire",
+      "word_or_phrase": "Spells this out",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Phrasal Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "Clarifies",
+      "hindi_meaning": "स्पष्ट रूप से समझाना",
+      "mnemonic_trick": "To 'spell' out letter by letter so that nothing is left ambiguous or unclear.",
+      "concise_meaning": "Explains something in a clear, explicit, and detailed manner.",
+      "british_synonyms": [
+        "articulates",
+        "elucidates",
+        "explicates"
+      ],
+      "british_antonyms": [
+        "obscures",
+        "muddles",
+        "conceals"
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## 📰 Editorial 3: In Satya Niketan, not just a building collapse – governance is failing aspirations
+```json
+{
+  "editorial_metadata": {
+    "title": "In Satya Niketan, not just a building collapse – governance is failing aspirations",
+    "subtitle": "Persistent governance failures in urban student hubs betray the aspirations of India's youth.",
+    "author": "Editorial Board",
+    "topic": "Urban Governance & Infrastructure"
+  },
+  "analysis": {
+    "tone": "Critical",
+    "tone_simple_explanation": "harshly judging administrative failure",
+    "analysis_summary": "The author adopts a critical and admonitory tone to condemn systemic regulatory negligence that turns student hubs into hazardous death traps. By contrasting lofty political rhetoric on youth empowerment with lethal infrastructure collapses, the editorial underscores an acute governance deficit. It warns that national aspirations cannot materialise without basic civic safety and strict enforcement of urban planning norms."
+  },
+  "editorial_vocabulary": [
+    {
+      "order_index": 1,
+      "word_or_phrase": "inflicted",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "caused",
+      "hindi_meaning": "पहुँचाया (पीड़ा या चोट)",
+      "mnemonic_trick": "Sounds like 'afflicted' — causing someone to suffer severe pain or distress.",
+      "concise_meaning": "Caused something unpleasant or painful to be suffered by someone.",
+      "british_synonyms": [
+        "imposed",
+        "administered",
+        "wreaked"
+      ],
+      "british_antonyms": [
+        "spared",
+        "alleviated",
+        "relieved"
+      ]
+    },
+    {
+      "order_index": 2,
+      "word_or_phrase": "grievous",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "severe",
+      "hindi_meaning": "गंभीर / अत्यंत कष्टदायक",
+      "mnemonic_trick": "Rooted in 'grief' — an injury or shock so severe that it causes intense grief.",
+      "concise_meaning": "Extremely serious, severe, or causing profound sorrow.",
+      "british_synonyms": [
+        "grave",
+        "critical",
+        "calamitous"
+      ],
+      "british_antonyms": [
+        "trivial",
+        "minor",
+        "slight"
+      ]
+    },
+    {
+      "order_index": 3,
+      "word_or_phrase": "inured to",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "accustomed to",
+      "hindi_meaning": "का आदी हो जाना (कष्ट या बुरी स्थिति)",
+      "mnemonic_trick": "Sounds like 'endure' — having endured hardship so long that you become immune to it.",
+      "concise_meaning": "Accustomed to accepting something undesirable through prolonged exposure.",
+      "british_synonyms": [
+        "habituated to",
+        "hardened to",
+        "desensitised to"
+      ],
+      "british_antonyms": [
+        "sensitive to",
+        "vulnerable to",
+        "unaccustomed to"
+      ]
+    },
+    {
+      "order_index": 4,
+      "word_or_phrase": "unauthorised",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "illegal",
+      "hindi_meaning": "अनधिकृत / गैर-कानूनी",
+      "mnemonic_trick": "Un (not) + authorised (permitted by an authority) — built without formal permission.",
+      "concise_meaning": "Not having official approval or legal sanction.",
+      "british_synonyms": [
+        "illicit",
+        "unlicensed",
+        "unapproved"
+      ],
+      "british_antonyms": [
+        "sanctioned",
+        "legitimate",
+        "authorised"
+      ]
+    },
+    {
+      "order_index": 5,
+      "word_or_phrase": "failings",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "shortcomings",
+      "hindi_meaning": "कमियाँ / खामियां",
+      "mnemonic_trick": "Things that lead to failure — personal or institutional weaknesses.",
+      "concise_meaning": "Weaknesses or flaws in character, performance, or system.",
+      "british_synonyms": [
+        "deficiencies",
+        "lapses",
+        "imperfections"
+      ],
+      "british_antonyms": [
+        "strengths",
+        "merits",
+        "virtues"
+      ]
+    },
+    {
+      "order_index": 6,
+      "word_or_phrase": "unfolding",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Neutral",
+      "easy_synonym": "developing",
+      "hindi_meaning": "क्रमिक रूप से सामने आता हुआ",
+      "mnemonic_trick": "Un + fold — opening up layer by layer like a rolled-out scroll.",
+      "concise_meaning": "Gradually developing or becoming known over time.",
+      "british_synonyms": [
+        "emerging",
+        "transpiring",
+        "evolving"
+      ],
+      "british_antonyms": [
+        "receding",
+        "stagnating",
+        "halting"
+      ]
+    },
+    {
+      "order_index": 7,
+      "word_or_phrase": "let down",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "disappointed",
+      "hindi_meaning": "निराश करना / साथ न देना",
+      "mnemonic_trick": "To drop someone down from high expectations to the cold ground.",
+      "concise_meaning": "Failed to support or satisfy the reasonable expectations of someone.",
+      "british_synonyms": [
+        "failed",
+        "disillusioned",
+        "forsaken"
+      ],
+      "british_antonyms": [
+        "supported",
+        "uplifted",
+        "championed"
+      ]
+    },
+    {
+      "order_index": 8,
+      "word_or_phrase": "keep pace with",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "match speed with",
+      "hindi_meaning": "कदम से कदम मिलाकर चलना",
+      "mnemonic_trick": "Running at the exact same 'pace' as a partner so you don't fall behind.",
+      "concise_meaning": "Progress or develop at the same rate as someone or something else.",
+      "british_synonyms": [
+        "keep abreast of",
+        "parallel",
+        "match"
+      ],
+      "british_antonyms": [
+        "lag behind",
+        "fall behind",
+        "trail"
+      ]
+    },
+    {
+      "order_index": 9,
+      "word_or_phrase": "magnet for",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Noun",
+      "connotation": "Positive",
+      "easy_synonym": "centre of attraction",
+      "hindi_meaning": "के लिए आकर्षण का केंद्र",
+      "mnemonic_trick": "Like a physical magnet strongly pulls iron nails, an institution pulls ambitious talent.",
+      "concise_meaning": "A person, place, or institution that strongly attracts people or things.",
+      "british_synonyms": [
+        "focal point for",
+        "cynosure for",
+        "hub for"
+      ],
+      "british_antonyms": [
+        "deterrent to",
+        "repellent for",
+        "disincentive to"
+      ]
+    },
+    {
+      "order_index": 10,
+      "word_or_phrase": "abysmally",
+      "category": "Vocabulary",
+      "part_of_speech": "Adverb",
+      "connotation": "Negative",
+      "easy_synonym": "terribly",
+      "hindi_meaning": "अत्यंत खराब ढंग से",
+      "mnemonic_trick": "From 'abyss' (a bottomless pit) — something so awful it sinks to the bottom.",
+      "concise_meaning": "To an extremely bad, hopeless, or appalling degree.",
+      "british_synonyms": [
+        "dreadfully",
+        "appallingly",
+        "atrociously"
+      ],
+      "british_antonyms": [
+        "superbly",
+        "excellently",
+        "admirably"
+      ]
+    },
+    {
+      "order_index": 11,
+      "word_or_phrase": "inadequate",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "insufficient",
+      "hindi_meaning": "अपर्याप्त",
+      "mnemonic_trick": "In (not) + adequate (enough) — falling short of the required standard.",
+      "concise_meaning": "Lacking the quality or quantity required for a particular purpose.",
+      "british_synonyms": [
+        "deficient",
+        "scant",
+        "meagre"
+      ],
+      "british_antonyms": [
+        "sufficient",
+        "abundant",
+        "ample"
+      ]
+    },
+    {
+      "order_index": 12,
+      "word_or_phrase": "cut corners",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "take shortcuts",
+      "hindi_meaning": "पैसे या मेहनत बचाने के लिए काम में लापरवाही बरतना",
+      "mnemonic_trick": "Cutting the sharp corners of a track to finish fast by compromising safety.",
+      "concise_meaning": "Do something perfunctorily or cheaply by skipping essential safety procedures.",
+      "british_synonyms": [
+        "skimp",
+        "scrimp",
+        "compromise standards"
+      ],
+      "british_antonyms": [
+        "act scrupulously",
+        "follow regulations",
+        "be meticulous"
+      ]
+    },
+    {
+      "order_index": 13,
+      "word_or_phrase": "choked with",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "clogged with",
+      "hindi_meaning": "से बुरी तरह भरा हुआ या अवरुद्ध",
+      "mnemonic_trick": "Choking stops airflow — an alley choked with wires stops safe passage.",
+      "concise_meaning": "Completely filled, congested, or blocked by an excess of objects.",
+      "british_synonyms": [
+        "congested with",
+        "glutted with",
+        "obstructed by"
+      ],
+      "british_antonyms": [
+        "cleared of",
+        "free of",
+        "uncluttered by"
+      ]
+    },
+    {
+      "order_index": 14,
+      "word_or_phrase": "protocols",
+      "category": "One-Word Substitutions",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "rules",
+      "hindi_meaning": "औपचारिक नियम व कार्यप्रणाली",
+      "mnemonic_trick": "Proto (first) + Col (code) — official baseline rules for safety or administration.",
+      "concise_meaning": "The official procedure or system of rules governing formal affairs.",
+      "british_synonyms": [
+        "regulations",
+        "conventions",
+        "guidelines"
+      ],
+      "british_antonyms": [
+        "improvisations",
+        "disorders",
+        "irregularities"
+      ]
+    },
+    {
+      "order_index": 15,
+      "word_or_phrase": "short shrift",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "little attention",
+      "hindi_meaning": "उपेक्षा / बहुत कम महत्व देना",
+      "mnemonic_trick": "Shrift was a hurried confession granted to a criminal before swift execution.",
+      "concise_meaning": "Rapid, dismissive, or curt treatment that neglects proper consideration.",
+      "british_synonyms": [
+        "brusque dismissal",
+        "perfunctory treatment",
+        "disregard"
+      ],
+      "british_antonyms": [
+        "due diligence",
+        "careful consideration",
+        "meticulous attention"
+      ]
+    },
+    {
+      "order_index": 16,
+      "word_or_phrase": "caveats",
+      "category": "Foreign Words",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "warnings",
+      "hindi_meaning": "चेतावनी / विशिष्ट शर्तें",
+      "mnemonic_trick": "Latin 'caveat' means 'let him beware' (as in 'caveat emptor' - buyer beware).",
+      "concise_meaning": "Specific warnings, provisos, or conditions attached to an agreement.",
+      "british_synonyms": [
+        "stipulations",
+        "qualifications",
+        "provisos"
+      ],
+      "british_antonyms": [
+        "guarantees",
+        "blanket approvals",
+        "endorsements"
+      ]
+    },
+    {
+      "order_index": 17,
+      "word_or_phrase": "arguably",
+      "category": "Vocabulary",
+      "part_of_speech": "Adverb",
+      "connotation": "Neutral",
+      "easy_synonym": "possibly",
+      "hindi_meaning": "तर्कसंगत रूप से / संभवतः",
+      "mnemonic_trick": "Argue + ably — strong enough to be demonstrated through sound argument.",
+      "concise_meaning": "It may be reasonably contended or affirmed with persuasive evidence.",
+      "british_synonyms": [
+        "plausibly",
+        "defensibly",
+        "conceivably"
+      ],
+      "british_antonyms": [
+        "inarguably",
+        "undeniably",
+        "indisputably"
+      ]
+    },
+    {
+      "order_index": 18,
+      "word_or_phrase": "seamlessly",
+      "category": "Vocabulary",
+      "part_of_speech": "Adverb",
+      "connotation": "Positive",
+      "easy_synonym": "smoothly",
+      "hindi_meaning": "बिना किसी रुकावट के",
+      "mnemonic_trick": "Without a seam (joint) — so smooth that no break or difficulty is noticeable.",
+      "concise_meaning": "Smoothly and continuously, without any noticeable transitions or obstacles.",
+      "british_synonyms": [
+        "flawlessly",
+        "effortlessly",
+        "uninterruptedly"
+      ],
+      "british_antonyms": [
+        "clumsily",
+        "haltingly",
+        "erratically"
+      ]
+    },
+    {
+      "order_index": 19,
+      "word_or_phrase": "pledges",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "promises",
+      "hindi_meaning": "प्रतिज्ञाएँ / औपचारिक वादे",
+      "mnemonic_trick": "Taking a solemn oath or making a deposit of trust.",
+      "concise_meaning": "Solemn undertakings, commitments, or formal promises.",
+      "british_synonyms": [
+        "covenants",
+        "vows",
+        "guarantees"
+      ],
+      "british_antonyms": [
+        "breaches",
+        "reneges",
+        "repudiations"
+      ]
+    },
+    {
+      "order_index": 20,
+      "word_or_phrase": "prospective",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Neutral",
+      "easy_synonym": "potential",
+      "hindi_meaning": "भावी / संभावित",
+      "mnemonic_trick": "Look ahead at the 'prospect' — likely to become something in the future.",
+      "concise_meaning": "Expected or likely to happen or become something in the future.",
+      "british_synonyms": [
+        "forthcoming",
+        "expected",
+        "potential"
+      ],
+      "british_antonyms": [
+        "retrospective",
+        "former",
+        "past"
+      ]
+    },
+    {
+      "order_index": 21,
+      "word_or_phrase": "ecosystem",
+      "category": "One-Word Substitutions",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "support system",
+      "hindi_meaning": "सहायक परिवेश / पारिस्थितिकी तंत्र",
+      "mnemonic_trick": "Eco (environment) + system — an entire complex network working together.",
+      "concise_meaning": "A complex network or interconnected environment that supports growth.",
+      "british_synonyms": [
+        "milieu",
+        "infrastructure",
+        "framework"
+      ],
+      "british_antonyms": [
+        "isolation",
+        "vacuum",
+        "void"
+      ]
+    },
+    {
+      "order_index": 22,
+      "word_or_phrase": "take on a hollow ring",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "sound insincere",
+      "hindi_meaning": "खोखला या झूठा प्रतीत होना",
+      "mnemonic_trick": "Tapping a hollow vessel produces an empty sound — words lacking real substance.",
+      "concise_meaning": "Appear insincere, false, or meaningless despite grand delivery.",
+      "british_synonyms": [
+        "ring false",
+        "appear hypocritical",
+        "lack credibility"
+      ],
+      "british_antonyms": [
+        "ring true",
+        "carry weight",
+        "resonate deeply"
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## 📰 Editorial 4: Conscious AI and the ethics of a machine that feels
+```json
+{
+  "editorial_metadata": {
+    "title": "Conscious AI and the ethics of a machine that feels",
+    "subtitle": "Emerging hints of machine consciousness demand urgent ethical frameworks and philosophical scrutiny.",
+    "author": "Editorial Board",
+    "topic": "Technology & Artificial Intelligence Ethics"
+  },
+  "analysis": {
+    "tone": "Cautionary",
+    "tone_simple_explanation": "warning of potential risks",
+    "analysis_summary": "The author adopts an analytical and cautionary tone to examine claims surrounding potential consciousness in artificial intelligence models. By differentiating computational intelligence from genuine subjective feelings, the text warns about the profound moral and ethical implications of sentient technology. It highlights that humanity must proactively establish ethical boundaries before rapid technological advancement ventures into uncontrollable territory."
+  },
+  "editorial_vocabulary": [
+    {
+      "order_index": 1,
+      "word_or_phrase": "sparked",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "triggered",
+      "hindi_meaning": "भड़काया / उत्पन्न किया",
+      "mnemonic_trick": "A tiny spark ignites a large fire; similarly, 'sparked' means giving rise to a major debate or event.",
+      "concise_meaning": "Triggered or initiated an intense reaction, debate, or chain of events.",
+      "british_synonyms": [
+        "provoked",
+        "instigated",
+        "prompted"
+      ],
+      "british_antonyms": [
+        "extinguished",
+        "quelled",
+        "suppressed"
+      ]
+    },
+    {
+      "order_index": 2,
+      "word_or_phrase": "revelation",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Positive",
+      "easy_synonym": "disclosure",
+      "hindi_meaning": "रहस्योद्घाटन / खुलासा",
+      "mnemonic_trick": "When you 'reveal' a secret, it becomes a 'revelation'.",
+      "concise_meaning": "A surprising and previously unknown fact that has been disclosed.",
+      "british_synonyms": [
+        "disclosure",
+        "unveiling",
+        "divulgence"
+      ],
+      "british_antonyms": [
+        "concealment",
+        "suppression",
+        "cover-up"
+      ]
+    },
+    {
+      "order_index": 3,
+      "word_or_phrase": "throw up",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "produce",
+      "hindi_meaning": "सामने लाना / प्रस्तुत करना",
+      "mnemonic_trick": "Imagine a fountain throwing water up into view; here the internal layers throw words up to the surface.",
+      "concise_meaning": "To bring forth, produce, or yield unexpected data or results.",
+      "british_synonyms": [
+        "produce",
+        "generate",
+        "yield"
+      ],
+      "british_antonyms": [
+        "withhold",
+        "suppress",
+        "absorb"
+      ]
+    },
+    {
+      "order_index": 4,
+      "word_or_phrase": "integrates",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Positive",
+      "easy_synonym": "combines",
+      "hindi_meaning": "एकीकृत करता है",
+      "mnemonic_trick": "Think of mathematical 'integration' which joins parts together into one complete whole.",
+      "concise_meaning": "Combines or merges various distinct parts into a unified whole.",
+      "british_synonyms": [
+        "consolidates",
+        "synthesises",
+        "unifies"
+      ],
+      "british_antonyms": [
+        "segregates",
+        "separates",
+        "fragments"
+      ]
+    },
+    {
+      "order_index": 5,
+      "word_or_phrase": "transmits",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "relays",
+      "hindi_meaning": "संचारित करता है / भेजता है",
+      "mnemonic_trick": "A radio 'transmitter' passes signals from one tower across to radios.",
+      "concise_meaning": "Passes on, sends, or transfers signals, information, or impulses from one place to another.",
+      "british_synonyms": [
+        "relays",
+        "dispatches",
+        "channels"
+      ],
+      "british_antonyms": [
+        "receives",
+        "blocks",
+        "intercepts"
+      ]
+    },
+    {
+      "order_index": 6,
+      "word_or_phrase": "gestures to",
+      "category": "Fixed Prepositions",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "points toward",
+      "hindi_meaning": "की ओर संकेत करता है",
+      "mnemonic_trick": "Making a physical 'gesture towards' an object directs everyone's attention to it.",
+      "concise_meaning": "Indicates, hints at, or draws attention toward a particular possibility or trend.",
+      "british_synonyms": [
+        "signals",
+        "hints at",
+        "points towards"
+      ],
+      "british_antonyms": [
+        "ignores",
+        "overlooks",
+        "contradicts"
+      ]
+    },
+    {
+      "order_index": 7,
+      "word_or_phrase": "startling",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Negative",
+      "easy_synonym": "shocking",
+      "hindi_meaning": "चौंकाने वाला",
+      "mnemonic_trick": "Something that makes you 'startle' or jump in surprise is startling.",
+      "concise_meaning": "Very surprising, astonishing, or remarkable in a manner that catches one off guard.",
+      "british_synonyms": [
+        "astonishing",
+        "alarming",
+        "staggering"
+      ],
+      "british_antonyms": [
+        "ordinary",
+        "predictable",
+        "unremarkable"
+      ]
+    },
+    {
+      "order_index": 8,
+      "word_or_phrase": "the stuff of science fiction",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "pure fantasy",
+      "hindi_meaning": "काल्पनिक या अवास्तविक बात",
+      "mnemonic_trick": "Sci-fi movies depict futuristic impossibilities; something that is the 'stuff of sci-fi' seems purely imaginary.",
+      "concise_meaning": "Things that seem so extraordinary or futuristic that they only exist in imaginative stories.",
+      "british_synonyms": [
+        "fantasy",
+        "speculative fiction",
+        "pipe dream"
+      ],
+      "british_antonyms": [
+        "reality",
+        "concrete fact",
+        "matter of fact"
+      ]
+    },
+    {
+      "order_index": 9,
+      "word_or_phrase": "put forth",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "proposed",
+      "hindi_meaning": "प्रस्तुत करना / आगे रखना",
+      "mnemonic_trick": "To put an idea 'forth' (forward) on the discussion table.",
+      "concise_meaning": "To suggest, propose, or state an argument or idea for consideration.",
+      "british_synonyms": [
+        "advanced",
+        "posited",
+        "propounded"
+      ],
+      "british_antonyms": [
+        "retracted",
+        "withdrawn",
+        "suppressed"
+      ]
+    },
+    {
+      "order_index": 10,
+      "word_or_phrase": "pioneer",
       "category": "One-Word Substitutions",
       "part_of_speech": "Noun",
       "connotation": "Positive",
-      "easy_synonym": "truce",
-      "hindi_meaning": "युद्धविराम",
-      "mnemonic_trick": "'Cease' (stop) + 'fire' (shooting) = a mutual stop to armed shooting.",
-      "concise_meaning": "A temporary or permanent stoppage of warfare agreed between opposing combatants.",
+      "easy_synonym": "trailblazer",
+      "hindi_meaning": "अग्रदूत / पथप्रदर्शक",
+      "mnemonic_trick": "A person who is 'first' (1st) on a newly opened frontier.",
+      "concise_meaning": "A person who is among the first to explore, initiate, or develop a new area of knowledge or technology.",
       "british_synonyms": [
-        "truce",
-        "armistice",
-        "suspension of hostilities"
+        "innovator",
+        "trailblazer",
+        "pathfinder"
       ],
       "british_antonyms": [
-        "combat",
-        "hostilities",
-        "warfare"
+        "follower",
+        "imitator",
+        "traditionalist"
+      ]
+    },
+    {
+      "order_index": 11,
+      "word_or_phrase": "mimicking",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "imitating",
+      "hindi_meaning": "नकल करना / अनुकरण करना",
+      "mnemonic_trick": "A 'mime' artist copies real-life actions without speaking.",
+      "concise_meaning": "Imitating, replicating, or copying the actions, functions, or appearance of something.",
+      "british_synonyms": [
+        "emulating",
+        "simulating",
+        "replicating"
+      ],
+      "british_antonyms": [
+        "originating",
+        "deviating",
+        "diverging"
+      ]
+    },
+    {
+      "order_index": 12,
+      "word_or_phrase": "eventuality",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "possibility",
+      "hindi_meaning": "संभावित घटना",
+      "mnemonic_trick": "Derived from 'eventual'—something bound to happen in the course of events.",
+      "concise_meaning": "A possible event, outcome, or circumstance, especially one that requires planning for.",
+      "british_synonyms": [
+        "contingency",
+        "likelihood",
+        "inevitability"
+      ],
+      "british_antonyms": [
+        "impossibility",
+        "implausibility",
+        "certain non-occurrence"
+      ]
+    },
+    {
+      "order_index": 13,
+      "word_or_phrase": "yielded",
+      "category": "Vocabulary",
+      "part_of_speech": "Verb",
+      "connotation": "Positive",
+      "easy_synonym": "produced",
+      "hindi_meaning": "पैदा किया / दिया",
+      "mnemonic_trick": "Crop yield gives the output of farming; similarly, research yields discoveries.",
+      "concise_meaning": "Generated, produced, or provided a specific result, insight, or outcome.",
+      "british_synonyms": [
+        "generated",
+        "delivered",
+        "garnered"
+      ],
+      "british_antonyms": [
+        "withheld",
+        "consumed",
+        "lost"
+      ]
+    },
+    {
+      "order_index": 14,
+      "word_or_phrase": "make the case for",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Verb",
+      "connotation": "Neutral",
+      "easy_synonym": "advocate",
+      "hindi_meaning": "पक्ष में तर्क देना",
+      "mnemonic_trick": "A lawyer presenting strong arguments to defend their legal 'case'.",
+      "concise_meaning": "To provide sound arguments and evidence supporting a specific view or hypothesis.",
+      "british_synonyms": [
+        "argue for",
+        "champion",
+        "substantiate"
+      ],
+      "british_antonyms": [
+        "refute",
+        "dispute",
+        "demur"
+      ]
+    },
+    {
+      "order_index": 15,
+      "word_or_phrase": "assertions",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "claims",
+      "hindi_meaning": "दावे / दृढ़ कथन",
+      "mnemonic_trick": "When you 'assert' your authority, you make strong, confident claims.",
+      "concise_meaning": "Confident and forceful statements of fact or belief.",
+      "british_synonyms": [
+        "declarations",
+        "affirmations",
+        "contentions"
+      ],
+      "british_antonyms": [
+        "denials",
+        "retractions",
+        "disclaimers"
+      ]
+    },
+    {
+      "order_index": 16,
+      "word_or_phrase": "subjective",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Neutral",
+      "easy_synonym": "personal",
+      "hindi_meaning": "व्यक्तिपरक / आत्मनिष्ठ",
+      "mnemonic_trick": "Subjective belongs to the 'subject' (the individual person), whereas objective belongs to the 'object'.",
+      "concise_meaning": "Based on or influenced by personal feelings, tastes, or internal experiences rather than external facts.",
+      "british_synonyms": [
+        "experiential",
+        "individualised",
+        "personal"
+      ],
+      "british_antonyms": [
+        "objective",
+        "impartial",
+        "unbiased"
+      ]
+    },
+    {
+      "order_index": 17,
+      "word_or_phrase": "angst",
+      "category": "Foreign Words",
+      "part_of_speech": "Noun",
+      "connotation": "Negative",
+      "easy_synonym": "anxiety",
+      "hindi_meaning": "गहरी चिंता / मानसिक व्याकुलता",
+      "mnemonic_trick": "Borrowed from German 'Angst' (fear/anxiety); sounds like 'angry + stress'.",
+      "concise_meaning": "A deep, persistent feeling of general anxiety, dread, or existential distress.",
+      "british_synonyms": [
+        "apprehension",
+        "torment",
+        "unease"
+      ],
+      "british_antonyms": [
+        "serenity",
+        "tranquillity",
+        "contentment"
+      ]
+    },
+    {
+      "order_index": 18,
+      "word_or_phrase": "radically",
+      "category": "Vocabulary",
+      "part_of_speech": "Adverb",
+      "connotation": "Neutral",
+      "easy_synonym": "drastically",
+      "hindi_meaning": "मौलिक रूप से / पूरी तरह से",
+      "mnemonic_trick": "From 'radix' (root); changing something right from its roots means altering it radically.",
+      "concise_meaning": "In a thorough, fundamental, and complete manner.",
+      "british_synonyms": [
+        "fundamentally",
+        "profoundly",
+        "thoroughly"
+      ],
+      "british_antonyms": [
+        "superficially",
+        "marginally",
+        "moderately"
+      ]
+    },
+    {
+      "order_index": 19,
+      "word_or_phrase": "the stakes",
+      "category": "Idioms & Phrases",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "the risks involved",
+      "hindi_meaning": "दांव पर लगी चीजें",
+      "mnemonic_trick": "In high-stakes poker, the money put on the table is what you risk losing.",
+      "concise_meaning": "The potential consequences, risks, or benefits involved in a situation or decision.",
+      "british_synonyms": [
+        "consequences",
+        "hazards",
+        "commitments"
+      ],
+      "british_antonyms": [
+        "trivialities",
+        "insignificances",
+        "certainties"
+      ]
+    },
+    {
+      "order_index": 20,
+      "word_or_phrase": "underpinning",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Positive",
+      "easy_synonym": "foundation",
+      "hindi_meaning": "बुनियाद / आधार",
+      "mnemonic_trick": "Pins inserted 'under' a structure to hold the entire foundation firmly.",
+      "concise_meaning": "A set of ideas, principles, or structures that provides fundamental support to something.",
+      "british_synonyms": [
+        "foundation",
+        "bedrock",
+        "infrastructure"
+      ],
+      "british_antonyms": [
+        "superstructure",
+        "instability",
+        "unreliability"
+      ]
+    },
+    {
+      "order_index": 21,
+      "word_or_phrase": "sophisticated",
+      "category": "Vocabulary",
+      "part_of_speech": "Adjective",
+      "connotation": "Positive",
+      "easy_synonym": "advanced",
+      "hindi_meaning": "जटिल और उन्नत / परिष्कृत",
+      "mnemonic_trick": "Someone or something full of 'sophistication' is complex, refined, and highly evolved.",
+      "concise_meaning": "Highly developed, complex, and advanced in design or operation.",
+      "british_synonyms": [
+        "advanced",
+        "elaborate",
+        "refined"
+      ],
+      "british_antonyms": [
+        "rudimentary",
+        "primitive",
+        "simplistic"
+      ]
+    },
+    {
+      "order_index": 22,
+      "word_or_phrase": "frontiers",
+      "category": "Vocabulary",
+      "part_of_speech": "Noun",
+      "connotation": "Neutral",
+      "easy_synonym": "boundaries",
+      "hindi_meaning": "सीमाएं / कार्यक्षेत्र",
+      "mnemonic_trick": "The 'front line' of scientific discovery where known territory meets the unknown.",
+      "concise_meaning": "The extreme limits of understanding or achievement in a particular field.",
+      "british_synonyms": [
+        "boundaries",
+        "borders",
+        "parameters"
+      ],
+      "british_antonyms": [
+        "cores",
+        "interiors",
+        "centres"
       ]
     },
     {
       "order_index": 23,
-      "word_or_phrase": "confidence-building measures",
+      "word_or_phrase": "uncharted terrain",
       "category": "Idioms & Phrases",
       "part_of_speech": "Noun",
-      "connotation": "Positive",
-      "easy_synonym": "trust-building steps",
-      "hindi_meaning": "विश्वास बहाली के उपाय",
-      "mnemonic_trick": "Steps taken to 'build confidence' and goodwill between suspicious enemies.",
-      "concise_meaning": "Planned actions aimed at preventing misunderstandings and building mutual trust between rival powers.",
+      "connotation": "Neutral",
+      "easy_synonym": "unexplored area",
+      "hindi_meaning": "अनजाना क्षेत्र",
+      "mnemonic_trick": "A terrain not yet marked on any map ('chart').",
+      "concise_meaning": "A completely new, unfamiliar, or unexplored domain or situation.",
       "british_synonyms": [
-        "goodwill gestures",
-        "trust-building initiatives",
-        "conciliatory steps"
+        "terra incognita",
+        "unexplored domain",
+        "novel territory"
       ],
       "british_antonyms": [
-        "provocations",
-        "hostile acts",
-        "escalatory steps"
+        "familiar ground",
+        "well-trodden path",
+        "known territory"
+      ]
+    },
+    {
+      "order_index": 24,
+      "word_or_phrase": "put off",
+      "category": "Phrasal Verbs",
+      "part_of_speech": "Verb",
+      "connotation": "Negative",
+      "easy_synonym": "delayed",
+      "hindi_meaning": "टालना / स्थगित करना",
+      "mnemonic_trick": "To put a task 'off' your current schedule until a future date.",
+      "concise_meaning": "To postpone or delay an action, decision, or engagement.",
+      "british_synonyms": [
+        "deferred",
+        "postponed",
+        "adjourned"
+      ],
+      "british_antonyms": [
+        "expedited",
+        "advanced",
+        "accelerated"
       ]
     }
   ]

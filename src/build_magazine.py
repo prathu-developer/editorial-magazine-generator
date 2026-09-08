@@ -84,9 +84,10 @@ def sanitize_vocab_text(text: str) -> str:
     return text
 
 def clean_and_highlight_passage(passage_text, vocab_items):
-    # Clean broken LaTeX / math currency strings before processing paragraphs
+    # Clean broken LaTeX / math currency strings without destroying legitimate dollar signs ($)
     passage_text = passage_text.replace(r'$\overline{7}', '₹').replace(r'$\approx', '₹~')
-    passage_text = re.sub(r'\$(\\overline\{7\}|\\approx)?', '₹', passage_text)
+    passage_text = re.sub(r'\$(?:\\overline\{7\}|\\approx)', '₹', passage_text)
+    passage_text = passage_text.replace(r'\overline{7}', '₹')
     
     raw_paras = [p.strip() for p in re.split(r'[\r\n]+', passage_text) if p.strip()]
     cleaned_paras = []
@@ -113,7 +114,7 @@ def clean_and_highlight_passage(passage_text, vocab_items):
         if not p.strip():
             continue
 
-        # --- FIX ISSUE 3: Reserve claimed characters to prevent duplicate matching ---
+        # Reserve claimed character segments to prevent duplicate sub-token matching
         vocab_spans = []
         claimed = [False] * len(p)
         for item in sorted_vocab:
@@ -121,11 +122,9 @@ def clean_and_highlight_passage(passage_text, vocab_items):
             idx = item.get("order_index", "")
             if not term:
                 continue
-            # Use lookaround boundaries to support hyphens and apostrophes reliably
             pattern = rf'(?<![A-Za-z0-9])({re.escape(term)})(?![A-Za-z0-9])'
             for match in re.finditer(pattern, p, re.IGNORECASE):
                 start, end = match.start(), match.end()
-                # Skip sub-words if a longer phrase already claimed this character segment
                 if any(claimed[i] for i in range(start, end)):
                     continue
                 for i in range(start, end):
@@ -136,14 +135,13 @@ def clean_and_highlight_passage(passage_text, vocab_items):
                     "idx": idx
                 })
 
-        # --- FIX ISSUE 2: Clip boundary-crossing spans and build strictly nested HTML ---
+        # Clip boundary-crossing spans to prevent overlapping HTML
         raw_evidence = extract_evidence_spans(p)
         clean_evidence = []
         for e in raw_evidence:
             e_start, e_end = e["start"], e["end"]
             for v in vocab_spans:
                 v_start, v_end = v["start"], v["end"]
-                # If spans cross boundaries partially, trim evidence to prevent illegal HTML overlap
                 if e_start < v_start < e_end < v_end:
                     e_end = v_start
                 elif v_start < e_start < v_end < e_end:
@@ -151,8 +149,7 @@ def clean_and_highlight_passage(passage_text, vocab_items):
             if e_start < e_end:
                 clean_evidence.append({"start": e_start, "end": e_end})
 
-        # Assign strict nesting priorities:
-        # 1: Vocab Close (inner), 2: Evidence Close (outer), 3: Evidence Open (outer), 4: Vocab Open (inner)
+        # Nesting order: Vocab Close (1), Evidence Close (2), Evidence Open (3), Vocab Open (4)
         tags_by_pos = {}
         for v in vocab_spans:
             tags_by_pos.setdefault(v["end"], []).append((1, f'<sup class="v-idx">{v["idx"]}</sup></span>'))
@@ -162,7 +159,6 @@ def clean_and_highlight_passage(passage_text, vocab_items):
             tags_by_pos.setdefault(e["end"], []).append((2, '</span>'))
             tags_by_pos.setdefault(e["start"], []).append((3, '<span class="evidence-hl">'))
 
-        # Construct annotated paragraph from left to right
         annotated_para = []
         last_idx = 0
         for pos in sorted(tags_by_pos.keys()):
@@ -202,34 +198,42 @@ def send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_it
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
     admin_chat_id = os.getenv("ADMIN_CHAT_ID") or os.getenv("TELEGRAM_CHAT_ID")
     
-    # Group Thread Publishing Configuration
     enable_group_publish = os.getenv("ENABLE_GROUP_PUBLISH", "false").strip().lower() == "true"
     source_chat_id = os.getenv("TELEGRAM_GROUP_CHAT_ID")   
     source_thread_id = os.getenv("TELEGRAM_THREAD_ID")     
-    target_chat_id = os.getenv("TARGET_CHAT_ID", "-1003875580290")  
-    target_thread_id = int(os.getenv("TARGET_THREAD_ID", "3"))                                   
+    target_chat_id = os.getenv("TARGET_CHAT_ID")  
+    raw_thread_id = os.getenv("TARGET_THREAD_ID")
+    target_thread_id = int(raw_thread_id) if raw_thread_id and raw_thread_id.isdigit() else None
 
     if not bot_token:
         print("⚠️ Telegram BOT_TOKEN missing. Skipping Telegram delivery.")
         return
 
+    # Build caption with strict 1024-character safety truncation
+    header = f"📝 <b>Today's Editorials ({ist_date_short})</b>\n<blockquote expandable>"
+    footer = "</blockquote>"
+    max_body_len = 1000 - len(header) - len(footer)
+
     quote_lines = [
         f"{idx:02d} {item['title']} ({item['newspaper']})"
         for idx, item in enumerate(editorial_items, start=1)
     ]
-    quote_content = "\n".join(quote_lines)
+    
+    quote_body = ""
+    for line in quote_lines:
+        candidate = f"{quote_body}\n{line}".strip() if quote_body else line
+        if len(candidate) > max_body_len:
+            quote_body = (quote_body + "\n...").strip()
+            break
+        quote_body = candidate
 
-    # 1. Main Light Edition Caption (Contains the index)
-    caption_light = (
-        f"📝 <b>Today's Editorials ({ist_date_short})</b>\n"
-        f"<blockquote expandable>{quote_content}</blockquote>"
-    )
-
-    # 2. Dark Edition Caption (Compact tag so it sits cleanly below)
+    caption_light = f"{header}{quote_body}{footer}"
     caption_dark = f"🌙 <b>Dark Mode Edition (Night Study) • {ist_date_short}</b>"
 
     def upload_single_pdf(file_path, target_chat, caption, thread_id=None, include_thumb=True):
         filename = os.path.basename(file_path)
+        last_error = "Unknown error"
+        
         for attempt in range(1, 4):
             thumb_f = None
             try:
@@ -253,22 +257,26 @@ def send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_it
                         files=files,
                         timeout=(15, 300)
                     )
-                    return res
+                    
+                    if res.status_code == 200:
+                        return res
+                    
+                    last_error = f"HTTP {res.status_code}: {res.text}"
+                    print(f"⚠️ Upload attempt {attempt}/3 returned error ({last_error}). Retrying...")
             except (requests.exceptions.RequestException, TimeoutError) as err:
-                print(f"⚠️ Upload attempt {attempt}/3 failed ({err}). Retrying in 5s...")
-                time.sleep(5)
+                last_error = str(err)
+                print(f"⚠️ Upload attempt {attempt}/3 encountered network fault ({err}). Retrying...")
             finally:
                 if thumb_f:
                     thumb_f.close()
-        return None
+            time.sleep(5)
+            
+        raise RuntimeError(f"Failed to upload {filename} to chat {target_chat} after 3 attempts: {last_error}")
 
     def relay_group_file(file_path, caption, include_thumb=False, attach_buttons=False):
         filename = os.path.basename(file_path)
         print(f"📤 Uploading {filename} to Source Thread ({source_thread_id})...")
         res = upload_single_pdf(file_path, source_chat_id, caption, thread_id=source_thread_id, include_thumb=include_thumb)
-        if not (res and res.status_code == 200):
-            print(f"❌ Upload failed for {filename}")
-            return None
 
         source_msg_id = res.json()["result"]["message_id"]
         print(f"🔄 Relaying {filename} to Target Thread {target_thread_id}...")
@@ -285,12 +293,10 @@ def send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_it
         )
 
         if copy_res.status_code != 200:
-            print(f"❌ Failed to relay {filename}")
-            return None
+            raise RuntimeError(f"Failed to relay {filename} to {target_chat_id}: {copy_res.text}")
 
         new_msg_id = copy_res.json()["result"]["message_id"]
 
-        # Attach interactive buttons only to the final message
         if attach_buttons:
             markup = {
                 "inline_keyboard": [
@@ -298,37 +304,32 @@ def send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_it
                     [{"text": "🎯 Daily Topic Trials", "url": "https://t.me/Ez_vocab_bot/leaderboard"}]
                 ]
             }
-            requests.post(
+            btn_res = requests.post(
                 f"https://api.telegram.org/bot{bot_token}/editMessageReplyMarkup",
                 json={"chat_id": target_chat_id, "message_id": new_msg_id, "reply_markup": markup},
                 timeout=10
             )
-            print("🪄 Interactive attendance & trial buttons attached at the bottom!")
+            if btn_res.status_code != 200:
+                print(f"⚠️ Warning: Interactive buttons could not be attached: {btn_res.text}")
 
         return new_msg_id
 
-    # 1. Admin Delivery: pass the same thumbnail to both editions
+    # 1. Admin Delivery
     if admin_chat_id:
         print("📤 Delivering both files to Admin Telegram...")
         upload_single_pdf(light_pdf_path, admin_chat_id, caption_light, include_thumb=True)
         time.sleep(1.5)
         upload_single_pdf(dark_pdf_path, admin_chat_id, caption_dark, include_thumb=True)
 
-    # 2. Group Publishing: pass the same thumbnail to both editions
+    # 2. Group Publishing
     if enable_group_publish:
-        if not source_chat_id or not source_thread_id:
-            print("⚠️ Group publishing enabled, but group IDs are missing.")
-            return
+        if not source_chat_id or not source_thread_id or not target_chat_id or target_thread_id is None:
+            raise ValueError("Group publishing enabled, but one or more target chat/thread IDs are missing.")
 
-        # Step 1: Send Light PDF (NO buttons, with thumbnail & full index)
         relay_group_file(light_pdf_path, caption_light, include_thumb=True, attach_buttons=False)
-        
-        # Brief pause to ensure correct ordering
         time.sleep(1.5)
-
-        # Step 2: Send Dark PDF immediately below (WITH thumbnail & buttons at the bottom)
         relay_group_file(dark_pdf_path, caption_dark, include_thumb=True, attach_buttons=True)
-        print("🚀 Publication completed: Both files stacked with thumbnails and buttons at the bottom.")
+        print("🚀 Publication completed: Both files stacked with thumbnails and buttons.")
 
 def match_vocab_to_paragraphs(paragraphs, vocab_items):
     """Returns vocab items that appear in the given paragraphs."""
@@ -349,87 +350,24 @@ def match_vocab_to_paragraphs(paragraphs, vocab_items):
     return matched_vocab, unmatched_vocab
 
 def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
-    """Partitions an editorial and its vocab lab dynamically across pages."""
+    """Partitions an editorial and its vocab lab dynamically using continuous-height canvases."""
     raw_paras = clean_and_highlight_passage(art_raw.get("passage", ""), all_vocab)
-    total_words = sum(len(p.split()) for p in raw_paras)
-    total_vocab = len(all_vocab)
-    title_len = len(art_raw.get("title", ""))
     
-    # Continuous Budget: Set to extreme numbers to prevent page splitting
-    p1_max_words = 999999
-    p1_max_vocab = 999999
-    
-    needs_split = (total_words > p1_max_words) or (total_vocab > p1_max_vocab)
-    
-    reader_pages = []
-    if not needs_split or len(raw_paras) <= 1:
-        # Single Reader Page
-        reader_pages.append({
-            "is_continuation": False,
-            "paragraphs": raw_paras,
-            "vocab": all_vocab,
-            "page_num": start_page,
-            "has_next_reader_page": False
-        })
-    else:
-        # Multi-page distribution
-        pages_paras = []
-        curr_page_paras = []
-        curr_words = 0
-        limit = p1_max_words
+    # 1. Continuous Reader Page (Always renders on a single dynamic-height page)
+    reader_pages = [{
+        "is_continuation": False,
+        "paragraphs": raw_paras,
+        "vocab": all_vocab,
+        "page_num": start_page,
+        "has_next_reader_page": False
+    }]
 
-        for para in raw_paras:
-            w_count = len(para.split())
-            if curr_page_paras and (curr_words + w_count > limit):
-                pages_paras.append(curr_page_paras)
-                curr_page_paras = [para]
-                curr_words = w_count
-                limit = 350  # Continuation pages have no masthead, accommodating more words
-            else:
-                curr_page_paras.append(para)
-                curr_words += w_count
-
-        if curr_page_paras:
-            pages_paras.append(curr_page_paras)
-
-        if len(pages_paras) == 1 and len(raw_paras) >= 2:
-            mid = len(raw_paras) // 2
-            pages_paras = [raw_paras[:mid], raw_paras[mid:]]
-
-        # Allocate matching vocabulary to each page
-        assigned_vocab_ids = set()
-        for idx, paras in enumerate(pages_paras):
-            is_first = (idx == 0)
-            is_last = (idx == len(pages_paras) - 1)
-            
-            page_vocab, _ = match_vocab_to_paragraphs(paras, all_vocab)
-            # Retain only unassigned terms
-            page_vocab = [v for v in page_vocab if id(v) not in assigned_vocab_ids]
-            for v in page_vocab:
-                assigned_vocab_ids.add(id(v))
-
-            # Push any leftovers to the last reader page
-            if is_last:
-                leftovers = [v for v in all_vocab if id(v) not in assigned_vocab_ids]
-                page_vocab.extend(leftovers)
-
-            current_page_num = start_page + idx
-            reader_pages.append({
-                "is_continuation": not is_first,
-                "paragraphs": paras,
-                "vocab": page_vocab,
-                "page_num": current_page_num,
-                "has_next_reader_page": not is_last,
-                "next_page_num": current_page_num + 1 if not is_last else None
-            })
-
-    # Vocab Lab Split Logic
+    # 2. Continuous Vocab Lab Partitioning
     other_cats = {k: v for k, v in categorized_vocab.items() if k != "core_vocab" and v}
-    lab_start_page = start_page + len(reader_pages)
+    lab_start_page = start_page + 1
     lab_pages = []
 
     if not other_cats:
-        # If an article only has core vocabulary, keep it on a single natural-height lab page
         lab_pages.append({
             "is_continuation": False,
             "page_num": lab_start_page,
@@ -438,7 +376,7 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "has_next_lab_page": False
         })
     else:
-        # Lab Page 1: Analysis + Core Vocab Ribbons (Natural Height)
+        # Keeps core editorial vocabulary grouped with analysis
         lab_pages.append({
             "is_continuation": False,
             "page_num": lab_start_page,
@@ -446,7 +384,7 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "categorized_vocab": {"core_vocab": categorized_vocab.get("core_vocab", [])},
             "has_next_lab_page": True
         })
-        # Lab Page 2: Continuation with all secondary categories (Natural Height)
+        # Secondary linguistic categories (idioms, phrasals, etc.) flow into part 2
         lab_pages.append({
             "is_continuation": True,
             "page_num": lab_start_page + 1,
@@ -474,28 +412,31 @@ def compile_magazine():
     with open(json_path, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
-    # IST Time configuration
+    # IST Time configuration: Anchor date strictly to schema.json date_scraped
     ist_offset = timezone(timedelta(hours=5, minutes=30))
-    ist_time = datetime.now(ist_offset)
-    today_ist_str = ist_time.strftime("%Y-%m-%d")
-    schema_date = raw_data.get("date_scraped", today_ist_str)
+    raw_date_str = raw_data.get("date_scraped")
 
-    # Log warning on date divergence instead of crashing manual re-runs or runs near midnight
-    if schema_date != today_ist_str:
-        print(f"⚠️ Notice: schema.json date is '{schema_date}', current IST date is '{today_ist_str}'. Proceeding with build.")
+    if raw_date_str:
+        try:
+            edition_date = datetime.strptime(raw_date_str, "%Y-%m-%d").replace(tzinfo=ist_offset)
+        except ValueError:
+            edition_date = datetime.now(ist_offset)
+    else:
+        edition_date = datetime.now(ist_offset)
+
+    current_ist_str = datetime.now(ist_offset).strftime("%Y-%m-%d")
+    if raw_date_str and raw_date_str != current_ist_str:
+        print(f"⚠️ Notice: Anchoring build to schema date '{raw_date_str}' (Current runner IST date: '{current_ist_str}').")
 
     if not raw_data.get("editorials"):
         raise ValueError("schema.json contains 0 editorials.")
 
-    # Real-time Indian Standard Time (IST)
-    ist_offset = timezone(timedelta(hours=5, minutes=30))
-    ist_time = datetime.now(ist_offset)
-    
-    pdf_filename = f"{ist_time.strftime('%d-%b-%Y')}.pdf"
+    date_slug = edition_date.strftime("%d-%b-%Y")
+    pdf_filename = f"{date_slug}.pdf"
     output_pdf_path = os.path.join(output_dir, pdf_filename)
-    
-    formatted_date_ist = ist_time.strftime(f"%B {ist_time.day}, %Y")
-    ist_date_short = ist_time.strftime(f"{ist_time.day} %b %Y")
+
+    formatted_date_ist = edition_date.strftime(f"%B {edition_date.day}, %Y")
+    ist_date_short = edition_date.strftime(f"{edition_date.day} %b %Y")
 
     processed_articles = []
     toc_entries = []
@@ -621,7 +562,14 @@ def compile_magazine():
     ]
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(args=["--no-sandbox", "--disable-setuid-sandbox"])
+        browser = p.chromium.launch(args=[
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+            "--disable-gpu",
+            "--no-zygote",
+            "--single-process"
+        ])
 
         for var in build_variants:
             print(f"🔨 Building {var['name']} PDF...")
@@ -641,31 +589,22 @@ def compile_magazine():
             page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
             page.evaluate("() => document.fonts.ready")
 
-            id_to_page = page.evaluate("""() => {
-                const map = {};
-                document.querySelectorAll('.page').forEach((pageElem, pageIdx) => {
+            # 1. Single layout pass: extract all geometry, links, and target IDs upfront
+            render_manifest = page.evaluate("""() => {
+                const pages = Array.from(document.querySelectorAll('.page'));
+                const idToPage = {};
+
+                pages.forEach((pageElem, pageIdx) => {
                     pageElem.querySelectorAll('[id]').forEach(el => {
-                        if (el.id) map[el.id] = pageIdx;
+                        if (el.id) idToPage[el.id] = pageIdx;
                     });
                 });
-                return map;
-            }""")
 
-            page_count = page.evaluate("() => document.querySelectorAll('.page').length")
-            writer = PdfWriter()
-            pending_links = []
-
-            for i in range(page_count):
-                page_meta = page.evaluate("""(targetIndex) => {
-                    const pages = document.querySelectorAll('.page');
-                    pages.forEach((p, idx) => {
-                        p.style.display = (idx === targetIndex) ? '' : 'none';
-                    });
-                    const current = pages[targetIndex];
-                    const pageRect = current.getBoundingClientRect();
-                    
+                const pagesMeta = pages.map((pageElem, idx) => {
+                    const pageRect = pageElem.getBoundingClientRect();
                     const links = [];
-                    current.querySelectorAll('a[href^="#"]').forEach(a => {
+
+                    pageElem.querySelectorAll('a[href^="#"]').forEach(a => {
                         const rect = a.getBoundingClientRect();
                         const targetId = (a.getAttribute('href') || '').replace('#', '').trim();
                         if (targetId && rect.width > 0 && rect.height > 0) {
@@ -680,11 +619,29 @@ def compile_magazine():
                     });
 
                     return {
-                        isCover: current.classList.contains('cover-page'),
+                        index: idx,
+                        isCover: pageElem.classList.contains('cover-page'),
                         widthPx: Math.ceil(pageRect.width) || 794,
                         heightPx: Math.ceil(pageRect.height),
                         links: links
                     };
+                });
+
+                return { idToPage, pagesMeta };
+            }""")
+
+            id_to_page = render_manifest["idToPage"]
+            pages_meta = render_manifest["pagesMeta"]
+            writer = PdfWriter()
+            pending_links = []
+
+            # 2. Rendering pass: toggle node visibility without re-measuring elements
+            for i, page_meta in enumerate(pages_meta):
+                page.evaluate("""(targetIndex) => {
+                    const pages = document.querySelectorAll('.page');
+                    pages.forEach((p, idx) => {
+                        p.style.display = (idx === targetIndex) ? '' : 'none';
+                    });
                 }""", i)
 
                 if i == 0 and not var["is_dark"]:
@@ -734,9 +691,16 @@ def compile_magazine():
                         )
                     )
 
-            # Bookmarks & Outlines
-            writer.add_outline_item("Front Cover", 0)
-            writer.add_outline_item("Table of Contents", 1)
+            # Bookmarks & Outlines: Guard against missing cover/TOC pages
+            bookmark_page = 0
+            if payload.get("has_front_cover") and len(writer.pages) > bookmark_page:
+                writer.add_outline_item("Front Cover", bookmark_page)
+                bookmark_page += 1
+                
+            if payload.get("has_toc_bg") and len(writer.pages) > bookmark_page:
+                writer.add_outline_item("Table of Contents", bookmark_page)
+                bookmark_page += 1
+
             for art in processed_articles:
                 r_idx = id_to_page.get(art["target_reader_id"])
                 if r_idx is not None and r_idx < len(writer.pages):

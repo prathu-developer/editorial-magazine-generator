@@ -3,6 +3,7 @@ import sys
 import re
 import json
 from datetime import datetime, timezone, timedelta
+from PIL import Image, ImageOps
 from jinja2 import Environment, FileSystemLoader
 
 # Resolve repository paths whether executed from repo root or src/
@@ -15,6 +16,32 @@ for path in (REPO_ROOT, SRC_DIR):
         sys.path.insert(0, path)
 
 from evidence_lens import extract_evidence_spans
+
+def create_dark_watermark(src_path: str, cache_dir: str) -> str:
+    """Generates an inverted dark-mode watermark so preview matches production rendering."""
+    if not os.path.exists(src_path):
+        return src_path
+
+    filename = os.path.basename(src_path)
+    dark_path = os.path.join(cache_dir, f"dark_opt_{filename}")
+
+    if os.path.exists(dark_path) and os.path.getmtime(dark_path) >= os.path.getmtime(src_path):
+        return dark_path
+
+    try:
+        with Image.open(src_path) as img:
+            if img.mode != "RGBA":
+                img = img.convert("RGBA")
+            r, g, b, a = img.split()
+            rgb = Image.merge("RGB", (r, g, b))
+            inv_rgb = ImageOps.invert(rgb)
+            r2, g2, b2 = inv_rgb.split()
+            dark_img = Image.merge("RGBA", (r2, g2, b2, a))
+            dark_img.save(dark_path, "PNG", optimize=True)
+        return dark_path
+    except Exception as err:
+        print(f"⚠️ Could not create preview dark watermark ({err}). Using original.")
+        return src_path
 
 def sanitize_vocab_text(text: str) -> str:
     if not text:
@@ -31,9 +58,10 @@ def sanitize_vocab_text(text: str) -> str:
     return text
 
 def clean_and_highlight_passage(passage_text, vocab_items):
-    # Clean broken LaTeX / math currency strings before processing paragraphs
+    # Clean broken LaTeX / math currency strings without destroying legitimate dollar signs ($)
     passage_text = passage_text.replace(r'$\overline{7}', '₹').replace(r'$\approx', '₹~')
-    passage_text = re.sub(r'\$(\\overline\{7\}|\\approx)?', '₹', passage_text)
+    passage_text = re.sub(r'\$(?:\\overline\{7\}|\\approx)', '₹', passage_text)
+    passage_text = passage_text.replace(r'\overline{7}', '₹')
     
     raw_paras = [p.strip() for p in re.split(r'[\r\n]+', passage_text) if p.strip()]
     cleaned_paras = []
@@ -139,83 +167,24 @@ def categorize_vocabulary(vocab_items):
 
     return categorized
 
-def match_vocab_to_paragraphs(paragraphs, vocab_items):
-    combined_text = " ".join(paragraphs)
-    matched_vocab = []
-    unmatched_vocab = []
-    
-    for item in vocab_items:
-        term = item.get("word_or_phrase", "").strip()
-        if not term:
-            continue
-        if re.search(rf'\b{re.escape(term)}\b', combined_text, re.IGNORECASE):
-            matched_vocab.append(item)
-        else:
-            unmatched_vocab.append(item)
-            
-    return matched_vocab, unmatched_vocab
+# (Function removed: match_vocab_to_paragraphs is no longer needed with continuous reader pages)
 
 def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
+    """Partitions an editorial and its vocab lab dynamically using continuous-height canvases."""
     raw_paras = clean_and_highlight_passage(art_raw.get("passage", ""), all_vocab)
-    p1_max_words = 999999
-    p1_max_vocab = 999999
     
-    needs_split = (sum(len(p.split()) for p in raw_paras) > p1_max_words) or (len(all_vocab) > p1_max_vocab)
-    
-    reader_pages = []
-    if not needs_split or len(raw_paras) <= 1:
-        reader_pages.append({
-            "is_continuation": False,
-            "paragraphs": raw_paras,
-            "vocab": all_vocab,
-            "page_num": start_page,
-            "has_next_reader_page": False
-        })
-    else:
-        pages_paras = []
-        curr_page_paras = []
-        curr_words = 0
-        limit = p1_max_words
+    # 1. Continuous Reader Page (Always renders on a single dynamic-height page)
+    reader_pages = [{
+        "is_continuation": False,
+        "paragraphs": raw_paras,
+        "vocab": all_vocab,
+        "page_num": start_page,
+        "has_next_reader_page": False
+    }]
 
-        for para in raw_paras:
-            w_count = len(para.split())
-            if curr_page_paras and (curr_words + w_count > limit):
-                pages_paras.append(curr_page_paras)
-                curr_page_paras = [para]
-                curr_words = w_count
-                limit = 350
-            else:
-                curr_page_paras.append(para)
-                curr_words += w_count
-
-        if curr_page_paras:
-            pages_paras.append(curr_page_paras)
-
-        assigned_vocab_ids = set()
-        for idx, paras in enumerate(pages_paras):
-            is_first = (idx == 0)
-            is_last = (idx == len(pages_paras) - 1)
-            
-            page_vocab, _ = match_vocab_to_paragraphs(paras, all_vocab)
-            page_vocab = [v for v in page_vocab if id(v) not in assigned_vocab_ids]
-            for v in page_vocab:
-                assigned_vocab_ids.add(id(v))
-
-            if is_last:
-                page_vocab.extend([v for v in all_vocab if id(v) not in assigned_vocab_ids])
-
-            current_page_num = start_page + idx
-            reader_pages.append({
-                "is_continuation": not is_first,
-                "paragraphs": paras,
-                "vocab": page_vocab,
-                "page_num": current_page_num,
-                "has_next_reader_page": not is_last,
-                "next_page_num": current_page_num + 1 if not is_last else None
-            })
-
+    # 2. Continuous Vocab Lab Partitioning
     other_cats = {k: v for k, v in categorized_vocab.items() if k != "core_vocab" and v}
-    lab_start_page = start_page + len(reader_pages)
+    lab_start_page = start_page + 1
     lab_pages = []
 
     if not other_cats:
@@ -227,6 +196,7 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "has_next_lab_page": False
         })
     else:
+        # Keeps core editorial vocabulary grouped with analysis
         lab_pages.append({
             "is_continuation": False,
             "page_num": lab_start_page,
@@ -234,6 +204,7 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
             "categorized_vocab": {"core_vocab": categorized_vocab.get("core_vocab", [])},
             "has_next_lab_page": True
         })
+        # Secondary linguistic categories (idioms, phrasals, etc.) flow into part 2
         lab_pages.append({
             "is_continuation": True,
             "page_num": lab_start_page + 1,
@@ -257,9 +228,19 @@ def generate_preview():
     with open(json_path, "r", encoding="utf-8") as f:
         raw_data = json.load(f)
 
+    # Anchor preview date strictly to schema date_scraped (falls back to current IST)
     ist_offset = timezone(timedelta(hours=5, minutes=30))
-    ist_time = datetime.now(ist_offset)
-    formatted_date_ist = ist_time.strftime(f"%B {ist_time.day}, %Y")
+    raw_date_str = raw_data.get("date_scraped")
+
+    if raw_date_str:
+        try:
+            edition_date = datetime.strptime(raw_date_str, "%Y-%m-%d").replace(tzinfo=ist_offset)
+        except ValueError:
+            edition_date = datetime.now(ist_offset)
+    else:
+        edition_date = datetime.now(ist_offset)
+
+    formatted_date_ist = edition_date.strftime(f"%B {edition_date.day}, %Y")
 
     processed_articles = []
     toc_entries = []
@@ -318,47 +299,62 @@ def generate_preview():
         
         page_counter += total_art_pages
 
-    def get_asset_uri(filename):
-        target = os.path.join(assets_dir, filename)
-        if os.path.exists(target):
-            # Compute relative path from build/ to assets/ so HTML opens cleanly in any browser
-            return os.path.relpath(target, build_dir).replace("\\", "/")
+    def get_asset_uri(file_path):
+        if file_path and os.path.exists(file_path):
+            return os.path.relpath(file_path, build_dir).replace("\\", "/")
         return ""
 
-    front_cover_uri = get_asset_uri("front_cover_bg.jpg")
-    toc_bg_uri = get_asset_uri("toc_bg.jpg")
-    back_cover_uri = get_asset_uri("back_cover_bg.jpg")
-    watermark_uri = get_asset_uri("watermark.svg") or get_asset_uri("watermark.png")
+    front_cover_path = os.path.join(assets_dir, "front_cover_bg.jpg")
+    toc_bg_path = os.path.join(assets_dir, "toc_bg.jpg")
+    back_cover_path = os.path.join(assets_dir, "back_cover_bg.jpg")
+    
+    watermark_svg = os.path.join(assets_dir, "watermark.svg")
+    watermark_png = os.path.join(assets_dir, "watermark.png")
+    
+    watermark_path = None
+    watermark_dark_path = None
+
+    if os.path.exists(watermark_svg):
+        watermark_path = watermark_svg
+        watermark_dark_path = watermark_svg
+    elif os.path.exists(watermark_png):
+        watermark_path = watermark_png
+        watermark_dark_path = create_dark_watermark(watermark_png, build_dir)
 
     base_payload = {
         "date_formatted": formatted_date_ist,
         "date_scraped": raw_data.get("date_scraped", formatted_date_ist),
-        "has_front_cover": bool(front_cover_uri),
-        "front_cover_src": front_cover_uri,
-        "has_toc_bg": bool(toc_bg_uri),
-        "toc_bg_src": toc_bg_uri,
-        "has_back_cover": bool(back_cover_uri),
-        "back_cover_src": back_cover_uri,
-        "has_watermark": bool(watermark_uri),
-        "watermark_src": watermark_uri,
+        "has_front_cover": os.path.exists(front_cover_path),
+        "front_cover_src": get_asset_uri(front_cover_path),
+        "has_toc_bg": os.path.exists(toc_bg_path),
+        "toc_bg_src": get_asset_uri(toc_bg_path),
+        "has_back_cover": os.path.exists(back_cover_path),
+        "back_cover_src": get_asset_uri(back_cover_path),
+        "has_watermark": watermark_path is not None,
+        "watermark_src": get_asset_uri(watermark_path),
         "toc_entries": toc_entries,
         "total_articles": len(processed_articles),
         "articles": processed_articles
     }
 
-    env = Environment(loader=FileSystemLoader(templates_dir))
+    # Search both templates/ and REPO_ROOT for template.html
+    env = Environment(loader=FileSystemLoader([templates_dir, REPO_ROOT]))
     template = env.get_template("template.html")
 
-    # Generate both light and dark preview files
     variants = [
         {"file": "rendered_content_light.html", "is_dark": False},
         {"file": "rendered_content_dark.html", "is_dark": True},
-        {"file": "rendered_content.html", "is_dark": False}  # Default fallback
+        {"file": "rendered_content.html", "is_dark": False}
     ]
 
     for v in variants:
         payload = dict(base_payload)
         payload["is_dark_mode"] = v["is_dark"]
+        
+        # Swap watermark to inverted asset for dark mode
+        if v["is_dark"] and watermark_dark_path:
+            payload["watermark_src"] = get_asset_uri(watermark_dark_path)
+
         out_path = os.path.join(build_dir, v["file"])
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(template.render(data=payload))

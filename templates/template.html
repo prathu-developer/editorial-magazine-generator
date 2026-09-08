@@ -852,8 +852,9 @@
     font-weight: 700;
     font-size: 7.4px;
     flex-shrink: 0;
-    white-space: nowrap;
     line-height: 1.35;
+    word-break: break-word;
+    max-width: 100%;
   }
 
   .p1-def-bullet {
@@ -1164,44 +1165,44 @@
   .p2-stance-bg-target { color: #475569; }
 
   /* Red Theme (Negative / Hostile / Critical) */
-  :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) {
+  .p2-stance-card:is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 241, 242, 0.75) 100%) !important;
     border-color: rgba(254, 205, 211, 0.9) !important;
     box-shadow: 0 10px 24px -10px rgba(225, 29, 72, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
   }
-  :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-icon-circle svg,
-  :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-bg-target { color: #e11d48; }
-  :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-tone { color: #be123c; }
+  .p2-stance-card:is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-icon-circle svg,
+  .p2-stance-card:is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-bg-target { color: #e11d48; }
+  .p2-stance-card:is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-tone { color: #be123c; }
 
   /* Amber Theme (Warning / Cautious / Cautiously Optimistic) */
-  :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) {
+  .p2-stance-card:is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(254, 243, 199, 0.75) 100%) !important;
     border-color: rgba(253, 230, 138, 0.9) !important;
     box-shadow: 0 10px 24px -10px rgba(217, 119, 6, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
   }
-  :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-icon-circle svg,
-  :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-bg-target { color: #d97706; }
-  :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-tone { color: #b45309; }
+  .p2-stance-card:is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-icon-circle svg,
+  .p2-stance-card:is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-bg-target { color: #d97706; }
+  .p2-stance-card:is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-tone { color: #b45309; }
 
   /* Green Theme (Positive / Appreciative / Optimistic) */
-  :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) {
+  .p2-stance-card:is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(236, 253, 245, 0.75) 100%) !important;
     border-color: rgba(167, 243, 208, 0.9) !important;
     box-shadow: 0 10px 24px -10px rgba(5, 150, 105, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
   }
-  :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-icon-circle svg,
-  :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-bg-target { color: #059669; }
-  :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-tone { color: #047857; }
+  .p2-stance-card:is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-icon-circle svg,
+  .p2-stance-card:is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-bg-target { color: #059669; }
+  .p2-stance-card:is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-tone { color: #047857; }
 
   /* Blue Theme (Informative / Analytical / Persuasive) */
-  :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) {
+  .p2-stance-card:is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(224, 242, 254, 0.75) 100%) !important;
     border-color: rgba(186, 230, 253, 0.9) !important;
     box-shadow: 0 10px 24px -10px rgba(2, 132, 199, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
   }
-  :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-icon-circle svg,
-  :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-bg-target { color: #0284c7; }
-  :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-tone { color: #0369a1; }
+  .p2-stance-card:is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-icon-circle svg,
+  .p2-stance-card:is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-bg-target { color: #0284c7; }
+  .p2-stance-card:is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-tone { color: #0369a1; }
 
   /* Right Executive Perspective Card */
   .p2-perspective-card {
@@ -1338,7 +1339,7 @@
 
   .lex-ribbon-row {
     display: grid;
-    grid-template-columns: 24px 30mm 44mm 46mm 28mm 28mm;
+    grid-template-columns: 24px 30mm 1fr 1fr 28mm 28mm;
     background: rgba(255, 255, 255, 0.82);
     border: 1px solid #e2e8f0;
     border-radius: 8px;
@@ -2018,50 +2019,50 @@
   }
 
   /* Red Theme (Negative / Hostile / Critical) */
-  body.dark-theme :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) {
+  body.dark-theme .p2-stance-card:is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) {
     background: linear-gradient(135deg, rgba(45, 12, 20, 0.88) 0%, rgba(30, 8, 14, 0.85) 100%) !important;
     border-color: rgba(244, 63, 94, 0.45) !important;
   }
-  body.dark-theme :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-tone {
+  body.dark-theme .p2-stance-card:is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-tone {
     color: #fda4af !important; /* Radiant Coral/Rose */
   }
-  body.dark-theme :is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-icon-circle svg {
+  body.dark-theme .p2-stance-card:is([class*="critical"], [class*="pessimistic"], [class*="disapproving"], [class*="sarcastic"], [class*="cynical"], [class*="hostile"], [class*="admonitory"]) .p2-stance-icon-circle svg {
     color: #f43f5e !important;
   }
 
   /* Amber Theme (Cautious / Cautiously Optimistic / Concerned / Warning) */
-  body.dark-theme :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) {
+  body.dark-theme .p2-stance-card:is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) {
     background: linear-gradient(135deg, rgba(45, 28, 10, 0.88) 0%, rgba(30, 18, 6, 0.85) 100%) !important;
     border-color: rgba(245, 158, 11, 0.45) !important;
   }
-  body.dark-theme :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-tone {
+  body.dark-theme .p2-stance-card:is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-tone {
     color: #fbbf24 !important; /* Radiant Warm Gold */
   }
-  body.dark-theme :is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-icon-circle svg {
+  body.dark-theme .p2-stance-card:is([class*="cautious"], [class*="concerned"], [class*="cautionary"], [class*="sceptical"]) .p2-stance-icon-circle svg {
     color: #f59e0b !important;
   }
 
   /* Green Theme (Positive / Pure Optimistic / Appreciative) */
-  body.dark-theme :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) {
+  body.dark-theme .p2-stance-card:is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) {
     background: linear-gradient(135deg, rgba(10, 40, 25, 0.88) 0%, rgba(6, 25, 16, 0.85) 100%) !important;
-    border-color: rgba(16, 185, 129, 0.45) !important;
+    border-color: rgba(167, 243, 208, 0.45) !important;
   }
-  body.dark-theme :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-tone {
+  body.dark-theme .p2-stance-card:is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-tone {
     color: #6ee7b7 !important; /* Radiant Mint Green */
   }
-  body.dark-theme :is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-icon-circle svg {
+  body.dark-theme .p2-stance-card:is([class*="optimistic"]:not([class*="cautious"]), [class*="appreciative"], [class*="empathetic"], [class*="conciliatory"]) .p2-stance-icon-circle svg {
     color: #10b981 !important;
   }
 
   /* Blue Theme (Informative / Analytical / Persuasive / Balanced) */
-  body.dark-theme :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) {
+  body.dark-theme .p2-stance-card:is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) {
     background: linear-gradient(135deg, rgba(12, 30, 52, 0.88) 0%, rgba(8, 20, 36, 0.85) 100%) !important;
     border-color: rgba(14, 165, 233, 0.45) !important;
   }
-  body.dark-theme :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-tone {
+  body.dark-theme .p2-stance-card:is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-tone {
     color: #38bdf8 !important; /* Radiant Sky Cyan */
   }
-  body.dark-theme :is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-icon-circle svg {
+  body.dark-theme .p2-stance-card:is([class*="persuasive"], [class*="informative"], [class*="analytical"], [class*="balanced"]) .p2-stance-icon-circle svg {
     color: #0ea5e9 !important;
   }
   body.dark-theme .p2-perspective-card {
@@ -2151,6 +2152,14 @@
   body.dark-theme .next-editorial-nav {
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 58, 138, 0.9) 100%) !important;
     border-color: rgba(56, 189, 248, 0.4) !important;
+  }
+  body.dark-theme .nav-end-state {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1.2px dashed rgba(255, 255, 255, 0.18) !important;
+    box-shadow: none !important;
+  }
+  body.dark-theme .nav-end-text {
+    color: #94a3b8 !important;
   }
   /* =========================================================
      FLOATING FROSTED PILL FOOTER (DARK SKIN)
@@ -2493,7 +2502,9 @@
             <span class="p2-stance-title">EDITORIAL STANCE</span>
           </div>
           <div class="p2-stance-tone">{{ art.analysis.tone }}</div>
+          {% if art.analysis.tone_simple_explanation %}
           <div class="p2-stance-expl">“{{ art.analysis.tone_simple_explanation }}”</div>
+          {% endif %}
           <div class="p2-stance-bar"></div>
         </div>
 
@@ -2535,7 +2546,9 @@
           <div class="ribbon-col-word">
             <div class="ribbon-term">{{ item.word_or_phrase }}</div>
             <div class="ribbon-pos">{{ item.part_of_speech }}</div>
+            {% if item.connotation %}
             <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+            {% endif %}
           </div>
           <div class="ribbon-col-def">
             <div class="ribbon-def-text-wrap">
@@ -2552,13 +2565,13 @@
           <div class="ribbon-col-syn">
             <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
             <div class="ribbon-bullet-list syn-bullets">
-              {% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}
+              {% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% else %}<span class="bullet-item" style="color: #94a3b8;">—</span>{% endfor %}
             </div>
           </div>
           <div class="ribbon-col-ant">
             <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
             <div class="ribbon-bullet-list ant-bullets">
-              {% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}
+              {% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% else %}<span class="bullet-item" style="color: #94a3b8;">—</span>{% endfor %}
             </div>
           </div>
         </div>
@@ -2793,6 +2806,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </div>
         </a>
+        {% else %}
+        <div class="next-editorial-nav nav-end-state">
+          <span class="nav-end-text">🏁 You have reached the end of today's editorials</span>
+        </div>
         {% endif %}
       {% endif %}
     </div>

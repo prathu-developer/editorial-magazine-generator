@@ -18,6 +18,13 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
+      - name: Free Runner Disk Space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+
       - name: Set up Python environment
         uses: actions/setup-python@v5
         with:

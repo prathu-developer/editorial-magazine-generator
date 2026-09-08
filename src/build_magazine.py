@@ -562,17 +562,8 @@ def compile_magazine():
     ]
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(args=[
-            "--no-sandbox",
-            "--disable-setuid-sandbox",
-            "--disable-dev-shm-usage",
-            "--disable-gpu",
-            "--no-zygote",
-            "--single-process"
-        ])
-
         for var in build_variants:
-            print(f"🔨 Building {var['name']} PDF...")
+            print(f"🔨 Building {var['name']} PDF...", flush=True)
             payload = dict(base_render_payload)
             payload["is_dark_mode"] = var["is_dark"]
             
@@ -585,140 +576,148 @@ def compile_magazine():
             with open(rendered_html_path, "w", encoding="utf-8") as f:
                 f.write(rendered_html)
 
-            page = browser.new_page(viewport={"width": 794, "height": 1123})
-            page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
-            page.evaluate("() => document.fonts.ready")
+            # Isolated browser lifecycle per variant without --single-process or --no-zygote
+            browser = p.chromium.launch(args=[
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu"
+            ])
 
-            # 1. Single layout pass: extract all geometry, links, and target IDs upfront
-            render_manifest = page.evaluate("""() => {
-                const pages = Array.from(document.querySelectorAll('.page'));
-                const idToPage = {};
+            try:
+                page = browser.new_page(viewport={"width": 794, "height": 1123})
+                page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
+                page.evaluate("() => document.fonts.ready")
 
-                pages.forEach((pageElem, pageIdx) => {
-                    pageElem.querySelectorAll('[id]').forEach(el => {
-                        if (el.id) idToPage[el.id] = pageIdx;
-                    });
-                });
+                # 1. Single layout pass: extract all geometry, links, and target IDs upfront
+                render_manifest = page.evaluate("""() => {
+                    const pages = Array.from(document.querySelectorAll('.page'));
+                    const idToPage = {};
 
-                const pagesMeta = pages.map((pageElem, idx) => {
-                    const pageRect = pageElem.getBoundingClientRect();
-                    const links = [];
-
-                    pageElem.querySelectorAll('a[href^="#"]').forEach(a => {
-                        const rect = a.getBoundingClientRect();
-                        const targetId = (a.getAttribute('href') || '').replace('#', '').trim();
-                        if (targetId && rect.width > 0 && rect.height > 0) {
-                            links.push({
-                                targetId: targetId,
-                                x: rect.left - pageRect.left,
-                                y: rect.top - pageRect.top,
-                                w: rect.width,
-                                h: rect.height
-                            });
-                        }
+                    pages.forEach((pageElem, pageIdx) => {
+                        pageElem.querySelectorAll('[id]').forEach(el => {
+                            if (el.id) idToPage[el.id] = pageIdx;
+                        });
                     });
 
-                    return {
-                        index: idx,
-                        isCover: pageElem.classList.contains('cover-page'),
-                        widthPx: Math.ceil(pageRect.width) || 794,
-                        heightPx: Math.ceil(pageRect.height),
-                        links: links
-                    };
-                });
+                    const pagesMeta = pages.map((pageElem, idx) => {
+                        const pageRect = pageElem.getBoundingClientRect();
+                        const links = [];
 
-                return { idToPage, pagesMeta };
-            }""")
+                        pageElem.querySelectorAll('a[href^="#"]').forEach(a => {
+                            const rect = a.getBoundingClientRect();
+                            const targetId = (a.getAttribute('href') || '').replace('#', '').trim();
+                            if (targetId && rect.width > 0 && rect.height > 0) {
+                                links.push({
+                                    targetId: targetId,
+                                    x: rect.left - pageRect.left,
+                                    y: rect.top - pageRect.top,
+                                    w: rect.width,
+                                    h: rect.height
+                                });
+                            }
+                        });
 
-            id_to_page = render_manifest["idToPage"]
-            pages_meta = render_manifest["pagesMeta"]
-            writer = PdfWriter()
-            pending_links = []
-
-            # 2. Rendering pass: toggle node visibility without re-measuring elements
-            for i, page_meta in enumerate(pages_meta):
-                page.evaluate("""(targetIndex) => {
-                    const pages = document.querySelectorAll('.page');
-                    pages.forEach((p, idx) => {
-                        p.style.display = (idx === targetIndex) ? '' : 'none';
+                        return {
+                            index: idx,
+                            isCover: pageElem.classList.contains('cover-page'),
+                            widthPx: Math.ceil(pageRect.width) || 794,
+                            heightPx: Math.ceil(pageRect.height),
+                            links: links
+                        };
                     });
-                }""", i)
 
-                if i == 0 and not var["is_dark"]:
-                    page.screenshot(path=thumb_path, type="jpeg", quality=85)
+                    return { idToPage, pagesMeta };
+                }""")
 
-                page_height = "297mm" if page_meta["isCover"] else f"{page_meta['heightPx']}px"
-                pdf_bytes = page.pdf(
-                    width="210mm",
-                    height=page_height,
-                    print_background=True,
-                    margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
-                )
+                id_to_page = render_manifest["idToPage"]
+                pages_meta = render_manifest["pagesMeta"]
+                writer = PdfWriter()
+                pending_links = []
 
-                reader = PdfReader(io.BytesIO(pdf_bytes))
-                if len(reader.pages) > 0:
-                    p_obj = reader.pages[0]
-                    writer.add_page(p_obj)
+                # 2. Rendering pass: toggle node visibility without re-measuring elements
+                for i, page_meta in enumerate(pages_meta):
+                    page.evaluate("""(targetIndex) => {
+                        const pages = document.querySelectorAll('.page');
+                        pages.forEach((p, idx) => {
+                            p.style.display = (idx === targetIndex) ? '' : 'none';
+                        });
+                    }""", i)
 
-                    mb = p_obj.mediabox
-                    media_w, media_h = float(mb.width), float(mb.height)
-                    scale_x = media_w / page_meta["widthPx"]
-                    scale_y = media_h / page_meta["heightPx"]
+                    if i == 0 and not var["is_dark"]:
+                        page.screenshot(path=thumb_path, type="jpeg", quality=85)
 
-                    for lk in page_meta["links"]:
-                        target_idx = id_to_page.get(lk["targetId"])
-                        if target_idx is None:
-                            m = re.search(r'-p(\d+)', lk["targetId"])
-                            if m:
-                                target_idx = int(m.group(1)) - 1
-                                
-                        if target_idx is not None and target_idx != i:
-                            x1 = lk["x"] * scale_x
-                            x2 = (lk["x"] + lk["w"]) * scale_x
-                            y1 = media_h - (lk["y"] + lk["h"]) * scale_y
-                            y2 = media_h - lk["y"] * scale_y
-                            pending_links.append((i, target_idx, (x1, y1, x2, y2)))
-
-            # Internal Click Annotations
-            for src_page, target_page, rect in pending_links:
-                if target_page < len(writer.pages):
-                    writer.add_annotation(
-                        page_number=src_page,
-                        annotation=Link(
-                            rect=rect,
-                            target_page_index=target_page,
-                            fit=Fit(fit_type="/Fit")
-                        )
+                    page_height = "297mm" if page_meta["isCover"] else f"{page_meta['heightPx']}px"
+                    pdf_bytes = page.pdf(
+                        width="210mm",
+                        height=page_height,
+                        print_background=True,
+                        margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
                     )
 
-            # Bookmarks & Outlines: Guard against missing cover/TOC pages
-            bookmark_page = 0
-            if payload.get("has_front_cover") and len(writer.pages) > bookmark_page:
-                writer.add_outline_item("Front Cover", bookmark_page)
-                bookmark_page += 1
-                
-            if payload.get("has_toc_bg") and len(writer.pages) > bookmark_page:
-                writer.add_outline_item("Table of Contents", bookmark_page)
-                bookmark_page += 1
+                    reader = PdfReader(io.BytesIO(pdf_bytes))
+                    if len(reader.pages) > 0:
+                        p_obj = reader.pages[0]
+                        writer.add_page(p_obj)
 
-            for art in processed_articles:
-                r_idx = id_to_page.get(art["target_reader_id"])
-                if r_idx is not None and r_idx < len(writer.pages):
-                    parent_outline = writer.add_outline_item(f"{art['title']} ({art['newspaper']})", r_idx)
-                    l_idx = id_to_page.get(art["target_vocab_id"])
-                    if l_idx is not None and l_idx < len(writer.pages):
-                        writer.add_outline_item("Vocabulary Lab", l_idx, parent=parent_outline)
+                        mb = p_obj.mediabox
+                        media_w, media_h = float(mb.width), float(mb.height)
+                        scale_x = media_w / page_meta["widthPx"]
+                        scale_y = media_h / page_meta["heightPx"]
 
-            for page_obj in writer.pages:
-                page_obj.compress_content_streams()
+                        for lk in page_meta["links"]:
+                            target_idx = id_to_page.get(lk["targetId"])
+                            if target_idx is None:
+                                m = re.search(r'-p(\d+)', lk["targetId"])
+                                if m:
+                                    target_idx = int(m.group(1)) - 1
+                                    
+                            if target_idx is not None and target_idx != i:
+                                x1 = lk["x"] * scale_x
+                                x2 = (lk["x"] + lk["w"]) * scale_x
+                                y1 = media_h - (lk["y"] + lk["h"]) * scale_y
+                                y2 = media_h - lk["y"] * scale_y
+                                pending_links.append((i, target_idx, (x1, y1, x2, y2)))
 
-            with open(var["pdf_path"], "wb") as f_out:
-                writer.write(f_out)
+                # Internal Click Annotations
+                for src_page, target_page, rect in pending_links:
+                    if target_page < len(writer.pages):
+                        writer.add_annotation(
+                            page_number=src_page,
+                            annotation=Link(
+                                rect=rect,
+                                target_page_index=target_page,
+                                fit=Fit(fit_type="/Fit")
+                            )
+                        )
 
-            page.close()
-            print(f"✅ Generated {var['name']}: {var['pdf_path']}")
+                # Bookmarks & Outlines: Guard against missing cover/TOC pages
+                bookmark_page = 0
+                if payload.get("has_front_cover") and len(writer.pages) > bookmark_page:
+                    writer.add_outline_item("Front Cover", bookmark_page)
+                    bookmark_page += 1
+                    
+                if payload.get("has_toc_bg") and len(writer.pages) > bookmark_page:
+                    writer.add_outline_item("Table of Contents", bookmark_page)
+                    bookmark_page += 1
 
-        browser.close()
+                for art in processed_articles:
+                    r_idx = id_to_page.get(art["target_reader_id"])
+                    if r_idx is not None and r_idx < len(writer.pages):
+                        parent_outline = writer.add_outline_item(f"{art['title']} ({art['newspaper']})", r_idx)
+                        l_idx = id_to_page.get(art["target_vocab_id"])
+                        if l_idx is not None and l_idx < len(writer.pages):
+                            writer.add_outline_item("Vocabulary Lab", l_idx, parent=parent_outline)
+
+                for page_obj in writer.pages:
+                    page_obj.compress_content_streams()
+
+                with open(var["pdf_path"], "wb") as f_out:
+                    writer.write(f_out)
+
+                print(f"✅ Generated {var['name']}: {var['pdf_path']}", flush=True)
+            finally:
+                browser.close()
 
     # Dispatch both files to Telegram sequentially
     send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_items, thumb_path)

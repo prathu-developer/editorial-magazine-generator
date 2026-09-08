@@ -529,7 +529,7 @@ def compile_magazine():
         watermark_dark_src = f"file://{dark_wm}".replace("\\", "/")
 
     # Filenames for both standard and dark-mode variants
-    date_slug = ist_time.strftime('%d-%b-%Y')
+    date_slug = edition_date.strftime('%d-%b-%Y')
     light_pdf_filename = f"{date_slug}.pdf"
     dark_pdf_filename = f"{date_slug}-dark-mode.pdf"
     

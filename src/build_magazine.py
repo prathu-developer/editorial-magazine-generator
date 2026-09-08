@@ -323,13 +323,20 @@ def send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_it
 
     # 2. Group Publishing
     if enable_group_publish:
-        if not source_chat_id or not source_thread_id or not target_chat_id or target_thread_id is None:
-            raise ValueError("Group publishing enabled, but one or more target chat/thread IDs are missing.")
+        missing_creds = []
+        if not source_chat_id: missing_creds.append("TELEGRAM_GROUP_CHAT_ID")
+        if not source_thread_id: missing_creds.append("TELEGRAM_THREAD_ID")
+        if not target_chat_id: missing_creds.append("TARGET_CHAT_ID")
+        if target_thread_id is None: missing_creds.append("TARGET_THREAD_ID")
 
-        relay_group_file(light_pdf_path, caption_light, include_thumb=True, attach_buttons=False)
-        time.sleep(1.5)
-        relay_group_file(dark_pdf_path, caption_dark, include_thumb=True, attach_buttons=True)
-        print("🚀 Publication completed: Both files stacked with thumbnails and buttons.")
+        if missing_creds:
+            print(f"⚠️ Group publishing skipped: Missing secrets [{', '.join(missing_creds)}].", flush=True)
+            print("ℹ️ To enable group publishing, add TARGET_CHAT_ID and TARGET_THREAD_ID to repository Secrets.", flush=True)
+        else:
+            relay_group_file(light_pdf_path, caption_light, include_thumb=True, attach_buttons=False)
+            time.sleep(1.5)
+            relay_group_file(dark_pdf_path, caption_dark, include_thumb=True, attach_buttons=True)
+            print("🚀 Publication completed: Both files stacked with thumbnails and buttons.", flush=True)
 
 def match_vocab_to_paragraphs(paragraphs, vocab_items):
     """Returns vocab items that appear in the given paragraphs."""

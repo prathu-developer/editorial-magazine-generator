@@ -17,47 +17,31 @@ for path in (REPO_ROOT, SRC_DIR):
 
 from evidence_lens import extract_evidence_spans
 
-def prepare_faded_watermarks(src_path: str, cache_dir: str, light_opacity: float = 0.065, dark_opacity: float = 0.045) -> tuple[str, str]:
-    """Pre-bakes exact faintness directly into watermark PNG alpha channels so preview matches production."""
+def create_dark_watermark(src_path: str, cache_dir: str) -> str:
+    """Generates an inverted dark-mode watermark so preview matches production rendering."""
     if not os.path.exists(src_path):
-        return src_path, src_path
+        return src_path
 
     filename = os.path.basename(src_path)
-    light_out = os.path.join(cache_dir, f"faded_light_{filename}")
-    dark_out = os.path.join(cache_dir, f"faded_dark_{filename}")
+    dark_path = os.path.join(cache_dir, f"dark_opt_{filename}")
 
-    src_mtime = os.path.getmtime(src_path)
-    need_light = not os.path.exists(light_out) or os.path.getmtime(light_out) < src_mtime
-    need_dark = not os.path.exists(dark_out) or os.path.getmtime(dark_out) < src_mtime
-
-    if not need_light and not need_dark:
-        return light_out, dark_out
+    if os.path.exists(dark_path) and os.path.getmtime(dark_path) >= os.path.getmtime(src_path):
+        return dark_path
 
     try:
         with Image.open(src_path) as img:
             if img.mode != "RGBA":
                 img = img.convert("RGBA")
             r, g, b, a = img.split()
-
-            # 1. Pre-bake Light Mode alpha channel
-            if need_light:
-                a_light = a.point(lambda p: int(p * light_opacity))
-                light_img = Image.merge("RGBA", (r, g, b, a_light))
-                light_img.save(light_out, "PNG", optimize=True)
-
-            # 2. Invert RGB and pre-bake Dark Mode alpha channel
-            if need_dark:
-                rgb = Image.merge("RGB", (r, g, b))
-                inv_rgb = ImageOps.invert(rgb)
-                r_dark, g_dark, b_dark = inv_rgb.split()
-                a_dark = a.point(lambda p: int(p * dark_opacity))
-                dark_img = Image.merge("RGBA", (r_dark, g_dark, b_dark, a_dark))
-                dark_img.save(dark_out, "PNG", optimize=True)
-
-        return light_out, dark_out
+            rgb = Image.merge("RGB", (r, g, b))
+            inv_rgb = ImageOps.invert(rgb)
+            r2, g2, b2 = inv_rgb.split()
+            dark_img = Image.merge("RGBA", (r2, g2, b2, a))
+            dark_img.save(dark_path, "PNG", optimize=True)
+        return dark_path
     except Exception as err:
-        print(f"⚠️ Could not pre-bake preview watermark alpha ({err}). Falling back to original.")
-        return src_path, src_path
+        print(f"⚠️ Could not create preview dark watermark ({err}). Using original.")
+        return src_path
 
 def sanitize_vocab_text(text: str) -> str:
     if not text:
@@ -392,9 +376,8 @@ def generate_preview():
         watermark_path = watermark_svg
         watermark_dark_path = watermark_svg
     elif os.path.exists(watermark_png):
-        faded_light, faded_dark = prepare_faded_watermarks(watermark_png, build_dir)
-        watermark_path = faded_light
-        watermark_dark_path = faded_dark
+        watermark_path = watermark_png
+        watermark_dark_path = create_dark_watermark(watermark_png, build_dir)
 
     base_payload = {
         "date_formatted": formatted_date_ist,

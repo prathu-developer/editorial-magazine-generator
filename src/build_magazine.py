@@ -42,32 +42,51 @@ def optimize_asset_image(src_path: str, cache_dir: str, max_width: int = 1654, q
         print(f"⚠️ Could not optimize {src_path}: {err}. Retaining original.")
         return src_path
 
-def create_dark_watermark(src_path: str, cache_dir: str) -> str:
-    """Generates an inverted dark-mode watermark once with PIL so Chromium embeds it as a single native XObject."""
+def prepare_faded_watermarks(src_path: str, cache_dir: str, light_opacity: float = 0.065, dark_opacity: float = 0.045) -> tuple[str, str]:
+    """Pre-bakes exact faintness directly into watermark PNG alpha channels.
+    This removes the need for CSS opacity layers on the PDF body canvas.
+    """
     if not os.path.exists(src_path):
-        return src_path
+        return src_path, src_path
+
+    from PIL import ImageOps
 
     filename = os.path.basename(src_path)
-    dark_path = os.path.join(cache_dir, f"dark_opt_{filename}")
+    light_out = os.path.join(cache_dir, f"faded_light_{filename}")
+    dark_out = os.path.join(cache_dir, f"faded_dark_{filename}")
 
-    if os.path.exists(dark_path) and os.path.getmtime(dark_path) >= os.path.getmtime(src_path):
-        return dark_path
+    src_mtime = os.path.getmtime(src_path)
+    need_light = not os.path.exists(light_out) or os.path.getmtime(light_out) < src_mtime
+    need_dark = not os.path.exists(dark_out) or os.path.getmtime(dark_out) < src_mtime
+
+    if not need_light and not need_dark:
+        return light_out, dark_out
 
     try:
-        from PIL import ImageOps
         with Image.open(src_path) as img:
             if img.mode != "RGBA":
                 img = img.convert("RGBA")
             r, g, b, a = img.split()
-            rgb = Image.merge("RGB", (r, g, b))
-            inv_rgb = ImageOps.invert(rgb)
-            r2, g2, b2 = inv_rgb.split()
-            dark_img = Image.merge("RGBA", (r2, g2, b2, a))
-            dark_img.save(dark_path, "PNG", optimize=True)
-        return dark_path
+
+            # 1. Pre-bake Light Mode alpha channel
+            if need_light:
+                a_light = a.point(lambda p: int(p * light_opacity))
+                light_img = Image.merge("RGBA", (r, g, b, a_light))
+                light_img.save(light_out, "PNG", optimize=True)
+
+            # 2. Invert RGB and pre-bake Dark Mode alpha channel
+            if need_dark:
+                rgb = Image.merge("RGB", (r, g, b))
+                inv_rgb = ImageOps.invert(rgb)
+                r_dark, g_dark, b_dark = inv_rgb.split()
+                a_dark = a.point(lambda p: int(p * dark_opacity))
+                dark_img = Image.merge("RGBA", (r_dark, g_dark, b_dark, a_dark))
+                dark_img.save(dark_out, "PNG", optimize=True)
+
+        return light_out, dark_out
     except Exception as err:
-        print(f"⚠️ Could not create dark watermark ({err}). Using original.")
-        return src_path
+        print(f"⚠️ Could not pre-bake watermark alpha ({err}). Falling back to original.")
+        return src_path, src_path
 
 def sanitize_vocab_text(text: str) -> str:
     if not text:
@@ -593,10 +612,9 @@ def compile_magazine():
         watermark_dark_src = watermark_src
     elif os.path.exists(watermark_png):
         opt_wm = optimize_asset_image(watermark_png, build_dir, max_width=800)
-        watermark_src = f"file://{opt_wm}".replace("\\", "/")
-        # Creates an inverted light-colored watermark file for Dark Mode
-        dark_wm = create_dark_watermark(opt_wm, build_dir)
-        watermark_dark_src = f"file://{dark_wm}".replace("\\", "/")
+        faded_light, faded_dark = prepare_faded_watermarks(opt_wm, build_dir)
+        watermark_src = f"file://{faded_light}".replace("\\", "/")
+        watermark_dark_src = f"file://{faded_dark}".replace("\\", "/")
 
     # Filenames for both standard and dark-mode variants
     date_slug = edition_date.strftime('%d-%b-%Y')

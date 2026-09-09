@@ -350,7 +350,7 @@
     background-size: 300px;
     background-position: center top;
     background-repeat: repeat-y;
-    opacity: 0.065;
+    opacity: 1;
     pointer-events: none;
     z-index: 0;
   }
@@ -491,6 +491,7 @@
     box-shadow: 0 20px 45px -20px rgba(15, 43, 72, 0.25);
     position: relative;
     overflow: hidden;
+    isolation: isolate;
     border: 1px solid color-mix(in srgb, var(--glass-border) 72%, transparent);
     box-sizing: border-box;
     margin-bottom: 2mm;
@@ -896,8 +897,6 @@
     align-items: center;
     gap: 8px;
     background: var(--glass-bg);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
     border: 1px solid var(--glass-border);
     border-radius: 10px;
     padding: 6px 8px;
@@ -1476,6 +1475,7 @@
     padding: 13px 14px 14px;
     border-radius: 16px;
     overflow: hidden;
+    isolation: isolate;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
@@ -2214,7 +2214,7 @@
 
   /* Clean watermark visibility across dark gradients */
   body.dark-theme .inner-page-watermark {
-    opacity: 0.045 !important;
+    opacity: 1 !important;
   }
 
   /* ---------------------------------------------------------

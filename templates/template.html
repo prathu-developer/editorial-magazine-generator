@@ -960,216 +960,342 @@
   }
 
   /* =========================================================
-     SUBSECTION 4.1: LAB MASTHEAD & TOPIC BADGES (FROSTED SKIN)
+     VOCAB LAB: MASTHEAD (FROSTED GLASS PANEL)
      ========================================================= */
-  .p2-header {
+  .vlab-page-header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1.5px solid rgba(15, 43, 72, 0.15);
-    padding-bottom: 5px;
-    margin-bottom: 6px;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 16px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    position: relative;
+    box-sizing: border-box;
+    break-inside: avoid !important;
+  }
+  .vlab-page-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
   }
 
-  .p2-header-left {
+  .vlab-page-header-left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
 
-  .p2-lab-icon-badge {
-    width: 28px;
-    height: 28px;
-    background: linear-gradient(135deg, #1e40af 0%, #0b1e36 100%);
-    border-radius: 8px;
+  .vlab-page-header-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 14px -4px rgba(30, 64, 175, 0.35);
+    color: var(--accent-text-on);
     flex-shrink: 0;
   }
 
-  .p2-lab-flask-icon {
-    width: 15px;
-    height: 15px;
-  }
-
-  .p2-header-text-group {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5px;
-  }
-
-  .p2-header-title-row {
-    display: flex;
-    align-items: center;
-  }
-
-  .p2-title-main {
-    font-size: 12.5px;
-    font-weight: 900;
-    color: #0b1e36;
-    letter-spacing: 0.4px;
-  }
-
-  .p2-title-highlight {
-    font-size: 12.5px;
-    font-weight: 900;
-    color: #4338ca;
-    letter-spacing: 0.4px;
-    margin-left: 4px;
-  }
-
-  .p2-header-breadcrumb {
-    font-size: 8px;
-    color: #64748b;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .p2-bc-label {
-    font-weight: 800;
-    text-transform: uppercase;
-    color: #64748b;
-  }
-
-  .p2-bc-title {
+  .vlab-page-header-title {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    color: #475569;
+    font-weight: 900;
+    font-size: 12px;
+    color: var(--text-hi);
+    letter-spacing: 0.3px;
+  }
+
+  .vlab-page-header-article {
+    font-size: 8.5px;
+    color: var(--text-lo);
+    margin-top: 1.5px;
+    max-width: 105mm;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 80mm;
   }
 
-  .p2-header-right {
+  .vlab-page-header-tags {
     display: flex;
-    align-items: center;
     gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
   }
 
-  .p2-newspaper-badge {
-    background: linear-gradient(135deg, #1e40af 0%, #0b1e36 100%);
-    color: #ffffff;
-    font-size: 7.8px;
-    font-weight: 900;
-    text-transform: uppercase;
-    padding: 3.5px 11px;
-    border-radius: 12px;
-    letter-spacing: 0.4px;
-    box-shadow: 0 4px 10px -4px rgba(30, 64, 175, 0.3);
-  }
-
-  .p2-topic-badge {
+  .topic-chip {
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    background: rgba(255, 255, 255, 0.75);
-    color: #0f172a;
-    font-size: 7.8px;
-    font-weight: 900;
-    text-transform: uppercase;
-    padding: 3px 10px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 12px -4px rgba(15, 43, 72, 0.12);
-    letter-spacing: 0.4px;
-  }
-
-  .p2-topic-icon {
-    width: 12px;
-    height: 12px;
-    color: #d97706;
+    background: var(--tag-bg);
+    border: 1px solid var(--glass-border);
+    font-size: 8px;
+    font-weight: 800;
+    color: var(--text-mid);
+    padding: 3.5px 10px;
+    border-radius: 16px;
+    letter-spacing: 0.3px;
   }
 
   /* =========================================================
-     SUBSECTION 4.2: DUAL ANALYSIS CARDS (FROSTED GLASS)
+     VOCAB LAB: STANCE / PERSPECTIVE / WORD TONE MIX GRID
      ========================================================= */
-  .p2-analysis-container {
-    display: grid;
-    grid-template-columns: 48mm 1fr;
+  .stance-row {
+    display: flex;
     gap: 8px;
-    margin-bottom: 6px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
     align-items: stretch;
+    break-inside: avoid !important;
   }
 
-  /* Left Stance Card */
-  .p2-stance-card {
-    border-radius: 10px;
-    padding: 8px 11px;
+  /* 1. Stance Card */
+  .stance-card {
+    flex: 1 1 200px;
     position: relative;
     overflow: hidden;
+    border-radius: 14px;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--tone-a) 22%, transparent), color-mix(in srgb, var(--tone-b) 16%, transparent));
+    border: 1px solid color-mix(in srgb, var(--tone-a) 40%, transparent);
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    box-shadow: 0 10px 24px -10px rgba(15, 43, 72, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
-
-  .p2-stance-header {
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  .stance-blob-a {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--tone-a) 55%, transparent), transparent 70%);
+    border-radius: 50%;
+    top: -45px;
+    right: -35px;
+    filter: blur(8px);
+  }
+  .stance-blob-b {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--tone-b) 45%, transparent), transparent 70%);
+    border-radius: 50%;
+    bottom: -30px;
+    left: -20px;
+    filter: blur(8px);
+  }
+  .stance-watermark {
+    position: absolute;
+    right: -8px;
+    bottom: -10px;
+    width: 74px;
+    height: 74px;
+    opacity: 0.14;
+    z-index: 0;
+    color: var(--tone-a);
+    pointer-events: none;
+  }
+  .stance-content {
     position: relative;
     z-index: 2;
   }
+  .stance-label {
+    font-size: 8.5px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--tone-a);
+    margin-bottom: 5px;
+  }
+  .stance-value {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 17px;
+    color: var(--text-hi);
+    line-height: 1.1;
+    margin-bottom: 5px;
+  }
+  .stance-sub {
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic;
+    font-size: 10px;
+    color: var(--text-mid);
+    line-height: 1.35;
+  }
 
-  .p2-stance-icon-circle {
-    width: 16px;
-    height: 16px;
+  /* Tone Shape Variations */
+  .stance-card.shape-jagged .stance-blob-a {
+    clip-path: polygon(50% 0%, 70% 25%, 100% 20%, 80% 45%, 100% 70%, 65% 65%, 50% 100%, 40% 60%, 10% 75%, 25% 45%, 0% 25%, 35% 30%);
+  }
+  .stance-card.shape-wave .stance-blob-a {
+    border-radius: 62% 38% 55% 45% / 45% 60% 40% 55%;
+  }
+  .stance-card.shape-wave .stance-blob-b {
+    border-radius: 40% 60% 45% 55% / 55% 40% 60% 45%;
+  }
+
+  /* 2. Perspective Card */
+  .persp-card {
+    flex: 2 1 290px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 14px;
+    padding: 12px 14px;
+    border-left: 3px solid var(--tone-a);
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .persp-blob-a {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--tone-a) 45%, transparent), transparent 70%);
+    border-radius: 50%;
+    top: -45px;
+    right: -35px;
+    filter: blur(8px);
+    z-index: 0;
+  }
+  .persp-quote-watermark {
+    position: absolute;
+    right: 8px;
+    bottom: 4px;
+    width: 48px;
+    height: 48px;
+    opacity: 0.08;
+    color: var(--tone-a);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .persp-icon-badge {
+    width: 24px;
+    height: 24px;
+    border-radius: 7px;
+    margin-bottom: 5px;
+    background: linear-gradient(135deg, var(--tone-a), var(--tone-b));
+    color: #0b1220;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .p2-stance-icon-circle svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .p2-stance-title {
-    font-size: 8.8px;
-    font-weight: 900;
-    color: #0b1e36;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
-
-  .p2-stance-tone {
-    font-size: 16px;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 0.2px;
-    margin: 5px 0 2px 0;
     position: relative;
-    z-index: 2;
-  }
-
-  .p2-stance-expl {
-    font-size: 9.4px;
-    font-weight: 600;
-    color: #334155;
-    line-height: 1.25;
-    position: relative;
-    z-index: 2;
-  }
-
-  .p2-stance-bar {
-    display: none !important;
-  }
-
-  .p2-stance-bg-target {
-    position: absolute;
-    right: -10px;
-    bottom: -15px;
-    width: 70px;
-    height: 70px;
-    opacity: 0.12;
-    pointer-events: none;
     z-index: 1;
+    flex-shrink: 0;
+  }
+  .persp-label {
+    font-size: 8.5px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--tone-a);
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    z-index: 1;
+  }
+  .persp-text {
+    font-size: 10px;
+    color: var(--text-mid);
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+    text-align: justify;
+    text-justify: inter-word;
+  }
+  .persp-text::first-letter {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--tone-a);
+  }
+
+  /* 3. Word Tone Mix Card */
+  .tone-bar-card {
+    flex: 1 1 100%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    position: relative;
+    box-sizing: border-box;
+  }
+  .tone-bar-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
+  }
+  .tone-bar-label {
+    font-size: 8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-lo);
+  }
+  .tone-bar-track {
+    flex: 1;
+    min-width: 140px;
+    height: 7px;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    background: rgba(148, 163, 184, 0.15);
+  }
+  .tone-seg-pos {
+    background: linear-gradient(90deg, #10b981, #059669);
+    height: 100%;
+  }
+  .tone-seg-neu {
+    background: linear-gradient(90deg, #94a3b8, #64748b);
+    height: 100%;
+  }
+  .tone-seg-neg {
+    background: linear-gradient(90deg, #f43f5e, #e11d48);
+    height: 100%;
+  }
+  .tone-bar-legend {
+    display: flex;
+    gap: 10px;
+    font-size: 7.8px;
+    font-weight: 700;
+    color: var(--text-lo);
+  }
+  .tone-bar-legend span.dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 3px;
   }
 
   /* Dynamic Stance Themes: Frosted Color Buckets */
@@ -1343,54 +1469,236 @@
   .hdr-foreign .lex-header-tag { background: rgba(37, 99, 235, 0.15); color: #1e40af; }
 
   /* =========================================================
-     6-COLUMN FULL LEXICAL RIBBONS (FROSTED GLASS ROW)
+     VOCAB LAB: CATEGORY GLASS ISLANDS & CARD GRIDS
      ========================================================= */
-  .lex-ribbon-stack {
+  .vlab-category {
+    margin-bottom: 14px;
+    padding: 13px 14px 14px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    position: relative;
+    box-sizing: border-box;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .vlab-category::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
+  }
+  .vlab-category::after {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    filter: blur(24px);
+    opacity: 0.22;
+    top: -80px;
+    right: -60px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .vlab-category.c1::after { background: #d97706; }
+  .vlab-category.c2::after { background: #0f766e; }
+  .vlab-category.c3::after { background: #1e40af; }
+  .vlab-category.c4::after { background: #6d28d9; }
+  .vlab-category.c5::after { background: #e11d48; }
+  .vlab-category.c6::after { background: #15803d; }
+  .vlab-category > * { position: relative; z-index: 1; }
+
+  /* Pill Headers for Categories */
+  .vlab-cat-header {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 10px;
+    letter-spacing: 0.4px;
+    padding: 5px 13px;
+    border-radius: 20px;
+    margin-bottom: 9px;
+    box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.22);
+    break-after: avoid;
+  }
+  .vlab-cat-header.c1 { background: linear-gradient(135deg, #fde047, #d97706); color: #1e1206; }
+  .vlab-cat-header.c2 { background: linear-gradient(135deg, #5eead4, #0f766e); color: #04241f; }
+  .vlab-cat-header.c3 { background: linear-gradient(135deg, #93c5fd, #1e40af); color: #ffffff; }
+  .vlab-cat-header.c4 { background: linear-gradient(135deg, #c4b5fd, #6d28d9); color: #ffffff; }
+  .vlab-cat-header.c5 { background: linear-gradient(135deg, #f9a8d4, #e11d48); color: #ffffff; }
+  .vlab-cat-header.c6 { background: linear-gradient(135deg, #86efac, #15803d); color: #ffffff; }
+
+  /* 3-Column Card Layout Grid */
+  .vlab-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+    margin-top: 3px;
+  }
+
+  /* Universal Lexical Card */
+  .vcard {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 10px 11px;
+    box-shadow: var(--glass-shadow);
+    position: relative;
+    box-sizing: border-box;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
     display: flex;
     flex-direction: column;
-    gap: 3.5px;
-    margin-bottom: 4px;
-    break-inside: auto;
-    page-break-inside: auto;
+    justify-content: space-between;
+  }
+  .vcard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
   }
 
-  .lex-ribbon-row {
-    display: grid;
-    grid-template-columns: 24px 30mm 1fr 1fr 28mm 28mm;
-    background: rgba(255, 255, 255, 0.82);
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    overflow: hidden;
-    /* Clean, zero-lag single vector shadow */
-    box-shadow: 0 1px 3px rgba(15, 43, 72, 0.04);
-    align-items: stretch;
-    min-height: 20mm;
-    break-inside: avoid;
-    page-break-inside: avoid;
+  /* Card Variants */
+  .vcard-featured {
+    border-left: 2.5px solid var(--accent);
+    padding-left: 11px;
+  }
+  .vcard-ows {
+    min-height: 100%;
+    text-align: left;
   }
 
-  .ribbon-col-word,
-  .ribbon-col-def,
-  .ribbon-col-hook,
-  .ribbon-col-syn {
-    border-right: 1px solid rgba(226, 232, 240, 0.8) !important;
-  }
-  .ribbon-col-ant {
-    padding: 3.5px 6px;
-  }
-
-  /* Col 1: Number Tab */
-  .ribbon-col-num {
+  /* Card Internals */
+  .vcard-top {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    color: #ffffff;
+    margin-bottom: 4px;
+  }
+  .vcard-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 8px;
+    font-weight: 900;
+    color: var(--text-lo);
+  }
+  .vcard-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 6.8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 1.5px 6px;
+    border-radius: 8px;
+    letter-spacing: 0.3px;
+  }
+  .tag-pos {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+  }
+  .tag-neg {
+    background: rgba(244, 63, 94, 0.15);
+    color: #f43f5e;
+  }
+  .tag-neu {
+    background: rgba(148, 163, 184, 0.18);
+    color: var(--text-lo);
   }
 
-  .ribbon-num {
-    font-size: 11px;
+  .vcard-word {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 12.5px;
+    color: var(--text-hi);
+    margin-bottom: 2px;
+    line-height: 1.2;
+    word-break: break-word;
+  }
+  .vcard-pos {
+    font-family: 'Inter', sans-serif;
+    font-size: 7.8px;
+    color: var(--text-lo);
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+  }
+  .vcard-hi {
+    color: var(--hindi-color);
+    font-weight: 700;
+    text-transform: none;
+  }
+  .vcard-def {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 8.8px;
+    color: var(--text-mid);
+    line-height: 1.4;
+    margin-bottom: 6px;
+    min-height: 32px;
+  }
+
+  /* Memory Hook */
+  .vcard-hook {
+    font-size: 8px;
+    color: var(--hook-color);
+    font-style: italic;
+    background: var(--hook-bg);
+    border-left: 2px solid var(--hook-color);
+    padding: 4px 6px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 6px;
+    line-height: 1.35;
+  }
+  .vcard-hook-label {
+    display: block;
+    font-size: 6.5px;
     font-weight: 900;
-    letter-spacing: -0.3px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--hook-color);
+    margin-bottom: 1.5px;
+    opacity: 0.9;
+    font-style: normal;
+  }
+
+  /* Synonym & Antonym Chips */
+  .vcard-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 3px;
+  }
+  .chip-syn {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7px;
+    font-weight: 700;
+    padding: 1.5px 5.5px;
+    border-radius: 6px;
+    background: rgba(20, 184, 166, 0.13);
+    color: #14b8a6;
+  }
+  .chip-ant {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 7px;
+    font-weight: 700;
+    padding: 1.5px 5.5px;
+    border-radius: 6px;
+    background: rgba(244, 63, 94, 0.13);
+    color: #f43f5e;
   }
 
   /* Category Number Tab Gradient Gradients */
@@ -1569,139 +1877,229 @@
   }
 
   /* =========================================================
-     SUBSECTION 4.5: MATCHING STUDY TIP BANNER (FROSTED AMBER)
+     CATEGORY-SPECIFIC CARD IDENTITIES (LIGHT SKIN)
      ========================================================= */
-  .study-tip-card {
-    background: rgba(255, 248, 238, 0.75);
-    border: 1px solid rgba(253, 224, 178, 0.85);
-    border-radius: 8px;
-    padding: 6px 12px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 4px;
-    margin-bottom: 6px;
-    box-shadow: 0 6px 16px -6px rgba(217, 119, 6, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    break-inside: avoid !important;
-  }
 
-  .tip-icon-badge {
-    width: 24px;
-    height: 24px;
-    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-    border: 1px solid rgba(252, 211, 77, 0.8);
-    border-radius: 6px;
+  /* 1. Fixed Prepositions — Base Word Linked to Preposition */
+  .connector-row {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #d97706;
-    flex-shrink: 0;
-    box-shadow: 0 2px 6px rgba(217, 119, 6, 0.2);
+    gap: 5px;
+    margin-bottom: 5px;
   }
-
-  .tip-icon-badge svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .tip-content {
+  .connector-base {
     font-family: 'Montserrat', sans-serif;
-    font-size: 8.4px;
-    line-height: 1.35;
-    color: #1e293b;
+    font-weight: 800;
+    font-size: 11.5px;
+    color: var(--text-hi);
+  }
+  .connector-dot {
+    color: var(--text-lo);
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+  .connector-prep {
+    background: rgba(30, 64, 175, 0.15);
+    color: #1e40af;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 10.5px;
+    padding: 2px 7px;
+    border-radius: 7px;
   }
 
-  .tip-heading {
-    font-weight: 900;
-    color: #0b1e36;
-    letter-spacing: 0.3px;
-    margin-right: 4px;
-  }
-
-  .tip-body {
-    font-weight: 500;
-    color: #334155;
-  }
-
-  /* =========================================================
-     SUBSECTION 4.6: NEXT EDITORIAL NAVIGATOR (GLASS BANNER)
-     ========================================================= */
-  .next-editorial-nav {
+  /* 2. Phrasal Verbs — Verb + Particle Linked Chips */
+  .duo-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: linear-gradient(135deg, rgba(15, 43, 72, 0.96) 0%, rgba(30, 64, 175, 0.94) 100%);
-    border-radius: 12px;
-    padding: 9px 14px;
-    margin-top: 10px;
-    text-decoration: none !important;
-    box-shadow: 0 10px 24px -8px rgba(15, 43, 72, 0.35);
-    border: 1px solid rgba(56, 189, 248, 0.5);
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 5px;
+  }
+  .duo-chip {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 10.5px;
+    padding: 3px 9px;
+    border-radius: 8px;
+  }
+  .duo-verb {
+    background: rgba(109, 40, 217, 0.14);
+    color: #6d28d9;
+  }
+  .duo-particle {
+    background: rgba(109, 40, 217, 0.25);
+    color: #4c1d95;
+  }
+  .duo-arrow {
+    color: #6d28d9;
+    opacity: 0.7;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* 3. Foreign Words — Passport Stamp Appearance */
+  .vcard-stamp {
+    text-align: center;
+    transform: rotate(-1deg);
+    border-style: dashed !important;
+    border-width: 1.4px !important;
+  }
+  .stamp-word {
+    font-style: italic;
+  }
+
+  /* 4. Idioms & Phrases — Gradient Aura Border */
+  .vcard-idiom {
+    position: relative;
+    border-radius: 14px;
+    padding: 2px;
+    background: linear-gradient(120deg, #f472b6, #fbbf24, #5eead4, #a78bfa);
+    box-sizing: border-box;
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
-
-  .nav-left-content {
+  .vcard-idiom-inner {
+    background: var(--page-bg);
+    border-radius: 12px;
+    padding: 10px 11px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    justify-content: space-between;
+    box-sizing: border-box;
   }
-
-  .nav-sup-title {
-    font-size: 7.2px;
-    font-weight: 900;
-    color: #38bdf8;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
+  .idiom-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    min-height: 20px;
+    margin-bottom: 2px;
+  }
+  .idiom-mark-num {
     display: flex;
     align-items: center;
     gap: 5px;
+    min-width: 0;
   }
-
-  .nav-main-title {
+  .quote-mark-inline {
     font-family: 'Lora', Georgia, serif;
-    font-size: 11px;
+    font-size: 20px;
+    line-height: 1;
+    color: var(--accent);
+    opacity: 0.65;
+  }
+  .vcard-idiom-inner .vcard-word {
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic;
+    font-size: 12px;
+    margin-top: 3px;
+    margin-bottom: 2px;
+    color: var(--text-hi);
+  }
+  .vcard-idiom-inner .vcard-pos {
+    margin-bottom: 3px;
+    font-size: 7.5px;
+    color: var(--text-lo);
+  }
+  .vcard-idiom-inner .vcard-def {
+    font-size: 8.8px;
+    color: var(--text-mid);
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+  .vcard-idiom-inner .vcard-hi {
+    display: block;
+    font-size: 8px;
+    margin-bottom: 5px;
+    color: var(--hindi-color);
     font-weight: 700;
-    color: #ffffff;
-    line-height: 1.25;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    max-width: 140mm;
   }
 
-  .nav-arrow-circle {
-    width: 26px;
-    height: 26px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+  /* Single-Card Left Alignment Helper */
+  .vlab-grid-single {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: none;
+  }
+  .vlab-grid-single > .vcard:only-child,
+  .vlab-grid-single > .vcard-idiom:only-child {
+    grid-column: 1;
+  }
+
+  /* =========================================================
+     NEXT EDITORIAL NAVIGATOR (FROSTED GLASS BANNER)
+     ========================================================= */
+  .next-editorial-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.12), rgba(109, 40, 217, 0.10));
+    border: 1px solid rgba(147, 197, 253, 0.35);
+    border-radius: 14px;
+    padding: 11px 16px;
+    margin-top: 14px;
+    text-decoration: none !important;
+    position: relative;
+    box-sizing: border-box;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .next-editorial-banner::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
+  }
+  .next-ed-label {
+    font-size: 8.5px;
+    font-weight: 900;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text-lo);
+    margin-bottom: 2px;
+  }
+  .next-ed-title {
+    font-family: 'Lora', Georgia, serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: var(--text-hi);
+    line-height: 1.25;
+    max-width: 140mm;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .next-ed-arrow {
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--accent-text-on);
     flex-shrink: 0;
-    color: #ffffff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px -2px rgba(180, 83, 9, 0.35);
   }
 
-  .nav-arrow-circle svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .nav-end-state {
-    background: rgba(255, 255, 255, 0.6);
-    border: 1.2px dashed rgba(203, 213, 225, 0.8);
-    border-radius: 12px;
+  .next-ed-end-state {
+    background: var(--glass-bg) !important;
+    border: 1.2px dashed var(--glass-border) !important;
     justify-content: center;
-    box-shadow: none;
+    box-shadow: none !important;
   }
-  
-  .nav-end-text {
-    font-size: 8px;
+  .next-ed-end-text {
+    font-size: 8.5px;
     font-weight: 800;
-    color: #64748b;
+    color: var(--text-lo);
     text-transform: uppercase;
     letter-spacing: 0.6px;
   }
@@ -2041,88 +2439,100 @@
     color: #cbd5e1 !important;
   }
 
-  /* Section Headers & Lexical Ribbons (Dark Frosted Glass) */
-  body.dark-theme .lex-section-header {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border-color: rgba(255, 255, 255, 0.12) !important;
-    box-shadow: 0 4px 14px -4px rgba(0, 0, 0, 0.5) !important;
+  /* Category Islands & Cards (Dark Skin) */
+  body.dark-theme .vlab-category {
+    background: var(--glass-bg) !important;
+    border-color: var(--glass-border) !important;
+    box-shadow: 0 16px 36px -16px rgba(0, 0, 0, 0.6) !important;
   }
-  body.dark-theme .lex-section-title {
+  body.dark-theme .vcard {
+    background: var(--glass-bg) !important;
+    border-color: var(--glass-border) !important;
+    box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.5) !important;
+  }
+  body.dark-theme .vcard-word {
     color: #ffffff !important;
   }
-  body.dark-theme .lex-ribbon-row {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
+  body.dark-theme .vcard-def {
+    color: #cbd5e1 !important;
   }
-  body.dark-theme .ribbon-col-word,
-  body.dark-theme .ribbon-col-def,
-  body.dark-theme .ribbon-col-hook,
-  body.dark-theme .ribbon-col-syn,
-  body.dark-theme .ribbon-col-ant {
-    background: transparent !important;
-    border-right-color: rgba(255, 255, 255, 0.1) !important;
-  }
-  body.dark-theme .ribbon-term {
-    color: #ffffff !important;
-  }
-  body.dark-theme .ribbon-pos {
+  body.dark-theme .vcard-pos {
     color: #94a3b8 !important;
   }
-  body.dark-theme .ribbon-def-hindi {
+  body.dark-theme .vcard-hi {
+    color: var(--hindi-color) !important;
+  }
+  body.dark-theme .vcard-hook {
+    background: rgba(56, 189, 248, 0.1) !important;
+    color: #38bdf8 !important;
+    border-left-color: #38bdf8 !important;
+  }
+  body.dark-theme .vcard-hook-label {
     color: #38bdf8 !important;
   }
-  body.dark-theme .ribbon-def-text {
-    color: #e2e8f0 !important;
+  body.dark-theme .chip-syn {
+    background: rgba(20, 184, 166, 0.2) !important;
+    color: #2dd4bf !important;
   }
-  body.dark-theme .hook-header-title {
-    color: #a5b4fc !important;
+  body.dark-theme .chip-ant {
+    background: rgba(244, 63, 94, 0.2) !important;
+    color: #fb7185 !important;
   }
-  body.dark-theme .hook-text-content {
+  body.dark-theme .tag-pos {
+    background: rgba(16, 185, 129, 0.25) !important;
+    color: #34d399 !important;
+  }
+  body.dark-theme .tag-neg {
+    background: rgba(244, 63, 94, 0.25) !important;
+    color: #fb7185 !important;
+  }
+  body.dark-theme .tag-neu {
+    background: rgba(148, 163, 184, 0.22) !important;
     color: #cbd5e1 !important;
   }
-  body.dark-theme .bullet-item {
-    color: #cbd5e1 !important;
-  }
-  body.dark-theme .tag-syn {
-    background: rgba(5, 150, 105, 0.25) !important;
-    color: #6ee7b7 !important;
-  }
-  body.dark-theme .tag-ant {
-    background: rgba(225, 29, 72, 0.22) !important;
-    color: #fda4af !important;
-  }
-  body.dark-theme .connot-negative { background: rgba(225, 29, 72, 0.25) !important; color: #fda4af !important; }
-  body.dark-theme .connot-positive { background: rgba(5, 150, 105, 0.25) !important; color: #6ee7b7 !important; }
-  body.dark-theme .connot-neutral  { background: rgba(2, 132, 199, 0.25) !important; color: #7dd3fc !important; }
 
-  /* Study Tip & Navigator (Dark Glass) */
-  body.dark-theme .study-tip-card {
-    background: rgba(24, 20, 14, 0.8) !important;
-    border-color: rgba(120, 53, 15, 0.6) !important;
-    box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.6) !important;
+  /* Page 2 Categories & Navigator (Dark Skin) */
+  body.dark-theme .connector-prep {
+    background: rgba(30, 64, 175, 0.25) !important;
+    color: #60a5fa !important;
   }
-  body.dark-theme .tip-icon-badge {
-    background: linear-gradient(135deg, #451a03 0%, #291203 100%) !important;
-    border-color: rgba(217, 119, 6, 0.5) !important;
-    color: #fbbf24 !important;
+  body.dark-theme .duo-verb {
+    background: rgba(109, 40, 217, 0.22) !important;
+    color: #a78bfa !important;
   }
-  body.dark-theme .tip-heading {
-    color: #fbbf24 !important;
+  body.dark-theme .duo-particle {
+    background: rgba(109, 40, 217, 0.38) !important;
+    color: #c4b5fd !important;
   }
-  body.dark-theme .tip-body {
-    color: #e2e8f0 !important;
+  body.dark-theme .duo-arrow {
+    color: #a78bfa !important;
   }
-  body.dark-theme .next-editorial-nav {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 58, 138, 0.9) 100%) !important;
-    border-color: rgba(56, 189, 248, 0.4) !important;
+  body.dark-theme .vcard-idiom-inner {
+    background: var(--page-bg) !important;
   }
-  body.dark-theme .nav-end-state {
+  body.dark-theme .vcard-idiom-inner .vcard-word {
+    color: #ffffff !important;
+  }
+
+  /* Next Editorial Navigator (Dark Skin) */
+  body.dark-theme .next-editorial-banner {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 58, 138, 0.5) 100%) !important;
+    border-color: rgba(56, 189, 248, 0.35) !important;
+    box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.6) !important;
+  }
+  body.dark-theme .next-ed-title {
+    color: #ffffff !important;
+  }
+  body.dark-theme .next-ed-arrow {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)) !important;
+    color: var(--accent-text-on) !important;
+    box-shadow: 0 0 14px -2px rgba(251, 191, 36, 0.45) !important;
+  }
+  body.dark-theme .next-ed-end-state {
     background: rgba(255, 255, 255, 0.05) !important;
-    border: 1.2px dashed rgba(255, 255, 255, 0.18) !important;
-    box-shadow: none !important;
+    border-color: rgba(255, 255, 255, 0.16) !important;
   }
-  body.dark-theme .nav-end-text {
+  body.dark-theme .next-ed-end-text {
     color: #94a3b8 !important;
   }
   /* ============== THEME VARIABLES (DARK OVERRIDES) ============== */
@@ -2426,362 +2836,433 @@
       <a id="{{ art.target_vocab_id }}" name="{{ art.target_vocab_id }}" style="position: absolute; top: -8mm; left: 0;"></a>
       
       <!-- Lab Masthead (Lab Page 1) -->
-      <div class="p2-header">
-        <div class="p2-header-left">
-          <div class="p2-lab-icon-badge">
-            <svg class="p2-lab-flask-icon" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2">
-              <path d="M10 2v7.31L4.35 20.3a1 1 0 0 0 .85 1.7h13.6a1 1 0 0 0 .85-1.7L14 9.31V2"/>
-              <line x1="8" y1="2" x2="16" y2="2"/>
-              <path d="M6 16h12" stroke="#f59e0b" stroke-width="2.2"/>
-              <circle cx="9" cy="18.5" r="1" fill="#f59e0b"/>
-              <circle cx="14" cy="18" r="1.2" fill="#f59e0b"/>
-            </svg>
+      <div class="vlab-page-header">
+        <div class="vlab-page-header-left">
+          <div class="vlab-page-header-icon">
+            <span class="icon-svg" style="width: 16px; height: 16px; color: currentColor;">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.5 9.5A1.5 1.5 0 0 0 5.8 21h12.4a1.5 1.5 0 0 0 1.3-2.5L14 9V3"></path><path d="M8 15h8"></path></svg>
+            </span>
           </div>
-          <div class="p2-header-text-group">
-            <div class="p2-header-title-row">
-              <span class="p2-title-main">EDITORIAL ANALYSIS &amp;</span>
-              <span class="p2-title-highlight">VOCABULARY LAB</span>
-            </div>
-            <div class="p2-header-breadcrumb">
-              <span class="p2-bc-label">ARTICLE:</span>
-              <span class="p2-bc-title">{{ art.title }}</span>
-            </div>
+          <div>
+            <div class="vlab-page-header-title">Editorial Analysis &amp; Vocabulary Lab</div>
+            <div class="vlab-page-header-article">Article: {{ art.title }}</div>
           </div>
         </div>
-
-        <div class="p2-header-right">
-          <span class="p2-newspaper-badge">{{ art.newspaper }}</span>
-          <span class="p2-topic-badge">
-            <svg class="p2-topic-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
-            </svg>
-            <span>{{ art.topic }}</span>
+        <div class="vlab-page-header-tags">
+          <span class="rd-tag">
+            <span class="icon-svg" style="width: 11px; height: 11px; color: currentColor;">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect height="14" rx="1.2" width="13" x="3.5" y="5"></rect><path d="M16.5 8.5h4V17a2 2 0 0 1-2 2h-2"></path><path d="M6.5 8.5h7M6.5 11.5h7M6.5 14.5h4"></path></svg>
+            </span>
+            <span>{{ art.newspaper }}</span>
           </span>
+          <span class="topic-chip">{{ art.topic }}</span>
         </div>
       </div>
 
-      <!-- Stance & Perspective Cards -->
+      <!-- Editorial Stance, Perspective & Word Tone Mix -->
       {% if l_page.show_analysis %}
-      <div class="p2-analysis-container">
-        <div class="p2-stance-card stance-{{ art.analysis.tone | lower | replace(' / ', '-') | replace(' ', '-') }}">
-          <div class="p2-stance-header">
-            <div class="p2-stance-icon-circle">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/>
-                <line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/>
-                <line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
-              </svg>
-            </div>
-            <span class="p2-stance-title">EDITORIAL STANCE</span>
+      <div class="stance-row" style="--tone-a: {{ art.analysis.tone_a }}; --tone-b: {{ art.analysis.tone_b }};">
+        <!-- 1. Editorial Stance Card -->
+        <div class="stance-card {{ art.analysis.shape }}">
+          <div class="stance-blob-a"></div>
+          <div class="stance-blob-b"></div>
+          <div class="stance-watermark">
+            <span class="icon-svg" style="width: 74px; height: 74px; color: currentColor;">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M20 20l-4.8-4.8"></path></svg>
+            </span>
           </div>
-          <div class="p2-stance-tone">{{ art.analysis.tone }}</div>
-          {% if art.analysis.tone_simple_explanation %}
-          <div class="p2-stance-expl">“{{ art.analysis.tone_simple_explanation }}”</div>
-          {% endif %}
-          <div class="p2-stance-bar"></div>
+          <div class="stance-content">
+            <div class="stance-label">Editorial Stance</div>
+            <div class="stance-value">{{ art.analysis.tone }}</div>
+            {% if art.analysis.tone_simple_explanation %}
+            <div class="stance-sub">“{{ art.analysis.tone_simple_explanation }}”</div>
+            {% endif %}
+          </div>
         </div>
 
-        <div class="p2-perspective-card">
-          <div class="p2-perspective-header">
-            <div class="p2-persp-icon-circle">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><circle cx="12" cy="7" r="1.5" fill="currentColor"/>
-              </svg>
-            </div>
-            <span class="p2-perspective-title">EDITORIAL PERSPECTIVE</span>
+        <!-- 2. Editorial Perspective Card -->
+        <div class="persp-card">
+          <div class="persp-blob-a"></div>
+          <div class="persp-quote-watermark">
+            <span class="icon-svg" style="width: 48px; height: 48px; color: currentColor;">
+              <svg fill="currentColor" stroke="none" viewBox="0 0 24 24"><path d="M4 8c0-2.5 1.5-4 4-4v2.2c-1 .2-1.7 1-1.7 1.8H8v4H4V8Z"></path><path d="M13 8c0-2.5 1.5-4 4-4v2.2c-1 .2-1.7 1-1.7 1.8H17v4h-4V8Z"></path></svg>
+            </span>
           </div>
-          <div class="p2-perspective-body">{{ art.analysis.analysis_summary }}</div>
+          <div class="persp-icon-badge">
+            <span class="icon-svg" style="width: 14px; height: 14px; color: currentColor;">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M15 9l-2 6-4 2 2-6 4-2Z"></path></svg>
+            </span>
+          </div>
+          <div class="persp-label">Editorial Perspective</div>
+          <div class="persp-text">{{ art.analysis.analysis_summary }}</div>
+        </div>
+
+        <!-- 3. Word Tone Mix Progress Bar -->
+        <div class="tone-bar-card">
+          <div class="tone-bar-label">Word Tone Mix</div>
+          <div class="tone-bar-track">
+            {% if art.analysis.word_tone_mix.pos_pct > 0 %}
+            <div class="tone-seg-pos" style="width: {{ art.analysis.word_tone_mix.pos_pct }}%;"></div>
+            {% endif %}
+            {% if art.analysis.word_tone_mix.neu_pct > 0 %}
+            <div class="tone-seg-neu" style="width: {{ art.analysis.word_tone_mix.neu_pct }}%;"></div>
+            {% endif %}
+            {% if art.analysis.word_tone_mix.neg_pct > 0 %}
+            <div class="tone-seg-neg" style="width: {{ art.analysis.word_tone_mix.neg_pct }}%;"></div>
+            {% endif %}
+          </div>
+          <div class="tone-bar-legend">
+            <span><span class="dot" style="background: #10b981;"></span>{{ art.analysis.word_tone_mix.pos_count }} Positive</span>
+            <span><span class="dot" style="background: #94a3b8;"></span>{{ art.analysis.word_tone_mix.neu_count }} Neutral</span>
+            <span><span class="dot" style="background: #f43f5e;"></span>{{ art.analysis.word_tone_mix.neg_count }} Negative</span>
+          </div>
         </div>
       </div>
       {% endif %}
 
       {% else %}
       <!-- Lab Continuation Header (Lab Page 2) -->
-      <div class="p1-cont-header">
-        <span class="p1-cont-title">VOCAB LAB CONTINUED &nbsp;·&nbsp; {{ art.title }}</span>
-        <span class="p1-cont-badge">PART 02</span>
+      <div class="continued-bar">
+        <span class="icon-svg" style="width: 12px; height: 12px; color: currentColor;">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 5c2-1 5-1 7 0v14c-2-1-5-1-7 0V5Z"></path><path d="M20 5c-2-1-5-1-7 0v14c2-1 5-1 7 0V5Z"></path></svg>
+        </span>
+        <span>Vocab Lab continued · <b>{{ art.title }}</b> · Part 02</span>
       </div>
       {% endif %}
 
-      <!-- Lexical Ribbons for this specific Lab Page -->
+      <!-- ================= 1. CORE EDITORIAL VOCABULARY ================= -->
       {% if l_page.categorized_vocab.core_vocab %}
-      <div class="lex-section-header hdr-vocab">
-        <div class="lex-header-left">
-          <span class="lex-header-icon">📖</span>
-          <span class="lex-section-title">EDITORIAL VOCABULARY</span>
+      <div class="vlab-category c1">
+        <div class="vlab-cat-header c1">
+          <span class="icon-svg" style="width: 1em; height: 1em; color: currentColor;">
+            <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 5c2-1 5-1 7 0v14c-2-1-5-1-7 0V5Z"></path><path d="M20 5c-2-1-5-1-7 0v14c2-1 5-1 7 0V5Z"></path></svg>
+          </span>
+          <span>Vocabulary · {{ l_page.categorized_vocab.core_vocab | length }} {{ 'word' if (l_page.categorized_vocab.core_vocab | length) == 1 else 'words' }}</span>
         </div>
-        <span class="lex-header-tag">{{ l_page.categorized_vocab.core_vocab | length }} WORDS</span>
-      </div>
-      <div class="lex-ribbon-stack">
-        {% for item in l_page.categorized_vocab.core_vocab %}
-        <div class="lex-ribbon-row">
-          <div class="ribbon-col-num" style="background: #0b1e36;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
-          <div class="ribbon-col-word">
-            <div class="ribbon-term">{{ item.word_or_phrase }}</div>
-            <div class="ribbon-pos">{{ item.part_of_speech }}</div>
-            {% if item.connotation %}
-            <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+        <div class="vlab-grid">
+          {% for item in l_page.categorized_vocab.core_vocab %}
+          <div class="vcard vcard-featured">
+            <div>
+              <div class="vcard-top">
+                <span class="vcard-num">{{ '%02d' % loop.index }}</span>
+                {% if item.connotation %}
+                <span class="vcard-tag {% if 'pos' in item.connotation|lower %}tag-pos{% elif 'neg' in item.connotation|lower %}tag-neg{% else %}tag-neu{% endif %}">{{ item.connotation }}</span>
+                {% endif %}
+              </div>
+              <div class="vcard-word">{{ item.word_or_phrase }}</div>
+              <div class="vcard-pos">
+                {% if item.part_of_speech %}{{ item.part_of_speech | capitalize }} · {% endif %}
+                <span class="vcard-hi devanagari">{{ item.hindi_meaning }}</span>
+              </div>
+              <div class="vcard-def">{{ item.concise_meaning }}</div>
+              {% if item.mnemonic_trick %}
+              <div class="vcard-hook">
+                <span class="vcard-hook-label">Memory Hook</span>
+                {{ item.mnemonic_trick }}
+              </div>
+              {% endif %}
+            </div>
+            {% if item.british_synonyms or item.british_antonyms %}
+            <div class="vcard-chips">
+              {% for syn in item.british_synonyms %}
+              <span class="chip-syn">{{ syn }}</span>
+              {% endfor %}
+              {% for ant in item.british_antonyms %}
+              <span class="chip-ant">{{ ant }}</span>
+              {% endfor %}
+            </div>
             {% endif %}
           </div>
-          <div class="ribbon-col-def">
-            <div class="ribbon-def-text-wrap">
-              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
-              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-hook">
-            <div class="hook-content-wrap">
-              <div class="hook-header-title">MEMORY HOOK</div>
-              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-syn">
-            <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
-            <div class="ribbon-bullet-list syn-bullets">
-              {% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% else %}<span class="bullet-item" style="color: #94a3b8;">—</span>{% endfor %}
-            </div>
-          </div>
-          <div class="ribbon-col-ant">
-            <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
-            <div class="ribbon-bullet-list ant-bullets">
-              {% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% else %}<span class="bullet-item" style="color: #94a3b8;">—</span>{% endfor %}
-            </div>
-          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
       {% endif %}
 
-      <!-- Repeat similar ribbon loops for OWS, Prepositions, Phrasal, Idioms, Foreign using l_page.categorized_vocab -->
+      <!-- ================= 2. ONE-WORD SUBSTITUTIONS ================= -->
       {% if l_page.categorized_vocab.one_word_subs %}
-      <div class="lex-section-header hdr-ows">
-        <div class="lex-header-left"><span class="lex-header-icon">📝</span><span class="lex-section-title">ONE-WORD SUBSTITUTIONS</span></div>
-        <span class="lex-header-tag">{{ l_page.categorized_vocab.one_word_subs | length }} {{ 'TERM' if (l_page.categorized_vocab.one_word_subs | length) == 1 else 'TERMS' }}</span>
-      </div>
-      <div class="lex-ribbon-stack">
-        {% for item in l_page.categorized_vocab.one_word_subs %}
-        <div class="lex-ribbon-row">
-          <div class="ribbon-col-num" style="background: #b45309;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
-          <div class="ribbon-col-word">
-            <div class="ribbon-term">{{ item.word_or_phrase }}</div>
-            <div class="ribbon-pos">{{ item.part_of_speech }}</div>
-            {% if item.connotation %}
-            <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+      <div class="vlab-category c2">
+        <div class="vlab-cat-header c2">
+          <span class="icon-svg" style="width: 1em; height: 1em; color: currentColor;">
+            <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M20 12.5 12.5 20 4 11.5V4h7.5L20 12.5Z"></path><circle cx="8" cy="8" fill="currentColor" r="1.4" stroke="none"></circle></svg>
+          </span>
+          <span>One-Word Substitutions · {{ l_page.categorized_vocab.one_word_subs | length }} {{ 'word' if (l_page.categorized_vocab.one_word_subs | length) == 1 else 'words' }}</span>
+        </div>
+        <div class="vlab-grid">
+          {% for item in l_page.categorized_vocab.one_word_subs %}
+          <div class="vcard vcard-ows">
+            <div>
+              <div class="vcard-top">
+                <span class="vcard-num">{{ '%02d' % loop.index }}</span>
+                {% if item.connotation %}
+                <span class="vcard-tag {% if 'pos' in item.connotation|lower %}tag-pos{% elif 'neg' in item.connotation|lower %}tag-neg{% else %}tag-neu{% endif %}">{{ item.connotation }}</span>
+                {% endif %}
+              </div>
+              <div class="vcard-word">{{ item.word_or_phrase }}</div>
+              <div class="vcard-pos">
+                {% if item.part_of_speech %}{{ item.part_of_speech | capitalize }} · {% endif %}
+                <span class="vcard-hi devanagari">{{ item.hindi_meaning }}</span>
+              </div>
+              <div class="vcard-def">{{ item.concise_meaning }}</div>
+              {% if item.mnemonic_trick %}
+              <div class="vcard-hook">
+                <span class="vcard-hook-label">Memory Hook</span>
+                {{ item.mnemonic_trick }}
+              </div>
+              {% endif %}
+            </div>
+            {% if item.british_synonyms or item.british_antonyms %}
+            <div class="vcard-chips">
+              {% for syn in item.british_synonyms %}
+              <span class="chip-syn">{{ syn }}</span>
+              {% endfor %}
+              {% for ant in item.british_antonyms %}
+              <span class="chip-ant">{{ ant }}</span>
+              {% endfor %}
+            </div>
             {% endif %}
           </div>
-          <div class="ribbon-col-def">
-            <div class="ribbon-def-text-wrap">
-              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
-              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-hook">
-            <div class="hook-content-wrap">
-              <div class="hook-header-title">MEMORY HOOK</div>
-              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-syn">
-            <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
-            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
-          </div>
-          <div class="ribbon-col-ant">
-            <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
-            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
-          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
       {% endif %}
 
-      <!-- ================= FIXED PREPOSITIONS ================= -->
+      <!-- ================= 3. FIXED PREPOSITIONS ================= -->
       {% if l_page.categorized_vocab.fixed_prepositions %}
-      <div class="lex-section-header hdr-prep">
-        <div class="lex-header-left"><span class="lex-header-icon">🔗</span><span class="lex-section-title">FIXED PREPOSITIONS</span></div>
-        <span class="lex-header-tag">{{ l_page.categorized_vocab.fixed_prepositions | length }} {{ 'TERM' if (l_page.categorized_vocab.fixed_prepositions | length) == 1 else 'TERMS' }}</span>
-      </div>
-      <div class="lex-ribbon-stack">
-        {% for item in l_page.categorized_vocab.fixed_prepositions %}
-        <div class="lex-ribbon-row">
-          <div class="ribbon-col-num" style="background: #0f766e;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
-          <div class="ribbon-col-word">
-            <div class="ribbon-term">{{ item.word_or_phrase }}</div>
-            <div class="ribbon-pos">{{ item.part_of_speech }}</div>
-            {% if item.connotation %}
-            <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+      <div class="vlab-category c3">
+        <div class="vlab-cat-header c3">
+          <span class="icon-svg" style="width: 1em; height: 1em; color: currentColor;">
+            <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9.5 14.5 14.5 9.5"></path><path d="M11 6.5 13 4.5a3.5 3.5 0 0 1 5 5l-2 2"></path><path d="M13 17.5l-2 2a3.5 3.5 0 0 1-5-5l2-2"></path></svg>
+          </span>
+          <span>Fixed Prepositions · {{ l_page.categorized_vocab.fixed_prepositions | length }} {{ 'word' if (l_page.categorized_vocab.fixed_prepositions | length) == 1 else 'words' }}</span>
+        </div>
+        <div class="vlab-grid {% if (l_page.categorized_vocab.fixed_prepositions | length) == 1 %}vlab-grid-single{% endif %}">
+          {% for item in l_page.categorized_vocab.fixed_prepositions %}
+          <div class="vcard">
+            <div>
+              <div class="vcard-top">
+                <span class="vcard-num">{{ '%02d' % loop.index }}</span>
+                {% if item.connotation %}
+                <span class="vcard-tag {% if 'pos' in item.connotation|lower %}tag-pos{% elif 'neg' in item.connotation|lower %}tag-neg{% else %}tag-neu{% endif %}">{{ item.connotation }}</span>
+                {% endif %}
+              </div>
+              <div class="connector-row">
+                {% set parts = item.word_or_phrase.split(' ') %}
+                {% if parts | length > 1 %}
+                <span class="connector-base">{{ parts[:-1] | join(' ') }}</span>
+                <span class="connector-dot">···</span>
+                <span class="connector-prep">{{ parts[-1] }}</span>
+                {% else %}
+                <span class="connector-base">{{ item.word_or_phrase }}</span>
+                {% endif %}
+              </div>
+              <div class="vcard-pos" style="text-align: center;">
+                {% if item.part_of_speech %}{{ item.part_of_speech | capitalize }} · {% endif %}
+                <span class="vcard-hi devanagari">{{ item.hindi_meaning }}</span>
+              </div>
+              <div class="vcard-def">{{ item.concise_meaning }}</div>
+              {% if item.mnemonic_trick %}
+              <div class="vcard-hook">
+                <span class="vcard-hook-label">Memory Hook</span>
+                {{ item.mnemonic_trick }}
+              </div>
+              {% endif %}
+            </div>
+            {% if item.british_synonyms or item.british_antonyms %}
+            <div class="vcard-chips">
+              {% for syn in item.british_synonyms %}
+              <span class="chip-syn">{{ syn }}</span>
+              {% endfor %}
+              {% for ant in item.british_antonyms %}
+              <span class="chip-ant">{{ ant }}</span>
+              {% endfor %}
+            </div>
             {% endif %}
           </div>
-          <div class="ribbon-col-def">
-            <div class="ribbon-def-text-wrap">
-              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
-              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-hook">
-            <div class="hook-content-wrap">
-              <div class="hook-header-title">MEMORY HOOK</div>
-              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-syn">
-            <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
-            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
-          </div>
-          <div class="ribbon-col-ant">
-            <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
-            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
-          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
       {% endif %}
 
-      <!-- ================= PHRASAL VERBS ================= -->
+      <!-- ================= 4. PHRASAL VERBS ================= -->
       {% if l_page.categorized_vocab.phrasal_verbs %}
-      <div class="lex-section-header hdr-phr">
-        <div class="lex-header-left"><span class="lex-header-icon">⚡</span><span class="lex-section-title">PHRASAL VERBS</span></div>
-        <span class="lex-header-tag">{{ l_page.categorized_vocab.phrasal_verbs | length }} {{ 'TERM' if (l_page.categorized_vocab.phrasal_verbs | length) == 1 else 'TERMS' }}</span>
-      </div>
-      <div class="lex-ribbon-stack">
-        {% for item in l_page.categorized_vocab.phrasal_verbs %}
-        <div class="lex-ribbon-row">
-          <div class="ribbon-col-num" style="background: #6d28d9;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
-          <div class="ribbon-col-word">
-            <div class="ribbon-term">{{ item.word_or_phrase }}</div>
-            <div class="ribbon-pos">{{ item.part_of_speech }}</div>
-            {% if item.connotation %}
-            <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+      <div class="vlab-category c4">
+        <div class="vlab-cat-header c4">
+          <span class="icon-svg" style="width: 1em; height: 1em; color: currentColor;">
+            <svg fill="currentColor" stroke="none" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"></path></svg>
+          </span>
+          <span>Phrasal Verbs · {{ l_page.categorized_vocab.phrasal_verbs | length }} {{ 'word' if (l_page.categorized_vocab.phrasal_verbs | length) == 1 else 'words' }}</span>
+        </div>
+        <div class="vlab-grid {% if (l_page.categorized_vocab.phrasal_verbs | length) == 1 %}vlab-grid-single{% endif %}">
+          {% for item in l_page.categorized_vocab.phrasal_verbs %}
+          <div class="vcard">
+            <div>
+              <div class="vcard-top">
+                <span class="vcard-num">{{ '%02d' % loop.index }}</span>
+                {% if item.connotation %}
+                <span class="vcard-tag {% if 'pos' in item.connotation|lower %}tag-pos{% elif 'neg' in item.connotation|lower %}tag-neg{% else %}tag-neu{% endif %}">{{ item.connotation }}</span>
+                {% endif %}
+              </div>
+              <div class="duo-row">
+                {% set pparts = item.word_or_phrase.split(' ') %}
+                {% if pparts | length > 1 %}
+                <span class="duo-chip duo-verb">{{ pparts[:-1] | join(' ') }}</span>
+                <span class="duo-arrow">
+                  <span class="icon-svg" style="width: 11px; height: 11px; color: currentColor;">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                  </span>
+                </span>
+                <span class="duo-chip duo-particle">{{ pparts[-1] }}</span>
+                {% else %}
+                <span class="duo-chip duo-verb">{{ item.word_or_phrase }}</span>
+                {% endif %}
+              </div>
+              <div class="vcard-pos" style="text-align: center;">
+                {% if item.part_of_speech %}{{ item.part_of_speech | capitalize }} · {% endif %}
+                <span class="vcard-hi devanagari">{{ item.hindi_meaning }}</span>
+              </div>
+              <div class="vcard-def">{{ item.concise_meaning }}</div>
+              {% if item.mnemonic_trick %}
+              <div class="vcard-hook">
+                <span class="vcard-hook-label">Memory Hook</span>
+                {{ item.mnemonic_trick }}
+              </div>
+              {% endif %}
+            </div>
+            {% if item.british_synonyms or item.british_antonyms %}
+            <div class="vcard-chips">
+              {% for syn in item.british_synonyms %}
+              <span class="chip-syn">{{ syn }}</span>
+              {% endfor %}
+              {% for ant in item.british_antonyms %}
+              <span class="chip-ant">{{ ant }}</span>
+              {% endfor %}
+            </div>
             {% endif %}
           </div>
-          <div class="ribbon-col-def">
-            <div class="ribbon-def-text-wrap">
-              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
-              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-hook">
-            <div class="hook-content-wrap">
-              <div class="hook-header-title">MEMORY HOOK</div>
-              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-syn">
-            <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
-            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
-          </div>
-          <div class="ribbon-col-ant">
-            <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
-            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
-          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
       {% endif %}
 
-      <!-- ================= IDIOMS & PHRASES ================= -->
-      {% if l_page.categorized_vocab.idioms %}
-      <div class="lex-section-header hdr-idm">
-        <div class="lex-header-left"><span class="lex-header-icon">🎭</span><span class="lex-section-title">IDIOMS & PHRASES</span></div>
-        <span class="lex-header-tag">{{ l_page.categorized_vocab.idioms | length }} {{ 'TERM' if (l_page.categorized_vocab.idioms | length) == 1 else 'TERMS' }}</span>
-      </div>
-      <div class="lex-ribbon-stack">
-        {% for item in l_page.categorized_vocab.idioms %}
-        <div class="lex-ribbon-row">
-          <div class="ribbon-col-num" style="background: #e11d48;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
-          <div class="ribbon-col-word">
-            <div class="ribbon-term">{{ item.word_or_phrase }}</div>
-            <div class="ribbon-pos">{{ item.part_of_speech }}</div>
-            {% if item.connotation %}
-            <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
-            {% endif %}
-          </div>
-          <div class="ribbon-col-def">
-            <div class="ribbon-def-text-wrap">
-              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
-              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-hook">
-            <div class="hook-content-wrap">
-              <div class="hook-header-title">MEMORY HOOK</div>
-              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-syn">
-            <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
-            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
-          </div>
-          <div class="ribbon-col-ant">
-            <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
-            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-      {% endif %}
-
-      <!-- ================= FOREIGN WORDS ================= -->
+      <!-- ================= 5. FOREIGN WORDS ================= -->
       {% if l_page.categorized_vocab.foreign_words %}
-      <div class="lex-section-header hdr-foreign">
-        <div class="lex-header-left"><span class="lex-header-icon">🌍</span><span class="lex-section-title">FOREIGN WORDS</span></div>
-        <span class="lex-header-tag">{{ l_page.categorized_vocab.foreign_words | length }} {{ 'TERM' if (l_page.categorized_vocab.foreign_words | length) == 1 else 'TERMS' }}</span>
-      </div>
-      <div class="lex-ribbon-stack">
-        {% for item in l_page.categorized_vocab.foreign_words %}
-        <div class="lex-ribbon-row">
-          <div class="ribbon-col-num" style="background: #2563eb;"><span class="ribbon-num">{{ '%02d' % loop.index }}</span></div>
-          <div class="ribbon-col-word">
-            <div class="ribbon-term">{{ item.word_or_phrase }}</div>
-            <div class="ribbon-pos">{{ item.part_of_speech }}</div>
-            {% if item.connotation %}
-            <div class="ribbon-connot connot-{{ item.connotation | lower }}">{{ item.connotation }}</div>
+      <div class="vlab-category c6">
+        <div class="vlab-cat-header c6">
+          <span class="icon-svg" style="width: 1em; height: 1em; color: currentColor;">
+            <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M3.5 12h17M12 3.5c2.5 2.5 2.5 15 0 17M12 3.5c-2.5 2.5-2.5 15 0 17"></path></svg>
+          </span>
+          <span>Foreign Words · {{ l_page.categorized_vocab.foreign_words | length }} {{ 'word' if (l_page.categorized_vocab.foreign_words | length) == 1 else 'words' }}</span>
+        </div>
+        <div class="vlab-grid {% if (l_page.categorized_vocab.foreign_words | length) == 1 %}vlab-grid-single{% endif %}">
+          {% for item in l_page.categorized_vocab.foreign_words %}
+          <div class="vcard vcard-stamp vcard-foreign">
+            <div>
+              <div class="vcard-top">
+                <span class="vcard-num">{{ '%02d' % loop.index }}</span>
+                {% if item.connotation %}
+                <span class="vcard-tag {% if 'pos' in item.connotation|lower %}tag-pos{% elif 'neg' in item.connotation|lower %}tag-neg{% else %}tag-neu{% endif %}">{{ item.connotation }}</span>
+                {% endif %}
+              </div>
+              <div class="vcard-word stamp-word">{{ item.word_or_phrase }}</div>
+              <div class="vcard-pos">
+                {% if item.part_of_speech %}{{ item.part_of_speech | capitalize }} · {% endif %}
+                <span class="vcard-hi devanagari">{{ item.hindi_meaning }}</span>
+              </div>
+              <div class="vcard-def">{{ item.concise_meaning }}</div>
+              {% if item.mnemonic_trick %}
+              <div class="vcard-hook">
+                <span class="vcard-hook-label">Memory Hook</span>
+                {{ item.mnemonic_trick }}
+              </div>
+              {% endif %}
+            </div>
+            {% if item.british_synonyms or item.british_antonyms %}
+            <div class="vcard-chips">
+              {% for syn in item.british_synonyms %}
+              <span class="chip-syn">{{ syn }}</span>
+              {% endfor %}
+              {% for ant in item.british_antonyms %}
+              <span class="chip-ant">{{ ant }}</span>
+              {% endfor %}
+            </div>
             {% endif %}
           </div>
-          <div class="ribbon-col-def">
-            <div class="ribbon-def-text-wrap">
-              <div class="ribbon-def-hindi devanagari">{{ item.hindi_meaning }}</div>
-              <div class="ribbon-def-text">{{ item.concise_meaning }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-hook">
-            <div class="hook-content-wrap">
-              <div class="hook-header-title">MEMORY HOOK</div>
-              <div class="hook-text-content">{{ item.mnemonic_trick }}</div>
-            </div>
-          </div>
-          <div class="ribbon-col-syn">
-            <div class="ribbon-pill-tag tag-syn">SYNONYMS</div>
-            <div class="ribbon-bullet-list syn-bullets">{% for syn in item.british_synonyms %}<span class="bullet-item">• {{ syn }}</span>{% endfor %}</div>
-          </div>
-          <div class="ribbon-col-ant">
-            <div class="ribbon-pill-tag tag-ant">ANTONYMS</div>
-            <div class="ribbon-bullet-list ant-bullets">{% for ant in item.british_antonyms %}<span class="bullet-item">• {{ ant }}</span>{% endfor %}</div>
-          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
       {% endif %}
 
-      <!-- Next Editorial Banner -->
+      <!-- ================= 6. IDIOMS & PHRASES ================= -->
+      {% if l_page.categorized_vocab.idioms %}
+      <div class="vlab-category c5">
+        <div class="vlab-cat-header c5">
+          <span class="icon-svg" style="width: 1em; height: 1em; color: currentColor;">
+            <svg fill="currentColor" stroke="none" viewBox="0 0 24 24"><path d="M4 8c0-2.5 1.5-4 4-4v2.2c-1 .2-1.7 1-1.7 1.8H8v4H4V8Z"></path><path d="M13 8c0-2.5 1.5-4 4-4v2.2c-1 .2-1.7 1-1.7 1.8H17v4h-4V8Z"></path></svg>
+          </span>
+          <span>Idioms &amp; Phrases · {{ l_page.categorized_vocab.idioms | length }} {{ 'word' if (l_page.categorized_vocab.idioms | length) == 1 else 'words' }}</span>
+        </div>
+        <div class="vlab-grid {% if (l_page.categorized_vocab.idioms | length) == 1 %}vlab-grid-single{% endif %}">
+          {% for item in l_page.categorized_vocab.idioms %}
+          <div class="vcard-idiom">
+            <div class="vcard-idiom-inner">
+              <div>
+                <div class="idiom-top">
+                  <div class="idiom-mark-num">
+                    <span class="quote-mark-inline">“</span>
+                    <span class="vcard-num">{{ '%02d' % loop.index }}</span>
+                  </div>
+                  {% if item.connotation %}
+                  <span class="vcard-tag {% if 'pos' in item.connotation|lower %}tag-pos{% elif 'neg' in item.connotation|lower %}tag-neg{% else %}tag-neu{% endif %}">{{ item.connotation }}</span>
+                  {% endif %}
+                </div>
+                <div class="vcard-word">{{ item.word_or_phrase }}</div>
+                {% if item.part_of_speech %}
+                <div class="vcard-pos">{{ item.part_of_speech }}</div>
+                {% endif %}
+                <div class="vcard-def">{{ item.concise_meaning }}</div>
+                <div class="vcard-hi devanagari">{{ item.hindi_meaning }}</div>
+                {% if item.mnemonic_trick %}
+                <div class="vcard-hook">
+                  <span class="vcard-hook-label">Memory Hook</span>
+                  {{ item.mnemonic_trick }}
+                </div>
+                {% endif %}
+              </div>
+              {% if item.british_synonyms or item.british_antonyms %}
+              <div class="vcard-chips">
+                {% for syn in item.british_synonyms %}
+                <span class="chip-syn">{{ syn }}</span>
+                {% endfor %}
+                {% for ant in item.british_antonyms %}
+                <span class="chip-ant">{{ ant }}</span>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- ================= 7. NEXT EDITORIAL NAVIGATOR ================= -->
       {% if loop.last %}
         {% if not is_last_art %}
         {% set next_art = data.articles[next_art_index] %}
-        <a href="#{{ next_art.target_reader_id }}" class="next-editorial-nav">
-          <div class="nav-left-content">
-            <div class="nav-sup-title">
-              <span>Read Next Editorial</span>
-              <span style="color: #cbd5e1;">•</span>
-              <span style="color: #fef08a;">Page {{ '%02d' % next_art.reader_pages[0].page_num }}</span>
-            </div>
-            <div class="nav-main-title">{{ next_art.title }}</div>
+        <a href="#{{ next_art.target_reader_id }}" class="next-editorial-banner">
+          <div>
+            <div class="next-ed-label">Read Next Editorial · Page {{ '%02d' % next_art.reader_pages[0].page_num }}</div>
+            <div class="next-ed-title">{{ next_art.title }}</div>
           </div>
-          <div class="nav-arrow-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <div class="next-ed-arrow">
+            <span class="icon-svg" style="width: 15px; height: 15px; color: currentColor;">
+              <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </span>
           </div>
         </a>
         {% else %}
-        <div class="next-editorial-nav nav-end-state">
-          <span class="nav-end-text">🏁 You have reached the end of today's editorials</span>
+        <div class="next-editorial-banner next-ed-end-state">
+          <span class="next-ed-end-text">🏁 You have reached the end of today's editorials</span>
         </div>
         {% endif %}
       {% endif %}

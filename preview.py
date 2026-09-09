@@ -169,11 +169,58 @@ def categorize_vocabulary(vocab_items):
 
 # (Function removed: match_vocab_to_paragraphs is no longer needed with continuous reader pages)
 
+def get_stance_theme(tone_str: str) -> dict:
+    """Returns chromatic tone gradients and organic geometric shapes based on editorial stance."""
+    t = (tone_str or "").lower()
+    if any(k in t for k in ["critical", "pessimistic", "disapproving", "sarcastic", "cynical", "hostile", "admonitory"]):
+        return {"tone_a": "#f43f5e", "tone_b": "#e11d48", "shape": "shape-jagged"}
+    elif any(k in t for k in ["cautious", "concerned", "cautionary", "sceptical", "skeptical"]):
+        return {"tone_a": "#f59e0b", "tone_b": "#d97706", "shape": "shape-wave"}
+    elif any(k in t for k in ["optimistic", "appreciative", "empathetic", "conciliatory"]):
+        return {"tone_a": "#10b981", "tone_b": "#059669", "shape": "shape-circle"}
+    else:
+        return {"tone_a": "#38bdf8", "tone_b": "#0ea5e9", "shape": "shape-circle"}
+
+def compute_word_tone_mix(vocab_items: list) -> dict:
+    """Calculates counts and exact track percentage distributions for Positive, Neutral, and Negative words."""
+    pos = 0
+    neu = 0
+    neg = 0
+    for v in vocab_items:
+        connot = str(v.get("connotation", "")).strip().lower()
+        if "pos" in connot:
+            pos += 1
+        elif "neg" in connot:
+            neg += 1
+        else:
+            neu += 1
+
+    total = pos + neu + neg
+    if total == 0:
+        return {
+            "pos_count": 0, "neu_count": 0, "neg_count": 0,
+            "pos_pct": 0, "neu_pct": 100, "neg_pct": 0,
+            "total": 0
+        }
+
+    pos_pct = round((pos / total) * 100)
+    neu_pct = round((neu / total) * 100)
+    neg_pct = max(0, 100 - (pos_pct + neu_pct))
+
+    return {
+        "pos_count": pos,
+        "neu_count": neu,
+        "neg_count": neg,
+        "pos_pct": pos_pct,
+        "neu_pct": neu_pct,
+        "neg_pct": neg_pct,
+        "total": total
+    }
+
 def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
-    """Partitions an editorial and its vocab lab dynamically using continuous-height canvases."""
+    """Partitions an editorial: Page 1 gets Vocabulary + One-Word Substitutions; Page 2 gets remaining categories."""
     raw_paras = clean_and_highlight_passage(art_raw.get("passage", ""), all_vocab)
     
-    # 1. Continuous Reader Page (Always renders on a single dynamic-height page)
     reader_pages = [{
         "is_continuation": False,
         "paragraphs": raw_paras,
@@ -182,34 +229,41 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
         "has_next_reader_page": False
     }]
 
-    # 2. Continuous Vocab Lab Partitioning
-    other_cats = {k: v for k, v in categorized_vocab.items() if k != "core_vocab" and v}
+    page1_cats = {}
+    if categorized_vocab.get("core_vocab"):
+        page1_cats["core_vocab"] = categorized_vocab["core_vocab"]
+    if categorized_vocab.get("one_word_subs"):
+        page1_cats["one_word_subs"] = categorized_vocab["one_word_subs"]
+
+    page2_cats = {
+        k: v for k, v in categorized_vocab.items()
+        if k not in ("core_vocab", "one_word_subs") and v
+    }
+
     lab_start_page = start_page + 1
     lab_pages = []
 
-    if not other_cats:
+    if not page2_cats:
         lab_pages.append({
             "is_continuation": False,
             "page_num": lab_start_page,
             "show_analysis": True,
-            "categorized_vocab": categorized_vocab,
+            "categorized_vocab": page1_cats,
             "has_next_lab_page": False
         })
     else:
-        # Keeps core editorial vocabulary grouped with analysis
         lab_pages.append({
             "is_continuation": False,
             "page_num": lab_start_page,
             "show_analysis": True,
-            "categorized_vocab": {"core_vocab": categorized_vocab.get("core_vocab", [])},
+            "categorized_vocab": page1_cats,
             "has_next_lab_page": True
         })
-        # Secondary linguistic categories (idioms, phrasals, etc.) flow into part 2
         lab_pages.append({
             "is_continuation": True,
             "page_num": lab_start_page + 1,
             "show_analysis": False,
-            "categorized_vocab": other_cats,
+            "categorized_vocab": page2_cats,
             "has_next_lab_page": False
         })
         
@@ -288,7 +342,11 @@ def generate_preview():
             "analysis": {
                 "tone": tone_data.get("tone", "Analytical"),
                 "tone_simple_explanation": clean_expl,
-                "analysis_summary": tone_data.get("analysis_summary", "")
+                "analysis_summary": tone_data.get("analysis_summary", ""),
+                "tone_a": get_stance_theme(tone_data.get("tone", "Analytical"))["tone_a"],
+                "tone_b": get_stance_theme(tone_data.get("tone", "Analytical"))["tone_b"],
+                "shape": get_stance_theme(tone_data.get("tone", "Analytical"))["shape"],
+                "word_tone_mix": compute_word_tone_mix(vocab_list)
             },
             "reader_pages": reader_pages,
             "lab_pages": lab_pages,

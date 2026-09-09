@@ -782,6 +782,13 @@ def compile_magazine():
                 for page_obj in writer.pages:
                     page_obj.compress_content_streams()
 
+                # Merge byte-identical objects (fonts, cover/watermark images) that
+                # were duplicated once per logical page during the per-page render loop.
+                writer.compress_identical_objects(
+                    remove_duplicates=True,
+                    remove_unreferenced=True
+                )
+
                 with open(var["pdf_path"], "wb") as f_out:
                     writer.write(f_out)
 

@@ -324,8 +324,7 @@
     position: relative;
     box-sizing: border-box;
     z-index: 1;
-    /* High-Performance 1-Pass Hardware Gradient (Zero PDF Lag) */
-    background: linear-gradient(168deg, #fef8ee 0%, #f1f5f9 42%, #fdf2f8 82%, #fafaf9 100%);
+    background: var(--page-bg);
   }
 
   /* Prevent Any Card or Block from Getting Cut Across Pages */
@@ -366,243 +365,318 @@
     padding-bottom: 2mm;
   }
 
+  /* ============== THEME VARIABLES (BASE / LIGHT) ============== */
+  :root, body {
+    --page-bg: #fafaf9;
+    --panel-bg: radial-gradient(circle at 10% 0%, #fef3c7 0%, transparent 45%), radial-gradient(circle at 100% 30%, #dbeafe 0%, transparent 50%), radial-gradient(circle at 20% 100%, #fce7f3 0%, transparent 40%), #fafaf9;
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-bg-strong: rgba(255, 255, 255, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.9);
+    --glass-shadow: 0 16px 32px -16px rgba(15, 43, 72, 0.2);
+    --text-hi: #0b1e36;
+    --text-mid: #1e293b;
+    --text-lo: #64748b;
+    --accent: #b45309;
+    --accent-2: #92400e;
+    --accent-text-on: #fff7ed;
+    --tag-bg: rgba(255, 255, 255, 0.65);
+    --divider-line: rgba(180, 83, 9, 0.35);
+    --hindi-color: #0d9488;
+    --hook-color: #0284c7;
+    --hook-bg: rgba(2, 132, 199, 0.10);
+  }
+
+  /* SVG Icon Helpers */
+  .icon-svg {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: -2px;
+  }
+  .icon-svg svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+  }
+
   /* =========================================================
-     FLOATING FROSTED PILL FOOTER (LIGHT SKIN)
+     INNER PAGE FOOTER (FROSTED GLASS PILL & RIM LIGHT)
      ========================================================= */
-  .page-footer {
-    position: relative;
+  .footer-wrap {
     width: 100%;
-    margin-left: 0;
-    height: 9.5mm;
     margin-top: 5mm;
     margin-bottom: 3.5mm;
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.95);
-    box-shadow: 0 10px 24px -10px rgba(15, 43, 72, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    border-radius: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5px 0 14px;
-    box-sizing: border-box;
-    z-index: 50;
     page-break-inside: avoid;
     break-inside: avoid;
+    z-index: 50;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .footer-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 30px;
+    padding: 4.5px 6px 4.5px 16px;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  /* Signature Ambient Rim-Light */
+  .footer-pill::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
   }
 
   .footer-brand {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 8px;
+    font-size: 9px;
     font-weight: 700;
-    color: #475569;
-    letter-spacing: 0.3px;
-  }
-
-  .footer-brand svg {
-    width: 11px;
-    height: 11px;
-    fill: #64748b;
-  }
-
-  .footer-tg-btn {
+    color: var(--text-lo);
+    letter-spacing: 0.2px;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-size: 7.6px;
-    font-weight: 900;
-    color: #ffffff !important;
-    background: linear-gradient(135deg, #1e40af 0%, #0b1e36 100%);
-    padding: 3.5px 14px;
+  }
+
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: var(--accent-text-on) !important;
+    font-size: 8.5px;
+    font-weight: 800;
+    padding: 4.5px 14px;
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
     letter-spacing: 0.4px;
     text-transform: uppercase;
     text-decoration: none !important;
-    box-shadow: 0 4px 12px -3px rgba(30, 64, 175, 0.4);
+    box-shadow: 0 4px 12px -3px rgba(180, 83, 9, 0.35);
+    white-space: nowrap;
   }
 
-  .footer-tg-icon {
-    width: 10px;
-    height: 10px;
-    fill: #38bdf8;
-    flex-shrink: 0;
-  }
-
-  .footer-page-pill {
-    font-size: 8px;
+  .footer-page {
+    background: var(--glass-bg-strong);
+    color: var(--accent);
+    font-size: 8.5px;
     font-weight: 900;
-    color: #ffffff;
-    background: #0b1e36;
-    padding: 2.5px 10px;
-    border-radius: 16px;
-    box-shadow: 0 2px 6px rgba(11, 30, 54, 0.25);
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
     letter-spacing: 0.3px;
-  }
-
-  .footer-page-pill::after {
-    content: "";
+    white-space: nowrap;
   }
 
   /* =========================================================
-     SECTION 3: EDITORIAL READER (FROSTED GLASS & AMBIENT SKIN)
+     SECTION 3: EDITORIAL READER (GLASS PANEL, MASTHEAD & BODY)
      ========================================================= */
-  .p1-header {
-    margin-bottom: 5px;
+  .reader-panel {
+    background: var(--panel-bg);
+    border-radius: 18px;
+    padding: 16px 18px;
+    box-shadow: 0 20px 45px -20px rgba(15, 43, 72, 0.25);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--glass-border) 72%, transparent);
+    box-sizing: border-box;
+    margin-bottom: 2mm;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .reader-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
   }
 
-  .p1-top-bar {
+  .rd-top-row {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
   }
-
-  .p1-newspaper-tag {
+  .rd-tag {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
+    background: var(--tag-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
     font-size: 8.5px;
-    font-weight: 900;
-    text-transform: uppercase;
-    padding: 3.5px 11px;
+    font-weight: 800;
+    color: var(--accent);
+    padding: 4px 11px;
     border-radius: 20px;
+    text-transform: uppercase;
     letter-spacing: 0.4px;
-    box-shadow: 0 4px 14px -4px rgba(30, 64, 175, 0.16);
   }
-
-  .tag-hindu {
-    background: rgba(239, 246, 255, 0.8);
-    color: #1e40af;
-    border: 1px solid rgba(191, 219, 254, 0.9);
-  }
-
-  .tag-express {
-    background: rgba(254, 242, 242, 0.8);
-    color: #991b1b;
-    border: 1px solid rgba(254, 202, 202, 0.9);
-  }
-
-  .p1-topic-chip {
+  .rd-source {
+    font-size: 8.5px;
+    font-weight: 700;
+    color: var(--text-lo);
+    text-decoration: none !important;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    font-size: 8px;
-    font-weight: 800;
-    background: rgba(255, 255, 255, 0.75);
-    color: #334155;
-    padding: 3.5px 11px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.95);
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    box-shadow: 0 4px 12px -4px rgba(15, 43, 72, 0.12);
+    gap: 4px;
+    opacity: 0.92;
   }
 
-  .p1-topic-chip .chip-dot {
-    width: 5px;
-    height: 5px;
-    background: #d97706;
-    border-radius: 50%;
-  }
-
-  .p1-title {
+  .rd-title {
     font-family: 'Lora', Georgia, serif;
-    font-size: 19px;
     font-weight: 700;
-    color: #0b1f36;
+    font-size: 19px;
+    color: var(--text-hi);
     line-height: 1.22;
-    margin: 3px 0 5px 0;
+    margin-bottom: 8px;
     letter-spacing: -0.2px;
   }
 
-  /* Frosted Subtitle Quote Box */
-  .p1-subheading-box {
-    display: flex;
-    align-items: flex-start;
-    gap: 7px;
-    background: rgba(255, 255, 255, 0.65);
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    border-left: 4px solid #d97706;
-    border-radius: 0 10px 10px 0;
-    box-shadow: 0 8px 20px -8px rgba(217, 119, 6, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-    padding: 5px 10px;
-    margin-bottom: 6px;
+  .rd-quote {
+    background: rgba(180, 131, 9, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(180, 131, 9, 0.2);
+    border-radius: 12px;
+    padding: 9px 14px;
+    margin-bottom: 12px;
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic;
+    font-size: 11px;
+    color: var(--text-mid);
+    line-height: 1.5;
+  }
+  .rd-quote-mark {
+    font-family: 'Lora', Georgia, serif;
+    font-size: 24px;
+    line-height: 0.4;
+    color: var(--accent);
+    opacity: 0.55;
+    display: block;
+    margin-bottom: 3px;
   }
 
-  .p1-quote-mark {
-    font-family: 'Lora', Georgia, serif;
-    font-size: 18px;
-    line-height: 0.9;
-    color: #d97706;
+  /* Restored Evidence Lens Spans */
+  :root {
+    --evidence-text-color: #0f766e;
+  }
+  .evidence-hl {
+    color: var(--evidence-text-color, #0f766e);
+    font-weight: inherit;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+  }
+  .evidence-hl .vocab-hl, .evidence-hl .rd-vocab {
+    color: inherit;
     font-weight: 700;
   }
 
-  .p1-subtitle-text {
-    font-family: 'Lora', Georgia, serif;
-    font-size: 9.8px;
-    font-style: italic;
-    color: #78350f;
-    line-height: 1.38;
-  }
-
-  .p1-meta-line {
+  .rd-meta {
+    font-size: 8px;
+    color: var(--text-lo);
+    margin-bottom: 12px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    font-size: 7.8px;
-    color: #64748b;
-    border-bottom: 1.5px solid rgba(15, 43, 72, 0.2);
-    padding-bottom: 3.5px;
-    margin-bottom: 7px;
+    flex-wrap: wrap;
+    gap: 7px;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 6px;
   }
-
+  .meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+  }
   .meta-sep {
-    color: #cbd5e1;
-    margin: 0 4px;
+    color: var(--text-lo);
+    opacity: 0.55;
   }
 
-  .meta-label {
-    font-weight: 800;
-    letter-spacing: 0.6px;
-    color: #0f2b48;
+  .continued-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    margin-bottom: 12px;
+    font-size: 8.5px;
+    color: var(--text-lo);
+    font-weight: 700;
+    position: relative;
+  }
+  .continued-bar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
+  }
+  .continued-bar b {
+    color: var(--accent);
   }
 
-  .p1-layout-grid {
+  .rd-layout {
     display: grid;
     grid-template-columns: 1fr 58mm;
     gap: 6mm;
-    flex-grow: 1;
     align-items: stretch;
+    flex-grow: 1;
   }
 
-  .p1-left-col {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .p1-article-body {
+  .rd-body {
     font-family: 'Montserrat', sans-serif;
-    font-size: 11.8px;
+    font-size: 11.2px;
     font-weight: 500;
-    line-height: 1.58;
+    line-height: 1.62;
     letter-spacing: 0.012em;
-    color: #1e293b;
+    color: var(--text-mid);
     text-align: justify;
     text-justify: inter-word;
     hyphens: auto;
     -webkit-hyphens: auto;
     word-break: break-word;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .rd-body p {
+    margin-bottom: 9px;
   }
 
-  .p1-article-body p {
-    margin-bottom: 9.5px;
-  }
-
-  /* Gradient Drop Cap */
-  .p1-article-body p:first-of-type::first-letter {
+  /* 1) Drop Cap (Light Skin) */
+  .rd-body p:first-of-type::first-letter {
     font-family: 'Montserrat', sans-serif;
     font-size: 30px;
     line-height: 0.8;
@@ -618,82 +692,54 @@
     box-shadow: 0 6px 16px -4px rgba(30, 64, 175, 0.4);
   }
 
-  /* Clean Distraction-Free Vocabulary Highlights (Royal Blue Ink, Zero Box Fill) */
-  .vocab-hl {
+  /* 2) In-passage Vocabulary Highlights */
+  .vocab-hl, .rd-vocab {
+    font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    color: #1e40af !important; /* Retains the vibrant editorial blue text */
+    color: #1e40af !important;
     background: transparent !important;
     padding: 0 !important;
     border: none !important;
     display: inline;
   }
-
-  .v-idx {
+  .v-idx, .rd-vocab sup {
     font-family: 'Inter', sans-serif;
     font-size: 6.5px !important;
     font-weight: 800;
-    color: #b45309;
+    color: #b45309 !important;
     vertical-align: super;
     line-height: 0;
     margin-left: 1px;
     margin-right: 1.5px;
   }
 
-  /* Article Passage Source Bar (Frosted Capsule Skin) */
-  .p1-article-footer-note {
+  /* 3) Article Passage Source Bar */
+  .rd-citation {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: center;
-    font-size: 7.4px;
-    color: #64748b;
-    border-top: 1px solid rgba(203, 213, 225, 0.6);
-    padding-top: 5px;
-    margin-top: 5px;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    padding-top: 7px;
+    border-top: 1px dashed var(--glass-border);
+    font-size: 7.8px;
+    color: var(--text-lo);
   }
-
-  .p1-footer-meta {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-weight: 500;
-  }
-
-  .p1-footer-meta strong {
-    color: #0b1e36;
-    font-weight: 700;
-  }
-
-  /* Frosted Glass Action Capsule */
-  .p1-source-btn {
+  .rd-citation-btn {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    font-family: 'Inter', sans-serif;
-    font-size: 7px;
-    font-weight: 800;
-    color: #1e40af !important;
-    background: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(191, 219, 254, 0.9);
-    padding: 3px 10px;
-    border-radius: 16px;
+    gap: 4px;
     text-decoration: none !important;
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border);
+    color: var(--accent) !important;
+    font-size: 7.5px;
+    font-weight: 800;
+    padding: 3px 9px;
+    border-radius: 16px;
     letter-spacing: 0.3px;
-    line-height: 1;
-    box-shadow: 0 2px 8px -2px rgba(30, 64, 175, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  }
-
-  .p1-source-icon {
-    width: 9px;
-    height: 9px;
-    color: #2563eb;
-    flex-shrink: 0;
-  }
-
-  .p1-source-arrow {
-    width: 8px;
-    height: 8px;
-    color: #2563eb;
-    flex-shrink: 0;
+    box-shadow: 0 2px 6px -2px rgba(15, 43, 72, 0.12);
   }
 
   :root {
@@ -714,88 +760,74 @@
   }
 
   /* =========================================================
-     VOCABULARY 101: FROSTED SIDEBAR CARD
+     VOCABULARY 101: FROSTED GLASS SIDEBAR
      ========================================================= */
-  .p1-sidebar {
-    border: 1px solid #cbd5e1;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.75);
+  .rd-sidebar {
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 14px;
+    padding: 10px 11px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: 0 4px 12px rgba(15, 43, 72, 0.06);
     height: 100%;
-    overflow: hidden;
-    padding: 0;
+    min-height: 100%;
+    position: relative;
+    overflow: visible;
+    box-sizing: border-box;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+  .rd-sidebar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
   }
 
-  .p1-sidebar-header {
-    background: linear-gradient(135deg, #0b1e36 0%, #1e3a8a 100%);
-    color: #ffffff;
-    padding: 6px 9px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  }
-
-  .p1-sidebar-header-left {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .p1-header-badge-icon {
-    width: 11px;
-    height: 11px;
-    fill: #f59e0b;
-  }
-
-  .p1-sidebar-title {
-    font-size: 9.2px;
+  .rd-sb-title {
+    font-size: 9.5px;
     font-weight: 900;
-    letter-spacing: 0.6px;
-    color: #ffffff;
+    color: var(--accent);
+    letter-spacing: 0.5px;
     text-transform: uppercase;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
 
-  .p1-header-book-icon {
-    width: 12px;
-    height: 12px;
-    stroke: #cbd5e1;
-  }
-
-  .p1-vocab-scroll-area {
-    padding: 4px 7px;
+  .rd-sb-list {
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
   }
 
-  .p1-vocab-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .p1-vocab-row {
+  .rd-sb-row {
     display: flex;
     align-items: flex-start;
     gap: 6px;
     padding: 3px 0 3.5px 0;
-    border-bottom: 1px dashed rgba(15, 43, 72, 0.12);
+    border-bottom: 1px dashed var(--glass-border);
   }
-  .p1-vocab-row:last-child {
+  .rd-sb-row:last-child {
     border-bottom: none;
   }
 
-  /* Gradient Number Badges */
-  .p1-num-badge {
+  .rd-sb-num {
+    font-family: 'Inter', sans-serif;
     width: 16px;
     height: 16px;
-    background: linear-gradient(135deg, #93c5fd 0%, #1e40af 100%);
-    color: #ffffff;
+    background: linear-gradient(135deg, #93c5fd 0%, #1e40af 100%) !important;
+    color: #ffffff !important;
     border-radius: 5px;
     font-size: 8px;
     font-weight: 900;
@@ -807,21 +839,7 @@
     box-shadow: 0 2px 4px rgba(30, 64, 175, 0.25);
   }
 
-  .p1-word-term {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
-    font-weight: 800;
-    color: #0b1e36;
-    line-height: 1.15;
-  }
-
-  .p1-pos-text {
-    font-size: 6.8px;
-    font-weight: 600;
-    color: #64748b;
-  }
-
-  .p1-vocab-details {
+  .rd-sb-details {
     display: flex;
     flex-direction: column;
     gap: 1px;
@@ -829,117 +847,116 @@
     min-width: 0;
   }
 
-  .p1-vocab-word-line {
+  .rd-sb-word-line {
     display: flex;
     align-items: baseline;
-    gap: 3px;
-    line-height: 1.25;
-  }
-
-  .p1-vocab-def-line {
-    display: flex;
+    gap: 4px;
+    line-height: 1.2;
     flex-wrap: wrap;
-    align-items: baseline;
-    gap: 2px 4px;
-    width: 100%;
-    min-width: 0;
-    padding: 2px 0 1px 0;
-    line-height: 1.45;
   }
 
-  .p1-def-eng {
-    color: #b45309;
-    font-weight: 700;
+  .rd-sb-word {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 800;
+    color: #0b1e36 !important;
+    line-height: 1.15;
+    word-break: break-word;
+  }
+
+  .rd-sb-pos {
+    font-family: 'Inter', sans-serif;
+    font-size: 6.8px;
+    font-weight: 600;
+    color: var(--text-lo);
+    letter-spacing: 0.2px;
+  }
+
+  .rd-sb-def {
+    font-family: 'Inter', sans-serif;
     font-size: 7.4px;
-    flex-shrink: 0;
+    font-weight: 700;
+    color: #b45309 !important;
     line-height: 1.35;
     word-break: break-word;
-    max-width: 100%;
   }
 
-  .p1-def-bullet {
-    color: #0d9488;
-    font-weight: 900;
-    font-size: 6px;
-    flex-shrink: 0;
-    align-self: baseline;
-  }
-
-  .p1-def-hindi {
-    color: #0d9488;
+  .rd-sb-hi {
     font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
-    font-weight: 700;
     font-size: 7.8px;
+    font-weight: 700;
+    color: #0d9488 !important;
     line-height: 1.55;
-    padding: 1.5px 0;
-    white-space: normal;
-    word-break: break-word;
-    min-width: 0;
   }
 
-  .p1-cta-wrapper {
-    padding: 4px 7px 6px 7px;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    background: transparent;
-    border-top: 1px solid rgba(15, 43, 72, 0.08);
-  }
-
-  .p1-cta-top-card {
-    background: rgba(254, 248, 238, 0.7);
-    border: 1px solid rgba(253, 230, 138, 0.8);
-    border-radius: 6px;
-    padding: 3.5px 6px;
+  /* Deep Analysis Mini-Card */
+  .deep-analysis-card {
+    margin-top: 8px;
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 6px 8px;
+    position: relative;
+    box-sizing: border-box;
+    break-inside: avoid !important;
+  }
+  .deep-analysis-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.5;
   }
 
-  .p1-cta-icon-badge {
-    font-size: 10px;
-    line-height: 1;
+  .deep-analysis-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-text-on);
     flex-shrink: 0;
   }
 
-  .p1-cta-text-group {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .p1-cta-heading {
+  .deep-analysis-text {
     font-size: 7.5px;
-    font-weight: 900;
-    color: #0b1e36;
-    line-height: 1.1;
+    color: var(--text-lo);
+    line-height: 1.25;
+  }
+  .deep-analysis-text strong {
+    color: var(--text-hi);
+    font-size: 8px;
+    display: block;
   }
 
-  .p1-cta-subtext {
-    font-size: 6.2px;
-    font-weight: 500;
-    color: #78350f;
-    line-height: 1.1;
-  }
-
-  .p1-cta-action-btn {
-    background: linear-gradient(135deg, #1e40af 0%, #0b1e36 100%);
-    color: #ffffff !important;
-    border-radius: 6px;
-    padding: 4px 0;
+  /* Action CTA Buttons */
+  .open-vocab-lab-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
-    font-size: 7.6px;
-    font-weight: 800;
     text-decoration: none !important;
-    box-shadow: 0 4px 10px -2px rgba(30, 64, 175, 0.35);
-  }
-
-  .p1-cta-btn-icon {
-    width: 10px;
-    height: 10px;
-    stroke: #f59e0b;
+    margin-top: 6px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: var(--accent-text-on) !important;
+    font-size: 8.5px;
+    font-weight: 800;
+    padding: 6px 8px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 10px -2px rgba(180, 83, 9, 0.35);
   }
 
   /* =========================================================
@@ -1794,8 +1811,7 @@
   }
 
   body.dark-theme .inner-page {
-    /* Fast 1-Pass Midnight Gradient */
-    background: linear-gradient(165deg, #0f172a 0%, #0b1220 40%, #06182c 100%) !important;
+    background: var(--page-bg) !important;
   }
 
   /* Clean watermark visibility across dark gradients */
@@ -1843,131 +1859,79 @@
     background: #fbbf24 !important;
   }
 
-  /* Reading Header & Subtitle */
-  body.dark-theme .p1-title {
-    color: #ffffff !important;
+  /* Reader Panel & Header (Dark Skin) */
+  body.dark-theme .reader-panel {
+    box-shadow: 0 20px 45px -20px rgba(0, 0, 0, 0.6) !important;
   }
-  body.dark-theme .p1-subheading-box {
+  body.dark-theme .rd-quote {
     background: rgba(251, 191, 36, 0.08) !important;
-    border: 1px solid rgba(251, 191, 36, 0.25) !important;
-    border-left: 4px solid #d97706 !important;
-    box-shadow: 0 8px 24px -10px rgba(251, 191, 36, 0.25) !important;
-  }
-  body.dark-theme .p1-subtitle-text {
-    color: #fef08a !important;
-  }
-  body.dark-theme .p1-meta-line {
-    border-bottom-color: rgba(255, 255, 255, 0.12) !important;
-    color: #94a3b8 !important;
-  }
-  body.dark-theme .meta-label {
-    color: #38bdf8 !important;
-  }
-  body.dark-theme .p1-cont-header {
-    background: rgba(255, 255, 255, 0.06) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    border-left: 4px solid #38bdf8 !important;
-  }
-  body.dark-theme .p1-cont-title {
-    color: #93c5fd !important;
-  }
-  body.dark-theme .p1-cont-badge {
-    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%) !important;
-    color: #1e1206 !important;
+    border-color: rgba(251, 191, 36, 0.25) !important;
+    border-left-color: #d97706 !important;
   }
 
-  /* Reading Body & Highlights */
-  body.dark-theme .p1-article-body {
-    color: #cbd5e1 !important;
-  }
-  body.dark-theme .p1-article-body p:first-of-type::first-letter {
+  /* Drop Cap (Dark Skin) */
+  body.dark-theme .rd-body p:first-of-type::first-letter {
     background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%) !important;
     color: #0b1220 !important;
     box-shadow: 0 0 20px -2px rgba(251, 191, 36, 0.5) !important;
   }
-  body.dark-theme .vocab-hl {
-    color: #fbbf24 !important; /* Retains the warm radiant gold text from the dark theme */
-    background: transparent !important;
-    padding: 0 !important;
-    border: none !important;
+
+  /* In-passage Vocabulary Highlights (Dark Skin) */
+  body.dark-theme .vocab-hl, body.dark-theme .rd-vocab {
+    color: #fbbf24 !important;
     text-shadow: none !important;
   }
-  body.dark-theme .v-idx {
+  body.dark-theme .v-idx, body.dark-theme .rd-vocab sup {
     color: #fde047 !important;
   }
   body.dark-theme .evidence-hl {
     color: #2dd4bf !important;
   }
-  /* Article Passage Source Bar (Dark Frosted Capsule) */
-  body.dark-theme .p1-article-footer-note {
-    color: #94a3b8 !important;
+
+  /* Citation & Source Button (Dark Skin) */
+  body.dark-theme .rd-citation {
     border-top-color: rgba(255, 255, 255, 0.12) !important;
   }
-
-  body.dark-theme .p1-footer-meta strong {
-    color: #f1f5f9 !important;
-  }
-
-  body.dark-theme .p1-source-btn {
+  body.dark-theme .rd-citation-btn {
     background: rgba(255, 255, 255, 0.07) !important;
     color: #38bdf8 !important;
-    border: 1px solid rgba(56, 189, 248, 0.35) !important;
-    box-shadow: 0 4px 12px -3px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(56, 189, 248, 0.35) !important;
   }
 
-  body.dark-theme .p1-source-icon,
-  body.dark-theme .p1-source-arrow {
-    color: #38bdf8 !important;
-  }
-
-  /* Page 1 Sidebar — Frosted Dark Glass */
-  body.dark-theme .p1-sidebar {
-    background: rgba(255, 255, 255, 0.06) !important;
-    border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  /* Vocabulary 101 Sidebar (Dark Skin) */
+  body.dark-theme .rd-sidebar {
+    background: var(--glass-bg) !important;
+    border-color: var(--glass-border) !important;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
   }
-  body.dark-theme .p1-sidebar-header {
-    background: rgba(11, 18, 32, 0.85) !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-  }
-  body.dark-theme .p1-sidebar-title {
-    color: #fef08a !important;
-  }
-  body.dark-theme .p1-vocab-row {
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.1) !important;
-  }
-  body.dark-theme .p1-num-badge {
+  body.dark-theme .rd-sb-num {
     background: linear-gradient(135deg, #fde047 0%, #d97706 100%) !important;
     color: #1e1206 !important;
     box-shadow: 0 2px 8px rgba(251, 191, 36, 0.3) !important;
   }
-  body.dark-theme .p1-word-term {
+  body.dark-theme .rd-sb-word {
     color: #ffffff !important;
   }
-  body.dark-theme .p1-pos-text {
+  body.dark-theme .rd-sb-pos {
     color: #94a3b8 !important;
   }
-  body.dark-theme .p1-def-eng {
+  body.dark-theme .rd-sb-def {
     color: #fbbf24 !important;
   }
-  body.dark-theme .p1-def-hindi {
+  body.dark-theme .rd-sb-hi {
     color: #2dd4bf !important;
   }
-  body.dark-theme .p1-cta-wrapper {
-    background: transparent !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-  }
-  body.dark-theme .p1-cta-top-card {
+  body.dark-theme .deep-analysis-card {
     background: rgba(26, 23, 13, 0.75) !important;
     border-color: rgba(120, 53, 15, 0.7) !important;
   }
-  body.dark-theme .p1-cta-heading {
+  body.dark-theme .deep-analysis-text strong {
     color: #fef08a !important;
   }
-  body.dark-theme .p1-cta-subtext {
+  body.dark-theme .deep-analysis-text {
     color: #fde68a !important;
   }
-  body.dark-theme .p1-cta-action-btn {
+  body.dark-theme .open-vocab-lab-btn {
     background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%) !important;
     color: #1e1206 !important;
     box-shadow: 0 0 16px -2px rgba(251, 191, 36, 0.4) !important;
@@ -2161,38 +2125,29 @@
   body.dark-theme .nav-end-text {
     color: #94a3b8 !important;
   }
-  /* =========================================================
-     FLOATING FROSTED PILL FOOTER (DARK SKIN)
-     ========================================================= */
-  body.dark-theme .page-footer {
-    background: rgba(255, 255, 255, 0.06) !important;
-    border: 1px solid rgba(255, 255, 255, 0.14) !important;
-    box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  /* ============== THEME VARIABLES (DARK OVERRIDES) ============== */
+  body.dark-theme {
+    --page-bg: #050810;
+    --panel-bg: radial-gradient(circle at 90% 0%, rgba(217, 119, 6, 0.20) 0%, transparent 31%), radial-gradient(circle at 0% 60%, rgba(30, 58, 138, 0.22) 0%, transparent 40%), linear-gradient(160deg, #0a101b, #061421);
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-bg-strong: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.14);
+    --glass-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
+    --text-hi: #ffffff;
+    --text-mid: #cbd5e1;
+    --text-lo: #94a3b8;
+    --accent: #fbbf24;
+    --accent-2: #d97706;
+    --accent-text-on: #1e1206;
+    --tag-bg: rgba(255, 255, 255, 0.08);
+    --divider-line: rgba(251, 191, 36, 0.4);
+    --hindi-color: #2dd4bf;
+    --hook-color: #38bdf8;
+    --hook-bg: rgba(56, 189, 248, 0.10);
   }
 
-  body.dark-theme .footer-brand {
-    color: #94a3b8 !important;
-  }
-
-  body.dark-theme .footer-brand svg {
-    fill: #64748b !important;
-  }
-
-  body.dark-theme .footer-tg-btn {
-    background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%) !important;
-    color: #1e1206 !important;
-    border: 1px solid rgba(251, 191, 36, 0.3) !important;
-    box-shadow: 0 0 16px -2px rgba(251, 191, 36, 0.5) !important;
-  }
-
-  body.dark-theme .footer-tg-icon {
-    fill: #1e1206 !important;
-  }
-
-  body.dark-theme .footer-page-pill {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #fef08a !important;
-    border: 1px solid rgba(251, 191, 36, 0.35) !important;
+  body.dark-theme .footer-cta {
+    box-shadow: 0 0 16px -2px rgba(251, 191, 36, 0.45);
   }
 </style>
 </head>
@@ -2293,109 +2248,115 @@
     <div class="inner-content-wrapper">
       {% if loop.first %}
       <a id="{{ art.target_reader_id }}" name="{{ art.target_reader_id }}" style="position: absolute; top: -8mm; left: 0;"></a>
-      
-      <!-- Main Masthead (Page 1 Only) -->
-      <div class="p1-header">
-        <div class="p1-top-bar">
-          <div class="p1-newspaper-tag {% if 'Hindu' in art.newspaper %}tag-hindu{% else %}tag-express{% endif %}">
-            <span class="tag-icon">📰</span>
-            <span>{{ art.newspaper }}</span>
-          </div>
-          <div class="p1-topic-chip">
-            <span class="chip-dot"></span>
-            <span>{{ art.topic }}</span>
-          </div>
-        </div>
-
-        <h1 class="p1-title">{{ art.title }}</h1>
-
-        {% if art.subtitle %}
-        <div class="p1-subheading-box">
-          <span class="p1-quote-mark">“</span>
-          <div class="p1-subtitle-text">{{ art.subtitle }}</div>
-        </div>
-        {% endif %}
-
-        <div class="p1-meta-line">
-          <div class="meta-item">
-            <span>📅</span> <strong>{{ data.date_formatted }}</strong>
-            <span class="meta-sep">·</span>
-            <span>⏱</span> <strong>{{ art.reading_time }}</strong>
-          </div>
-          <div class="meta-label">DAILY EDITORIAL READER</div>
-        </div>
-      </div>
-      {% else %}
-      <!-- Continuation Bar (Page 2 Only) -->
-      <div class="p1-cont-header">
-        <span class="p1-cont-title">ARTICLE CONTINUED &nbsp;·&nbsp; {{ art.title }}</span>
-        <span class="p1-cont-badge">PART 02</span>
-      </div>
       {% endif %}
 
-      <!-- Grid: Paragraphs + Matching Vocabulary -->
-      <div class="p1-layout-grid">
-        <div class="p1-left-col">
-          <div class="p1-article-body">
-            {% for para in r_page.paragraphs %}
-            <p>{{ para | safe }}</p>
-            {% endfor %}
+      <div class="reader-panel">
+        {% if loop.first %}
+        <!-- Top Tag Bar & Source Link -->
+        <div class="rd-top-row">
+          <div class="rd-tag">
+            <span class="icon-svg" style="width: 12px; height: 12px; color: currentColor;">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect height="14" rx="1.2" width="13" x="3.5" y="5"></rect><path d="M16.5 8.5h4V17a2 2 0 0 1-2 2h-2"></path><path d="M6.5 8.5h7M6.5 11.5h7M6.5 14.5h4"></path></svg>
+            </span>
+            <span>{{ art.newspaper }} · {{ art.topic }}</span>
           </div>
-          {% if loop.last %}
-          <div class="p1-article-footer-note">
-            <div class="p1-footer-meta">
-              <span>Source: <strong>{{ art.newspaper }}</strong></span>
-              <span class="meta-sep">·</span>
-              <span>Published: <strong>{{ art.published_at }}</strong></span>
-            </div>
-            {% if art.link %}
-            <a href="{{ art.link }}" target="_blank" rel="noopener noreferrer" class="p1-source-btn">
-              <svg class="p1-source-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="2" y1="12" x2="22" y2="12"></line>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-              </svg>
-              <span>ORIGINAL SOURCE</span>
-              <svg class="p1-source-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line>
-                <polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </a>
-            {% endif %}
-          </div>
+          {% if art.link %}
+          <a class="rd-source" href="{{ art.link }}" target="_blank" rel="noopener noreferrer">
+            <span>Original Source</span>
+            <span class="icon-svg" style="width: 10px; height: 10px; color: currentColor;">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </span>
+          </a>
           {% endif %}
         </div>
 
-        <!-- Sidebar Containing Only This Page's Vocab -->
-        <div class="p1-sidebar">
-          <div class="p1-sidebar-header">
-            <div class="p1-sidebar-header-left">
-              <svg class="p1-header-badge-icon" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-              <span class="p1-sidebar-title">VOCABULARY 101</span>
+        <!-- Editorial Title -->
+        <h1 class="rd-title">{{ art.title }}</h1>
+
+        <!-- Editorial Subtitle Quote -->
+        {% if art.subtitle %}
+        <div class="rd-quote">
+          <span class="rd-quote-mark">“</span>
+          <span>{{ art.subtitle }}</span>
+        </div>
+        {% endif %}
+
+        <!-- Editorial Metadata Row -->
+        <div class="rd-meta">
+          <span class="meta-item">
+            <span class="icon-svg" style="width: 11px; height: 11px; color: currentColor;">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect height="15" rx="1.8" width="17" x="3.5" y="5"></rect><path d="M7 3.5v4M17 3.5v4M3.5 9h17"></path></svg>
+            </span>
+            <span>{{ data.date_formatted }}</span>
+          </span>
+          <span class="meta-sep">·</span>
+          <span class="meta-item">
+            <span class="icon-svg" style="width: 11px; height: 11px; color: currentColor;">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="7.5" r="3.3"></circle><path d="M5 20c.7-3.5 3-5.4 7-5.4s6.3 1.9 7 5.4"></path></svg>
+            </span>
+            <span>Daily Editorial Reader</span>
+          </span>
+          <span class="meta-sep">·</span>
+          <span class="meta-item">
+            <span class="icon-svg" style="width: 11px; height: 11px; color: currentColor;">
+              <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
+            </span>
+            <span>{{ art.reading_time }}</span>
+          </span>
+        </div>
+        {% else %}
+        <!-- Multi-page Continuation Bar -->
+        <div class="continued-bar">
+          <span>ARTICLE CONTINUED · <b>{{ art.title }}</b></span>
+        </div>
+        {% endif %}
+
+        <!-- Two-Column Editorial Grid -->
+        <div class="rd-layout">
+          <div class="rd-body">
+            <div>
+              {% for para in r_page.paragraphs %}
+              <p>{{ para | safe }}</p>
+              {% endfor %}
             </div>
-            <svg class="p1-header-book-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-            </svg>
+
+            {% if loop.last %}
+            <div class="rd-citation">
+              <span>Source: {{ art.newspaper }} · Published: {{ art.published_at }}</span>
+              {% if art.link %}
+              <a class="rd-citation-btn" href="{{ art.link }}" target="_blank" rel="noopener noreferrer">
+                <span class="icon-svg" style="width: 10px; height: 10px; color: currentColor;">
+                  <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9.5 14.5 14.5 9.5"></path><path d="M11 6.5 13 4.5a3.5 3.5 0 0 1 5 5l-2 2"></path><path d="M13 17.5l-2 2a3.5 3.5 0 0 1-5-5l2-2"></path></svg>
+                </span>
+                <span>Original Source</span>
+              </a>
+              {% endif %}
+            </div>
+            {% endif %}
           </div>
 
-          <div class="p1-vocab-scroll-area">
-            <div class="p1-vocab-list">
+        <!-- Sidebar Containing Only This Page's Vocab -->
+        <div class="rd-sidebar">
+          <div>
+            <div class="rd-sb-title">
+              <span class="icon-svg" style="width: 12px; height: 12px; color: currentColor;">
+                <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 5c2-1 5-1 7 0v14c-2-1-5-1-7 0V5Z"></path><path d="M20 5c-2-1-5-1-7 0v14c2-1 5-1 7 0V5Z"></path></svg>
+              </span>
+              <span>Vocabulary 101</span>
+            </div>
+
+            <div class="rd-sb-list">
               {% for item in r_page.vocab %}
-              <div class="p1-vocab-row">
-                <div class="p1-num-badge">{{ item.order_index }}</div>
-                <div class="p1-vocab-details">
-                  <div class="p1-vocab-word-line">
-                    <span class="p1-word-term">{{ item.word_or_phrase }}</span>
-                    <span class="p1-pos-text">({{ item.part_of_speech | capitalize }})</span>
+              <div class="rd-sb-row">
+                <div class="rd-sb-num">{{ item.order_index }}</div>
+                <div class="rd-sb-details">
+                  <div class="rd-sb-word-line">
+                    <span class="rd-sb-word">{{ item.word_or_phrase }}</span>
+                    {% if item.part_of_speech %}
+                    <span class="rd-sb-pos">({{ item.part_of_speech | capitalize }})</span>
+                    {% endif %}
                   </div>
-                  <div class="p1-vocab-def-line">
-                    <span class="p1-def-eng">{{ item.easy_synonym }}</span>
-                    <span class="p1-def-bullet">•</span>
-                    <span class="p1-def-hindi devanagari">{{ item.hindi_meaning }}</span>
-                  </div>
+                  <div class="rd-sb-def">{{ item.easy_synonym }} · <span class="rd-sb-hi devanagari">{{ item.hindi_meaning }}</span></div>
                 </div>
               </div>
               {% endfor %}
@@ -2403,39 +2364,51 @@
           </div>
 
           <!-- Bottom Action CTA -->
-          <div class="p1-cta-wrapper">
+          <div>
             {% if r_page.has_next_reader_page %}
-            <a href="#article-p{{ r_page.next_page_num }}" class="p1-cta-action-btn">
-              <span>Read Part 2 (P. {{ '%02d' % r_page.next_page_num }}) →</span>
+            <a href="#article-p{{ r_page.next_page_num }}" class="open-vocab-lab-btn">
+              <span>Read Part 2 (P. {{ '%02d' % r_page.next_page_num }})</span>
+              <span class="icon-svg" style="width: 10px; height: 10px; color: currentColor;">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+              </span>
             </a>
             {% else %}
-            <div class="p1-cta-top-card">
-              <div class="p1-cta-icon-badge">💡</div>
-              <div class="p1-cta-text-group">
-                <div class="p1-cta-heading">Deep Analysis</div>
-                <div class="p1-cta-subtext">Mnemonics &amp; applied grammar rules in Vocab Lab.</div>
+            <div class="deep-analysis-card">
+              <div class="deep-analysis-icon">
+                <span class="icon-svg" style="width: 14px; height: 14px; color: currentColor;">
+                  <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"></path><path d="M12 3a6 6 0 0 0-3.2 11.1c.6.4 1 1 1.1 1.7l.1.7h4l.1-.7c.1-.7.5-1.3 1.1-1.7A6 6 0 0 0 12 3Z"></path></svg>
+                </span>
+              </div>
+              <div class="deep-analysis-text">
+                <strong>Deep Analysis</strong>
+                Mnemonics &amp; applied grammar rules in Vocab Lab.
               </div>
             </div>
-            <a href="#{{ art.target_vocab_id }}" class="p1-cta-action-btn">
-              <span>Open Vocab Lab →</span>
+            <a href="#{{ art.target_vocab_id }}" class="open-vocab-lab-btn">
+              <span>Open Vocab Lab</span>
+              <span class="icon-svg" style="width: 10px; height: 10px; color: currentColor;">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+              </span>
             </a>
             {% endif %}
           </div>
         </div>
-      </div>
-    </div>
+      </div> <!-- Closes .rd-layout -->
+    </div> <!-- Closes .reader-panel -->
+  </div> <!-- Closes .inner-content-wrapper -->
 
-    <!-- Dynamic Footer Page Pill -->
-    <div class="page-footer">
-      <div class="footer-brand">
-        <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>
-        <span>Today's Editorials Series &nbsp;•&nbsp; {{ data.date_formatted }}</span>
+    <!-- Dynamic Frosted Footer Pill -->
+    <div class="footer-wrap">
+      <div class="footer-pill">
+        <span class="footer-brand">Today's Editorials Series · {{ data.date_formatted }}</span>
+        <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-cta">
+          <span class="icon-svg" style="width: 10px; height: 10px; color: currentColor;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"></path></svg>
+          </span>
+          <span>SUBSCRIBE TO OUR EZ EDITORIALS CHANNEL</span>
+        </a>
+        <span class="footer-page">Page {{ '%02d' % r_page.page_num }}</span>
       </div>
-      <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-tg-btn">
-        <svg class="footer-tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-        <span>SUBSCRIBE TO OUR EZ EDITORIALS CHANNEL</span>
-      </a>
-      <div class="footer-page-pill">Page {{ '%02d' % r_page.page_num }}</div>
     </div>
   </div>
   {% endfor %}
@@ -2814,17 +2787,18 @@
       {% endif %}
     </div>
 
-    <!-- Dynamic Footer Page Pill -->
-    <div class="page-footer">
-      <div class="footer-brand">
-        <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM9 14H7v-2h2v2zm4 0h-2v-2h2v2zm4 0h-2v-2h2v2z"/></svg>
-        <span>Today's Editorials Series &nbsp;•&nbsp; {{ data.date_formatted }}</span>
+    <!-- Dynamic Frosted Footer Pill -->
+    <div class="footer-wrap">
+      <div class="footer-pill">
+        <span class="footer-brand">Today's Editorials Series · {{ data.date_formatted }}</span>
+        <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-cta">
+          <span class="icon-svg" style="width: 10px; height: 10px; color: currentColor;">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"></path></svg>
+          </span>
+          <span>SUBSCRIBE TO OUR EZ EDITORIALS CHANNEL</span>
+        </a>
+        <span class="footer-page">Page {{ '%02d' % l_page.page_num }}</span>
       </div>
-      <a href="https://t.me/ezeditorialgroup/" target="_blank" class="footer-tg-btn">
-        <svg class="footer-tg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.15 3.35-1.35 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-        <span>SUBSCRIBE TO OUR EZ EDITORIALS CHANNEL</span>
-      </a>
-      <div class="footer-page-pill">Page {{ '%02d' % l_page.page_num }}</div>
     </div>
   </div>
   {% endfor %}

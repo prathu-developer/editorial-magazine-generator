@@ -4,10 +4,42 @@ import json
 import re
 import time
 from datetime import datetime, timezone, timedelta
+from typing import List
 import requests
+from pydantic import BaseModel, Field
 from google import genai
 from google.genai import types
 from concurrent.futures import ThreadPoolExecutor
+
+# --- STRUCTURED OUTPUT SCHEMAS ---
+class EditorialMetadata(BaseModel):
+    title: str
+    subtitle: str
+    author: str
+    topic: str
+
+class Analysis(BaseModel):
+    tone: str
+    tone_simple_explanation: str
+    analysis_summary: str
+
+class VocabularyItem(BaseModel):
+    order_index: int
+    word_or_phrase: str
+    category: str
+    part_of_speech: str
+    connotation: str
+    easy_synonym: str
+    hindi_meaning: str
+    mnemonic_trick: str
+    concise_meaning: str
+    british_synonyms: List[str]
+    british_antonyms: List[str]
+
+class EditorialOutput(BaseModel):
+    editorial_metadata: EditorialMetadata
+    analysis: Analysis
+    editorial_vocabulary: List[VocabularyItem]
 
 # Timezone definition
 IST = timezone(timedelta(hours=5, minutes=30))
@@ -102,11 +134,11 @@ Output exclusively a valid, parseable JSON object matching this exact structure:
   ]
 }"""
 
-# --- 1. MODEL TIER ROTATION & RETRY ---[cite: 1]
+# --- 1. MODEL TIER ROTATION & RETRY ---
 def call_gemini_with_rotation(prompt):
     """
     Exhausts each model tier across all available API keys before falling back
-    to the next model tier (3.7-flash -> 3.6-flash -> 3.5-flash).[cite: 1]
+    to the next model tier, enforcing schema-constrained decoding.
     """
     max_retries_per_key = 2
     
@@ -127,7 +159,8 @@ def call_gemini_with_rotation(prompt):
                         contents=prompt,
                         config=types.GenerateContentConfig(
                             temperature=0.3,
-                            response_mime_type="application/json"
+                            response_mime_type="application/json",
+                            response_schema=EditorialOutput
                         )
                     )
                     return response.text.strip()
@@ -148,7 +181,7 @@ def call_gemini_with_rotation(prompt):
                         
         print(f"🔻 Model '{model_name}' exhausted across all available keys. Triggering fallback model...")
 
-    raise RuntimeError("🚨 All priority models (3.7 -> 3.6 -> 3.5) and API keys exhausted!")
+    raise RuntimeError("🚨 All priority models and API keys exhausted!")
 
 # --- 2. PROMPT CONSTRUCTOR ---
 def build_editorial_prompt(editorial):
@@ -173,12 +206,20 @@ Passage:
 
 # --- 3. JSON PARSER ---
 def parse_llm_json(raw_text):
-    """Strips markdown fences and parses string to a dictionary."""
+    """Strips markdown fences, extracts JSON object boundaries, and parses cleanly."""
     cleaned = raw_text.strip()
+    
+    # Strip markdown backticks
     if cleaned.startswith("```"):
-        cleaned = re.sub(r"^```(?:json)?\n?", "", cleaned)
-        cleaned = re.sub(r"\n?```$", "", cleaned)
-    return json.loads(cleaned.strip())
+        cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned)
+        cleaned = re.sub(r"\s*```$", "", cleaned)
+    
+    # Extract outermost JSON object if any leading/trailing text exists
+    json_match = re.search(r"\{.*\}", cleaned, re.DOTALL)
+    if json_match:
+        cleaned = json_match.group(0)
+        
+    return json.loads(cleaned.strip(), strict=False)
 
 # --- BACKUP & RETENTION ENGINE ---
 def save_backup(final_output, input_date_str=None, backup_dir="backups", max_days=31):
@@ -224,13 +265,23 @@ def _process_single_editorial(args):
     print(f"🚀 Processing Editorial [{index}/{total_editorials}]: {title}...")
 
     prompt = build_editorial_prompt(editorial)
-    raw_response = call_gemini_with_rotation(prompt)
+    max_attempts = 2
+    raw_response = ""
+    generated_content = None
 
-    try:
-        generated_content = parse_llm_json(raw_response)
-    except json.JSONDecodeError as json_err:
-        print(f"⚠️ JSON parse error on editorial {index}: {json_err}. Fallback raw string stored.")
-        generated_content = {"error": "Invalid JSON produced", "raw": raw_response}
+    for attempt in range(1, max_attempts + 1):
+        raw_response = call_gemini_with_rotation(prompt)
+        try:
+            generated_content = parse_llm_json(raw_response)
+            break
+        except (json.JSONDecodeError, ValueError) as err:
+            print(f"⚠️ Parse error on editorial [{index}] (Attempt {attempt}/{max_attempts}): {err}")
+            if attempt == max_attempts:
+                print(f"❌ Failed to obtain valid JSON for editorial [{index}] after {max_attempts} attempts.")
+                generated_content = {"error": "Invalid JSON produced", "raw": raw_response}
+            else:
+                print(f"🔄 Retrying generation for editorial [{index}]...")
+                time.sleep(2)
 
     merged_editorial = {**editorial}
     merged_editorial.update({

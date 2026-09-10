@@ -5,7 +5,6 @@ import json
 import requests
 import io
 import time
-import base64
 from datetime import datetime, timezone, timedelta
 from PIL import Image
 from evidence_lens import extract_evidence_spans
@@ -70,22 +69,64 @@ def create_dark_watermark(src_path: str, cache_dir: str) -> str:
         print(f"⚠️ Could not create dark watermark ({err}). Using original.")
         return src_path
 
-# The exact families/weights/styles your template.html actually uses.
-STATIC_FONT_SPECS = [
-    ("Lora", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (400, "italic")]),
-    ("Montserrat", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal")]),
-    ("Inter", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal"), (900, "normal")]),
-    ("Noto Sans Devanagari", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal")]),
+# Guaranteed STATIC (non-variable) font sources pulled directly from upstream repositories
+GUARANTEED_STATIC_FONTS = [
+    # 1. Lora (Cyreal upstream)
+    ("Lora", 400, "normal", "Lora-Regular.ttf", "truetype",
+     "https://raw.githubusercontent.com/cyrealtype/Lora/master/fonts/ttf/Lora-Regular.ttf"),
+    ("Lora", 500, "normal", "Lora-Medium.ttf", "truetype",
+     "https://raw.githubusercontent.com/cyrealtype/Lora/master/fonts/ttf/Lora-Medium.ttf"),
+    ("Lora", 600, "normal", "Lora-SemiBold.ttf", "truetype",
+     "https://raw.githubusercontent.com/cyrealtype/Lora/master/fonts/ttf/Lora-SemiBold.ttf"),
+    ("Lora", 700, "normal", "Lora-Bold.ttf", "truetype",
+     "https://raw.githubusercontent.com/cyrealtype/Lora/master/fonts/ttf/Lora-Bold.ttf"),
+    ("Lora", 400, "italic", "Lora-Italic.ttf", "truetype",
+     "https://raw.githubusercontent.com/cyrealtype/Lora/master/fonts/ttf/Lora-Italic.ttf"),
+
+    # 2. Inter (Official rsms/inter static web release)
+    ("Inter", 400, "normal", "Inter-Regular.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-Regular.woff2"),
+    ("Inter", 500, "normal", "Inter-Medium.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-Medium.woff2"),
+    ("Inter", 600, "normal", "Inter-SemiBold.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-SemiBold.woff2"),
+    ("Inter", 700, "normal", "Inter-Bold.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-Bold.woff2"),
+    ("Inter", 800, "normal", "Inter-ExtraBold.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-ExtraBold.woff2"),
+    ("Inter", 900, "normal", "Inter-Black.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-Black.woff2"),
+
+    # 3. Montserrat (JulietaUla official static TTF repo)
+    ("Montserrat", 400, "normal", "Montserrat-Regular.ttf", "truetype",
+     "https://raw.githubusercontent.com/JulietaUla/Montserrat/master/fonts/ttf/Montserrat-Regular.ttf"),
+    ("Montserrat", 500, "normal", "Montserrat-Medium.ttf", "truetype",
+     "https://raw.githubusercontent.com/JulietaUla/Montserrat/master/fonts/ttf/Montserrat-Medium.ttf"),
+    ("Montserrat", 600, "normal", "Montserrat-SemiBold.ttf", "truetype",
+     "https://raw.githubusercontent.com/JulietaUla/Montserrat/master/fonts/ttf/Montserrat-SemiBold.ttf"),
+    ("Montserrat", 700, "normal", "Montserrat-Bold.ttf", "truetype",
+     "https://raw.githubusercontent.com/JulietaUla/Montserrat/master/fonts/ttf/Montserrat-Bold.ttf"),
+    ("Montserrat", 800, "normal", "Montserrat-ExtraBold.ttf", "truetype",
+     "https://raw.githubusercontent.com/JulietaUla/Montserrat/master/fonts/ttf/Montserrat-ExtraBold.ttf"),
+
+    # 4. Noto Sans Devanagari (Official googlefonts/noto-fonts static release)
+    ("Noto Sans Devanagari", 400, "normal", "NotoSansDevanagari-Regular.ttf", "truetype",
+     "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Regular.ttf"),
+    ("Noto Sans Devanagari", 500, "normal", "NotoSansDevanagari-Medium.ttf", "truetype",
+     "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Medium.ttf"),
+    ("Noto Sans Devanagari", 600, "normal", "NotoSansDevanagari-SemiBold.ttf", "truetype",
+     "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-SemiBold.ttf"),
+    ("Noto Sans Devanagari", 700, "normal", "NotoSansDevanagari-Bold.ttf", "truetype",
+     "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Bold.ttf"),
+    ("Noto Sans Devanagari", 800, "normal", "NotoSansDevanagari-ExtraBold.ttf", "truetype",
+     "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-ExtraBold.ttf"),
 ]
 
 def fetch_static_google_fonts(cache_dir: str) -> str:
     """
-    Downloads STATIC (non-variable) woff2 files for the exact weights/styles used,
-    via Google Fonts' legacy v1 CSS API — which always returns separate per-weight
-    files, unlike the v2 (css2) API previously used, which can silently serve a
-    single variable font file instead. Chromium's PDF export embeds static fonts as
-    normal compact outlines; it was falling back to slow per-glyph Type 3 fonts on
-    the variable file the old @import pulled in. Cached across runs via manifest.css.
+    Downloads true static font binaries directly from upstream repositories and
+    constructs local @font-face rules. Completely bypasses Google's dynamic font API
+    to eliminate Type 3 font rasterization in Chromium PDF output.
     """
     fonts_dir = os.path.join(cache_dir, "fonts")
     os.makedirs(fonts_dir, exist_ok=True)
@@ -95,46 +136,34 @@ def fetch_static_google_fonts(cache_dir: str) -> str:
         with open(manifest_path, "r", encoding="utf-8") as f:
             return f.read()
 
-    family_params = []
-    for family, variants in STATIC_FONT_SPECS:
-        weight_tokens = [f"{w}italic" if s == "italic" else str(w) for w, s in variants]
-        family_params.append(f"{family.replace(' ', '+')}:{','.join(weight_tokens)}")
-    url = "https://fonts.googleapis.com/css?family=" + "|".join(family_params) + "&display=swap"
-
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                      "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
-    }
-
-    try:
-        resp = requests.get(url, headers=headers, timeout=20)
-        resp.raise_for_status()
-        css_text = resp.text
-    except Exception as err:
-        print(f"⚠️ Could not fetch static Google Fonts CSS ({err}). Falling back to no custom fonts.")
-        return ""
-
-    def _download_and_rewrite(match):
-        remote_url = match.group(1)
-        local_name = remote_url.rstrip("/").split("/")[-1]
-        local_path = os.path.join(fonts_dir, local_name)
+    css_rules = []
+    for family, weight, style, filename, fmt, url in GUARANTEED_STATIC_FONTS:
+        local_path = os.path.join(fonts_dir, filename)
         if not os.path.exists(local_path):
             try:
-                r = requests.get(remote_url, timeout=20)
-                r.raise_for_status()
+                resp = requests.get(url, timeout=25)
+                resp.raise_for_status()
                 with open(local_path, "wb") as f_out:
-                    f_out.write(r.content)
+                    f_out.write(resp.content)
             except Exception as err:
-                print(f"⚠️ Could not download font file {remote_url}: {err}")
-                return match.group(0)
-        return f"url('fonts/{local_name}')"
+                print(f"⚠️ Could not download {filename} from {url}: {err}")
+                continue
 
-    local_css = re.sub(r"url\((https://fonts\.gstatic\.com/[^)]+)\)", _download_and_rewrite, css_text)
+        css_rules.append(
+            f"@font-face {{\n"
+            f"  font-family: '{family}';\n"
+            f"  font-style: {style};\n"
+            f"  font-weight: {weight};\n"
+            f"  font-display: swap;\n"
+            f"  src: url('fonts/{filename}') format('{fmt}');\n"
+            f"}}"
+        )
 
+    compiled_css = "\n".join(css_rules)
     with open(manifest_path, "w", encoding="utf-8") as f:
-        f.write(local_css)
+        f.write(compiled_css)
 
-    return local_css
+    return compiled_css
 
 def sanitize_vocab_text(text: str) -> str:
     if not text:
@@ -725,10 +754,7 @@ def compile_magazine():
             ])
 
             try:
-                page = browser.new_page(
-                    viewport={"width": 794, "height": 1123},
-                    device_scale_factor=2
-                )
+                page = browser.new_page(viewport={"width": 794, "height": 1123})
                 page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
                 page.evaluate("() => document.fonts.ready")
 
@@ -778,7 +804,7 @@ def compile_magazine():
                 writer = PdfWriter()
                 pending_links = []
 
-                # 2. Rendering pass: toggle node visibility and apply hybrid raster-vector baking
+                # 2. Rendering pass: toggle node visibility without re-measuring elements
                 for i, page_meta in enumerate(pages_meta):
                     page.evaluate("""(targetIndex) => {
                         const pages = document.querySelectorAll('.page');
@@ -790,24 +816,6 @@ def compile_magazine():
                     if i == 0 and not var["is_dark"]:
                         page.screenshot(path=thumb_path, type="jpeg", quality=85)
 
-                    # For inner editorial & vocab pages: pre-bake frosted glass to eliminate PDF live blur shaders
-                    if not page_meta["isCover"]:
-                        page.evaluate("""(targetIndex) => {
-                            const p = document.querySelectorAll('.page')[targetIndex];
-                            p.classList.add('bake-hidden');
-                        }""", i)
-
-                        page_elem = page.locator('.page').nth(i)
-                        bg_bytes = page_elem.screenshot(type="jpeg", quality=92)
-                        bg_b64 = base64.b64encode(bg_bytes).decode('utf-8')
-
-                        page.evaluate("""({ targetIndex, b64 }) => {
-                            const p = document.querySelectorAll('.page')[targetIndex];
-                            p.classList.remove('bake-hidden');
-                            p.classList.add('bake-applied');
-                            p.style.backgroundImage = `url('data:image/jpeg;base64,${b64}')`;
-                        }""", {"targetIndex": i, "b64": bg_b64})
-
                     page_height = "297mm" if page_meta["isCover"] else f"{page_meta['heightPx']}px"
                     pdf_bytes = page.pdf(
                         width="210mm",
@@ -815,14 +823,6 @@ def compile_magazine():
                         print_background=True,
                         margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
                     )
-
-                    # Release baked background immediately to keep runner memory low
-                    if not page_meta["isCover"]:
-                        page.evaluate("""(targetIndex) => {
-                            const p = document.querySelectorAll('.page')[targetIndex];
-                            p.classList.remove('bake-applied');
-                            p.style.backgroundImage = '';
-                        }""", i)
 
                     reader = PdfReader(io.BytesIO(pdf_bytes))
                     if len(reader.pages) > 0:

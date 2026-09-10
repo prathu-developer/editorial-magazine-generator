@@ -43,14 +43,65 @@ def create_dark_watermark(src_path: str, cache_dir: str) -> str:
         print(f"⚠️ Could not create preview dark watermark ({err}). Using original.")
         return src_path
 
-STATIC_FONT_SPECS = [
-    ("Lora", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (400, "italic")]),
-    ("Montserrat", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal")]),
-    ("Inter", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal"), (900, "normal")]),
-    ("Noto Sans Devanagari", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal")]),
+# Guaranteed STATIC (non-variable) font sources pulled directly from upstream repositories
+GUARANTEED_STATIC_FONTS = [
+    # 1. Lora (Cyreal upstream)
+    ("Lora", 400, "normal", "Lora-Regular.ttf", "truetype",
+     "https://raw.githubusercontent.com/cyrealtype/Lora/master/fonts/ttf/Lora-Regular.ttf"),
+    ("Lora", 500, "normal", "Lora-Medium.ttf", "truetype",
+     "https://raw.githubusercontent.com/cyrealtype/Lora/master/fonts/ttf/Lora-Medium.ttf"),
+    ("Lora", 600, "normal", "Lora-SemiBold.ttf", "truetype",
+     "https://raw.githubusercontent.com/cyrealtype/Lora/master/fonts/ttf/Lora-SemiBold.ttf"),
+    ("Lora", 700, "normal", "Lora-Bold.ttf", "truetype",
+     "https://raw.githubusercontent.com/cyrealtype/Lora/master/fonts/ttf/Lora-Bold.ttf"),
+    ("Lora", 400, "italic", "Lora-Italic.ttf", "truetype",
+     "https://raw.githubusercontent.com/cyrealtype/Lora/master/fonts/ttf/Lora-Italic.ttf"),
+
+    # 2. Inter (Official rsms/inter static web release)
+    ("Inter", 400, "normal", "Inter-Regular.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-Regular.woff2"),
+    ("Inter", 500, "normal", "Inter-Medium.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-Medium.woff2"),
+    ("Inter", 600, "normal", "Inter-SemiBold.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-SemiBold.woff2"),
+    ("Inter", 700, "normal", "Inter-Bold.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-Bold.woff2"),
+    ("Inter", 800, "normal", "Inter-ExtraBold.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-ExtraBold.woff2"),
+    ("Inter", 900, "normal", "Inter-Black.woff2", "woff2",
+     "https://raw.githubusercontent.com/rsms/inter/master/docs/font-files/Inter-Black.woff2"),
+
+    # 3. Montserrat (JulietaUla official static TTF repo)
+    ("Montserrat", 400, "normal", "Montserrat-Regular.ttf", "truetype",
+     "https://raw.githubusercontent.com/JulietaUla/Montserrat/master/fonts/ttf/Montserrat-Regular.ttf"),
+    ("Montserrat", 500, "normal", "Montserrat-Medium.ttf", "truetype",
+     "https://raw.githubusercontent.com/JulietaUla/Montserrat/master/fonts/ttf/Montserrat-Medium.ttf"),
+    ("Montserrat", 600, "normal", "Montserrat-SemiBold.ttf", "truetype",
+     "https://raw.githubusercontent.com/JulietaUla/Montserrat/master/fonts/ttf/Montserrat-SemiBold.ttf"),
+    ("Montserrat", 700, "normal", "Montserrat-Bold.ttf", "truetype",
+     "https://raw.githubusercontent.com/JulietaUla/Montserrat/master/fonts/ttf/Montserrat-Bold.ttf"),
+    ("Montserrat", 800, "normal", "Montserrat-ExtraBold.ttf", "truetype",
+     "https://raw.githubusercontent.com/JulietaUla/Montserrat/master/fonts/ttf/Montserrat-ExtraBold.ttf"),
+
+    # 4. Noto Sans Devanagari (Official googlefonts/noto-fonts static release)
+    ("Noto Sans Devanagari", 400, "normal", "NotoSansDevanagari-Regular.ttf", "truetype",
+     "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Regular.ttf"),
+    ("Noto Sans Devanagari", 500, "normal", "NotoSansDevanagari-Medium.ttf", "truetype",
+     "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Medium.ttf"),
+    ("Noto Sans Devanagari", 600, "normal", "NotoSansDevanagari-SemiBold.ttf", "truetype",
+     "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-SemiBold.ttf"),
+    ("Noto Sans Devanagari", 700, "normal", "NotoSansDevanagari-Bold.ttf", "truetype",
+     "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-Bold.ttf"),
+    ("Noto Sans Devanagari", 800, "normal", "NotoSansDevanagari-ExtraBold.ttf", "truetype",
+     "https://raw.githubusercontent.com/googlefonts/noto-fonts/main/hinted/ttf/NotoSansDevanagari/NotoSansDevanagari-ExtraBold.ttf"),
 ]
 
 def fetch_static_google_fonts(cache_dir: str) -> str:
+    """
+    Downloads true static font binaries directly from upstream repositories and
+    constructs local @font-face rules. Completely bypasses Google's dynamic font API
+    to eliminate Type 3 font rasterization in Chromium PDF output.
+    """
     fonts_dir = os.path.join(cache_dir, "fonts")
     os.makedirs(fonts_dir, exist_ok=True)
     manifest_path = os.path.join(fonts_dir, "manifest.css")
@@ -59,46 +110,34 @@ def fetch_static_google_fonts(cache_dir: str) -> str:
         with open(manifest_path, "r", encoding="utf-8") as f:
             return f.read()
 
-    family_params = []
-    for family, variants in STATIC_FONT_SPECS:
-        weight_tokens = [f"{w}italic" if s == "italic" else str(w) for w, s in variants]
-        family_params.append(f"{family.replace(' ', '+')}:{','.join(weight_tokens)}")
-    url = "https://fonts.googleapis.com/css?family=" + "|".join(family_params) + "&display=swap"
-
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                      "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
-    }
-
-    try:
-        resp = requests.get(url, headers=headers, timeout=20)
-        resp.raise_for_status()
-        css_text = resp.text
-    except Exception as err:
-        print(f"⚠️ Could not fetch static Google Fonts CSS ({err}). Falling back to no custom fonts.")
-        return ""
-
-    def _download_and_rewrite(match):
-        remote_url = match.group(1)
-        local_name = remote_url.rstrip("/").split("/")[-1]
-        local_path = os.path.join(fonts_dir, local_name)
+    css_rules = []
+    for family, weight, style, filename, fmt, url in GUARANTEED_STATIC_FONTS:
+        local_path = os.path.join(fonts_dir, filename)
         if not os.path.exists(local_path):
             try:
-                r = requests.get(remote_url, timeout=20)
-                r.raise_for_status()
+                resp = requests.get(url, timeout=25)
+                resp.raise_for_status()
                 with open(local_path, "wb") as f_out:
-                    f_out.write(r.content)
+                    f_out.write(resp.content)
             except Exception as err:
-                print(f"⚠️ Could not download font file {remote_url}: {err}")
-                return match.group(0)
-        return f"url('fonts/{local_name}')"
+                print(f"⚠️ Could not download {filename} from {url}: {err}")
+                continue
 
-    local_css = re.sub(r"url\((https://fonts\.gstatic\.com/[^)]+)\)", _download_and_rewrite, css_text)
+        css_rules.append(
+            f"@font-face {{\n"
+            f"  font-family: '{family}';\n"
+            f"  font-style: {style};\n"
+            f"  font-weight: {weight};\n"
+            f"  font-display: swap;\n"
+            f"  src: url('fonts/{filename}') format('{fmt}');\n"
+            f"}}"
+        )
 
+    compiled_css = "\n".join(css_rules)
     with open(manifest_path, "w", encoding="utf-8") as f:
-        f.write(local_css)
+        f.write(compiled_css)
 
-    return local_css
+    return compiled_css
 
 def sanitize_vocab_text(text: str) -> str:
     if not text:

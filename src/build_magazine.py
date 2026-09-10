@@ -588,15 +588,16 @@ def compile_magazine():
     watermark_src = None
     watermark_dark_src = None
 
-    if os.path.exists(watermark_svg):
-        watermark_src = f"file://{watermark_svg}".replace("\\", "/")
-        watermark_dark_src = watermark_src
-    elif os.path.exists(watermark_png):
-        opt_wm = optimize_asset_image(watermark_png, build_dir, max_width=800)
-        watermark_src = f"file://{opt_wm}".replace("\\", "/")
-        # Creates an inverted light-colored watermark file for Dark Mode
-        dark_wm = create_dark_watermark(opt_wm, build_dir)
-        watermark_dark_src = f"file://{dark_wm}".replace("\\", "/")
+    # DISABLED FOR NOW:
+    # if os.path.exists(watermark_svg):
+    #     watermark_src = f"file://{watermark_svg}".replace("\\", "/")
+    #     watermark_dark_src = watermark_src
+    # elif os.path.exists(watermark_png):
+    #     opt_wm = optimize_asset_image(watermark_png, build_dir, max_width=800)
+    #     watermark_src = f"file://{opt_wm}".replace("\\", "/")
+    #     # Creates an inverted light-colored watermark file for Dark Mode
+    #     dark_wm = create_dark_watermark(opt_wm, build_dir)
+    #     watermark_dark_src = f"file://{dark_wm}".replace("\\", "/")
 
     # Filenames for both standard and dark-mode variants
     date_slug = edition_date.strftime('%d-%b-%Y')

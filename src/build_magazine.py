@@ -5,6 +5,7 @@ import json
 import requests
 import io
 import time
+import base64
 from datetime import datetime, timezone, timedelta
 from PIL import Image
 from evidence_lens import extract_evidence_spans
@@ -68,6 +69,72 @@ def create_dark_watermark(src_path: str, cache_dir: str) -> str:
     except Exception as err:
         print(f"⚠️ Could not create dark watermark ({err}). Using original.")
         return src_path
+
+# The exact families/weights/styles your template.html actually uses.
+STATIC_FONT_SPECS = [
+    ("Lora", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (400, "italic")]),
+    ("Montserrat", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal")]),
+    ("Inter", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal"), (900, "normal")]),
+    ("Noto Sans Devanagari", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal")]),
+]
+
+def fetch_static_google_fonts(cache_dir: str) -> str:
+    """
+    Downloads STATIC (non-variable) woff2 files for the exact weights/styles used,
+    via Google Fonts' legacy v1 CSS API — which always returns separate per-weight
+    files, unlike the v2 (css2) API previously used, which can silently serve a
+    single variable font file instead. Chromium's PDF export embeds static fonts as
+    normal compact outlines; it was falling back to slow per-glyph Type 3 fonts on
+    the variable file the old @import pulled in. Cached across runs via manifest.css.
+    """
+    fonts_dir = os.path.join(cache_dir, "fonts")
+    os.makedirs(fonts_dir, exist_ok=True)
+    manifest_path = os.path.join(fonts_dir, "manifest.css")
+
+    if os.path.exists(manifest_path):
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            return f.read()
+
+    family_params = []
+    for family, variants in STATIC_FONT_SPECS:
+        weight_tokens = [f"{w}italic" if s == "italic" else str(w) for w, s in variants]
+        family_params.append(f"{family.replace(' ', '+')}:{','.join(weight_tokens)}")
+    url = "https://fonts.googleapis.com/css?family=" + "|".join(family_params) + "&display=swap"
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+    }
+
+    try:
+        resp = requests.get(url, headers=headers, timeout=20)
+        resp.raise_for_status()
+        css_text = resp.text
+    except Exception as err:
+        print(f"⚠️ Could not fetch static Google Fonts CSS ({err}). Falling back to no custom fonts.")
+        return ""
+
+    def _download_and_rewrite(match):
+        remote_url = match.group(1)
+        local_name = remote_url.rstrip("/").split("/")[-1]
+        local_path = os.path.join(fonts_dir, local_name)
+        if not os.path.exists(local_path):
+            try:
+                r = requests.get(remote_url, timeout=20)
+                r.raise_for_status()
+                with open(local_path, "wb") as f_out:
+                    f_out.write(r.content)
+            except Exception as err:
+                print(f"⚠️ Could not download font file {remote_url}: {err}")
+                return match.group(0)
+        return f"url('fonts/{local_name}')"
+
+    local_css = re.sub(r"url\((https://fonts\.gstatic\.com/[^)]+)\)", _download_and_rewrite, css_text)
+
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        f.write(local_css)
+
+    return local_css
 
 def sanitize_vocab_text(text: str) -> str:
     if not text:
@@ -606,6 +673,8 @@ def compile_magazine():
     light_pdf_path = os.path.join(output_dir, light_pdf_filename)
     dark_pdf_path = os.path.join(output_dir, dark_pdf_filename)
 
+    font_face_css = fetch_static_google_fonts(build_dir)
+
     base_render_payload = {
         "date_formatted": formatted_date_ist,
         "date_scraped": raw_data.get("date_scraped", formatted_date_ist),
@@ -619,7 +688,8 @@ def compile_magazine():
         "watermark_src": watermark_src,
         "toc_entries": toc_entries,
         "total_articles": len(processed_articles),
-        "articles": processed_articles
+        "articles": processed_articles,
+        "font_face_css": font_face_css
     }
 
     env = Environment(loader=FileSystemLoader([templates_dir, base_dir]))
@@ -655,7 +725,10 @@ def compile_magazine():
             ])
 
             try:
-                page = browser.new_page(viewport={"width": 794, "height": 1123})
+                page = browser.new_page(
+                    viewport={"width": 794, "height": 1123},
+                    device_scale_factor=2
+                )
                 page.goto(f"file://{rendered_html_path}", wait_until="networkidle")
                 page.evaluate("() => document.fonts.ready")
 
@@ -705,7 +778,7 @@ def compile_magazine():
                 writer = PdfWriter()
                 pending_links = []
 
-                # 2. Rendering pass: toggle node visibility without re-measuring elements
+                # 2. Rendering pass: toggle node visibility and apply hybrid raster-vector baking
                 for i, page_meta in enumerate(pages_meta):
                     page.evaluate("""(targetIndex) => {
                         const pages = document.querySelectorAll('.page');
@@ -717,6 +790,24 @@ def compile_magazine():
                     if i == 0 and not var["is_dark"]:
                         page.screenshot(path=thumb_path, type="jpeg", quality=85)
 
+                    # For inner editorial & vocab pages: pre-bake frosted glass to eliminate PDF live blur shaders
+                    if not page_meta["isCover"]:
+                        page.evaluate("""(targetIndex) => {
+                            const p = document.querySelectorAll('.page')[targetIndex];
+                            p.classList.add('bake-hidden');
+                        }""", i)
+
+                        page_elem = page.locator('.page').nth(i)
+                        bg_bytes = page_elem.screenshot(type="jpeg", quality=92)
+                        bg_b64 = base64.b64encode(bg_bytes).decode('utf-8')
+
+                        page.evaluate("""({ targetIndex, b64 }) => {
+                            const p = document.querySelectorAll('.page')[targetIndex];
+                            p.classList.remove('bake-hidden');
+                            p.classList.add('bake-applied');
+                            p.style.backgroundImage = `url('data:image/jpeg;base64,${b64}')`;
+                        }""", {"targetIndex": i, "b64": bg_b64})
+
                     page_height = "297mm" if page_meta["isCover"] else f"{page_meta['heightPx']}px"
                     pdf_bytes = page.pdf(
                         width="210mm",
@@ -724,6 +815,14 @@ def compile_magazine():
                         print_background=True,
                         margin={"top": "0", "bottom": "0", "left": "0", "right": "0"}
                     )
+
+                    # Release baked background immediately to keep runner memory low
+                    if not page_meta["isCover"]:
+                        page.evaluate("""(targetIndex) => {
+                            const p = document.querySelectorAll('.page')[targetIndex];
+                            p.classList.remove('bake-applied');
+                            p.style.backgroundImage = '';
+                        }""", i)
 
                     reader = PdfReader(io.BytesIO(pdf_bytes))
                     if len(reader.pages) > 0:

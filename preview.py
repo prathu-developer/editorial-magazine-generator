@@ -43,6 +43,63 @@ def create_dark_watermark(src_path: str, cache_dir: str) -> str:
         print(f"⚠️ Could not create preview dark watermark ({err}). Using original.")
         return src_path
 
+STATIC_FONT_SPECS = [
+    ("Lora", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (400, "italic")]),
+    ("Montserrat", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal")]),
+    ("Inter", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal"), (900, "normal")]),
+    ("Noto Sans Devanagari", [(400, "normal"), (500, "normal"), (600, "normal"), (700, "normal"), (800, "normal")]),
+]
+
+def fetch_static_google_fonts(cache_dir: str) -> str:
+    fonts_dir = os.path.join(cache_dir, "fonts")
+    os.makedirs(fonts_dir, exist_ok=True)
+    manifest_path = os.path.join(fonts_dir, "manifest.css")
+
+    if os.path.exists(manifest_path):
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            return f.read()
+
+    family_params = []
+    for family, variants in STATIC_FONT_SPECS:
+        weight_tokens = [f"{w}italic" if s == "italic" else str(w) for w, s in variants]
+        family_params.append(f"{family.replace(' ', '+')}:{','.join(weight_tokens)}")
+    url = "https://fonts.googleapis.com/css?family=" + "|".join(family_params) + "&display=swap"
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                      "(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+    }
+
+    try:
+        resp = requests.get(url, headers=headers, timeout=20)
+        resp.raise_for_status()
+        css_text = resp.text
+    except Exception as err:
+        print(f"⚠️ Could not fetch static Google Fonts CSS ({err}). Falling back to no custom fonts.")
+        return ""
+
+    def _download_and_rewrite(match):
+        remote_url = match.group(1)
+        local_name = remote_url.rstrip("/").split("/")[-1]
+        local_path = os.path.join(fonts_dir, local_name)
+        if not os.path.exists(local_path):
+            try:
+                r = requests.get(remote_url, timeout=20)
+                r.raise_for_status()
+                with open(local_path, "wb") as f_out:
+                    f_out.write(r.content)
+            except Exception as err:
+                print(f"⚠️ Could not download font file {remote_url}: {err}")
+                return match.group(0)
+        return f"url('fonts/{local_name}')"
+
+    local_css = re.sub(r"url\((https://fonts\.gstatic\.com/[^)]+)\)", _download_and_rewrite, css_text)
+
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        f.write(local_css)
+
+    return local_css
+
 def sanitize_vocab_text(text: str) -> str:
     if not text:
         return ""
@@ -379,6 +436,8 @@ def generate_preview():
         watermark_path = watermark_png
         watermark_dark_path = create_dark_watermark(watermark_png, build_dir)
 
+    font_face_css = fetch_static_google_fonts(build_dir)
+
     base_payload = {
         "date_formatted": formatted_date_ist,
         "date_scraped": raw_data.get("date_scraped", formatted_date_ist),
@@ -392,7 +451,8 @@ def generate_preview():
         "watermark_src": get_asset_uri(watermark_path),
         "toc_entries": toc_entries,
         "total_articles": len(processed_articles),
-        "articles": processed_articles
+        "articles": processed_articles,
+        "font_face_css": font_face_css
     }
 
     # Search both templates/ and REPO_ROOT for template.html

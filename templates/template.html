@@ -2309,8 +2309,8 @@
   }
 
   /* =========================================================
-     PDF-NATIVE PERFORMANCE REFACTOR (ISO 32000 COMPLIANT)
-     Eliminates /SMask bitmaps & recursive CPU transparency groups
+     PDF RENDER PERFORMANCE OVERRIDES (ANTI-LAG)
+     Restores the premium visual theme using Figma-style vector math
      ========================================================= */
 
   /* 1. Global Anti-Lag: Kill live CPU blurs and frosted glass */
@@ -2320,56 +2320,43 @@
     filter: none !important;
   }
 
-  /* 2. Strip all raster shadow generation */
-  *, *::before, *::after {
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    text-shadow: none !important;
+  /* 2. Restore 3D Shadows (Vector-Safe Threshold)
+     Instead of removing shadows, we tighten them so Chromium draws native vectors instead of laggy raster masks */
+  .reader-panel { box-shadow: 0 6px 12px rgba(15, 43, 72, 0.12) !important; }
+  body.dark-theme .reader-panel { box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4) !important; }
+
+  .vcard, .rd-sidebar, .footer-pill, .vlab-category {
+    box-shadow: 0 4px 6px rgba(15, 43, 72, 0.08) !important;
+  }
+  body.dark-theme .vcard, body.dark-theme .rd-sidebar, body.dark-theme .footer-pill, body.dark-theme .vlab-category {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
   }
 
-  /* 3. Vector Directional Lighting (Replaces raster shadows with zero lag) */
-  .vcard,
-  .rd-sidebar,
-  .reader-panel,
-  .footer-pill,
-  .vlab-category {
-    border: 1px solid #e2e8f0 !important;
-    border-top: 1px solid #ffffff !important;
-    border-bottom: 1.5px solid #cbd5e1 !important;
+  /* 3. Restore Glowing Blobs (Figma-Style Vector Gradients)
+     Bakes the softness directly into a fading radial-gradient, bypassing the heavy filter: blur() */
+  .stance-blob-a {
+    background: radial-gradient(circle, color-mix(in srgb, var(--tone-a) 40%, transparent) 0%, color-mix(in srgb, var(--tone-a) 5%, transparent) 45%, transparent 70%) !important;
+    display: block !important;
+  }
+  .stance-blob-b {
+    background: radial-gradient(circle, color-mix(in srgb, var(--tone-b) 30%, transparent) 0%, color-mix(in srgb, var(--tone-b) 5%, transparent) 45%, transparent 70%) !important;
+    display: block !important;
+  }
+  .persp-blob-a {
+    background: radial-gradient(circle, color-mix(in srgb, var(--tone-a) 30%, transparent) 0%, color-mix(in srgb, var(--tone-a) 5%, transparent) 45%, transparent 70%) !important;
+    display: block !important;
   }
 
-  body.dark-theme .vcard,
-  body.dark-theme .rd-sidebar,
-  body.dark-theme .reader-panel,
-  body.dark-theme .footer-pill,
-  body.dark-theme .vlab-category {
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.22) !important;
-    border-bottom: 1.5px solid #000000 !important;
-  }
+  /* 4. Restore Category Background Glows */
+  .vlab-category::after { opacity: 0.25 !important; display: block !important; }
+  .vlab-category.c1::after { background: radial-gradient(circle, #d97706 0%, rgba(217, 119, 6, 0) 70%) !important; }
+  .vlab-category.c2::after { background: radial-gradient(circle, #0f766e 0%, rgba(15, 118, 110, 0) 70%) !important; }
+  .vlab-category.c3::after { background: radial-gradient(circle, #1e40af 0%, rgba(30, 64, 175, 0) 70%) !important; }
+  .vlab-category.c4::after { background: radial-gradient(circle, #6d28d9 0%, rgba(109, 40, 217, 0) 70%) !important; }
+  .vlab-category.c5::after { background: radial-gradient(circle, #e11d48 0%, rgba(225, 29, 72, 0) 70%) !important; }
+  .vlab-category.c6::after { background: radial-gradient(circle, #15803d 0%, rgba(21, 128, 61, 0) 70%) !important; }
 
-  /* 4. Eliminate stacked pseudo-element transparency layers */
-  .reader-panel::before,
-  .footer-pill::before,
-  .rd-sidebar::before,
-  .vcard::before,
-  .vlab-category::before,
-  .vlab-page-header::before,
-  .next-editorial-banner::before,
-  .deep-analysis-card::before,
-  .tone-bar-card::before {
-    display: none !important;
-  }
-
-  /* 5. Optimize stance radial blobs to lightweight vector fills */
-  .stance-blob-a,
-  .stance-blob-b,
-  .persp-blob-a,
-  .vlab-category::after {
-    display: none !important;
-  }
-
-  /* 6. Non-tiled watermark optimization */
+  /* 5. Non-tiled watermark optimization (Keep this excellent fix from the dev audit) */
   .inner-page-watermark {
     background-repeat: no-repeat !important;
     background-position: center center !important;

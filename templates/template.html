@@ -368,9 +368,9 @@
   /* ============== THEME VARIABLES (BASE / LIGHT) ============== */
   :root, body {
     --page-bg: #fafaf9;
-    --panel-bg: radial-gradient(circle at 10% 0%, #fef3c7 0%, transparent 45%), radial-gradient(circle at 100% 30%, #dbeafe 0%, transparent 50%), radial-gradient(circle at 20% 100%, #fce7f3 0%, transparent 40%), #fafaf9;
-    --glass-bg: rgba(255, 255, 255, 0.55);
-    --glass-bg-strong: rgba(255, 255, 255, 0.65);
+    --panel-bg: linear-gradient(135deg, #fef3c7 0%, #fafaf9 30%, #dbeafe 70%, #fce7f3 100%);
+    --glass-bg: rgba(255, 255, 255, 0.92);
+    --glass-bg-strong: rgba(255, 255, 255, 0.98);
     --glass-border: rgba(255, 255, 255, 0.9);
     --glass-shadow: 0 8px 16px -8px rgba(15, 43, 72, 0.2);
     --text-hi: #0b1e36;
@@ -1062,21 +1062,20 @@
     position: absolute;
     width: 130px;
     height: 130px;
-    background: radial-gradient(circle, color-mix(in srgb, var(--tone-a) 55%, transparent), transparent 70%);
+    /* Figma-style fix: Native soft vector gradient instead of expensive blur mask */
+    background: radial-gradient(circle, color-mix(in srgb, var(--tone-a) 40%, transparent) 0%, color-mix(in srgb, var(--tone-a) 5%, transparent) 45%, transparent 70%);
     border-radius: 50%;
     top: -45px;
     right: -35px;
-    filter: blur(8px);
   }
   .stance-blob-b {
     position: absolute;
     width: 100px;
     height: 100px;
-    background: radial-gradient(circle, color-mix(in srgb, var(--tone-b) 45%, transparent), transparent 70%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--tone-b) 30%, transparent) 0%, color-mix(in srgb, var(--tone-b) 5%, transparent) 45%, transparent 70%);
     border-radius: 50%;
     bottom: -30px;
     left: -20px;
-    filter: blur(8px);
   }
   .stance-watermark {
     position: absolute;
@@ -1150,11 +1149,10 @@
     position: absolute;
     width: 130px;
     height: 130px;
-    background: radial-gradient(circle, color-mix(in srgb, var(--tone-a) 45%, transparent), transparent 70%);
+    background: radial-gradient(circle, color-mix(in srgb, var(--tone-a) 30%, transparent) 0%, color-mix(in srgb, var(--tone-a) 5%, transparent) 45%, transparent 70%);
     border-radius: 50%;
     top: -45px;
     right: -35px;
-    filter: blur(8px);
     z-index: 0;
   }
   .persp-quote-watermark {
@@ -1314,19 +1312,19 @@
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    filter: blur(24px);
-    opacity: 0.22;
+    opacity: 0.25;
     top: -80px;
     right: -60px;
     z-index: 0;
     pointer-events: none;
   }
-  .vlab-category.c1::after { background: #d97706; }
-  .vlab-category.c2::after { background: #0f766e; }
-  .vlab-category.c3::after { background: #1e40af; }
-  .vlab-category.c4::after { background: #6d28d9; }
-  .vlab-category.c5::after { background: #e11d48; }
-  .vlab-category.c6::after { background: #15803d; }
+  /* Figma-style fix: Bake the blur directly into a soft vector radial-gradient */
+  .vlab-category.c1::after { background: radial-gradient(circle, #d97706 0%, rgba(217, 119, 6, 0) 70%); }
+  .vlab-category.c2::after { background: radial-gradient(circle, #0f766e 0%, rgba(15, 118, 110, 0) 70%); }
+  .vlab-category.c3::after { background: radial-gradient(circle, #1e40af 0%, rgba(30, 64, 175, 0) 70%); }
+  .vlab-category.c4::after { background: radial-gradient(circle, #6d28d9 0%, rgba(109, 40, 217, 0) 70%); }
+  .vlab-category.c5::after { background: radial-gradient(circle, #e11d48 0%, rgba(225, 29, 72, 0) 70%); }
+  .vlab-category.c6::after { background: radial-gradient(circle, #15803d 0%, rgba(21, 128, 61, 0) 70%); }
   .vlab-category > * { position: relative; z-index: 1; }
 
   /* Pill Headers for Categories */
@@ -2288,9 +2286,9 @@
   /* ============== THEME VARIABLES (DARK OVERRIDES) ============== */
   body.dark-theme {
     --page-bg: #050810;
-    --panel-bg: radial-gradient(circle at 90% 0%, rgba(217, 119, 6, 0.20) 0%, transparent 31%), radial-gradient(circle at 0% 60%, rgba(30, 58, 138, 0.22) 0%, transparent 40%), linear-gradient(160deg, #0a101b, #061421);
-    --glass-bg: rgba(255, 255, 255, 0.06);
-    --glass-bg-strong: rgba(255, 255, 255, 0.08);
+    --panel-bg: linear-gradient(160deg, #111a2c 0%, #0a101b 50%, #0f1722 100%);
+    --glass-bg: rgba(18, 26, 43, 0.85);
+    --glass-bg-strong: rgba(18, 26, 43, 0.95);
     --glass-border: rgba(255, 255, 255, 0.14);
     --glass-shadow: 0 8px 18px -8px rgba(0, 0, 0, 0.6);
     --text-hi: #ffffff;
@@ -2308,6 +2306,16 @@
 
   body.dark-theme .footer-cta {
     box-shadow: 0 0 16px -2px rgba(251, 191, 36, 0.45);
+  }
+
+  /* =========================================================
+     PDF RENDER PERFORMANCE OVERRIDES (ANTI-LAG)
+     Replaces heavy CPU math with Figma-style vector gradients
+     ========================================================= */
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
   }
 </style>
 </head>

@@ -5,6 +5,7 @@ import json
 import requests
 import io
 import time
+import pikepdf
 from datetime import datetime, timezone, timedelta
 from PIL import Image
 from evidence_lens import extract_evidence_spans
@@ -588,7 +589,7 @@ def compile_magazine():
     watermark_src = None
     watermark_dark_src = None
 
-    # DISABLED FOR NOW:
+    # DISABLED FOR NOW: To re-enable, uncomment the block below.
     # if os.path.exists(watermark_svg):
     #     watermark_src = f"file://{watermark_svg}".replace("\\", "/")
     #     watermark_dark_src = watermark_src
@@ -790,10 +791,21 @@ def compile_magazine():
                     remove_unreferenced=True
                 )
 
-                with open(var["pdf_path"], "wb") as f_out:
-                    writer.write(f_out)
+                # Write raw assembled PDF to a temporary buffer
+                temp_stream = io.BytesIO()
+                writer.write(temp_stream)
+                temp_stream.seek(0)
 
-                print(f"✅ Generated {var['name']}: {var['pdf_path']}", flush=True)
+                # Native PDF Optimization Pass via pikepdf
+                with pikepdf.open(temp_stream) as pdf:
+                    pdf.save(
+                        var["pdf_path"],
+                        linearize=True,
+                        object_stream_mode=pikepdf.ObjectStreamMode.generate,
+                        recompress_flate=True
+                    )
+
+                print(f"✅ Generated & Optimized {var['name']}: {var['pdf_path']}", flush=True)
             finally:
                 browser.close()
 

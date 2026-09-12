@@ -1,0 +1,4928 @@
+{
+  "metadata": {
+    "generated_at": "2026-09-12T11:11:07.949863+00:00",
+    "total_words": 476,
+    "total_spotlight_tagged": 169,
+    "total_foundational_plain": 307,
+    "spotlight_symbol": "⚡",
+    "single_word_threshold": 3.4,
+    "phrase_threshold": 3.35,
+    "sorting_order": "Decreasing by effective_score (easiest to rarest)"
+  },
+  "spotlight_words": [
+    {
+      "term": "Avatar",
+      "category": "foreign_words",
+      "part_of_speech": "Noun",
+      "effective_score": 3.69,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): Foreign word category immunity"
+    },
+    {
+      "term": "fiat",
+      "category": "foreign_words",
+      "part_of_speech": "Noun",
+      "effective_score": 3.63,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): Foreign word category immunity"
+    },
+    {
+      "term": "vanish",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.39,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.39 < 3.4)"
+    },
+    {
+      "term": "divergent",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.38,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.38 < 3.4)"
+    },
+    {
+      "term": "Ambiguity",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.37,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.37 < 3.4)"
+    },
+    {
+      "term": "setbacks",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.37,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.37 < 3.4)"
+    },
+    {
+      "term": "hallmark",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.37,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.37 < 3.4)"
+    },
+    {
+      "term": "exert",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.36,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.36 < 3.4)"
+    },
+    {
+      "term": "Withholding",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.36,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.36 < 3.4)"
+    },
+    {
+      "term": "escalating",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.35,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.35 < 3.4)"
+    },
+    {
+      "term": "Grievance",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.33,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.33 < 3.4)"
+    },
+    {
+      "term": "invoking",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.33,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.33 < 3.4)"
+    },
+    {
+      "term": "escalation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.32,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.32 < 3.4)"
+    },
+    {
+      "term": "ceasefire",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.32,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.32 < 3.4)"
+    },
+    {
+      "term": "escalation dominance",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 3.32,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "escalation": 3.32,
+        "dominance": 3.83
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'escalation' (Zipf 3.32 < 3.35)"
+    },
+    {
+      "term": "intimidate",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.31,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.31 < 3.4)"
+    },
+    {
+      "term": "seamlessly",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 3.31,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.31 < 3.4)"
+    },
+    {
+      "term": "Fruitful",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.3,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.3 < 3.4)"
+    },
+    {
+      "term": "periphery",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.3,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.3 < 3.4)"
+    },
+    {
+      "term": "Crumbling",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.29,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.29 < 3.4)"
+    },
+    {
+      "term": "perch",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.29,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.29 < 3.4)"
+    },
+    {
+      "term": "Bedrock",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.28,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.28 < 3.4)"
+    },
+    {
+      "term": "Reiterated",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.28,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.28 < 3.4)"
+    },
+    {
+      "term": "Reckoning with",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.28,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "reckoning": 3.28,
+        "with": 6.85
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'reckoning' (Zipf 3.28 < 3.35)"
+    },
+    {
+      "term": "outweigh",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.27,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.27 < 3.4)"
+    },
+    {
+      "term": "disparate",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.26,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.26 < 3.4)"
+    },
+    {
+      "term": "full-fledged",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.26,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "full": 5.54,
+        "fledged": 3.26
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'fledged' (Zipf 3.26 < 3.35)"
+    },
+    {
+      "term": "Jumping onto a bandwagon",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.26,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "jumping": 4.23,
+        "onto": 4.77,
+        "bandwagon": 3.26
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'bandwagon' (Zipf 3.26 < 3.35)"
+    },
+    {
+      "term": "angst",
+      "category": "foreign_words",
+      "part_of_speech": "Noun",
+      "effective_score": 3.26,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): Foreign word category immunity"
+    },
+    {
+      "term": "Conscientious",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.24,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.24 < 3.4)"
+    },
+    {
+      "term": "shunned",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.24,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.24 < 3.4)"
+    },
+    {
+      "term": "firewall",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.24,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.24 < 3.4)"
+    },
+    {
+      "term": "mass psychosis",
+      "category": "idioms",
+      "part_of_speech": "Noun phrase",
+      "effective_score": 3.24,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "mass": 4.87,
+        "psychosis": 3.24
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'psychosis' (Zipf 3.24 < 3.35)"
+    },
+    {
+      "term": "vulnerabilities",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.23,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.23 < 3.4)"
+    },
+    {
+      "term": "ire",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.22,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.22 < 3.4)"
+    },
+    {
+      "term": "reciprocal",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.22,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.22 < 3.4)"
+    },
+    {
+      "term": "unsettled",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.22,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.22 < 3.4)"
+    },
+    {
+      "term": "assertive",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.19,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.19 < 3.4)"
+    },
+    {
+      "term": "grievous",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.18,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.18 < 3.4)"
+    },
+    {
+      "term": "Perilous",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.18,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.18 < 3.4)"
+    },
+    {
+      "term": "doomsday",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.18,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.18 < 3.4)"
+    },
+    {
+      "term": "infertility",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.18,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.18 < 3.4)"
+    },
+    {
+      "term": "cavalier",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.17,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.17 < 3.4)"
+    },
+    {
+      "term": "deliberations",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.17,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.17 < 3.4)"
+    },
+    {
+      "term": "uncharted terrain",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 3.17,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "uncharted": 3.17,
+        "terrain": 3.94
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'uncharted' (Zipf 3.17 < 3.35)"
+    },
+    {
+      "term": "amplify",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.16,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.16 < 3.4)"
+    },
+    {
+      "term": "diversify",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.16,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.16 < 3.4)"
+    },
+    {
+      "term": "thumping",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.16,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.16 < 3.4)"
+    },
+    {
+      "term": "Resorting to",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.16,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "resorting": 3.16,
+        "to": 7.43
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'resorting' (Zipf 3.16 < 3.35)"
+    },
+    {
+      "term": "geopolitical",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.15,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.15 < 3.4)"
+    },
+    {
+      "term": "caveats",
+      "category": "foreign_words",
+      "part_of_speech": "Noun",
+      "effective_score": 3.15,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): Foreign word category immunity"
+    },
+    {
+      "term": "Consultative",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.12,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.12 < 3.4)"
+    },
+    {
+      "term": "fraught",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.12,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.12 < 3.4)"
+    },
+    {
+      "term": "Hijack",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.11,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.11 < 3.4)"
+    },
+    {
+      "term": "Brazenly",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 3.1,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.1 < 3.4)"
+    },
+    {
+      "term": "rebuke",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.1,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.1 < 3.4)"
+    },
+    {
+      "term": "retaliated",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.1,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.1 < 3.4)"
+    },
+    {
+      "term": "multilateral",
+      "category": "one_word_subs",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.1,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.1 < 3.4)"
+    },
+    {
+      "term": "watchful against",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective + Preposition",
+      "effective_score": 3.09,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "watchful": 3.09,
+        "against": 5.68
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'watchful' (Zipf 3.09 < 3.35)"
+    },
+    {
+      "term": "mowing the lawn",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.09,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "mowing": 3.09,
+        "the": 7.73,
+        "lawn": 3.98
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'mowing' (Zipf 3.09 < 3.35)"
+    },
+    {
+      "term": "Foregoing",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.08,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.08 < 3.4)"
+    },
+    {
+      "term": "mimicking",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.07,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.07 < 3.4)"
+    },
+    {
+      "term": "risk-averse",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.06,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "risk": 5.05,
+        "averse": 3.06
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'averse' (Zipf 3.06 < 3.35)"
+    },
+    {
+      "term": "thwart",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.06,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.06 < 3.4)"
+    },
+    {
+      "term": "worsens",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.06,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.06 < 3.4)"
+    },
+    {
+      "term": "deluge",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.05,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.05 < 3.4)"
+    },
+    {
+      "term": "Categorically",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 3.03,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.03 < 3.4)"
+    },
+    {
+      "term": "Manoeuvre",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.03,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.03 < 3.4)"
+    },
+    {
+      "term": "scaffolded",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.03,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.03 < 3.4)"
+    },
+    {
+      "term": "room for manoeuvre",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.03,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "room": 5.39,
+        "for": 7.01,
+        "manoeuvre": 3.03
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'manoeuvre' (Zipf 3.03 < 3.35)"
+    },
+    {
+      "term": "Unhinged",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.02,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.02 < 3.4)"
+    },
+    {
+      "term": "Bylaws",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.02,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.02 < 3.4)"
+    },
+    {
+      "term": "Veer towards",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.02,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "veer": 3.02,
+        "towards": 5.06
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'veer' (Zipf 3.02 < 3.35)"
+    },
+    {
+      "term": "Bickering",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.01,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.01 < 3.4)"
+    },
+    {
+      "term": "enmity",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.01,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.01 < 3.4)"
+    },
+    {
+      "term": "unauthorised",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.01,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.01 < 3.4)"
+    },
+    {
+      "term": "actionable",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.0,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 3.0 < 3.4)"
+    },
+    {
+      "term": "deterrence",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 2.99,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.99 < 3.4)"
+    },
+    {
+      "term": "Bogged down",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 2.99,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "bogged": 2.99,
+        "down": 5.88
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'bogged' (Zipf 2.99 < 3.35)"
+    },
+    {
+      "term": "onus",
+      "category": "foreign_words",
+      "part_of_speech": "Noun",
+      "effective_score": 2.99,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): Foreign word category immunity"
+    },
+    {
+      "term": "underscore",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 2.97,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.97 < 3.4)"
+    },
+    {
+      "term": "embroiled in",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.97,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "embroiled": 2.97,
+        "in": 7.27
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'embroiled' (Zipf 2.97 < 3.35)"
+    },
+    {
+      "term": "tacit",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.94,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.94 < 3.4)"
+    },
+    {
+      "term": "Edifice",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.93,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.93 < 3.4)"
+    },
+    {
+      "term": "patchy",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.93,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.93 < 3.4)"
+    },
+    {
+      "term": "abysmally",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 2.92,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.92 < 3.4)"
+    },
+    {
+      "term": "invocation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.91,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.91 < 3.4)"
+    },
+    {
+      "term": "disoriented",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.9,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.9 < 3.4)"
+    },
+    {
+      "term": "Affront",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.89,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.89 < 3.4)"
+    },
+    {
+      "term": "Ramping up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 2.89,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "ramping": 2.89,
+        "up": 6.39
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'ramping' (Zipf 2.89 < 3.35)"
+    },
+    {
+      "term": "Draconian",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.88,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.88 < 3.4)"
+    },
+    {
+      "term": "underpinning",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.88,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.88 < 3.4)"
+    },
+    {
+      "term": "make inroads",
+      "category": "idioms",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 2.88,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "make": 6.08,
+        "inroads": 2.88
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'inroads' (Zipf 2.88 < 3.35)"
+    },
+    {
+      "term": "Incitement",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.86,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.86 < 3.4)"
+    },
+    {
+      "term": "meagre",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.86,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.86 < 3.4)"
+    },
+    {
+      "term": "retaliatory",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.85,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.85 < 3.4)"
+    },
+    {
+      "term": "Smothering",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 2.85,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.85 < 3.4)"
+    },
+    {
+      "term": "flashpoints",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 2.84,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.84 < 3.4)"
+    },
+    {
+      "term": "confounding",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.83,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.83 < 3.4)"
+    },
+    {
+      "term": "Constrain",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 2.82,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.82 < 3.4)"
+    },
+    {
+      "term": "predisposed to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.81,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "predisposed": 2.81,
+        "to": 7.43
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'predisposed' (Zipf 2.81 < 3.35)"
+    },
+    {
+      "term": "derision",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.8,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.8 < 3.4)"
+    },
+    {
+      "term": "Concocted",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.79,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.79 < 3.4)"
+    },
+    {
+      "term": "gridlock",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 2.79,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.79 < 3.4)"
+    },
+    {
+      "term": "Haphazard",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.77,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.77 < 3.4)"
+    },
+    {
+      "term": "litmus test",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 2.77,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "litmus": 2.77,
+        "test": 5.19
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'litmus' (Zipf 2.77 < 3.35)"
+    },
+    {
+      "term": "attaché",
+      "category": "foreign_words",
+      "part_of_speech": "Noun",
+      "effective_score": 2.77,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): Foreign word category immunity"
+    },
+    {
+      "term": "conciliatory",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.76,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.76 < 3.4)"
+    },
+    {
+      "term": "strangulation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.76,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.76 < 3.4)"
+    },
+    {
+      "term": "precipice",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 2.76,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.76 < 3.4)"
+    },
+    {
+      "term": "heft",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.75,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.75 < 3.4)"
+    },
+    {
+      "term": "Quashed",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 2.75,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.75 < 3.4)"
+    },
+    {
+      "term": "temperamental",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.75,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.75 < 3.4)"
+    },
+    {
+      "term": "Arraigned",
+      "category": "one_word_subs",
+      "part_of_speech": "Verb",
+      "effective_score": 2.73,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.73 < 3.4)"
+    },
+    {
+      "term": "Dystopia",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.72,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.72 < 3.4)"
+    },
+    {
+      "term": "Embarks on",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 2.72,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "embarks": 2.72,
+        "on": 6.91
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'embarks' (Zipf 2.72 < 3.35)"
+    },
+    {
+      "term": "workhorse",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 2.72,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.72 < 3.4)"
+    },
+    {
+      "term": "shockwaves",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.7,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.7 < 3.4)"
+    },
+    {
+      "term": "Absolved itself of",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 2.69,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "absolved": 2.69,
+        "itself": 5.1,
+        "of": 7.4
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'absolved' (Zipf 2.69 < 3.35)"
+    },
+    {
+      "term": "Aspirants",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 2.68,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.68 < 3.4)"
+    },
+    {
+      "term": "eventuality",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.67,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.67 < 3.4)"
+    },
+    {
+      "term": "overstate",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 2.67,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.67 < 3.4)"
+    },
+    {
+      "term": "Space-faring",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.67,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "space": 5.23,
+        "faring": 2.67
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'faring' (Zipf 2.67 < 3.35)"
+    },
+    {
+      "term": "powertrains",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.65,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.65 < 3.4)"
+    },
+    {
+      "term": "overreach",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.64,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.64 < 3.4)"
+    },
+    {
+      "term": "Orwellian",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.63,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.63 < 3.4)"
+    },
+    {
+      "term": "Orwellian dystopia",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 2.63,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "orwellian": 2.63,
+        "dystopia": 2.72
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'orwellian' (Zipf 2.63 < 3.35)"
+    },
+    {
+      "term": "accruing to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 2.58,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "accruing": 2.58,
+        "to": 7.43
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'accruing' (Zipf 2.58 < 3.35)"
+    },
+    {
+      "term": "Despotic",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.57,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.57 < 3.4)"
+    },
+    {
+      "term": "Foolhardy",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.57,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.57 < 3.4)"
+    },
+    {
+      "term": "inching towards",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 2.57,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "inching": 2.57,
+        "towards": 5.06
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'inching' (Zipf 2.57 < 3.35)"
+    },
+    {
+      "term": "Meted out",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 2.56,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "meted": 2.56,
+        "out": 6.38
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'meted' (Zipf 2.56 < 3.35)"
+    },
+    {
+      "term": "dependability",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.55,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.55 < 3.4)"
+    },
+    {
+      "term": "Nodal",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.55,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.55 < 3.4)"
+    },
+    {
+      "term": "Abutting",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 2.54,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.54 < 3.4)"
+    },
+    {
+      "term": "Recuse",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 2.54,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.54 < 3.4)"
+    },
+    {
+      "term": "Acquiescence",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.48,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.48 < 3.4)"
+    },
+    {
+      "term": "Enamoured of",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective phrase",
+      "effective_score": 2.48,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "enamoured": 2.48,
+        "of": 7.4
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'enamoured' (Zipf 2.48 < 3.35)"
+    },
+    {
+      "term": "spiralling out of control",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 2.48,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "spiralling": 2.48,
+        "out": 6.38,
+        "of": 7.4,
+        "control": 5.4
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'spiralling' (Zipf 2.48 < 3.35)"
+    },
+    {
+      "term": "Hawkish",
+      "category": "one_word_subs",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.43,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.43 < 3.4)"
+    },
+    {
+      "term": "infallibility",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 2.43,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.43 < 3.4)"
+    },
+    {
+      "term": "capitalised on",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 2.43,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "capitalised": 2.43,
+        "on": 6.91
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'capitalised' (Zipf 2.43 < 3.35)"
+    },
+    {
+      "term": "banality",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.42,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.42 < 3.4)"
+    },
+    {
+      "term": "premised on",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 2.41,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "premised": 2.41,
+        "on": 6.91
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'premised' (Zipf 2.41 < 3.35)"
+    },
+    {
+      "term": "scanty",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.34,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.34 < 3.4)"
+    },
+    {
+      "term": "Without mincing words",
+      "category": "idioms",
+      "part_of_speech": "Idiom",
+      "effective_score": 2.34,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "without": 5.69,
+        "mincing": 2.34,
+        "words": 5.25
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'mincing' (Zipf 2.34 < 3.35)"
+    },
+    {
+      "term": "passé",
+      "category": "foreign_words",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.34,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): Foreign word category immunity"
+    },
+    {
+      "term": "salience",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 2.32,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.32 < 3.4)"
+    },
+    {
+      "term": "Dispossession",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 2.31,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.31 < 3.4)"
+    },
+    {
+      "term": "chokehold",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 2.29,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.29 < 3.4)"
+    },
+    {
+      "term": "Privatise",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 2.28,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.28 < 3.4)"
+    },
+    {
+      "term": "Flout",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 2.25,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.25 < 3.4)"
+    },
+    {
+      "term": "Ignoble",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.24,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.24 < 3.4)"
+    },
+    {
+      "term": "short shrift",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 2.23,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "short": 5.33,
+        "shrift": 2.23
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'shrift' (Zipf 2.23 < 3.35)"
+    },
+    {
+      "term": "denuded of",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb + Preposition",
+      "effective_score": 2.21,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "denuded": 2.21,
+        "of": 7.4
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'denuded' (Zipf 2.21 < 3.35)"
+    },
+    {
+      "term": "inured to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.21,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "inured": 2.21,
+        "to": 7.43
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'inured' (Zipf 2.21 < 3.35)"
+    },
+    {
+      "term": "Portends",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 2.14,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.14 < 3.4)"
+    },
+    {
+      "term": "endometrium",
+      "category": "foreign_words",
+      "part_of_speech": "Noun",
+      "effective_score": 2.14,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): Foreign word category immunity"
+    },
+    {
+      "term": "understudied",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 2.01,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 2.01 < 3.4)"
+    },
+    {
+      "term": "conceptualised",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 1.98,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 1.98 < 3.4)"
+    },
+    {
+      "term": "overbroad",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 1.88,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 1.88 < 3.4)"
+    },
+    {
+      "term": "Handhold",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 1.86,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 1.86 < 3.4)"
+    },
+    {
+      "term": "Hewing to",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 1.81,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "hewing": 1.81,
+        "to": 7.43
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'hewing' (Zipf 1.81 < 3.35)"
+    },
+    {
+      "term": "Jurisprudential",
+      "category": "one_word_subs",
+      "part_of_speech": "Adjective",
+      "effective_score": 1.78,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 1.78 < 3.4)"
+    },
+    {
+      "term": "barrelling ahead",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 1.71,
+      "is_spotlight": true,
+      "word_breakdown": {
+        "barrelling": 1.71,
+        "ahead": 5.01
+      },
+      "reason": "Spotlight (⚡): High-yield phrase containing 'barrelling' (Zipf 1.71 < 3.35)"
+    },
+    {
+      "term": "habituating",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 1.54,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 1.54 < 3.4)"
+    },
+    {
+      "term": "weaponise",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 1.32,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 1.32 < 3.4)"
+    },
+    {
+      "term": "Skittishness",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 1.18,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 1.18 < 3.4)"
+    },
+    {
+      "term": "weaponisation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 1.1,
+      "is_spotlight": true,
+      "word_breakdown": {},
+      "reason": "Spotlight (⚡): High-yield target vocabulary (Effective Stem Zipf 1.1 < 3.4)"
+    }
+  ],
+  "foundational_words": [
+    {
+      "term": "heed",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 6.69,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 6.69 >= 3.4)"
+    },
+    {
+      "term": "all but",
+      "category": "idioms",
+      "part_of_speech": "Adverbial phrase",
+      "effective_score": 6.52,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "all": 6.52,
+        "but": 6.63
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "wanting",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 6.04,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 6.04 >= 3.4)"
+    },
+    {
+      "term": "That said",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 6.01,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "that": 7.01,
+        "said": 6.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "back down",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 5.88,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "back": 6.04,
+        "down": 5.88
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Keep up with",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.66,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "keep": 5.66,
+        "up": 6.39,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "put off",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.66,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "put": 5.66,
+        "off": 5.93
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "get away with",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 5.62,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "get": 6.28,
+        "away": 5.62,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "let down",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.6,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "let": 5.6,
+        "down": 5.88
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "make the case for",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 5.55,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "make": 6.08,
+        "the": 7.73,
+        "case": 5.55,
+        "for": 7.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "In the making",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 5.54,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "in": 7.27,
+        "the": 7.73,
+        "making": 5.54
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "far from",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 5.5,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "far": 5.5,
+        "from": 6.63
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "get in line",
+      "category": "idioms",
+      "part_of_speech": "Verb phrase",
+      "effective_score": 5.49,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "get": 6.28,
+        "in": 7.27,
+        "line": 5.49
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "in the run-up to",
+      "category": "idioms",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 5.49,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "in": 7.27,
+        "the": 7.73,
+        "run": 5.49,
+        "up": 6.39,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "in the face of",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 5.45,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "in": 7.27,
+        "the": 7.73,
+        "face": 5.45,
+        "of": 7.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "first of its kind",
+      "category": "idioms",
+      "part_of_speech": "Adjective",
+      "effective_score": 5.45,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "first": 6.11,
+        "of": 7.4,
+        "its": 6.14,
+        "kind": 5.45
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "talk back to",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 5.42,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "talk": 5.42,
+        "back": 6.04,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "body of research",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 5.39,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "body": 5.4,
+        "of": 7.4,
+        "research": 5.39
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "move away from",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.35,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "move": 5.35,
+        "away": 5.62,
+        "from": 6.63
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "in light of",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Preposition",
+      "effective_score": 5.33,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "in": 7.27,
+        "light": 5.33,
+        "of": 7.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Stay on",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.33,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "stay": 5.33,
+        "on": 6.91
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Taken off",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.33,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "taken": 5.33,
+        "off": 5.93
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Taken out",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 5.33,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "taken": 5.33,
+        "out": 6.38
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "turn to",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 5.32,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "turn": 5.32,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "in the red",
+      "category": "idioms",
+      "part_of_speech": "Idiom",
+      "effective_score": 5.32,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "in": 7.27,
+        "the": 7.73,
+        "red": 5.32
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "red line",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 5.32,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "red": 5.32,
+        "line": 5.49
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "left behind",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.29,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "left": 5.62,
+        "behind": 5.29
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Held up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.24,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "held": 5.24,
+        "up": 6.39
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "across the board",
+      "category": "idioms",
+      "part_of_speech": "Idiom",
+      "effective_score": 5.24,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "across": 5.25,
+        "the": 7.73,
+        "board": 5.24
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "cut a deal",
+      "category": "idioms",
+      "part_of_speech": "Idiom",
+      "effective_score": 5.24,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "cut": 5.24,
+        "deal": 5.32
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Hold off",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 5.19,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "hold": 5.19,
+        "off": 5.93
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Brought to light",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 5.16,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "brought": 5.16,
+        "to": 7.43,
+        "light": 5.33
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "step back from",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 5.13,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "step": 5.13,
+        "back": 6.04,
+        "from": 6.63
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "build on",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 5.04,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "build": 5.04,
+        "on": 6.91
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Of a piece with",
+      "category": "idioms",
+      "part_of_speech": "Idiom",
+      "effective_score": 5.04,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "of": 7.4,
+        "piece": 5.04,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "base effect",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 5.02,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "base": 5.05,
+        "effect": 5.02
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "cold fact",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 5.02,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "cold": 5.02,
+        "fact": 5.41
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "calling card",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.96,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "calling": 4.96,
+        "card": 5.04
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "global high table",
+      "category": "idioms",
+      "part_of_speech": "Noun phrase",
+      "effective_score": 4.95,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "global": 4.95,
+        "high": 5.75,
+        "table": 5.05
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Commercial",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.92,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.92 >= 3.4)"
+    },
+    {
+      "term": "Cash in",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.92,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "cash": 4.92,
+        "in": 7.27
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Thus far",
+      "category": "idioms",
+      "part_of_speech": "Adverb",
+      "effective_score": 4.91,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "thus": 4.91,
+        "far": 5.5
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "caught up in",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 4.9,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "caught": 4.9,
+        "up": 6.39,
+        "in": 7.27
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "caught up to",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.9,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "caught": 4.9,
+        "up": 6.39,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "associated with",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 4.89,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "associated": 4.89,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "mass-market",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.87,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "mass": 4.87,
+        "market": 5.29
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "catch up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.87,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "catch": 4.87,
+        "up": 6.39
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "surfacing",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.83,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.83 >= 3.4)"
+    },
+    {
+      "term": "throw up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.83,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "throw": 4.83,
+        "up": 6.39
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Engineering",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.8,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.8 >= 3.4)"
+    },
+    {
+      "term": "institute",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.8,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.8 >= 3.4)"
+    },
+    {
+      "term": "window of opportunity",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.8,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "window": 4.8,
+        "of": 7.4,
+        "opportunity": 4.95
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "accounts for",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal verb",
+      "effective_score": 4.73,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "accounts": 4.73,
+        "for": 7.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "by all accounts",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.73,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "by": 6.66,
+        "all": 6.52,
+        "accounts": 4.73
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "duty of care",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.71,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "duty": 4.71,
+        "of": 7.4,
+        "care": 5.56
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Ray of hope",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.69,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "ray": 4.69,
+        "of": 7.4,
+        "hope": 5.44
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Soft power",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.68,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "soft": 4.68,
+        "power": 5.52
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "pulled out of",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal verb",
+      "effective_score": 4.67,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "pulled": 4.67,
+        "out": 6.38,
+        "of": 7.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Pulled up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.67,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "pulled": 4.67,
+        "up": 6.39
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "falling behind",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.66,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "falling": 4.66,
+        "behind": 5.29
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "confidence-building measures",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.65,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "confidence": 4.65,
+        "building": 5.29,
+        "measures": 4.67
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "vote of confidence",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.65,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "vote": 5.11,
+        "of": 7.4,
+        "confidence": 4.65
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "came into conflict with",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb phrase",
+      "effective_score": 4.64,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "came": 5.5,
+        "into": 6.11,
+        "conflict": 4.64,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Big-ticket",
+      "category": "idioms",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.61,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "big": 5.67,
+        "ticket": 4.61
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "take for granted",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.61,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "take": 5.92,
+        "for": 7.01,
+        "granted": 4.61
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Stood up for",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 4.57,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "stood": 4.57,
+        "up": 6.39,
+        "for": 7.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "can ill afford",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.57,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "can": 6.46,
+        "ill": 4.72,
+        "afford": 4.57
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "counter to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Prepositional phrase",
+      "effective_score": 4.56,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "counter": 4.56,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Came down heavily on",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 4.54,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "came": 5.5,
+        "down": 5.88,
+        "heavily": 4.54,
+        "on": 6.91
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Entitled to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.51,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "entitled": 4.51,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "shoulder",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.5,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.5 >= 3.4)"
+    },
+    {
+      "term": "sharp",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.48,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.48 >= 3.4)"
+    },
+    {
+      "term": "mounting",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.47,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.47 >= 3.4)"
+    },
+    {
+      "term": "offensive",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.46,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.46 >= 3.4)"
+    },
+    {
+      "term": "bound for",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 4.46,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "bound": 4.46,
+        "for": 7.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "bound to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.46,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "bound": 4.46,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "in the thick of",
+      "category": "idioms",
+      "part_of_speech": "Idiom",
+      "effective_score": 4.46,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "in": 7.27,
+        "the": 7.73,
+        "thick": 4.46,
+        "of": 7.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Enforcement",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.45,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.45 >= 3.4)"
+    },
+    {
+      "term": "the stuff of science fiction",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.44,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "the": 7.73,
+        "stuff": 5.14,
+        "of": 7.4,
+        "science": 5.12,
+        "fiction": 4.44
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "locked-in to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 4.43,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "locked": 4.43,
+        "in": 7.27,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "put forth",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.4,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "put": 5.66,
+        "forth": 4.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "narrative",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.39,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.39 >= 3.4)"
+    },
+    {
+      "term": "fallen to a new low",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.39,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "fallen": 4.39,
+        "to": 7.43,
+        "new": 6.25,
+        "low": 5.33
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "keep pace with",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 4.38,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "keep": 5.66,
+        "pace": 4.38,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Fleeting",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.33,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.33 >= 3.4)"
+    },
+    {
+      "term": "radically",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 4.33,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.33 >= 3.4)"
+    },
+    {
+      "term": "virtually",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 4.32,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.32 >= 3.4)"
+    },
+    {
+      "term": "engagement",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.31,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.31 >= 3.4)"
+    },
+    {
+      "term": "failings",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.3,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.3 >= 3.4)"
+    },
+    {
+      "term": "slide into",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 4.3,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "slide": 4.3,
+        "into": 6.11
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "At the top of the agenda",
+      "category": "idioms",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 4.3,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "at": 6.7,
+        "the": 7.73,
+        "top": 5.57,
+        "of": 7.4,
+        "agenda": 4.3
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "regime change",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.3,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "regime": 4.3,
+        "change": 5.54
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "set the agenda",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.3,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "set": 5.59,
+        "the": 7.73,
+        "agenda": 4.3
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "shot across the bow",
+      "category": "idioms",
+      "part_of_speech": "Noun phrase",
+      "effective_score": 4.3,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "shot": 5.22,
+        "across": 5.25,
+        "the": 7.73,
+        "bow": 4.3
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "integrated",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.29,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.29 >= 3.4)"
+    },
+    {
+      "term": "collaboration",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.28,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.28 >= 3.4)"
+    },
+    {
+      "term": "Odds of",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 4.28,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "odds": 4.28,
+        "of": 7.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "slip past",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.28,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "slip": 4.28,
+        "past": 5.36
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Moderate",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.27,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.27 >= 3.4)"
+    },
+    {
+      "term": "interventions",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.26,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.26 >= 3.4)"
+    },
+    {
+      "term": "backed out of",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal verb",
+      "effective_score": 4.26,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "backed": 4.26,
+        "out": 6.38,
+        "of": 7.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "across the spectrum",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.26,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "across": 5.25,
+        "the": 7.73,
+        "spectrum": 4.26
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "warrant",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.24,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.24 >= 3.4)"
+    },
+    {
+      "term": "burden",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.23,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.23 >= 3.4)"
+    },
+    {
+      "term": "coalition",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.23,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.23 >= 3.4)"
+    },
+    {
+      "term": "excess capacity",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.21,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "excess": 4.21,
+        "capacity": 4.71
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "chronic",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.2,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.2 >= 3.4)"
+    },
+    {
+      "term": "Laser-focused",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.2,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "laser": 4.2,
+        "focused": 4.65
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "dismissed as",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.2,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "dismissed": 4.2,
+        "as": 6.77
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "stepped up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.2,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "stepped": 4.2,
+        "up": 6.39
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Deemed",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.19,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.19 >= 3.4)"
+    },
+    {
+      "term": "Exploration",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.19,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.19 >= 3.4)"
+    },
+    {
+      "term": "preserves",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.19,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.19 >= 3.4)"
+    },
+    {
+      "term": "sustained",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.19,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.19 >= 3.4)"
+    },
+    {
+      "term": "Trapped in",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb + Preposition",
+      "effective_score": 4.19,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "trapped": 4.19,
+        "in": 7.27
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Compound",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.18,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.18 >= 3.4)"
+    },
+    {
+      "term": "consecutive",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.18,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.18 >= 3.4)"
+    },
+    {
+      "term": "non-compliance",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.17,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "non": 5.29,
+        "compliance": 4.17
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "simultaneously",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 4.17,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.17 >= 3.4)"
+    },
+    {
+      "term": "Underlying",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.17,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.17 >= 3.4)"
+    },
+    {
+      "term": "Strong-arm tactics",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.17,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "strong": 5.22,
+        "arm": 4.73,
+        "tactics": 4.17
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Top-tier",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.16,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "top": 5.57,
+        "tier": 4.16
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "yielded",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.16,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.16 >= 3.4)"
+    },
+    {
+      "term": "protocols",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.15,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.15 >= 3.4)"
+    },
+    {
+      "term": "under severe strain",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 4.15,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "under": 5.73,
+        "severe": 4.56,
+        "strain": 4.15
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "inventory",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.14,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.14 >= 3.4)"
+    },
+    {
+      "term": "Immune to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.14,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "immune": 4.14,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Breached",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 4.13,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.13 >= 3.4)"
+    },
+    {
+      "term": "keen to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective + Preposition",
+      "effective_score": 4.13,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "keen": 4.13,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "pursuit",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.12,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.12 >= 3.4)"
+    },
+    {
+      "term": "capabilities",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.11,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.11 >= 3.4)"
+    },
+    {
+      "term": "consensus",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.1,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.1 >= 3.4)"
+    },
+    {
+      "term": "Regulatory vacuum",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 4.09,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "regulatory": 4.23,
+        "vacuum": 4.09
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "hub",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.08,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.08 >= 3.4)"
+    },
+    {
+      "term": "toll on",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 4.08,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "toll": 4.08,
+        "on": 6.91
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Momentum",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.07,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.07 >= 3.4)"
+    },
+    {
+      "term": "Pronounced",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.06,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.06 >= 3.4)"
+    },
+    {
+      "term": "cut corners",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 4.06,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "cut": 5.24,
+        "corners": 4.06
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Politically motivated",
+      "category": "idioms",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.06,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "politically": 4.06,
+        "motivated": 4.14
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "sophisticated",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.05,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.05 >= 3.4)"
+    },
+    {
+      "term": "Static",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.05,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.05 >= 3.4)"
+    },
+    {
+      "term": "Attributed to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 4.05,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "attributed": 4.05,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "ranges itself against",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 4.05,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "ranges": 4.05,
+        "itself": 5.1,
+        "against": 5.68
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "authentic",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 4.04,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.04 >= 3.4)"
+    },
+    {
+      "term": "Audits",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.04,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.04 >= 3.4)"
+    },
+    {
+      "term": "the stakes",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 4.02,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "the": 7.73,
+        "stakes": 4.02
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Voluntary retirement",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 4.01,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "voluntary": 4.01,
+        "retirement": 4.53
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Enters force",
+      "category": "idioms",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 4.01,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "enters": 4.01,
+        "force": 5.23
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "escort",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.0,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.0 >= 3.4)"
+    },
+    {
+      "term": "pledges",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 4.0,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 4.0 >= 3.4)"
+    },
+    {
+      "term": "Facilitate",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.99,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.99 >= 3.4)"
+    },
+    {
+      "term": "sparked",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.99,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.99 >= 3.4)"
+    },
+    {
+      "term": "Slipped past",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 3.99,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "slipped": 3.99,
+        "past": 5.36
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Weigh heavy on",
+      "category": "idioms",
+      "part_of_speech": "Idiom",
+      "effective_score": 3.99,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "weigh": 3.99,
+        "heavy": 4.96,
+        "on": 6.91
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "complications",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.98,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.98 >= 3.4)"
+    },
+    {
+      "term": "Stepping away from",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 3.98,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "stepping": 3.98,
+        "away": 5.62,
+        "from": 6.63
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "frontiers",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.97,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.97 >= 3.4)"
+    },
+    {
+      "term": "revelation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.96,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.96 >= 3.4)"
+    },
+    {
+      "term": "larger puzzle",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 3.96,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "larger": 4.82,
+        "puzzle": 3.96
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Shock the conscience of",
+      "category": "idioms",
+      "part_of_speech": "Idiom",
+      "effective_score": 3.96,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "shock": 4.46,
+        "the": 7.73,
+        "conscience": 3.96,
+        "of": 7.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Reservations",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.95,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.95 >= 3.4)"
+    },
+    {
+      "term": "sensitivity to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Noun + Preposition",
+      "effective_score": 3.95,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "sensitivity": 3.95,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "take on a hollow ring",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 3.95,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "take": 5.92,
+        "on": 6.91,
+        "hollow": 3.95,
+        "ring": 4.81
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Citing",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.94,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.94 >= 3.4)"
+    },
+    {
+      "term": "robust",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.94,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.94 >= 3.4)"
+    },
+    {
+      "term": "halt",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.93,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.93 >= 3.4)"
+    },
+    {
+      "term": "Mentors",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.93,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.93 >= 3.4)"
+    },
+    {
+      "term": "Went to great lengths",
+      "category": "idioms",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 3.92,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "went": 5.5,
+        "to": 7.43,
+        "great": 5.88,
+        "lengths": 3.92
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Deployment",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.91,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.91 >= 3.4)"
+    },
+    {
+      "term": "pioneer",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.91,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.91 >= 3.4)"
+    },
+    {
+      "term": "arguably",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 3.9,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.9 >= 3.4)"
+    },
+    {
+      "term": "blunt",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.9,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.9 >= 3.4)"
+    },
+    {
+      "term": "mortality",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.9,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.9 >= 3.4)"
+    },
+    {
+      "term": "Titans",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.9,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.9 >= 3.4)"
+    },
+    {
+      "term": "trains the spotlight on",
+      "category": "idioms",
+      "part_of_speech": "Verb",
+      "effective_score": 3.9,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "trains": 4.27,
+        "the": 7.73,
+        "spotlight": 3.9,
+        "on": 6.91
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Adverse",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.89,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.89 >= 3.4)"
+    },
+    {
+      "term": "economies of scale",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.89,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "economies": 3.89,
+        "of": 7.4,
+        "scale": 4.83
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "embedded in",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.89,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "embedded": 3.89,
+        "in": 7.27
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "in the midst of",
+      "category": "idioms",
+      "part_of_speech": "Prepositional phrase",
+      "effective_score": 3.89,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "in": 7.27,
+        "the": 7.73,
+        "midst": 3.89,
+        "of": 7.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "credibility",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.88,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.88 >= 3.4)"
+    },
+    {
+      "term": "credibility deficit",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 3.88,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "credibility": 3.88,
+        "deficit": 4.06
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Silver lining",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 3.88,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "silver": 4.81,
+        "lining": 3.88
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "distinguish",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.87,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.87 >= 3.4)"
+    },
+    {
+      "term": "maturity",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.87,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.87 >= 3.4)"
+    },
+    {
+      "term": "prospective",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.87,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.87 >= 3.4)"
+    },
+    {
+      "term": "fatigue",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.86,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.86 >= 3.4)"
+    },
+    {
+      "term": "Irony",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.86,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.86 >= 3.4)"
+    },
+    {
+      "term": "lethal",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.86,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.86 >= 3.4)"
+    },
+    {
+      "term": "strategic autonomy",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.86,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "strategic": 4.43,
+        "autonomy": 3.86
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "strategic autonomy",
+      "category": "idioms",
+      "part_of_speech": "Noun Phrase",
+      "effective_score": 3.86,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "strategic": 4.43,
+        "autonomy": 3.86
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "successive",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.85,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.85 >= 3.4)"
+    },
+    {
+      "term": "outright",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 3.83,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.83 >= 3.4)"
+    },
+    {
+      "term": "reset",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.83,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.83 >= 3.4)"
+    },
+    {
+      "term": "inadequate",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.82,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.82 >= 3.4)"
+    },
+    {
+      "term": "Surged",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.82,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.82 >= 3.4)"
+    },
+    {
+      "term": "Spells this out",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.82,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "spells": 3.82,
+        "this": 6.82,
+        "out": 6.38
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "temper",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.81,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.81 >= 3.4)"
+    },
+    {
+      "term": "decisively",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 3.8,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.8 >= 3.4)"
+    },
+    {
+      "term": "predominantly",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 3.8,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.8 >= 3.4)"
+    },
+    {
+      "term": "aligned with",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.8,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "aligned": 3.8,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "traced to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Prepositional Phrase",
+      "effective_score": 3.8,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "traced": 3.8,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "subjective",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.79,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.79 >= 3.4)"
+    },
+    {
+      "term": "gamble with",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 3.79,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "gamble": 3.79,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "commenced",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.78,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.78 >= 3.4)"
+    },
+    {
+      "term": "Forging",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.78,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.78 >= 3.4)"
+    },
+    {
+      "term": "ecosystem",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.78,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.78 >= 3.4)"
+    },
+    {
+      "term": "Precedent",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.78,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.78 >= 3.4)"
+    },
+    {
+      "term": "compensate for",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 3.78,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "compensate": 3.78,
+        "for": 7.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "negotiated settlement",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 3.78,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "negotiated": 3.78,
+        "settlement": 4.49
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "complementing",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.77,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.77 >= 3.4)"
+    },
+    {
+      "term": "Bypass",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.76,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.76 >= 3.4)"
+    },
+    {
+      "term": "pros and cons",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.76,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "pros": 3.87,
+        "and": 7.41,
+        "cons": 3.76
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "infamous",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.75,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.75 >= 3.4)"
+    },
+    {
+      "term": "Systemic",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.74,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.74 >= 3.4)"
+    },
+    {
+      "term": "capital expenditure",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.74,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "capital": 5.01,
+        "expenditure": 3.74
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "magnet for",
+      "category": "idioms",
+      "part_of_speech": "Noun",
+      "effective_score": 3.73,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "magnet": 3.73,
+        "for": 7.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "integrates",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.72,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.72 >= 3.4)"
+    },
+    {
+      "term": "bilateral",
+      "category": "one_word_subs",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.72,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.72 >= 3.4)"
+    },
+    {
+      "term": "Volatility",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.72,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.72 >= 3.4)"
+    },
+    {
+      "term": "forged ahead",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal verb",
+      "effective_score": 3.72,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "forged": 3.72,
+        "ahead": 5.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Ample",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.71,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.71 >= 3.4)"
+    },
+    {
+      "term": "disruption",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.71,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.71 >= 3.4)"
+    },
+    {
+      "term": "apocalypse",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.71,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.71 >= 3.4)"
+    },
+    {
+      "term": "induction",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.71,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.71 >= 3.4)"
+    },
+    {
+      "term": "Template",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.71,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.71 >= 3.4)"
+    },
+    {
+      "term": "domination",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.7,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.7 >= 3.4)"
+    },
+    {
+      "term": "woes",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.7,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.7 >= 3.4)"
+    },
+    {
+      "term": "unwilling to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective phrase",
+      "effective_score": 3.7,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "unwilling": 3.7,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Durable",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.68,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.68 >= 3.4)"
+    },
+    {
+      "term": "navigate",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.68,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.68 >= 3.4)"
+    },
+    {
+      "term": "procurement",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.68,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.68 >= 3.4)"
+    },
+    {
+      "term": "Diminished",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.67,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.67 >= 3.4)"
+    },
+    {
+      "term": "Harness",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.67,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.67 >= 3.4)"
+    },
+    {
+      "term": "transmits",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.67,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.67 >= 3.4)"
+    },
+    {
+      "term": "imperative",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.66,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.66 >= 3.4)"
+    },
+    {
+      "term": "Spur",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.66,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.66 >= 3.4)"
+    },
+    {
+      "term": "concessions",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.65,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.65 >= 3.4)"
+    },
+    {
+      "term": "undermined",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.65,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.65 >= 3.4)"
+    },
+    {
+      "term": "incidence",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.64,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.64 >= 3.4)"
+    },
+    {
+      "term": "electorate",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.64,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.64 >= 3.4)"
+    },
+    {
+      "term": "assertions",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.63,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.63 >= 3.4)"
+    },
+    {
+      "term": "Mushrooming",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.63,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.63 >= 3.4)"
+    },
+    {
+      "term": "Periodic",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.63,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.63 >= 3.4)"
+    },
+    {
+      "term": "Paradox",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.63,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.63 >= 3.4)"
+    },
+    {
+      "term": "tariffs on",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Prepositional phrase",
+      "effective_score": 3.63,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "tariffs": 3.63,
+        "on": 6.91
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Scaling up",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.63,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "scaling": 3.63,
+        "up": 6.39
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "inflicted",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.62,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.62 >= 3.4)"
+    },
+    {
+      "term": "sabotage",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.62,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.62 >= 3.4)"
+    },
+    {
+      "term": "fertile ground",
+      "category": "idioms",
+      "part_of_speech": "Phrase",
+      "effective_score": 3.62,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "fertile": 3.62,
+        "ground": 5.15
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "fuss about",
+      "category": "idioms",
+      "part_of_speech": "Noun phrase",
+      "effective_score": 3.62,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "fuss": 3.62,
+        "about": 6.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Benchmark",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.6,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.6 >= 3.4)"
+    },
+    {
+      "term": "Nucleus",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.59,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.59 >= 3.4)"
+    },
+    {
+      "term": "gestures to",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 3.59,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "gestures": 3.59,
+        "to": 7.43
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "rested on",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Verb",
+      "effective_score": 3.59,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "rested": 3.59,
+        "on": 6.91
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "blockade",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.57,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.57 >= 3.4)"
+    },
+    {
+      "term": "disposable incomes",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.57,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "disposable": 3.57,
+        "incomes": 3.68
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "vowed",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.56,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.56 >= 3.4)"
+    },
+    {
+      "term": "fragmenting",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.55,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.55 >= 3.4)"
+    },
+    {
+      "term": "retaliation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.55,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.55 >= 3.4)"
+    },
+    {
+      "term": "Scaled back",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.55,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "scaled": 3.55,
+        "back": 6.04
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "levied",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.54,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.54 >= 3.4)"
+    },
+    {
+      "term": "mitigating",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.54,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.54 >= 3.4)"
+    },
+    {
+      "term": "Reactive",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.54,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.54 >= 3.4)"
+    },
+    {
+      "term": "Customary",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.53,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.53 >= 3.4)"
+    },
+    {
+      "term": "choked with",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb",
+      "effective_score": 3.53,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "choked": 3.53,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "relentlessly",
+      "category": "core_vocab",
+      "part_of_speech": "Adverb",
+      "effective_score": 3.51,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.51 >= 3.4)"
+    },
+    {
+      "term": "Tightening",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.51,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.51 >= 3.4)"
+    },
+    {
+      "term": "brink of",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Prepositional phrase",
+      "effective_score": 3.51,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "brink": 3.51,
+        "of": 7.4
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "allegation",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.5,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.5 >= 3.4)"
+    },
+    {
+      "term": "indicted",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.5,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.5 >= 3.4)"
+    },
+    {
+      "term": "reconciling",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.5,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.5 >= 3.4)"
+    },
+    {
+      "term": "resilient",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.5,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.5 >= 3.4)"
+    },
+    {
+      "term": "Preventive detention",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.5,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "preventive": 3.5,
+        "detention": 3.96
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "synonymous with",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.5,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "synonymous": 3.5,
+        "with": 6.85
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "revoked",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.49,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.49 >= 3.4)"
+    },
+    {
+      "term": "Sanity",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.49,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.49 >= 3.4)"
+    },
+    {
+      "term": "Diverted for",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 3.49,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "diverted": 3.49,
+        "for": 7.01
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "plunge into",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.49,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "plunge": 3.49,
+        "into": 6.11
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "deters",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.48,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.48 >= 3.4)"
+    },
+    {
+      "term": "Elusive",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.47,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.47 >= 3.4)"
+    },
+    {
+      "term": "heightened",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.47,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.47 >= 3.4)"
+    },
+    {
+      "term": "existential threat",
+      "category": "idioms",
+      "part_of_speech": "Noun phrase",
+      "effective_score": 3.47,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "existential": 3.47,
+        "threat": 4.6
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "intensified",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.46,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.46 >= 3.4)"
+    },
+    {
+      "term": "planks",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.46,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.46 >= 3.4)"
+    },
+    {
+      "term": "Suffice",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.46,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.46 >= 3.4)"
+    },
+    {
+      "term": "Oppressive",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.45,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.45 >= 3.4)"
+    },
+    {
+      "term": "unfolding",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.45,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.45 >= 3.4)"
+    },
+    {
+      "term": "fatalities",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.45,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.45 >= 3.4)"
+    },
+    {
+      "term": "reclaim",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.44,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.44 >= 3.4)"
+    },
+    {
+      "term": "precursors",
+      "category": "one_word_subs",
+      "part_of_speech": "Noun",
+      "effective_score": 3.44,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.44 >= 3.4)"
+    },
+    {
+      "term": "manifestations",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.43,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.43 >= 3.4)"
+    },
+    {
+      "term": "Stringent",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.43,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.43 >= 3.4)"
+    },
+    {
+      "term": "stronghold",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.42,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.42 >= 3.4)"
+    },
+    {
+      "term": "cadence",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.41,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.41 >= 3.4)"
+    },
+    {
+      "term": "hurdle",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.41,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.41 >= 3.4)"
+    },
+    {
+      "term": "Indices",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.41,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.41 >= 3.4)"
+    },
+    {
+      "term": "Parity",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.41,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.41 >= 3.4)"
+    },
+    {
+      "term": "proactive",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.41,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.41 >= 3.4)"
+    },
+    {
+      "term": "abyss",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.4,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.4 >= 3.4)"
+    },
+    {
+      "term": "conceiving",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.4,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.4 >= 3.4)"
+    },
+    {
+      "term": "convened",
+      "category": "core_vocab",
+      "part_of_speech": "Verb",
+      "effective_score": 3.4,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.4 >= 3.4)"
+    },
+    {
+      "term": "peril",
+      "category": "core_vocab",
+      "part_of_speech": "Noun",
+      "effective_score": 3.4,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.4 >= 3.4)"
+    },
+    {
+      "term": "startling",
+      "category": "core_vocab",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.4,
+      "is_spotlight": false,
+      "word_breakdown": {},
+      "reason": "Foundational: Everyday newspaper word (Effective Stem Zipf 3.4 >= 3.4)"
+    },
+    {
+      "term": "Conferred by",
+      "category": "fixed_prepositions",
+      "part_of_speech": "Verb Phrase",
+      "effective_score": 3.38,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "conferred": 3.38,
+        "by": 6.66
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "Hovering near",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.38,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "hovering": 3.38,
+        "near": 5.29
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "spilling into",
+      "category": "phrasal_verbs",
+      "part_of_speech": "Phrasal Verb",
+      "effective_score": 3.37,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "spilling": 3.37,
+        "into": 6.11
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    },
+    {
+      "term": "tit-for-tat",
+      "category": "idioms",
+      "part_of_speech": "Adjective",
+      "effective_score": 3.35,
+      "is_spotlight": false,
+      "word_breakdown": {
+        "tit": 3.48,
+        "for": 7.01,
+        "tat": 3.35
+      },
+      "reason": "Foundational: Conversational phrase (all words Zipf >= 3.35)"
+    }
+  ]
+}

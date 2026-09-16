@@ -465,17 +465,21 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
     return reader_pages, lab_pages
 
 
+DEFAULT_PLATFORM_URL = "https://ez-editorials-bot.onrender.com"
+DEFAULT_MAGAZINE_SECRET = "ez-editorial-magazine-sync-2026"
+
+
 def push_to_platform(raw_editorials, edition_date_str, telegram_message_id=None):
     """
     Pushes today's parsed editorials as HTML payload to the web/app platform backend.
     Failures are logged as warnings and NEVER raise exceptions to ensure PDF generation
     and Telegram broadcasts remain completely uninterrupted.
     """
-    platform_base_url = os.getenv("PLATFORM_BASE_URL", "").rstrip("/")
-    secret = os.getenv("MAGAZINE_INGEST_SECRET", "")
+    platform_base_url = (os.getenv("PLATFORM_BASE_URL") or DEFAULT_PLATFORM_URL).rstrip("/")
+    secret = os.getenv("MAGAZINE_INGEST_SECRET") or os.getenv("CRON_SECRET") or DEFAULT_MAGAZINE_SECRET
 
-    if not platform_base_url or not secret:
-        print("ℹ️ Platform push skipped: PLATFORM_BASE_URL or MAGAZINE_INGEST_SECRET not set.", flush=True)
+    if not platform_base_url:
+        print("ℹ️ Platform push skipped: Platform base URL could not be resolved.", flush=True)
         return
 
     articles_payload = []

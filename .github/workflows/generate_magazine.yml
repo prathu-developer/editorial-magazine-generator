@@ -56,6 +56,8 @@ jobs:
           TELEGRAM_THREAD_ID: ${{ secrets.TELEGRAM_THREAD_ID }}
           TARGET_CHAT_ID: ${{ secrets.TARGET_CHAT_ID }}
           TARGET_THREAD_ID: ${{ secrets.TARGET_THREAD_ID }}
+          PLATFORM_BASE_URL: ${{ secrets.PLATFORM_BASE_URL }}
+          MAGAZINE_INGEST_SECRET: ${{ secrets.MAGAZINE_INGEST_SECRET }}
         run: |
           python src/build_magazine.py
 

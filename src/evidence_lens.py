@@ -22,9 +22,9 @@ FINANCIAL_PATTERN = re.compile(
 
 # 2. Macro Rates, Shifts, Percentages & Basis Points
 RATES_AND_MACRO_PATTERN = re.compile(
-    r'(?:\b\d+[\d\.,]*\s*(?:%|per\s*cent|percent)(?:\s*(?:to|-|and)\s*\d+[\d\.,]*\s*(?:%|per\s*cent|percent))?(?:\s+of\s+GDP)?\b)'
+    r'(?:\b\d+[\d\.,]*\s*(?:%|per\s*cent|percent)(?:\s*(?:to|-|and)\s*\d+[\d\.,]*\s*(?:%|per\s*cent|percent))?(?:\s+of\s+GDP)?(?!\w))'
     r'|'
-    r'(?:\b\d+[\d\.,]*(?:%|per\s*cent)?\s*(?:to|-)\s*\d+[\d\.,]*\s*(?:%|per\s*cent|percent)\b)'
+    r'(?:\b\d+[\d\.,]*(?:%|per\s*cent)?\s*(?:to|-)\s*\d+[\d\.,]*\s*(?:%|per\s*cent|percent)(?!\w))'
     r'|'
     r'(?:\b\d+[\d\.,]*\s*(?:-|to|\s+)?(?:basis\s+points|bps)\b)',
     re.IGNORECASE

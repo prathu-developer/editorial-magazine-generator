@@ -8,7 +8,7 @@ import time
 import pikepdf
 from datetime import datetime, timezone, timedelta
 from PIL import Image
-from evidence_lens import extract_evidence_spans
+from evidence_lens import extract_evidence_spans, highlight_passage
 from jinja2 import Environment, FileSystemLoader
 from playwright.sync_api import sync_playwright
 from pypdf import PdfWriter, PdfReader
@@ -336,8 +336,10 @@ def send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_it
         else:
             relay_group_file(light_pdf_path, caption_light, include_thumb=True, attach_buttons=False)
             time.sleep(1.5)
-            relay_group_file(dark_pdf_path, caption_dark, include_thumb=True, attach_buttons=True)
+            posted_msg_id = relay_group_file(dark_pdf_path, caption_dark, include_thumb=True, attach_buttons=True)
             print("🚀 Publication completed: Both files stacked with thumbnails and buttons.", flush=True)
+            return posted_msg_id
+    return None
 
 def match_vocab_to_paragraphs(paragraphs, vocab_items):
     """Returns vocab items that appear in the given paragraphs."""
@@ -461,6 +463,94 @@ def partition_article(art_raw, categorized_vocab, all_vocab, start_page):
         })
         
     return reader_pages, lab_pages
+
+
+def push_to_platform(raw_editorials, edition_date_str, telegram_message_id=None):
+    """
+    Pushes today's parsed editorials as HTML payload to the web/app platform backend.
+    Failures are logged as warnings and NEVER raise exceptions to ensure PDF generation
+    and Telegram broadcasts remain completely uninterrupted.
+    """
+    platform_base_url = os.getenv("PLATFORM_BASE_URL", "").rstrip("/")
+    secret = os.getenv("MAGAZINE_INGEST_SECRET", "")
+
+    if not platform_base_url or not secret:
+        print("ℹ️ Platform push skipped: PLATFORM_BASE_URL or MAGAZINE_INGEST_SECRET not set.", flush=True)
+        return
+
+    articles_payload = []
+    for art in raw_editorials:
+        meta = art.get("editorial_metadata", {})
+        analysis = art.get("analysis", {})
+        passage_raw = art.get("passage", "")
+
+        # Clean broken math / currency symbols
+        passage_raw = passage_raw.replace(r'$\overline{7}', '₹').replace(r'$\approx', '₹~')
+        passage_raw = re.sub(r'\$(?:\\overline\{7\}|\\approx)', '₹', passage_raw)
+        passage_raw = passage_raw.replace(r'\overline{7}', '₹')
+
+        # Clean passage paragraphs (skipping scraper timestamps and trailing category tags)
+        raw_paras = [p.strip() for p in re.split(r'[\r\n]+', passage_raw) if p.strip()]
+        valid_paras = []
+        for p in raw_paras:
+            if re.match(r'^(Published|Updated|- ?[A-Za-z]+|\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\b)', p, re.IGNORECASE):
+                continue
+            if bool(re.match(r'^[\w\s\(\)-]+(\s+/\s+[\w\s\(\)-]+){2,}$', p.strip())) or p.count(' / ') >= 3:
+                continue
+            p = re.sub(r'(\s+/\s+[\w\s\(\)-]+){2,}$', '', p)
+            if p.strip():
+                valid_paras.append(p.strip())
+
+        # Apply Evidence Lens to each paragraph for in-app HTML rendering
+        all_stats = []
+        html_paras = []
+        for p in valid_paras:
+            p_html, stats = highlight_passage(p, highlight_format="html")
+            all_stats.extend(stats)
+            html_paras.append(f"<p>{p_html}</p>")
+
+        full_passage_html = "\n".join(html_paras)
+        meta_sub = meta.get("subtitle", "")
+        subtitle = meta_sub if meta_sub and meta_sub != "N/A" else None
+
+        articles_payload.append({
+            "newspaper": art.get("newspaper", "Editorial"),
+            "title": art.get("title", ""),
+            "subtitle": subtitle,
+            "topic": meta.get("topic", "General Studies"),
+            "reading_time": art.get("reading_time", "3 min read"),
+            "tone": analysis.get("tone", "Analytical"),
+            "tone_explanation": analysis.get("tone_simple_explanation", ""),
+            "passage_html": full_passage_html,
+            "stats": all_stats,
+            "vocabulary": art.get("editorial_vocabulary", [])
+        })
+
+    ingest_payload = {
+        "date": edition_date_str,
+        "articles": articles_payload
+    }
+    if telegram_message_id:
+        ingest_payload["telegram_message_id"] = int(telegram_message_id)
+
+    ingest_url = f"{platform_base_url}/api/magazine/ingest"
+    try:
+        resp = requests.post(
+            ingest_url,
+            json=ingest_payload,
+            headers={
+                "X-Magazine-Secret": secret,
+                "Content-Type": "application/json"
+            },
+            timeout=15
+        )
+        if resp.status_code == 200:
+            print(f"✅ Ingested {len(articles_payload)} magazine articles to platform for {edition_date_str}.", flush=True)
+        else:
+            print(f"⚠️ Platform ingest responded with status {resp.status_code}: {resp.text}", flush=True)
+    except Exception as e:
+        print(f"⚠️ Could not push magazine to platform ({e}). Continuing pipeline.", flush=True)
+
 
 def compile_magazine():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -809,8 +899,11 @@ def compile_magazine():
             finally:
                 browser.close()
 
-    # Dispatch both files to Telegram sequentially
-    send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_items, thumb_path)
+    # Dispatch both files to Telegram sequentially and capture posted message id
+    posted_msg_id = send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_items, thumb_path)
+
+    # Push HTML edition to platform for In-App Weekly Magazine (with linked Telegram message ID)
+    push_to_platform(raw_data.get("editorials", []), edition_date.strftime("%Y-%m-%d"), telegram_message_id=posted_msg_id)
 
 if __name__ == "__main__":
     try:

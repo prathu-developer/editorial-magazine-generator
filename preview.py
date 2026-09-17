@@ -416,7 +416,7 @@ def generate_preview():
         out_path = os.path.join(build_dir, v["file"])
         with open(out_path, "w", encoding="utf-8") as f:
             f.write(template.render(data=payload))
-        print(f"✨ Generated: {out_path}")
+        print(f"[OK] Generated: {out_path}")
 
 if __name__ == "__main__":
     generate_preview()

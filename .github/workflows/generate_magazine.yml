@@ -31,20 +31,11 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: Cache Playwright Chromium Binary
-        id: playwright-cache
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-chromium-${{ runner.os }}-${{ hashFiles('requirements.txt') }}
-
       - name: Install Python dependencies & Playwright
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          if [ "${{ steps.playwright-cache.outputs.cache-hit }}" != "true" ]; then
-            playwright install --with-deps chromium
-          fi
+          playwright install --with-deps chromium
 
       - name: Run Magazine Generator & Telegram Bot
         env:
@@ -60,14 +51,6 @@ jobs:
           MAGAZINE_INGEST_SECRET: ${{ secrets.MAGAZINE_INGEST_SECRET }}
         run: |
           python src/build_magazine.py
-
-      - name: Upload PDF as Workflow Artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Daily-Editorial-${{ github.sha }}
-          path: output/*.pdf
-          retention-days: 2
 
       - name: Send Telegram Success Notification
         if: success()

@@ -469,9 +469,10 @@ DEFAULT_PLATFORM_URL = "https://ez-editorials-bot.onrender.com"
 DEFAULT_MAGAZINE_SECRET = "ez-editorial-magazine-sync-2026"
 
 
-def push_to_platform(raw_editorials, edition_date_str, telegram_message_id=None):
+def push_to_platform(raw_editorials, edition_date_str, telegram_message_id=None, build_dir=None, toc_entries=None):
     """
-    Pushes today's parsed editorials as HTML payload to the web/app platform backend.
+    Pushes today's parsed editorials as well as the exact web-rendered magazine HTML
+    (Light and Dark mode) to the web/app platform backend.
     Failures are logged as warnings and NEVER raise exceptions to ensure PDF generation
     and Telegram broadcasts remain completely uninterrupted.
     """
@@ -505,15 +506,12 @@ def push_to_platform(raw_editorials, edition_date_str, telegram_message_id=None)
             if p.strip():
                 valid_paras.append(p.strip())
 
-        # Apply Evidence Lens to each paragraph for in-app HTML rendering
-        all_stats = []
-        html_paras = []
-        for p in valid_paras:
-            p_html, stats = highlight_passage(p, highlight_format="html")
-            all_stats.extend(stats)
-            html_paras.append(f"<p>{p_html}</p>")
-
+        # Clean and highlight passage with Evidence Lens & Vocabulary superscripts
+        vocab_items = art.get("editorial_vocabulary", [])
+        raw_paras = clean_and_highlight_passage(passage_raw, vocab_items)
+        html_paras = [f"<p>{p}</p>" for p in raw_paras]
         full_passage_html = "\n".join(html_paras)
+
         meta_sub = meta.get("subtitle", "")
         subtitle = meta_sub if meta_sub and meta_sub != "N/A" else None
 
@@ -523,16 +521,21 @@ def push_to_platform(raw_editorials, edition_date_str, telegram_message_id=None)
             "subtitle": subtitle,
             "topic": meta.get("topic", "General Studies"),
             "reading_time": art.get("reading_time", "3 min read"),
+            "published_at": art.get("published_at") or meta.get("published_at", ""),
+            "link": art.get("link", "").strip(),
             "tone": analysis.get("tone", "Analytical"),
             "tone_explanation": analysis.get("tone_simple_explanation", ""),
+            "analysis_summary": analysis.get("analysis_summary", ""),
             "passage_html": full_passage_html,
-            "stats": all_stats,
-            "vocabulary": art.get("editorial_vocabulary", [])
+            "vocabulary": vocab_items
         })
 
+    # Ultra-compact JSON payload (saves 99% bandwidth and prevents Redis RAM overflow on free tier)
     ingest_payload = {
         "date": edition_date_str,
-        "articles": articles_payload
+        "articles": articles_payload,
+        "toc": toc_entries or [],
+        "total_articles": len(articles_payload)
     }
     if telegram_message_id:
         ingest_payload["telegram_message_id"] = int(telegram_message_id)
@@ -546,10 +549,10 @@ def push_to_platform(raw_editorials, edition_date_str, telegram_message_id=None)
                 "X-Magazine-Secret": secret,
                 "Content-Type": "application/json"
             },
-            timeout=15
+            timeout=25
         )
         if resp.status_code == 200:
-            print(f"✅ Ingested {len(articles_payload)} magazine articles to platform for {edition_date_str}.", flush=True)
+            print(f"✅ Ingested {len(articles_payload)} magazine articles + full HTML replica to platform for {edition_date_str}.", flush=True)
         else:
             print(f"⚠️ Platform ingest responded with status {resp.status_code}: {resp.text}", flush=True)
     except Exception as e:
@@ -906,8 +909,14 @@ def compile_magazine():
     # Dispatch both files to Telegram sequentially and capture posted message id
     posted_msg_id = send_to_telegram(light_pdf_path, dark_pdf_path, ist_date_short, editorial_items, thumb_path)
 
-    # Push HTML edition to platform for In-App Weekly Magazine (with linked Telegram message ID)
-    push_to_platform(raw_data.get("editorials", []), edition_date.strftime("%Y-%m-%d"), telegram_message_id=posted_msg_id)
+    # Push HTML edition to platform for In-App Weekly Magazine (with linked Telegram message ID and exact PDF replica)
+    push_to_platform(
+        raw_data.get("editorials", []),
+        edition_date.strftime("%Y-%m-%d"),
+        telegram_message_id=posted_msg_id,
+        build_dir=build_dir,
+        toc_entries=toc_entries
+    )
 
 if __name__ == "__main__":
     try:

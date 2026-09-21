@@ -540,6 +540,22 @@ def push_to_platform(raw_editorials, edition_date_str, telegram_message_id=None,
     if telegram_message_id:
         ingest_payload["telegram_message_id"] = int(telegram_message_id)
 
+    if build_dir:
+        light_html_file = os.path.join(build_dir, "rendered_content_light.html")
+        dark_html_file = os.path.join(build_dir, "rendered_content_dark.html")
+        if os.path.exists(light_html_file):
+            try:
+                with open(light_html_file, "r", encoding="utf-8") as f:
+                    ingest_payload["html_light"] = f.read()
+            except Exception as e:
+                print(f"⚠️ Could not read light HTML for ingest: {e}", flush=True)
+        if os.path.exists(dark_html_file):
+            try:
+                with open(dark_html_file, "r", encoding="utf-8") as f:
+                    ingest_payload["html_dark"] = f.read()
+            except Exception as e:
+                print(f"⚠️ Could not read dark HTML for ingest: {e}", flush=True)
+
     ingest_url = f"{platform_base_url}/api/magazine/ingest"
     try:
         resp = requests.post(
